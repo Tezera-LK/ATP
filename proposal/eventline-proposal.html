@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Eventline Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F7F4;
+    --surface: #E9EEEB;
+    --rule: #D2DAD7;
+    --ink: #0E2A30;
+    --ink-2: #3D5459;
+    --muted: #6E8185;
+    --marigold: #E3A21A;
+    --marigold-soft: #F7E7BF;
+    --sdg8: #A21942;
+    --sdg9: #FD6925;
+    --sdg10: #DD1367;
+    --display: "Bricolage Grotesque", Georgia, serif;
+    --body: "Instrument Sans", "Segoe UI", sans-serif;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); }
+  body {
+    font-family: var(--body);
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 15mm 17mm 13mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background: var(--paper);
+    page-break-after: always;
+    break-after: page;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* running header */
+  .run {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: var(--muted);
+    padding-bottom: 3.2mm;
+    border-bottom: 0.6pt solid var(--rule);
+    margin-bottom: 11mm;
+  }
+  .run .sec { color: var(--ink-2); }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 27pt;
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    max-width: 158mm;
+  }
+  .lede {
+    font-size: 12pt;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin-top: 4mm;
+    max-width: 150mm;
+  }
+  h2 {
+    font-family: var(--body);
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 3mm;
+  }
+  h3 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 13pt;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .note {
+    margin-top: auto;
+    padding-top: 3.2mm;
+    border-top: 0.6pt solid var(--rule);
+    font-size: 8.5pt;
+    color: var(--muted);
+    max-width: 176mm;
+  }
+  .block { margin-top: 9mm; }
+  .small { font-size: 9pt; color: var(--ink-2); }
+
+  /* ---------- cover ---------- */
+  .cover .run { margin-bottom: 0; }
+  .cover-title {
+    margin-top: 44mm;
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: 72pt;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+  .cover-pitch {
+    margin-top: 8mm;
+    font-size: 15pt;
+    line-height: 1.4;
+    color: var(--ink-2);
+    max-width: 138mm;
+  }
+  .cover-line { margin-top: 18mm; }
+  .cover-grid {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8mm;
+    padding-top: 6mm;
+    border-top: 1.2pt solid var(--ink);
+  }
+  .cover-grid h2 { margin-bottom: 1.6mm; }
+  .cover-grid p { font-size: 10.5pt; line-height: 1.45; }
+  .team li { list-style: none; font-size: 10.5pt; line-height: 1.5; }
+
+  /* ---------- chevrons (problem) ---------- */
+  .chevrons { display: flex; gap: 1.6mm; margin-top: 10mm; }
+  .chev {
+    flex: 1;
+    background: var(--surface);
+    padding: 6mm 5.5mm 6mm 8.5mm;
+    clip-path: polygon(0 0, calc(100% - 5mm) 0, 100% 50%, calc(100% - 5mm) 100%, 0 100%, 5mm 50%);
+    min-height: 44mm;
+    display: flex; flex-direction: column; gap: 2mm;
+  }
+  .chev:first-child { clip-path: polygon(0 0, calc(100% - 5mm) 0, 100% 50%, calc(100% - 5mm) 100%, 0 100%); padding-left: 5mm; }
+  .chev svg { width: 7mm; height: 7mm; stroke: var(--ink); fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .chev b { font-family: var(--display); font-weight: 500; font-size: 11pt; line-height: 1.15; letter-spacing: -0.01em; }
+  .chev span { font-size: 8.5pt; color: var(--ink-2); line-height: 1.35; }
+
+  .band {
+    margin-top: 6mm;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 2.5mm;
+    padding: 7mm 8mm;
+    display: flex; align-items: center; justify-content: space-between; gap: 8mm;
+  }
+  .band p { font-size: 13pt; line-height: 1.35; max-width: 110mm; }
+  .band .big { font-family: var(--display); font-weight: 400; font-size: 34pt; letter-spacing: -0.03em; line-height: 1; color: var(--marigold); text-align: right; }
+  .band .big small { display: block; font-family: var(--body); font-size: 9pt; color: #C9D6D8; letter-spacing: 0; margin-top: 1.5mm; }
+
+  .parties { display: grid; grid-template-columns: 1fr 1fr; gap: 0 9mm; }
+  .parties div { padding: 4mm 0; border-top: 0.6pt solid var(--rule); }
+  .parties h3 { font-size: 11.5pt; margin-bottom: 1.2mm; }
+  .parties p { font-size: 9.5pt; color: var(--ink-2); line-height: 1.42; }
+
+  /* ---------- rich picture ---------- */
+  .rp { margin-top: 7mm; }
+  .rp svg { width: 100%; height: auto; display: block; }
+  .legend { display: flex; gap: 7mm; flex-wrap: wrap; margin-top: 4mm; font-size: 8.5pt; color: var(--ink-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 2mm; }
+  .legend svg { width: 9mm; height: 4.5mm; }
+
+  /* ---------- solution ---------- */
+  .modules { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-top: 9mm; }
+  .mod { background: var(--surface); border-radius: 2.5mm; padding: 5.5mm 6mm; }
+  .mod h3 { margin-bottom: 1.5mm; }
+  .mod .who { font-size: 8.5pt; font-weight: 600; color: var(--muted); margin-bottom: 2.5mm; }
+  .mod ul { padding-left: 4mm; }
+  .mod li { font-size: 9.5pt; color: var(--ink-2); line-height: 1.42; margin-bottom: 1mm; }
+  .mod.later { background: transparent; border: 1pt dashed var(--muted); grid-column: span 2; display: flex; gap: 8mm; align-items: baseline; padding: 4.5mm 6mm; }
+  .mod.later h3 { font-size: 12pt; white-space: nowrap; }
+  .mod.later p { font-size: 9.5pt; color: var(--ink-2); }
+
+  /* line steps motif */
+  .steps { position: relative; display: grid; margin-top: 4mm; }
+  .steps::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 2.2mm; height: 1.4pt; background: var(--marigold);
+  }
+  .steps .s { position: relative; padding-right: 4mm; }
+  .steps .s::before {
+    content: ""; display: block; width: 4.4mm; height: 4.4mm; border-radius: 50%;
+    background: var(--paper); border: 1.4pt solid var(--ink); margin-bottom: 3mm; position: relative; z-index: 1;
+  }
+  .steps .s.hl::before { background: var(--ink); }
+  .steps .s b { display: block; font-family: var(--display); font-weight: 500; font-size: 10.5pt; line-height: 1.2; letter-spacing: -0.005em; margin-bottom: 1mm; }
+  .steps .s span { display: block; font-size: 8.8pt; color: var(--ink-2); line-height: 1.38; }
+  .steps.loop::after {
+    content: "then back to the start"; position: absolute; right: 0; top: -5mm; font-size: 8pt; color: var(--muted);
+  }
+
+  /* ---------- workflows ---------- */
+  .flow svg { width: 100%; height: auto; display: block; }
+
+  /* ---------- comparison ---------- */
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: 8mm; font-size: 9.5pt; }
+  .cmp th { text-align: center; font-weight: 600; font-size: 8.5pt; color: var(--muted); padding: 0 1.5mm 2.5mm; vertical-align: bottom; line-height: 1.25; }
+  .cmp th:first-child { text-align: left; padding-left: 0; }
+  .cmp td { border-top: 0.6pt solid var(--rule); padding: 2.6mm 1.5mm; text-align: center; vertical-align: middle; }
+  .cmp td:first-child { text-align: left; padding-left: 0; }
+  .cmp td:first-child b { font-weight: 600; }
+  .cmp td:first-child small { display: block; color: var(--muted); font-size: 8pt; }
+  .cmp tr.us td { background: var(--marigold-soft); border-top: 1.2pt solid var(--ink); border-bottom: 1.2pt solid var(--ink); }
+  .cmp tr.us td:first-child { padding-left: 3mm; }
+  .cmp tr.us td:first-child b { font-family: var(--display); font-weight: 600; font-size: 11pt; }
+  .dot { display: inline-block; width: 3.2mm; height: 3.2mm; border-radius: 50%; vertical-align: middle; }
+  .dot.y { background: var(--ink); }
+  .dot.p { border: 1pt solid var(--ink); background: linear-gradient(90deg, var(--ink) 50%, transparent 50%); }
+  .dot.n { width: 3mm; height: 1pt; border-radius: 0; background: var(--muted); }
+  .phase { white-space: nowrap; font-size: 8pt; font-weight: 600; color: var(--ink-2); border: 0.8pt dashed var(--ink-2); border-radius: 1mm; padding: 0.4mm 1.4mm; }
+  .cmp-legend { display: flex; gap: 6mm; font-size: 8.5pt; color: var(--ink-2); margin-top: 3.5mm; }
+  .cmp-legend span { display: inline-flex; align-items: center; gap: 1.8mm; }
+  .callout {
+    margin-top: 8mm; border-left: 1.6mm solid var(--ink); background: var(--surface);
+    padding: 5mm 6mm; font-family: var(--display); font-weight: 500; font-size: 13.5pt; line-height: 1.3; letter-spacing: -0.01em;
+  }
+
+  /* ---------- SDG ---------- */
+  .sdg { display: grid; grid-template-columns: 30mm 1fr; gap: 6mm; padding: 6mm 0; border-top: 0.6pt solid var(--rule); }
+  .sdg:first-of-type { border-top: 1.2pt solid var(--ink); }
+  .tile {
+    width: 30mm; height: 30mm; color: #fff; padding: 2.8mm; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .tile .n { font-family: var(--display); font-weight: 600; font-size: 26pt; line-height: 0.9; letter-spacing: -0.02em; }
+  .tile .t { font-size: 7.4pt; font-weight: 600; line-height: 1.2; }
+  .tile.s8 { background: var(--sdg8); }
+  .tile.s9 { background: var(--sdg9); }
+  .tile.s10 { background: var(--sdg10); }
+  .sdg.minor { grid-template-columns: 30mm 1fr; }
+  .sdg.minor .tile { height: 16mm; flex-direction: row; align-items: center; gap: 2.5mm; justify-content: flex-start; }
+  .sdg.minor .tile .n { font-size: 17pt; }
+  .role { font-size: 8.5pt; font-weight: 600; color: var(--muted); margin-bottom: 1mm; }
+  .sdg h3 { margin-bottom: 3mm; }
+  .target { display: grid; grid-template-columns: 11mm 1fr; gap: 3mm; margin-bottom: 2.6mm; }
+  .target .id { font-family: var(--display); font-weight: 600; font-size: 11pt; }
+  .target p { font-size: 9.5pt; color: var(--ink-2); line-height: 1.42; }
+  .target p b { color: var(--ink); font-weight: 600; }
+  .measures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; }
+  .measures div { border-top: 1.2pt solid var(--ink); padding-top: 3mm; }
+  .measures b { display: block; font-family: var(--display); font-weight: 500; font-size: 11pt; line-height: 1.22; margin-bottom: 1mm; }
+  .measures span { font-size: 8.8pt; color: var(--ink-2); }
+
+  /* ---------- agile ---------- */
+  .moscow { display: grid; grid-template-columns: 1.75fr 1fr 0.85fr 1.1fr; gap: 3mm; }
+  .moscow div { background: var(--surface); border-radius: 2.5mm; padding: 4.5mm 4.5mm; }
+  .moscow div.must { background: var(--ink); color: #fff; }
+  .moscow div.must li { color: #D8E3E4; }
+  .moscow div.must h3 { color: #fff; }
+  .moscow div.lat { background: transparent; border: 1pt dashed var(--muted); }
+  .moscow h3 { font-size: 12pt; margin-bottom: 2.2mm; }
+  .moscow ul { list-style: none; }
+  .moscow li { font-size: 8.8pt; color: var(--ink-2); line-height: 1.32; padding: 0.55mm 0; }
+  .ceremonies { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; }
+  .ceremonies div { border-top: 0.6pt solid var(--rule); padding-top: 2.5mm; }
+  .ceremonies b { display: block; font-weight: 600; font-size: 9.5pt; margin-bottom: 0.6mm; }
+  .ceremonies span { font-size: 8.6pt; color: var(--ink-2); line-height: 1.35; display: block; }
+  .risks { width: 100%; border-collapse: collapse; font-size: 9.2pt; }
+  .risks td { border-top: 0.6pt solid var(--rule); padding: 2.4mm 3mm 2.4mm 0; vertical-align: top; line-height: 1.4; }
+  .risks td:first-child { width: 44%; color: var(--ink-2); }
+  .risks tr:last-child td { border-bottom: 0.6pt solid var(--rule); }
+
+  /* ---------- roadmap ---------- */
+  .road { position: relative; margin-top: 10mm; padding-left: 12mm; }
+  .road::before { content: ""; position: absolute; left: 3mm; top: 2mm; bottom: 4mm; width: 1.6pt; background: var(--marigold); }
+  .ph { position: relative; padding-bottom: 6.5mm; display: grid; grid-template-columns: 44mm 1fr; gap: 6mm; }
+  .ph::before {
+    content: ""; position: absolute; left: -11.2mm; top: 1mm; width: 4.6mm; height: 4.6mm; border-radius: 50%;
+    background: var(--paper); border: 1.4pt solid var(--ink);
+  }
+  .ph.now::before { background: var(--ink); }
+  .ph .when { font-size: 8.5pt; font-weight: 600; color: var(--muted); margin-bottom: 0.8mm; }
+  .ph h3 { font-size: 14pt; }
+  .ph ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6mm 6mm; padding-top: 0.6mm; }
+  .ph li { font-size: 9.3pt; color: var(--ink-2); line-height: 1.38; padding-left: 3.2mm; position: relative; }
+  .ph li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 1.4mm; height: 0.8pt; background: var(--ink-2); }
+  .ph.mvp .card { background: var(--surface); border-radius: 2.5mm; padding: 3mm 5mm; margin: -3mm 0 0 -5mm; }
+  .gate {
+    position: relative; margin: -1mm 0 6.5mm; padding: 2.4mm 0 2.4mm 0; font-size: 9pt; color: var(--ink-2);
+    border-top: 0.8pt dashed var(--rule); border-bottom: 0.8pt dashed var(--rule);
+  }
+  .gate::before {
+    content: ""; position: absolute; left: -10.4mm; top: 50%; width: 3.2mm; height: 3.2mm; background: var(--marigold);
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  .gate b { color: var(--ink); font-weight: 600; }
+  .scope-head { display: flex; align-items: baseline; gap: 4mm; margin-top: 7mm; padding-bottom: 2.4mm; border-bottom: 1.2pt solid var(--ink); }
+  .scope-head h3 { font-size: 15pt; }
+  .scope-head span { font-size: 9pt; font-weight: 600; color: var(--muted); }
+  .scope-head.out { border-bottom: 1pt dashed var(--ink-2); margin-top: 0; }
+  .road { margin-top: 5mm; }
+  .road.out::before { background: repeating-linear-gradient(to bottom, var(--marigold) 0 2mm, transparent 2mm 3.6mm); }
+  .road .ph { padding-bottom: 4mm; }
+  .gate { margin: 5mm 0 5mm; padding-left: 12mm; }
+  .gate::before { left: 1.7mm; }
+  .vision { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5mm; margin-top: 4mm; margin-bottom: 5mm; }
+  .vision > div { border: 1pt dashed var(--muted); border-radius: 2.5mm; padding: 3.5mm 4.5mm; }
+  .vision .when { font-size: 8.5pt; font-weight: 600; color: var(--muted); margin-bottom: 0.8mm; }
+  .vision h3 { font-size: 12.5pt; margin-bottom: 2mm; }
+  .vision ul { list-style: none; }
+  .vision li { font-size: 9pt; color: var(--ink-2); line-height: 1.35; padding: 0.5mm 0 0.5mm 3.2mm; position: relative; }
+  .vision li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 1.4mm; height: 0.8pt; background: var(--ink-2); }
+  .ask {
+    background: var(--ink); color: #fff; border-radius: 2.5mm; padding: 7mm 8mm; display: grid; grid-template-columns: 1fr auto; gap: 8mm; align-items: end;
+  }
+  .ask h3 { font-size: 17pt; font-weight: 400; letter-spacing: -0.015em; color: #fff; line-height: 1.2; }
+  .ask p { font-size: 9.5pt; color: #C9D6D8; margin-top: 2mm; max-width: 100mm; }
+  .ask ul { list-style: none; font-size: 9.2pt; line-height: 1.5; color: #E6EEEF; text-align: right; }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. COVER ============ -->
+<section class="page cover">
+  <div class="run"><span>Project proposal</span><span>September 2026</span></div>
+
+  <div class="cover-title">Eventline</div>
+  <p class="cover-pitch">A mobile app and web portal where Sri Lankan event organisers hire vendors and freelancers, and attendees find events and each other. Every finished job leaves a review the next organiser can read.</p>
+
+  <svg class="cover-line" viewBox="0 0 660 70" aria-hidden="true">
+    <line x1="0" y1="20" x2="660" y2="20" stroke="#E3A21A" stroke-width="2"/>
+    <g font-family="Instrument Sans, sans-serif" font-size="12.5" fill="#3D5459">
+      <circle cx="40" cy="20" r="8" fill="#0E2A30"/>
+      <text x="40" y="52" text-anchor="middle">Organisers</text>
+      <circle cx="233" cy="20" r="8" fill="#F6F7F4" stroke="#0E2A30" stroke-width="2"/>
+      <text x="233" y="52" text-anchor="middle">Vendors</text>
+      <circle cx="426" cy="20" r="8" fill="#F6F7F4" stroke="#0E2A30" stroke-width="2"/>
+      <text x="426" y="52" text-anchor="middle">Freelancers</text>
+      <circle cx="620" cy="20" r="8" fill="#F6F7F4" stroke="#0E2A30" stroke-width="2"/>
+      <text x="620" y="52" text-anchor="middle">Attendees</text>
+    </g>
+  </svg>
+
+  <div class="cover-grid">
+    <div>
+      <h2>Proposed for</h2>
+      <p>Second-year Agile Team Project (SDGP)</p>
+    </div>
+    <div>
+      <h2>Built for</h2>
+      <p>Anyone running a large event in Sri Lanka: concerts, festivals and exhibitions</p>
+    </div>
+    <div>
+      <h2>Team</h2>
+      <ul class="team">
+        <li>Damian De Cruz</li>
+        <li>Danella De Cruz</li>
+        <li>Navindu Ranwatte</li>
+        <li>Reshan Tennekoon</li>
+        <li>Yevan Dewathanthriarachchi</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. PROBLEM ============ -->
+<section class="page">
+  <div class="run"><span class="sec">The problem</span><span>2</span></div>
+  <h1>Running one event means juggling five separate channels.</h1>
+  <p class="lede">Organisers promote, sell, hire and update attendees in different places. None of it builds a shared record of who did good work.</p>
+
+  <div class="chevrons">
+    <div class="chev">
+      <svg viewBox="0 0 24 24"><path d="M3 10v4h3l7 4V6L6 10H3z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+      <b>Promote</b>
+      <span>Instagram and Facebook pages</span>
+    </div>
+    <div class="chev">
+      <svg viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>
+      <b>Sell tickets</b>
+      <span>A separate ticketing site</span>
+    </div>
+    <div class="chev">
+      <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 19c0-3 2.2-5 5-5s5 2 5 5"/><path d="M11 19c0-3 2.2-5 5-5s5 2 5 5"/></svg>
+      <b>Hire vendors and freelancers</b>
+      <span>Word of mouth and personal contacts</span>
+    </div>
+    <div class="chev">
+      <svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>
+      <b>Share the venue layout</b>
+      <span>Rarely shared before the day</span>
+    </div>
+    <div class="chev">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>
+      <b>Update attendees</b>
+      <span>WhatsApp groups and posts</span>
+    </div>
+  </div>
+
+  <div class="band">
+    <p>Nothing carries over from one event to the next. A photographer who does good work at a festival has no record of it that the next organiser can check.</p>
+  </div>
+
+  <div class="block">
+    <h2>Who feels it</h2>
+    <div class="parties">
+      <div><h3>Organisers</h3><p>Find vendors and freelancers through word of mouth, with little trustworthy reputation data.</p></div>
+      <div><h3>Vendors</h3><p>Hear about events and open stall slots only through personal contacts.</p></div>
+      <div><h3>Freelancers</h3><p>Photographers, DJs and MCs struggle to compete with agencies without portfolios and reviews in one place.</p></div>
+      <div><h3>Attendees</h3><p>Event details are spread across social pages, venue layouts are rarely shared and there is no easy way to find others going.</p></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ 3. RICH PICTURE ============ -->
+<section class="page">
+  <div class="run"><span class="sec">Rich picture</span><span>3</span></div>
+  <h1>Everyone involved, and what each of them worries about.</h1>
+  <p class="lede">Who takes part in a large event in Sri Lanka today, what passes between them, and where it breaks down.</p>
+
+  <div class="rp">
+    <svg viewBox="0 0 680 640" font-family="Instrument Sans, sans-serif" role="img" aria-label="Rich picture of organisers, vendors, freelancers, attendees and admins around the Eventline hub">
+      <defs>
+        <symbol id="person" viewBox="-14 -24 28 40" overflow="visible">
+          <circle cx="0" cy="-15" r="7" fill="none" stroke="#0E2A30" stroke-width="1.6"/>
+          <path d="M-12 14 C-12 -1 12 -1 12 14" fill="none" stroke="#0E2A30" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0L10 5L0 10z" fill="#3D5459"/>
+        </marker>
+        <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0L10 5L0 10z" fill="#E3A21A"/>
+        </marker>
+      </defs>
+
+      <!-- today's channels cloud -->
+      <g>
+        <path d="M250 58 C238 30 275 14 298 28 C310 6 356 6 368 26 C392 12 432 26 426 52 C450 60 440 92 414 90 C402 108 360 106 346 94 C328 108 286 106 278 90 C250 96 234 74 250 58 Z" fill="none" stroke="#6E8185" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="340" y="50" text-anchor="middle" font-size="12" font-weight="600" fill="#3D5459">Today’s workarounds</text>
+        <text x="340" y="68" text-anchor="middle" font-size="10.5" fill="#6E8185">Instagram, WhatsApp groups,</text>
+        <text x="340" y="82" text-anchor="middle" font-size="10.5" fill="#6E8185">word of mouth, ticket sites</text>
+      </g>
+      <!-- dashed fragments from cloud -->
+      <path d="M252 76 C200 90 170 110 150 130" fill="none" stroke="#6E8185" stroke-width="1" stroke-dasharray="3 3"/>
+      <path d="M428 76 C480 90 510 110 528 128" fill="none" stroke="#6E8185" stroke-width="1" stroke-dasharray="3 3"/>
+      
+      <!-- Organisers (top-left) -->
+      <g transform="translate(118 170)">
+        <use href="#person" x="-34" y="-20" width="28" height="40"/>
+        <use href="#person" x="-14" y="-24" width="28" height="40"/>
+        <use href="#person" x="6" y="-20" width="28" height="40"/>
+        <text x="0" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0E2A30">Organisers</text>
+        <text x="0" y="51" text-anchor="middle" font-size="10" fill="#6E8185">event companies, groups</text>
+      </g>
+      <!-- Organiser concern -->
+      <g>
+        <rect x="8" y="244" width="178" height="42" rx="21" fill="#F6F7F4" stroke="#0E2A30" stroke-width="1"/>
+        <text x="97" y="262" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">“Who can I trust to turn</text>
+        <text x="97" y="276" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">up on the day?”</text>
+        <circle cx="112" cy="239" r="3" fill="none" stroke="#0E2A30"/><circle cx="116" cy="231" r="2" fill="none" stroke="#0E2A30"/>
+      </g>
+
+      <!-- Vendors (top-right) -->
+      <g transform="translate(562 170)">
+        <use href="#person" x="-24" y="-20" width="28" height="40"/>
+        <use href="#person" x="-4" y="-20" width="28" height="40"/>
+        <rect x="-30" y="-36" width="60" height="10" fill="none" stroke="#0E2A30" stroke-width="1.4"/>
+        <path d="M-30 -26 l6 6 l6 -6 l6 6 l6 -6 l6 6 l6 -6 l6 6 l6 -6 l6 6 l6 -6" fill="none" stroke="#0E2A30" stroke-width="1.2"/>
+        <text x="0" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0E2A30">Vendors</text>
+        <text x="0" y="51" text-anchor="middle" font-size="10" fill="#6E8185">F&amp;B stalls, sound, décor</text>
+      </g>
+      <g>
+        <rect x="494" y="244" width="180" height="42" rx="21" fill="#F6F7F4" stroke="#0E2A30" stroke-width="1"/>
+        <text x="584" y="262" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">“How do I hear about</text>
+        <text x="584" y="276" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">open stall slots?”</text>
+        <circle cx="570" cy="239" r="3" fill="none" stroke="#0E2A30"/><circle cx="566" cy="231" r="2" fill="none" stroke="#0E2A30"/>
+      </g>
+
+      <!-- conflict line organisers - providers -->
+      <path d="M160 150 C260 128 420 128 520 150" fill="none" stroke="#3D5459" stroke-width="1.2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+      <g transform="translate(340 134)">
+        <circle r="13" fill="#F6F7F4" stroke="#0E2A30" stroke-width="1"/>
+        <path d="M-7 -7 L7 7 M7 -7 L-7 7" stroke="#0E2A30" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M-9 -3 L-3 -9 M9 -3 L3 -9" stroke="#0E2A30" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+      <text x="340" y="164" text-anchor="middle" font-size="10" fill="#3D5459">price and terms, agreed privately, no record</text>
+
+      <!-- Hub -->
+      <g>
+        <ellipse cx="340" cy="330" rx="150" ry="70" fill="none" stroke="#E3A21A" stroke-width="1.6" stroke-dasharray="1 0"/>
+        <rect x="262" y="298" width="156" height="64" rx="10" fill="#0E2A30"/>
+        <text x="340" y="326" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="20" font-weight="500" fill="#fff">Eventline</text>
+        <text x="340" y="346" text-anchor="middle" font-size="10.5" fill="#C9D6D8">one shared hub</text>
+        <text x="340" y="418" text-anchor="middle" font-size="10" font-weight="600" fill="#8A6206">reviews run both ways and build reputation</text>
+      </g>
+
+      <!-- arrows to hub -->
+      <path d="M196 196 C220 240 240 280 262 304" fill="none" stroke="#3D5459" stroke-width="1.2" marker-end="url(#ar)"/>
+      <text x="228" y="226" font-size="10" fill="#3D5459">publish events,</text>
+      <text x="228" y="239" font-size="10" fill="#3D5459">post jobs, open stalls</text>
+
+      <path d="M486 196 C462 240 442 280 420 304" fill="none" stroke="#3D5459" stroke-width="1.2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+      <text x="452" y="226" text-anchor="end" font-size="10" fill="#3D5459">quotes,</text>
+      <text x="452" y="239" text-anchor="end" font-size="10" fill="#3D5459">stall applications</text>
+
+      <!-- Freelancers (right-lower) -->
+      <g transform="translate(588 440)">
+        <use href="#person" x="-14" y="-24" width="28" height="40"/>
+        <rect x="14" y="-18" width="18" height="13" rx="2" fill="none" stroke="#0E2A30" stroke-width="1.4"/>
+        <circle cx="23" cy="-11.5" r="3.6" fill="none" stroke="#0E2A30" stroke-width="1.2"/>
+        <text x="0" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0E2A30">Freelancers</text>
+        <text x="0" y="51" text-anchor="middle" font-size="10" fill="#6E8185">photographers, DJs, MCs</text>
+      </g>
+      <g>
+        <rect x="468" y="514" width="208" height="42" rx="21" fill="#F6F7F4" stroke="#0E2A30" stroke-width="1"/>
+        <text x="572" y="532" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">“Agencies win on contacts,</text>
+        <text x="572" y="546" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">not on the quality of work.”</text>
+        <circle cx="584" cy="508" r="3" fill="none" stroke="#0E2A30"/><circle cx="588" cy="501" r="2" fill="none" stroke="#0E2A30"/>
+      </g>
+      <path d="M556 425 C510 400 470 375 440 356" fill="none" stroke="#3D5459" stroke-width="1.2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+      <text x="520" y="382" font-size="10" fill="#3D5459">portfolio,</text>
+      <text x="520" y="395" font-size="10" fill="#3D5459">quotes</text>
+
+      <!-- Attendees (left-lower) -->
+      <g transform="translate(100 440)">
+        <use href="#person" x="-34" y="-20" width="28" height="40"/>
+        <use href="#person" x="-14" y="-24" width="28" height="40"/>
+        <use href="#person" x="6" y="-20" width="28" height="40"/>
+        <text x="0" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0E2A30">Attendees</text>
+        <text x="0" y="51" text-anchor="middle" font-size="10" fill="#6E8185">people who go to events</text>
+      </g>
+      <g>
+        <rect x="6" y="514" width="192" height="42" rx="21" fill="#F6F7F4" stroke="#0E2A30" stroke-width="1"/>
+        <text x="102" y="532" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">“Where’s the main stage,</text>
+        <text x="102" y="546" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">and who else is going?”</text>
+        <circle cx="96" cy="508" r="3" fill="none" stroke="#0E2A30"/><circle cx="92" cy="501" r="2" fill="none" stroke="#0E2A30"/>
+      </g>
+      <path d="M134 425 C180 400 214 375 240 356" fill="none" stroke="#3D5459" stroke-width="1.2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+      <text x="112" y="376" font-size="10" fill="#3D5459">follow, discuss,</text>
+      <text x="112" y="389" font-size="10" fill="#3D5459">open venue maps</text>
+
+      <!-- Admins (bottom-centre) -->
+      <g transform="translate(340 540)">
+        <use href="#person" x="-14" y="-24" width="28" height="40"/>
+        <path d="M18 -26 l10 4 v7 c0 6 -4 10 -10 12 c-6 -2 -10 -6 -10 -12 v-7z" fill="none" stroke="#0E2A30" stroke-width="1.4"/>
+        <path d="M14 -16 l3 3 l6 -6" fill="none" stroke="#0E2A30" stroke-width="1.4"/>
+        <text x="0" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0E2A30">Admins</text>
+        <text x="0" y="51" text-anchor="middle" font-size="10" fill="#6E8185">platform staff</text>
+      </g>
+      <g>
+        <rect x="250" y="598" width="180" height="36" rx="18" fill="#F6F7F4" stroke="#0E2A30" stroke-width="1"/>
+        <text x="340" y="620" text-anchor="middle" font-size="10.5" font-style="italic" fill="#0E2A30">“Is this event real?”</text>
+      </g>
+      <path d="M340 505 L340 438" fill="none" stroke="#3D5459" stroke-width="1.2" marker-end="url(#ar)"/>
+      <text x="350" y="478" font-size="10" fill="#3D5459">verify accounts,</text>
+      <text x="350" y="491" font-size="10" fill="#3D5459">moderate content</text>
+    </svg>
+  </div>
+
+  <div class="legend">
+    <span><svg viewBox="0 0 36 16"><line x1="2" y1="8" x2="30" y2="8" stroke="#3D5459" stroke-width="1.4"/><path d="M28 4l6 4-6 4z" fill="#3D5459"/></svg>What passes between them</span>
+    <span><svg viewBox="0 0 36 16"><rect x="2" y="2" width="32" height="12" rx="6" fill="none" stroke="#0E2A30"/></svg>A concern they have</span>
+    <span><svg viewBox="0 0 36 16"><path d="M12 2 L24 14 M24 2 L12 14" stroke="#0E2A30" stroke-width="1.6" stroke-linecap="round"/></svg>A point of conflict</span>
+    <span><svg viewBox="0 0 36 16"><line x1="2" y1="8" x2="34" y2="8" stroke="#6E8185" stroke-width="1.2" stroke-dasharray="3 3"/></svg>How it works today</span>
+  </div>
+
+</section>
+
+<!-- ============ 4. SOLUTION ============ -->
+<section class="page">
+  <div class="run"><span class="sec">The solution</span><span>4</span></div>
+  <h1>Promotion, hiring, community and venue maps in one app.</h1>
+  <p class="lede">Eventline is a mobile app and web portal with four modules. Organisers are at the centre. They publish events and hire the vendors and freelancers who work at them.</p>
+
+  <div class="modules">
+    <div class="mod">
+      <h3>Events and promotion</h3>
+      <p class="who">For organisers and attendees</p>
+      <ul>
+        <li>Event pages with date, venue, line-up and schedule</li>
+        <li>A promotion feed of posts and reels from organisers</li>
+        <li>Search by category, date and district; follow organisers</li>
+      </ul>
+    </div>
+    <div class="mod">
+      <h3>Hiring marketplace</h3>
+      <p class="who">For organisers, vendors and freelancers</p>
+      <ul>
+        <li>Direct booking requests, or job posts answered with quotes</li>
+        <li>Stall slots filled by invitation or open application</li>
+        <li>Verified-only reviews, rank scores, badges and leaderboards</li>
+      </ul>
+    </div>
+    <div class="mod">
+      <h3>Community</h3>
+      <p class="who">For everyone</p>
+      <ul>
+        <li>A discussion board for every event, plus city and topic communities</li>
+        <li>Role badges beside every name</li>
+        <li>In-app chat, announcements and a public Q&amp;A on each event</li>
+      </ul>
+    </div>
+    <div class="mod">
+      <h3>Venue maps</h3>
+      <p class="who">For organisers and attendees</p>
+      <ul>
+        <li>Organisers upload the floor plan and drop labelled pins</li>
+        <li>Stages, stalls, entrances, toilets and first aid</li>
+        <li>Attendees open it from the event page and zoom in</li>
+      </ul>
+    </div>
+    <div class="mod later">
+      <h3>Ticketing and entry</h3>
+      <p>Ticket tiers, reserved seats, free RSVPs and QR entry at the gate are out of scope for the ATP. They are the first item beyond the ATP (page 8).</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>How the modules feed each other</h2>
+    <div class="steps loop" style="grid-template-columns: repeat(4, 1fr); margin-top: 7mm;">
+      <div class="s hl"><b>Events create demand</b><span>Each new event needs photographers, DJs, stalls and sound.</span></div>
+      <div class="s"><b>Jobs create reviews</b><span>Completed bookings unlock reviews on both sides.</span></div>
+      <div class="s"><b>Reviews guide hiring</b><span>The next organiser hires on track record, not contacts.</span></div>
+      <div class="s"><b>Community builds audience</b><span>Event boards keep people talking until the next event.</span></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ 5. WORKFLOWS ============ -->
+<section class="page">
+  <div class="run"><span class="sec">Key workflows</span><span>5</span></div>
+  <h1>Two routes to a hire, one route to a stall.</h1>
+  <p class="lede">Organisers can hire in two ways. Both end in the same confirmed booking, and reviews open only when the organiser marks the job complete.</p>
+
+  <div class="block flow">
+    <h2>Hiring a vendor or freelancer</h2>
+    <svg viewBox="0 0 660 430" font-family="Instrument Sans, sans-serif" role="img" aria-label="Hiring flow with direct booking and job post routes">
+      <defs>
+        <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6E8185"/></marker>
+      </defs>
+      <g font-size="11" font-weight="600" fill="#6E8185" text-anchor="middle">
+        <text x="170" y="14">Direct booking</text>
+        <text x="490" y="14">Job post</text>
+      </g>
+      <g fill="#F6F7F4" stroke="#AEBBB8" stroke-width="1.1">
+        <rect x="70" y="28" width="200" height="40" rx="8"/>
+        <rect x="70" y="100" width="200" height="40" rx="8"/>
+        <path d="M170 170 L240 202 L170 234 L100 202 Z"/>
+        <rect x="390" y="28" width="200" height="40" rx="8"/>
+        <rect x="390" y="100" width="200" height="40" rx="8"/>
+        <rect x="390" y="182" width="200" height="40" rx="8"/>
+        <rect x="230" y="336" width="200" height="36" rx="8"/>
+        <rect x="230" y="390" width="200" height="36" rx="8"/>
+      </g>
+      <rect x="220" y="266" width="220" height="48" rx="8" fill="#0E2A30"/>
+      <g font-size="11.5" fill="#0E2A30" text-anchor="middle">
+        <text x="170" y="52">Organiser picks a provider</text>
+        <text x="170" y="124">Sends a booking request</text>
+        <text x="170" y="206">Provider replies</text>
+        <text x="490" y="52">Organiser posts a job</text>
+        <text x="490" y="124">Providers apply with quotes</text>
+        <text x="490" y="206">Organiser accepts a quote</text>
+        <text x="330" y="358">Event happens, paid outside the app</text>
+        <text x="330" y="412">Marked complete: reviews unlock</text>
+      </g>
+      <text x="330" y="287" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="14" font-weight="500" fill="#fff">Confirmed booking</text>
+      <text x="330" y="304" text-anchor="middle" font-size="10" fill="#C9D6D8">service, date, price and terms recorded</text>
+      <g fill="none" stroke="#6E8185" stroke-width="1.1">
+        <path d="M170 68 V98" marker-end="url(#a2)"/>
+        <path d="M170 140 V168" marker-end="url(#a2)"/>
+        <path d="M490 68 V98" marker-end="url(#a2)"/>
+        <path d="M490 140 V180" marker-end="url(#a2)"/>
+        <path d="M170 234 V290 H218" marker-end="url(#a2)"/>
+        <path d="M490 222 V290 H442" marker-end="url(#a2)"/>
+        <path d="M100 202 H40 V48 H68" marker-end="url(#a2)"/>
+        <path d="M330 314 V334" marker-end="url(#a2)"/>
+        <path d="M330 372 V388" marker-end="url(#a2)"/>
+      </g>
+      <g font-size="10" fill="#3D5459">
+        <text x="46" y="194">declines</text>
+        <text x="162" y="252" text-anchor="end">accepts, or a</text>
+        <text x="162" y="265" text-anchor="end">counter-quote is agreed</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="block" style="margin-top: 8mm;">
+    <h2>Filling stalls and publishing the venue map</h2>
+    <div class="steps" style="grid-template-columns: repeat(5, 1fr);">
+      <div class="s"><b>Open stall slots</b><span>Or invite a vendor directly, with the stall type and fee.</span></div>
+      <div class="s"><b>Vendor applies</b><span>Or accepts the invitation from the organiser.</span></div>
+      <div class="s"><b>Organiser approves</b><span>And each approved vendor gets a stall number.</span></div>
+      <div class="s"><b>Pinned on the map</b><span>The stall number goes on a pin on the floor plan.</span></div>
+      <div class="s hl"><b>Attendees find it</b><span>The map opens from the event page, always the latest version.</span></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ 6. COMPARISON ============ -->
+<section class="page">
+  <div class="run"><span class="sec">Why it’s different</span><span>6</span></div>
+  <h1>Existing platforms each cover one part of an event.</h1>
+  <p class="lede">We checked Sri Lankan and global platforms. Local ticketing sites stop at tickets, and local vendor directories stop at listings.</p>
+
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th style="width:34%">Platform</th>
+        <th>Ticketing</th>
+        <th>Hire vendors and freelancers</th>
+        <th>Reviews of providers</th>
+        <th>Community</th>
+        <th>Venue maps</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><b>MyTickets</b><small>Sri Lanka</small></td><td><i class="dot y"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td></tr>
+      <tr><td><b>TicketsMinistry</b><small>Sri Lanka</small></td><td><i class="dot y"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot p"></i></td><td><i class="dot p"></i></td></tr>
+      <tr><td><b>ClickTickets</b><small>Sri Lanka</small></td><td><i class="dot y"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot p"></i></td><td><i class="dot n"></i></td></tr>
+      <tr><td><b>BookMyShow LK</b><small>Sri Lanka</small></td><td><i class="dot y"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td></tr>
+      <tr><td><b>WedMeGood, WeddingArcade, DJBooking.lk</b><small>Sri Lanka, wedding and DJ directories</small></td><td><i class="dot n"></i></td><td><i class="dot p"></i></td><td><i class="dot p"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td></tr>
+      <tr><td><b>Eventeny</b><small>United States, closest match</small></td><td><i class="dot y"></i></td><td><i class="dot p"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot y"></i></td></tr>
+      <tr><td><b>Posh</b><small>United States</small></td><td><i class="dot y"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot p"></i></td><td><i class="dot n"></i></td></tr>
+      <tr><td><b>Eventbrite</b><small>Global</small></td><td><i class="dot y"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td></tr>
+      <tr><td><b>Meetup</b><small>Global</small></td><td><i class="dot p"></i></td><td><i class="dot n"></i></td><td><i class="dot n"></i></td><td><i class="dot y"></i></td><td><i class="dot n"></i></td></tr>
+      <tr class="us"><td><b>Eventline</b></td><td><span class="phase">Later</span></td><td><i class="dot y"></i></td><td><i class="dot y"></i></td><td><i class="dot y"></i></td><td><i class="dot y"></i></td></tr>
+    </tbody>
+  </table>
+  <div class="cmp-legend">
+    <span><i class="dot y"></i> Offered</span>
+    <span><i class="dot p"></i> Partly, for example community only through a WhatsApp channel</span>
+    <span><i class="dot n"></i> Not found</span>
+  </div>
+
+  <div class="callout">Local sites already sell tickets with QR entry and seat selection. None lets an organiser hire providers, read their reviews and run an event community in the same place.</div>
+
+</section>
+
+<!-- ============ 7. SDG ============ -->
+<section class="page">
+  <div class="run"><span class="sec">SDG alignment</span><span>7</span></div>
+  <h1>More paid work for freelancers and small vendors.</h1>
+  <p class="lede">Eventline’s clearest link is to SDG 8. Through the hiring marketplace, freelancers and small vendors find paid work at events and collect reviews they can show future clients.</p>
+
+  <div class="block">
+    <div class="sdg">
+      <div class="tile s8"><span class="n">8</span><span class="t">Decent work and economic growth</span></div>
+      <div>
+        <p class="role">Primary goal</p>
+        <h3>Decent work and economic growth</h3>
+        <div class="target"><span class="id">8.3</span><p><b>Growth of micro and small enterprises.</b> Photographers, DJs, MCs and small vendors win paid work through bookings, job posts and stall applications. Reviews and portfolios help them win the next job.</p></div>
+        <div class="target"><span class="id">8.9</span><p><b>Tourism that creates jobs and promotes local culture.</b> Concerts, festivals and exhibitions create jobs and showcase local culture and products. Eventline makes them easier to organise and promote.</p></div>
+      </div>
+    </div>
+    <div class="sdg">
+      <div class="tile s9"><span class="n">9</span><span class="t">Industry, innovation and infrastructure</span></div>
+      <div>
+        <p class="role">Secondary goal</p>
+        <h3>Industry, innovation and infrastructure</h3>
+        <div class="target"><span class="id">9.3</span><p><b>Small enterprises in value chains and markets.</b> Small vendors join events through a digital marketplace instead of relying only on personal contacts.</p></div>
+      </div>
+    </div>
+    <div class="sdg minor">
+      <div class="tile s10"><span class="n">10</span><span class="t">Reduced inequalities</span></div>
+      <div>
+        <p class="role">Supporting link</p>
+        <div class="target" style="margin-bottom:0"><span class="id">10.2</span><p><b>Social and economic inclusion.</b> Individual freelancers compete with agencies on reviews rather than connections, and Sinhala and Tamil support widens who can take part.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" style="margin-top: 5mm;">
+    <h2>How we will measure it</h2>
+    <div class="measures">
+      <div><b>Providers with a paid booking</b><span>Vendors and freelancers who get at least one paid booking through Eventline</span></div>
+      <div><b>Bookings per provider</b><span>Tracked over time, to show that a track record leads to more work</span></div>
+      <div><b>Stall vendors taking part</b><span>Vendors who join events through Eventline’s stall applications</span></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ 8. ROADMAP ============ -->
+<section class="page">
+  <div class="run"><span class="sec">Roadmap</span><span>8</span></div>
+  <h1>What we deliver in the ATP, and where Eventline goes next.</h1>
+  <p class="lede">In scope is what we plan to deliver within the Agile Team Project. Out of scope is what we would build afterwards, if the group takes Eventline further.</p>
+
+  <div class="scope-head in"><h3>In scope</h3><span>During the ATP</span></div>
+  <div class="road">
+    <div class="ph now">
+      <div><p class="when">Start of the ATP</p><h3>Discovery</h3></div>
+      <ul>
+        <li>Interview event organisers</li>
+        <li>Survey vendors and freelancers</li>
+        <li>Survey attendees</li>
+        <li>Confirm the name and backlog</li>
+      </ul>
+    </div>
+    <div class="ph mvp">
+      <div><p class="when">The build</p><h3>ATP release</h3><p class="small" style="margin-top:1mm">Mobile app and web portal</p></div>
+      <div class="card">
+        <ul>
+          <li>Accounts and verification</li>
+          <li>Events and promotion feed</li>
+          <li>Hiring marketplace and stalls</li>
+          <li>Reviews and ranking</li>
+          <li>Community and chat</li>
+          <li>Venue maps</li>
+          <li>Admin and moderation</li>
+          <li>Sinhala and Tamil, if time allows</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph" style="padding-bottom: 0;">
+      <div><p class="when">End of the ATP</p><h3>Live pilot</h3></div>
+      <ul>
+        <li>One or two partner organisers</li>
+        <li>The vendors they already use</li>
+        <li>A real event, run through Eventline</li>
+        <li>First reviews and SDG measures</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="gate"><b>Decision point.</b> After the pilot, the group decides whether to take Eventline further.</div>
+
+  <div class="scope-head out"><h3>Out of scope</h3><span>The vision beyond the ATP</span></div>
+  <div class="vision">
+    <div>
+      <p class="when">First</p>
+      <h3>Ticketing and entry</h3>
+      <ul>
+        <li>Ticket tiers and reserved seats</li>
+        <li>Free RSVP events</li>
+        <li>QR tickets and gate scanning</li>
+        <li>Refunds and cancellations</li>
+        <li>Attendee reviews of events</li>
+      </ul>
+    </div>
+    <div>
+      <p class="when">After that</p>
+      <h3>Payments in the app</h3>
+      <ul>
+        <li>Hiring payments and deposits</li>
+        <li>Stall fees paid in the app</li>
+        <li>Ticket and hiring commission</li>
+        <li>Venue map extras</li>
+      </ul>
+    </div>
+    <div>
+      <p class="when">After that</p>
+      <h3>Hiring for private events</h3>
+      <ul>
+        <li>Attendees hire photographers, DJs, décor and caterers directly</li>
+        <li>For weddings, birthdays and other private events</li>
+        <li>Booking requests and reviews work as they do for organisers</li>
+      </ul>
+    </div>
+    <div>
+      <p class="when">Later version</p>
+      <h3>Premium accounts</h3>
+      <ul>
+        <li>VIP and fast-sale ticket access</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+</body>
+</html>
