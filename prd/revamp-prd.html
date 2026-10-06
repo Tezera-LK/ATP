@@ -1,0 +1,878 @@
+<!doctype html>
+<!--
+  REVAMP: Product Requirements Document (editable source)
+
+  How to edit:
+  - Priorities: change the class and text of a pill, e.g. <span class="pri should">Should</span>.
+    Classes: must, should, could, later.
+  - Mark a row changed in a new version with <span class="tag">v3</span> after the ID, and add a line to the change log.
+  - Open questions: add class "done" to an <li> in section 14 once the group settles it, and say where it was settled.
+  - Diagrams are inline SVG; edit their <text> elements directly.
+  - Print or "Save as PDF" from the browser to produce a PDF (A4 print styles are included).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REVAMP PRD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F7F4;
+    --card: #FFFFFF;
+    --surface: #E9EEEB;
+    --rule: #D2DAD7;
+    --ink: #0E2A30;
+    --ink-2: #3D5459;
+    --muted: #6E8185;
+    --marigold: #E3A21A;
+    --marigold-soft: #F7E7BF;
+    --teal: #1F6F78;
+    --teal-soft: #DCEBEA;
+    --display: "Bricolage Grotesque", Georgia, serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .doc { max-width: 880px; margin: 0 auto; padding: 48px 16px 96px; }
+
+  /* Header */
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0 0 8px; }
+  h1 { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 6vw, 52px); line-height: 1.05; margin: 0; letter-spacing: -.01em; }
+  .expansion { font-family: var(--display); font-size: 20px; color: var(--ink-2); margin: 10px 0 4px; }
+  .expansion b { color: var(--ink); font-weight: 600; }
+  .core { display: inline-block; margin: 10px 0 0; padding: 4px 12px; border-radius: 999px; background: var(--marigold-soft); font-weight: 600; font-size: 14px; }
+  .byline { color: var(--muted); font-size: 14px; margin: 18px 0 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .lead { font-size: 18px; margin: 24px 0; }
+
+  /* Headings */
+  h2 { font-family: var(--display); font-weight: 600; font-size: 28px; margin: 56px 0 12px; padding-top: 8px; border-top: 2px solid var(--ink); scroll-margin-top: 16px; }
+  h3 { font-family: var(--display); font-weight: 600; font-size: 20px; margin: 36px 0 8px; scroll-margin-top: 16px; }
+  h4 { font-size: 15px; font-weight: 600; margin: 24px 0 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+  p { margin: 10px 0; }
+  ul { padding-left: 22px; margin: 10px 0; }
+  li { margin: 4px 0; }
+  a { color: var(--teal); }
+  .muted { color: var(--muted); }
+  .note { font-size: 14px; color: var(--ink-2); }
+
+  /* Contents */
+  nav.toc { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 20px; margin: 24px 0; }
+  nav.toc h2 { border: 0; margin: 0 0 8px; padding: 0; font-size: 16px; font-family: var(--body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  nav.toc ol { columns: 2; column-gap: 32px; margin: 0; padding-left: 22px; font-size: 15px; }
+  nav.toc li { break-inside: avoid; }
+  @media (max-width: 640px) { nav.toc ol { columns: 1; } }
+
+  /* Callouts */
+  .callout { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--marigold); border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 15px; }
+  .callout.teal { border-left-color: var(--teal); }
+  details.changes { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 18px; margin: 16px 0; }
+  details.changes summary { cursor: pointer; font-weight: 600; }
+
+  /* Tables */
+  .tbl { overflow-x: auto; margin: 14px 0; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+  th { background: var(--surface); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  td.id { white-space: nowrap; font-weight: 600; font-variant-numeric: tabular-nums; }
+  td.who { white-space: nowrap; color: var(--ink-2); }
+  td.p { white-space: nowrap; }
+  table.req td.id { width: 76px; }
+  table.req td.p { width: 80px; }
+  tr.later td { color: var(--muted); }
+
+  .pri { display: inline-block; min-width: 58px; text-align: center; padding: 2px 8px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+  .pri.must { background: var(--ink); color: #fff; }
+  .pri.should { background: var(--marigold); color: var(--ink); }
+  .pri.could { background: var(--teal-soft); color: var(--teal); border: 1px solid #b9d6d4; }
+  .pri.later { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+  .tag { display: inline-block; margin-left: 4px; padding: 0 5px; border-radius: 4px; background: var(--marigold-soft); color: #7a5300; font-size: 11px; font-weight: 600; vertical-align: 1px; }
+
+  /* Figures */
+  figure { margin: 20px 0; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; }
+  figure svg { width: 100%; height: auto; display: block; font-family: var(--body); }
+  figcaption { font-size: 14px; color: var(--ink-2); margin-top: 10px; }
+  figcaption b { color: var(--ink); }
+  svg .box { fill: var(--card); stroke: var(--ink); stroke-width: 1.4; }
+  svg .box.alt { fill: var(--surface); stroke: var(--ink-2); }
+  svg .box.hl { fill: var(--marigold-soft); stroke: var(--marigold); }
+  svg .box.later { fill: var(--paper); stroke: var(--muted); stroke-dasharray: 5 4; }
+  svg .t { font-size: 14px; font-weight: 600; fill: var(--ink); }
+  svg .s { font-size: 11.5px; fill: var(--ink-2); }
+  svg .l { font-size: 11.5px; fill: var(--ink-2); }
+  svg .h { font-size: 12px; font-weight: 600; fill: var(--teal); letter-spacing: .06em; }
+  svg .ln { stroke: var(--ink-2); stroke-width: 1.4; fill: none; }
+  svg .ln.dash { stroke-dasharray: 6 4; }
+  svg .ln.dot { stroke: var(--muted); stroke-dasharray: 2 4; }
+
+  /* Formula */
+  .formula { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-family: Cambria, "Times New Roman", serif; font-size: 19px; display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: center; }
+  .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; font-size: 16px; }
+  .frac > span:first-child { border-bottom: 1px solid var(--ink); padding: 0 3px; }
+
+  /* Open questions */
+  ul.qs { list-style: none; padding-left: 0; }
+  ul.qs li { position: relative; padding-left: 28px; margin: 8px 0; }
+  ul.qs li::before { content: ""; position: absolute; left: 0; top: 4px; width: 15px; height: 15px; border: 1.5px solid var(--ink-2); border-radius: 3px; }
+  ul.qs li.done { color: var(--muted); }
+  ul.qs li.done::before { background: var(--teal); border-color: var(--teal); }
+  ul.qs li.done::after { content: ""; position: absolute; left: 5px; top: 6px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+  ol.sources, ul.sources { font-size: 14px; }
+
+  @media print {
+    @page { size: A4; margin: 16mm 14mm; }
+    body { background: #fff; font-size: 10.5pt; }
+    .doc { max-width: none; padding: 0; }
+    h2 { break-before: auto; break-after: avoid; }
+    h3, h4 { break-after: avoid; }
+    figure, .tbl, tr, .callout { break-inside: avoid; }
+    details.changes { display: block; }
+    details.changes > *:not(summary) { display: block; }
+    a { color: var(--ink); text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<main class="doc">
+
+<header>
+  <p class="eyebrow">Product Requirements Document · SDGP Agile Team Project</p>
+  <h1>REVAMP</h1>
+  <p class="expansion"><b>R</b>etail <b>E</b>ngagement, <b>V</b>endor <b>A</b>ctivation &amp; <b>M</b>arketing <b>P</b>latform</p>
+  <span class="core">Core idea: Transform + Amplify</span>
+  <p class="byline">Version 2 · updated 6 October 2026 · first written 30 September 2026 by Navindu Ranwatte</p>
+</header>
+
+<p class="lead">REVAMP is a mobile app and web portal that brings Sri Lanka's event organisers, vendors, freelancers and consumers onto one platform. Organisers promote events, hire vendors and freelancers, fill stalls and share venue maps; consumers discover events, mark that they're going and meet up through forums. The ATP release covers all four core modules: events and promotion, the hiring marketplace, community and venue maps. Ticketing and entry come first after the ATP, followed by payments in the app; premium accounts come in a later version.</p>
+
+<details class="changes">
+  <summary>What changed in version 2 (6 October 2026)</summary>
+  <ul>
+    <li><b>Name:</b> the product is now REVAMP, short for Retail Engagement, Vendor Activation &amp; Marketing Platform, with the core idea "Transform + Amplify". This settles the product-name open question.</li>
+    <li><b>Ticketing moved out of the MVP</b> to match the proposal. Ticketing and entry (6.3) is kept in this document with every requirement set to Later. This also changes the goals, the roles, events (EV-01, EV-02), messaging (MS-01, MS-04, MS-05, MS-07), the organiser dashboard (OD-01, OD-02, OD-04), admin (AD-03, AD-04), the non-functional requirements, the business model, the success metrics, assumptions, dependencies, risks and open questions.</li>
+    <li><b>Organiser verification</b> (AC-08) now gates opening stalls, posting jobs and sending booking requests, because there are no ticket sales to gate.</li>
+    <li><b>Attendee reviews</b> of organisers and stall vendors are now unlocked by a 'Going' mark made before the event, instead of a checked-in ticket (6.5).</li>
+    <li><b>3D venue view:</b> new requirements VM-05 to VM-07 (Could and Later) for an optional 3D view built with Three.js from the uploaded layout and pins.</li>
+    <li><b>New section 8, Technical approach:</b> the recommended architecture and stack. Later sections are renumbered (MVP scope is now 9, open questions 14).</li>
+    <li><b>Release phases</b> now follow the proposal's roadmap: discovery, ATP release and live pilot, then the decision point.</li>
+  </ul>
+  <p class="note">Rows changed in this version carry a <span class="tag">v2</span> tag.</p>
+</details>
+
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#problem">Problem and opportunity</a></li>
+    <li><a href="#goals">Goals and non-goals</a></li>
+    <li><a href="#roles">Users and roles</a></li>
+    <li><a href="#fit">How the platform fits together</a></li>
+    <li><a href="#competitors">Competitive landscape</a></li>
+    <li><a href="#functional">Functional requirements</a></li>
+    <li><a href="#nfr">Non-functional requirements</a></li>
+    <li><a href="#tech">Technical approach</a></li>
+    <li><a href="#scope">MVP scope and priorities</a></li>
+    <li><a href="#business">Business model</a></li>
+    <li><a href="#metrics">Success metrics</a></li>
+    <li><a href="#assumptions">Assumptions and dependencies</a></li>
+    <li><a href="#risks">Risks and mitigations</a></li>
+    <li><a href="#questions">Open questions</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ 1 -->
+<h2 id="problem">1. Problem and opportunity</h2>
+<p>We believe organising a large event in Sri Lanka means juggling separate channels, and no single place connects organisers, vendors, freelancers and attendees. These are hypotheses, not findings: the team will test them during discovery, before the design is final.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Party</th><th>Problem we believe they face</th><th>How we will check</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Organisers</td><td>Vendors and freelancers are found through word of mouth and social media, with little trustworthy reputation data. Ticketing, promotion and attendee updates each need a different tool.</td><td>Interviews with event organisers</td></tr>
+    <tr><td class="id">Vendors</td><td>Hearing about events that need their services, or open stall slots, depends on personal contacts. Good work at one event does not build a visible track record.</td><td>Survey of stall operators and agencies</td></tr>
+    <tr><td class="id">Freelancers</td><td>The same as vendors. Individuals also find it harder to compete with agencies without portfolios and reviews in one place.</td><td>Survey of photographers, videographers, DJs and MCs</td></tr>
+    <tr><td class="id">Consumers</td><td>Event details are spread across organisers' social pages, venue layouts are rarely shared ahead of time, and there is no easy way to find others who are going.</td><td>Consumer survey</td></tr>
+  </tbody>
+</table></div>
+<p><b>The opportunity:</b> one platform where each party's activity feeds the others. Events create demand for vendors and freelancers. Completed jobs and attended events create reviews. Forum activity builds an audience for the organiser's next event.</p>
+
+<!-- ============================================================ 2 -->
+<h2 id="goals">2. Goals and non-goals</h2>
+<p>The ATP release should prove that one platform can carry the work around an event: promotion, hiring, venue maps and community. Ticketing follows as the first phase after the ATP.</p>
+<h4>Goals</h4>
+<ul>
+  <li>Organisers publish events and promote them with posts and reels; consumers mark events as 'Going' or 'Interested'. <span class="tag">v2</span></li>
+  <li>Organisers hire vendors and freelancers by direct booking or job posts, and fill stalls by invitation or open application.</li>
+  <li>Reputation is visible and earned: reviews run in four directions and feed category ratings, a rank score, tier badges and leaderboards.</li>
+  <li>Consumers plan their visit with the organiser's venue map and meet others through event boards, communities and meetups.</li>
+  <li>Conversations between organisers, consumers, vendors and freelancers happen in the app instead of across separate tools.</li>
+</ul>
+<h4>Non-goals for the MVP</h4>
+<ul>
+  <li><b>Ticketing and entry:</b> ticket tiers, reserved seats, free RSVP tickets, QR tickets and gate scanning, and refunds. This is the first phase after the ATP (6.3). <span class="tag">v2</span></li>
+  <li><b>Payments of any kind in the app.</b> Bookings and stalls are agreed in the app but paid outside it; in-app payments would come in a later phase, if the group takes the idea further. <span class="tag">v2</span></li>
+  <li>Premium accounts for VIP or fast-sale tickets (later version).</li>
+  <li>An in-app map builder (2D or 3D), stalls linked to vendor profiles on the map, and Google Maps directions. These are still under team discussion. A 3D view generated from the uploaded layout and pins is a Could (VM-05, VM-06). <span class="tag">v2</span></li>
+  <li>Posts or reels from vendors, freelancers or consumers in the main feed. The feed is for organisers; providers show their work in portfolios.</li>
+  <li>More than one role on a single account.</li>
+</ul>
+
+<!-- ============================================================ 3 -->
+<h2 id="roles">3. Users and roles</h2>
+<p>The platform has four account types plus platform admins, and each account holds exactly one role. Someone who is both a freelancer and an attendee uses two accounts.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Role</th><th>Who they are</th><th>What they do on the platform</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Organiser <span class="tag">v2</span></td><td>Event companies such as Agastra Events, and any individual or group running a large event: concerts, exhibitions, festivals</td><td>Publish and promote events, hire vendors and freelancers, run stall applications, upload venue maps, talk to attendees. Selling tickets and checking them at the gate come with ticketing after the ATP.</td></tr>
+    <tr><td class="id">Vendor</td><td>Businesses: F&amp;B stalls, media agencies, sound and lighting, décor</td><td>Show services and portfolio, answer booking requests and job posts with quotes, apply for stall slots, chat with organisers, review organisers</td></tr>
+    <tr><td class="id">Freelancer</td><td>Individuals: photographers, videographers, DJs, MCs</td><td>Everything vendors do except stall slots: profile, portfolio, availability, quotes, chat, reviews</td></tr>
+    <tr><td class="id">Consumer <span class="tag">v2</span></td><td>People who attend events</td><td>Discover events, follow organisers, mark events 'Going' or 'Interested', view venue maps, join boards and communities, meet up, review organisers and stall vendors at events they marked 'Going'</td></tr>
+    <tr><td class="id">Admin</td><td>Platform staff</td><td>Verify organisers and providers, moderate content and communities, handle reports and disputes</td></tr>
+  </tbody>
+</table></div>
+<p>In this PRD, <b>providers</b> means vendors and freelancers together.</p>
+
+<!-- ============================================================ 4 -->
+<h2 id="fit">4. How the platform fits together</h2>
+<figure>
+  <svg viewBox="0 0 760 380" role="img" aria-labelledby="fig1t">
+    <title id="fig1t">Who connects with whom: organisers sit between providers and consumers; admins oversee all of them.</title>
+    <defs>
+      <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3D5459"/></marker>
+    </defs>
+    <!-- admin oversight -->
+    <path class="ln dot" d="M310 39 H100 V88"/>
+    <path class="ln dot" d="M450 39 H660 V170"/>
+    <path class="ln dot" d="M380 62 V170"/>
+    <text class="l" x="390" y="120">verify, moderate,</text>
+    <text class="l" x="390" y="134">handle reports</text>
+    <rect class="box alt" x="310" y="16" width="140" height="46" rx="8"/>
+    <text class="t" x="380" y="44" text-anchor="middle">Admins</text>
+
+    <!-- providers group -->
+    <rect x="18" y="88" width="164" height="224" rx="12" fill="none" stroke="#6E8185" stroke-dasharray="4 4"/>
+    <text class="h" x="100" y="108" text-anchor="middle">PROVIDERS</text>
+    <rect class="box" x="30" y="120" width="140" height="46" rx="8"/>
+    <text class="t" x="100" y="148" text-anchor="middle">Freelancers</text>
+    <rect class="box" x="30" y="250" width="140" height="46" rx="8"/>
+    <text class="t" x="100" y="278" text-anchor="middle">Vendors</text>
+
+    <!-- organiser -->
+    <rect class="box hl" x="310" y="170" width="140" height="56" rx="8"/>
+    <text class="t" x="380" y="203" text-anchor="middle">Organisers</text>
+
+    <!-- consumer -->
+    <rect class="box" x="590" y="170" width="140" height="56" rx="8"/>
+    <text class="t" x="660" y="203" text-anchor="middle">Consumers</text>
+
+    <!-- organiser <-> freelancer -->
+    <path class="ln" d="M310 188 L170 150" marker-start="url(#a1)" marker-end="url(#a1)"/>
+    <text class="l" x="236" y="146" text-anchor="middle">bookings, chat,</text>
+    <text class="l" x="236" y="160" text-anchor="middle">reviews</text>
+    <!-- organiser <-> vendor -->
+    <path class="ln" d="M310 210 L170 262" marker-start="url(#a1)" marker-end="url(#a1)"/>
+    <text class="l" x="252" y="256" text-anchor="middle">bookings, stalls,</text>
+    <text class="l" x="252" y="270" text-anchor="middle">chat, reviews</text>
+    <!-- organiser <-> consumer -->
+    <path class="ln" d="M450 198 L590 198" marker-start="url(#a1)" marker-end="url(#a1)"/>
+    <text class="l" x="520" y="174" text-anchor="middle">events, posts, Q&amp;A,</text>
+    <text class="l" x="520" y="188" text-anchor="middle">announcements, chat</text>
+    <text class="l" x="520" y="216" text-anchor="middle">'Going', reviews</text>
+    <!-- consumer <-> consumer -->
+    <path class="ln" d="M645 226 C630 280 690 280 675 226" marker-end="url(#a1)"/>
+    <text class="l" x="660" y="292" text-anchor="middle">friends, DMs,</text>
+    <text class="l" x="660" y="306" text-anchor="middle">boards, meetups</text>
+    <!-- consumer - vendor -->
+    <path class="ln dash" d="M610 226 C580 360 260 360 170 290" marker-end="url(#a1)"/>
+    <text class="l" x="390" y="350" text-anchor="middle">boards and communities only; consumers rate stall vendors</text>
+  </svg>
+  <figcaption><b>Who connects with whom · 4 roles plus admins.</b> Consumers and providers have no private chat or bookings with each other (proposed). They meet in boards and communities, and consumers can rate stall vendors at events they marked 'Going'.</figcaption>
+</figure>
+
+<!-- ============================================================ 5 -->
+<h2 id="competitors">5. Competitive landscape</h2>
+<p>We found no platform, Sri Lankan or global, that combines ticketing, vendor and freelancer hiring, and community in one product. Local ticketing sites stop at tickets, and local vendor directories stop at listings.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Platform</th><th>Market</th><th>What it offers</th><th>Not found, compared with our hub</th></tr></thead>
+  <tbody>
+    <tr><td class="id">MyTickets</td><td>Sri Lanka</td><td>Ticket marketplace for concerts, sports, movies and transport; seat-specific tickets; an organiser console for sales and check-ins</td><td>Vendor hiring, reviews, community</td></tr>
+    <tr><td class="id">TicketsMinistry</td><td>Sri Lanka</td><td>Ticket tiers and early-bird pricing; a QR scanner app with signed single-use codes and an offline mode; seat maps set up by its team</td><td>Vendor hiring, reviews; community is a WhatsApp channel</td></tr>
+    <tr><td class="id">ClickTickets</td><td>Sri Lanka</td><td>Event discovery, instant QR tickets, seat-level tickets</td><td>Hiring, reviews; social is limited to Facebook and WhatsApp channels</td></tr>
+    <tr><td class="id">BookMyShow LK</td><td>Sri Lanka, since 2016</td><td>Movie, event and sports tickets; organiser sales tracking and gate entry</td><td>Hiring; reviews cover movies only</td></tr>
+    <tr><td class="id">WeddingArcade, Plan A Wedding, WedMeGood</td><td>Sri Lanka</td><td>Wedding vendor listings (photographers, decorators, DJs), quote requests, and ratings and reviews on WedMeGood</td><td>Public events, ticketing, community</td></tr>
+    <tr><td class="id">DJBooking.lk</td><td>Sri Lanka</td><td>Verified DJs, with packages to compare and book</td><td>Other provider types, ticketing</td></tr>
+    <tr><td class="id">ikman.lk Events &amp; Entertainment</td><td>Sri Lanka</td><td>Classified ads for photography, rentals and entertainers</td><td>Reviews, a booking flow, ticketing</td></tr>
+    <tr><td class="id">Eventeny</td><td>US</td><td>Ticketing with QR check-in, vendor and exhibitor applications, booth assignment, and maps where attendees find vendors</td><td>Freelancer hiring, forums, direct messages, meetups</td></tr>
+    <tr><td class="id">Posh</td><td>US</td><td>Social ticketing: follow friends and organisers, share events to group chats, scannable tickets</td><td>Vendor hiring</td></tr>
+    <tr><td class="id">Eventbrite</td><td>Global</td><td>Create, promote and sell event tickets, including reserved seating</td><td>Vendor hiring, forums</td></tr>
+    <tr><td class="id">Meetup</td><td>Global</td><td>Interest-based communities that host events; paid plans can charge event fees</td><td>Seating, vendor hiring</td></tr>
+  </tbody>
+</table></div>
+<p>Eventeny is the closest match: it handles vendors and maps, but not freelancers or community. "Not found" means absent from the pages checked, not proven missing. Local rivals already offer QR entry and seat selection, so those are table stakes; the case for REVAMP rests on hiring, reputation and community in one place. <span class="tag">v2</span> That is also why the ATP release can leave ticketing out: it is not what sets REVAMP apart, and it comes first after the ATP.</p>
+
+<!-- ============================================================ 6 -->
+<h2 id="functional">6. Functional requirements</h2>
+<p>Each module lists its requirements with an ID, the role it serves and a priority. All four core modules of the ATP release (events and promotion, hiring, community, venue maps) are in the MVP. Ticketing and entry (6.3) stays in this document at Later, ready for the first phase after the ATP. <span class="tag">v2</span></p>
+<p>Priorities follow MoSCoW: <span class="pri must">Must</span> <span class="pri should">Should</span> <span class="pri could">Could</span>, and <span class="pri later">Later</span> for anything deferred past the MVP (MoSCoW's "won't have this time"). Priorities on the add-on features are a proposal for the group to review (section 9).</p>
+
+<h3 id="m-accounts">6.1 Accounts, profiles and verification</h3>
+<p>Every user signs up with one role, and the platform checks organisers and providers before they can hire, take bookings or run stalls. <span class="tag">v2</span></p>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">AC-01</td><td class="who">All</td><td>Sign up with an email address or phone number, verify it, and pick one role: organiser, vendor, freelancer or consumer.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-02</td><td class="who">Organiser</td><td>Profile with name, logo, description, contact details, upcoming and past events, rating, rank, tier badge and reviews.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-03</td><td class="who">Provider</td><td>Profile with category (e.g., photographer, F&amp;B stall), services and indicative prices, districts served, rating, rank, badges and reviews.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-04</td><td class="who">Provider</td><td>Portfolio gallery of photos and videos of past work, such as event shots or a stall's menu.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-05</td><td class="who">Consumer</td><td>Profile with name, photo, interests and friends; events attended are shown only if the user allows it.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-06</td><td class="who">Consumer</td><td>Privacy settings for who can see their profile, 'Going' status and friends, and who can message them.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-07</td><td class="who">All</td><td>Block or report any user.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-08 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Submit verification documents (proposed: business registration for companies, NIC for individuals). An admin approves before the organiser can open stall slots, post jobs or send booking requests (and, once ticketing arrives, sell tickets); approved organisers get a Verified badge.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-09</td><td class="who">Provider</td><td>Submit verification documents (proposed: business registration for vendors, NIC for freelancers). An admin approves before bookings can be accepted; approved providers get a Verified badge.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-10</td><td class="who">All</td><td>Use the app in English, Sinhala or Tamil.</td><td class="p"><span class="pri should">Should</span></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="m-events">6.2 Events, discovery and the promotion feed</h3>
+<p>Organisers build an event page with its time, place and date, then promote it in the feed. Only organisers post to the feed; everyone else finds events by browsing, searching and following organisers.</p>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">EV-01 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Create an event page: title, category (concert, exhibition, festival and so on), date and time, venue name and address, description, cover image, line-up or schedule, and entry price or "free" for information. Until ticketing arrives, the page can link to where tickets are sold (proposed). Once stalls are confirmed, the page lists the stall vendors and their stall numbers (proposed), so attendees can find and review them.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">EV-02 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Save an event as a draft, publish it, edit it, postpone it or cancel it. Consumers who marked it 'Going' or 'Interested' are notified when the date, time or venue changes, or the event is postponed or cancelled.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">EV-03</td><td class="who">Organiser</td><td>Publish image posts and reels (short videos) to the main feed, which can be linked to an event. Posters and other marketing material go up as posts.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">EV-04</td><td class="who">All</td><td>Like, comment on and share feed posts, and follow organisers to get their posts in the feed.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">EV-05</td><td class="who">Consumer</td><td>Browse and search events by keyword, category, date, district and price, including free events.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">EV-06 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Mark an event as 'Going' or 'Interested'. A 'Going' mark made before the event starts also unlocks the consumer's reviews after it (6.5).</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">EV-07</td><td class="who">Consumer</td><td>Get event recommendations based on interests, followed organisers, past events and district.</td><td class="p"><span class="pri could">Could</span></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="m-ticketing">6.3 Ticketing and entry (after the ATP)</h3>
+<div class="callout"><b>Not in the ATP release.</b> <span class="tag">v2</span> Following the proposal, ticketing and entry is the first phase after the ATP. The requirements stay here at Later so the module is ready to plan. When it arrives, ticket purchases become the first payments in the app, every ticket is issued as a QR code that organisers scan at the gate, and a checked-in ticket replaces 'Going' as what unlocks attendee reviews. In this section, ticket holders include people with free RSVPs.</div>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr class="later"><td class="id">TK-01</td><td class="who">Organiser</td><td>Create ticket tiers (e.g., Early Bird, General, VIP), each with its own price in LKR, quantity and sale period.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-02</td><td class="who">Organiser</td><td>Set up reserved seating by defining seated sections with rows and seat numbers, and linking each section to a tier.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-03</td><td class="who">Consumer</td><td>Pick specific seats from a seat grid built from the sections, rows and seat numbers in TK-02. Chosen seats are held while the consumer pays (proposed: 10 minutes), so no seat is sold twice.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-04</td><td class="who">Organiser</td><td>Create free events where consumers RSVP instead of paying, with an optional capacity limit. Each RSVP gets a QR ticket too.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-05</td><td class="who">Consumer</td><td>Pay for tickets in the app in LKR through a Sri Lankan payment gateway, and get a booking confirmation.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-06</td><td class="who">Consumer</td><td>Receive each ticket as a QR code in the app and by email. The same ticket can also be shown as an online ticket with its ticket number.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-07</td><td class="who">Organiser</td><td>Scan tickets at the entrance in the mobile app; who can scan is an open question (section 14). Each ticket is admitted once; a ticket-number lookup covers screens that won't scan.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-08</td><td class="who">Organiser</td><td>Agree, before an event goes live, to accept the platform's QR and online tickets at the gate.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-09</td><td class="who">Consumer</td><td>See upcoming tickets, past events and receipts in one place.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-10</td><td class="who">Organiser</td><td>Set a refund policy for each event, for example no refunds or refunds until a set date. The policy applies when an event is postponed.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr class="later"><td class="id">TK-11</td><td class="who">Consumer</td><td>Get a full refund when an event is cancelled or unpublished by an admin.</td><td class="p"><span class="pri later">Later</span></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="m-hiring">6.4 Hiring marketplace</h3>
+<p>Organisers hire providers in two ways: a direct booking request to a chosen provider, or a job post that providers answer with quotes. The price is agreed in the app but paid outside it; in-app payment would come in a later phase, if the group takes the idea further.</p>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">HR-01</td><td class="who">Organiser</td><td>Search and filter providers by category, district, rating, rank and verified status.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-02</td><td class="who">Provider</td><td>Keep an availability calendar by marking dates as booked or unavailable; organisers can then filter by available date.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">HR-03</td><td class="who">Organiser</td><td>Send a direct booking request with the event, date, times, brief and budget.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-04</td><td class="who">Provider</td><td>Accept or decline a booking request, or reply with a different quote (proposed). The organiser accepts or declines that quote, and acceptance creates the booking.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-05</td><td class="who">Organiser</td><td>Post a job (e.g., '2 photographers, 12 Dec, Colombo') with requirements, a budget range and a deadline for quotes.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-06</td><td class="who">Provider</td><td>Browse job posts that match their category and district, and apply with a quote and a message.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-07</td><td class="who">Organiser</td><td>Compare the quotes on a job post and accept one or more to create bookings.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-08</td><td class="who">Organiser, Provider</td><td>A confirmed booking records the agreed service, date, price and terms. Either side can cancel it with a reason.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-09</td><td class="who">Organiser, Provider</td><td>The organiser marks a booking as completed after the event (proposed), which unlocks reviews for both sides.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-10</td><td class="who">Organiser</td><td>Open stall slots for an event with the stall type, fee and application deadline. Vendors apply; the organiser approves or rejects.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-11</td><td class="who">Organiser</td><td>Invite a vendor directly to take a stall. The vendor accepts or declines; acceptance counts as approval for HR-12.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-12</td><td class="who">Organiser</td><td>Give each approved vendor a stall number.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-13</td><td class="who">Organiser, Vendor</td><td>Show the stall fee in the app; the vendor pays it outside the app in the MVP.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr class="later"><td class="id">HR-14</td><td class="who">Organiser, Provider</td><td>Pay providers and stall fees inside the app, for example a deposit first and the balance after the event.</td><td class="p"><span class="pri later">Later</span></td></tr>
+  </tbody>
+</table></div>
+
+<figure>
+  <svg viewBox="0 0 760 350" role="img" aria-labelledby="fig2t">
+    <title id="fig2t">Hiring flow: a direct booking request or a job post both end in a confirmed booking, which is completed after the event and opens reviews.</title>
+    <defs>
+      <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3D5459"/></marker>
+    </defs>
+    <text class="h" x="20" y="28">ROUTE 1 · DIRECT BOOKING</text>
+    <text class="h" x="20" y="168">ROUTE 2 · JOB POST</text>
+
+    <rect class="box" x="20" y="40" width="150" height="52" rx="8"/>
+    <text class="t" x="95" y="62" text-anchor="middle">Search providers</text>
+    <text class="s" x="95" y="79" text-anchor="middle">HR-01</text>
+    <rect class="box" x="205" y="40" width="150" height="52" rx="8"/>
+    <text class="t" x="280" y="62" text-anchor="middle">Booking request</text>
+    <text class="s" x="280" y="79" text-anchor="middle">HR-03</text>
+    <rect class="box" x="390" y="40" width="150" height="52" rx="8"/>
+    <text class="t" x="465" y="62" text-anchor="middle">Provider replies</text>
+    <text class="s" x="465" y="79" text-anchor="middle">accept · decline · quote</text>
+    <path class="ln" d="M170 66 H203" marker-end="url(#a2)"/>
+    <path class="ln" d="M355 66 H388" marker-end="url(#a2)"/>
+    <path class="ln dash" d="M465 92 V120 H95 V94" marker-end="url(#a2)"/>
+    <text class="l" x="280" y="136" text-anchor="middle">declined: pick another provider</text>
+
+    <rect class="box" x="20" y="180" width="150" height="52" rx="8"/>
+    <text class="t" x="95" y="202" text-anchor="middle">Post a job</text>
+    <text class="s" x="95" y="219" text-anchor="middle">HR-05</text>
+    <rect class="box" x="205" y="180" width="150" height="52" rx="8"/>
+    <text class="t" x="280" y="202" text-anchor="middle">Providers quote</text>
+    <text class="s" x="280" y="219" text-anchor="middle">HR-06</text>
+    <rect class="box" x="390" y="180" width="150" height="52" rx="8"/>
+    <text class="t" x="465" y="202" text-anchor="middle">Compare, accept</text>
+    <text class="s" x="465" y="219" text-anchor="middle">one or more · HR-07</text>
+    <path class="ln" d="M170 206 H203" marker-end="url(#a2)"/>
+    <path class="ln" d="M355 206 H388" marker-end="url(#a2)"/>
+
+    <path class="ln" d="M540 66 H565 V126 H588" marker-end="url(#a2)"/>
+    <path class="ln" d="M540 206 H565 V146 H588" marker-end="url(#a2)"/>
+
+    <rect class="box hl" x="590" y="110" width="150" height="52" rx="8"/>
+    <text class="t" x="665" y="132" text-anchor="middle">Confirmed booking</text>
+    <text class="s" x="665" y="149" text-anchor="middle">HR-08 · paid outside app</text>
+    <path class="ln" d="M665 162 V198" marker-end="url(#a2)"/>
+    <rect class="box" x="590" y="200" width="150" height="52" rx="8"/>
+    <text class="t" x="665" y="222" text-anchor="middle">Marked completed</text>
+    <text class="s" x="665" y="239" text-anchor="middle">after the event · HR-09</text>
+    <path class="ln" d="M665 252 V278" marker-end="url(#a2)"/>
+    <rect class="box alt" x="590" y="280" width="150" height="52" rx="8"/>
+    <text class="t" x="665" y="302" text-anchor="middle">Reviews open</text>
+    <text class="s" x="665" y="319" text-anchor="middle">both sides · RV-02</text>
+  </svg>
+  <figcaption><b>Hiring flow · 2 routes into 1 booking.</b> A declined request sends the organiser back to pick another provider; stall places work the same way, through invitations or applications.</figcaption>
+</figure>
+
+<h3 id="m-reviews">6.5 Reviews and ranking</h3>
+<p>Only people who actually worked together or attended can leave a review, so every rating is tied to a completed booking, a confirmed stall, or, for consumers, a 'Going' mark. <span class="tag">v2</span> 'Going' is weaker proof of attendance than a checked-in ticket; when ticketing arrives (6.3), check-in replaces it. Organisers are rated and ranked the same way as providers.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Reviewer</th><th>Reviews</th><th>Unlocked by</th><th>Category ratings</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Organiser</td><td>Vendor or freelancer</td><td>A completed booking, or a confirmed stall at an event that has ended</td><td>Quality, punctuality, communication, value for money</td></tr>
+    <tr><td class="id">Vendor or freelancer</td><td>Organiser</td><td>A completed booking, or a confirmed stall at an event that has ended</td><td>Payment, communication, planning</td></tr>
+    <tr><td class="id">Consumer <span class="tag">v2</span></td><td>Organiser and event</td><td>A 'Going' mark made before the event started, once the event has ended (proposed)</td><td>Organisation, value for money, overall experience (proposed)</td></tr>
+    <tr><td class="id">Consumer <span class="tag">v2</span></td><td>Stall vendor</td><td>A 'Going' mark, made before the event started, on the event where the stall was (proposed)</td><td>Quality, value for money, service (proposed)</td></tr>
+  </tbody>
+</table></div>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">RV-01</td><td class="who">All</td><td>Leave a 1-5 star rating, category ratings and a written review once a review is unlocked.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">RV-02</td><td class="who">All</td><td>Reviews open when a booking is marked completed (HR-09) or, for stalls and attendees, when the event ends. They close 14 days later (proposed).</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">RV-03</td><td class="who">All</td><td>Every organiser and provider profile has a review page: average rating, category averages, review count and every review.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">RV-04</td><td class="who">System</td><td>Compute a weighted rank score (formula below) and use it to order search results.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">RV-05</td><td class="who">System</td><td>Award tier badges from the rank score and completed jobs or events: New, Rising and Top Rated.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">RV-06</td><td class="who">All</td><td>Show leaderboards of top providers by category and district, and of top organisers.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">RV-07</td><td class="who">Admin</td><td>Hide reviews that break the rules after a report, and leave reviews from fake accounts out of ratings and the rank score.</td><td class="p"><span class="pri must">Must</span></td></tr>
+  </tbody>
+</table></div>
+<p>Proposed rank score (a starting point to tune with real data):</p>
+<div class="formula" aria-label="Rank equals 0.5 times (R-hat minus 1) over 4, plus 0.2 V, plus 0.2 B, plus 0.1 S; R-hat equals (v R plus m C) over (v plus m)">
+  <span>Rank = 0.5 · <span class="frac"><span>R̂ − 1</span><span>4</span></span> + 0.2 · V + 0.2 · B + 0.1 · S</span>
+  <span>R̂ = <span class="frac"><span>v·R + m·C</span><span>v + m</span></span></span>
+</div>
+<p><i>R</i> is the average star rating and <i>v</i> the number of reviews. <i>C</i> is the average rating across the category, and <i>m</i> is a minimum review count (proposed: 5). Together they stop a single five-star review from topping a leaderboard. <i>V</i> is the review count <i>v</i>, and <i>B</i> the number of completed jobs, each scaled 0-1 against the category leader. <i>S</i> is the share of booking requests answered. For organisers (proposed), <i>B</i> counts completed events and <i>R</i> combines ratings from consumers and providers. <i>C</i> and the scaling use all organisers, and <i>S</i> is the share of consumer chats and Q&amp;A questions answered.</p>
+
+<h3 id="m-maps">6.6 Venue maps</h3>
+<p>In the MVP, organisers upload a floor plan of the venue and drop labelled pins on it; consumers open it from the event page. <span class="tag">v2</span> A 3D view built from the same layout and pins is a Could (VM-05, VM-06); section 8 describes how it would work. An in-app map builder, stalls linked to vendor profiles and Google Maps directions are still under team discussion (section 14).</p>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">VM-01</td><td class="who">Organiser</td><td>Upload a venue layout image (e.g., PNG or JPG) for each event.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-02</td><td class="who">Organiser</td><td>Place pins on the layout and label each one: stages, stalls, entrances and exits, toilets, first aid, or a custom label. A stall pin can carry its stall number (HR-12).</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-03</td><td class="who">Organiser</td><td>Move, add or remove pins and republish the map at any time; attendees always see the latest version.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-04 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Open the map from the event page (and, once ticketing arrives, from a ticket), zoom and pan, and tap a pin to read its label.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-05 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Give a pin an optional footprint (width, depth, height and rotation), so stages, stalls and other areas can be shown as blocks in the 3D view. Pins without a footprint appear as markers.</td><td class="p"><span class="pri could">Could</span></td></tr>
+    <tr><td class="id">VM-06 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Switch from the 2D map to a 3D view of the venue, generated from the layout image and pins: rotate, zoom, and tap a block to read its label. The 2D map stays the default, and the only view on devices that cannot show 3D.</td><td class="p"><span class="pri could">Could</span></td></tr>
+    <tr class="later"><td class="id">VM-07 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Upload a ready-made 3D model of the venue (glTF or GLB) instead of the generated view, within size limits.</td><td class="p"><span class="pri later">Later</span></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="m-community">6.7 Community: forum and meetups</h3>
+<p>Every event gets its own discussion board, and topic or city communities keep people talking between events. All roles can post, and a badge shows each person's role. Group chats and direct messages are covered in 6.8.</p>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">CM-01</td><td class="who">System</td><td>Create a discussion board for every published event, for attendee discussion and meetup plans (e.g., 'Who's going? Meet at Gate 2'). Questions for the organiser go to the event Q&amp;A (MS-06).</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">CM-02</td><td class="who">All</td><td>Join topic and city communities (e.g., 'Colombo Music Scene', 'Food Festivals'). Admins create the first set (proposed).</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">CM-03</td><td class="who">All</td><td>Post threads with text, images and links, reply in nested threads, upvote or downvote, and sort by newest or most upvoted.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">CM-04</td><td class="who">All</td><td>See a role badge beside every name: Organiser, Vendor, Freelancer or Consumer, plus Verified where earned.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">CM-05</td><td class="who">Consumer</td><td>Follow other users or send friend requests, and see which friends are going to an event.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">CM-06</td><td class="who">Consumer</td><td>Going status is private by default (proposed). In privacy settings (AC-06) a consumer can show it to friends (CM-05) or to everyone; only 'everyone' adds them to the event's public Going list.</td><td class="p"><span class="pri must">Must</span></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="m-messaging">6.8 Messaging, announcements and notifications</h3>
+<p>Private chat covers every pair the platform connects. Organisers can also broadcast announcements and answer questions in public on the event page.</p>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">MS-01 <span class="tag">v2</span></td><td class="who">Consumer, Organiser</td><td>1:1 chat between a consumer and an event's organiser, for example about entry or the line-up.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">MS-02</td><td class="who">Organiser, Provider</td><td>1:1 chat between an organiser and a vendor or freelancer, with photos and files such as briefs and quotes.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">MS-03</td><td class="who">Consumer</td><td>1:1 direct messages between consumers, within each person's privacy settings, with block and report.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">MS-04 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Each event has a group chat that consumers who marked it 'Going' can choose to join (ticket holders, once ticketing arrives).</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">MS-05 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Announcements to consumers who marked an event 'Going' or 'Interested' and to the organiser's followers (e.g., 'Gates open at 5 PM'), delivered in the app and as push notifications.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">MS-06</td><td class="who">All</td><td>Public Q&amp;A on each event page; the organiser's answers are visible to everyone.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">MS-07 <span class="tag">v2</span></td><td class="who">All</td><td>Transactional notifications by push, in-app and email: booking confirmations, booking requests and quotes, stall decisions, verification decisions, new messages and event changes.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">MS-08</td><td class="who">All</td><td>Engagement notifications: event reminders, new events from followed organisers and friend activity. Each type can be switched off.</td><td class="p"><span class="pri should">Should</span></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="m-dashboard">6.9 Organiser dashboard and analytics</h3>
+<p>Organisers run their events from the web portal as well as the app, with interest, hires and stalls in one place. <span class="tag">v2</span> Vendors use the same portal to manage their bookings; freelancers could use it too (proposed).</p>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">OD-01 <span class="tag">v2</span></td><td class="who">Organiser</td><td>See 'Going' and 'Interested' counts for each event as they change.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr class="later"><td class="id">OD-02 <span class="tag">v2</span></td><td class="who">Organiser</td><td>See ticket sales, revenue and remaining tickets per tier as they happen, and live check-in counts at the gate against tickets sold. Arrives with ticketing (6.3).</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr><td class="id">OD-03</td><td class="who">Organiser</td><td>Track each event's hiring and stalls: requests sent, quotes received, confirmed bookings, stall applications and approvals.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">OD-04 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Analytics: event page views, post and reel engagement, follower growth and 'Going' marks over time.</td><td class="p"><span class="pri should">Should</span></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="m-admin">6.10 Administration, trust and safety</h3>
+<p>Admins verify organisers and providers, act on reports and handle disputes from an admin panel on the web. Safety also runs through the other modules: verified-only reviews (6.5), opt-in 'Going' lists (6.7), and private messages limited by privacy settings, with block and report (6.8).</p>
+<div class="tbl"><table class="req">
+  <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td class="id">AD-01</td><td class="who">Admin</td><td>Review verification documents and approve or reject organisers and providers, giving a reason.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AD-02</td><td class="who">Admin</td><td>Work through a report queue covering posts, comments, threads, reviews, messages and users. Actions: dismiss, hide, remove, warn, suspend or ban.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AD-03 <span class="tag">v2</span></td><td class="who">Admin</td><td>Unpublish an event when it is reported as fake, which also closes its stall applications and job posts (and, once ticketing arrives, pauses its ticket sales).</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AD-04 <span class="tag">v2</span></td><td class="who">Admin</td><td>Handle disputes, such as a provider no-show or a stall that was paid for but not given, with the booking or stall history attached. Outcomes: keep or hide related reviews, or apply the AD-02 actions. Ticket refunds join this list with ticketing.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AD-05</td><td class="who">Admin</td><td>Create, edit and archive communities.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AD-06</td><td class="who">Admin</td><td>Keep an audit log of every admin action.</td><td class="p"><span class="pri should">Should</span></td></tr>
+  </tbody>
+</table></div>
+
+<!-- ============================================================ 7 -->
+<h2 id="nfr">7. Non-functional requirements</h2>
+<p>The app must stay usable on mobile data and protect personal data under Sri Lankan law. Figures marked "proposed" are starting targets for the group to confirm.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Area</th><th>Requirement</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Platforms</td><td>Android and iOS apps for all roles. A web portal where organisers and vendors manage events, bookings and venue maps on a larger screen. Proposed: freelancers can use the portal too, and admins work from a web admin panel.</td></tr>
+    <tr><td class="id">Performance <span class="tag">v2</span></td><td>Feed, event pages and search load within 3 seconds on 4G mobile data (proposed). Reels start quickly on mobile data. The 3D venue view (VM-06), if built, downloads only when a consumer opens it, so it never slows the 2D map or the event page.</td></tr>
+    <tr><td class="id">Security</td><td>All traffic over HTTPS, passwords hashed, and role-based access so each role sees only its own tools.</td></tr>
+    <tr><td class="id">Privacy</td><td>Collect only the data each feature needs, and ask consent for marketing messages. Users can view, correct and delete their data. NIC and registration documents are visible to admins only. The platform must comply with Sri Lanka's Personal Data Protection Act, No. 9 of 2022 (PDPA).</td></tr>
+    <tr><td class="id">Localisation</td><td>All interface text lives in translation files from the start, with Unicode fonts for Sinhala and Tamil. The Sinhala and Tamil screens themselves are a Should (AC-10). Prices in LKR.</td></tr>
+    <tr><td class="id">Accessibility <span class="tag">v2</span></td><td>Screen-reader labels, readable text sizes and sufficient colour contrast, targeting WCAG 2.1 AA (proposed). The 2D venue map with labelled pins is the accessible version of the 3D view.</td></tr>
+    <tr><td class="id">Media <span class="tag">v2</span></td><td>Upload size and length limits on images and reels, and on 3D models (VM-07), to keep storage and streaming costs under control.</td></tr>
+  </tbody>
+</table></div>
+<h4>Added with ticketing, after the ATP <span class="tag">v2</span></h4>
+<div class="tbl"><table>
+  <thead><tr><th>Area</th><th>Requirement</th></tr></thead>
+  <tbody>
+    <tr class="later"><td class="id">Ticket integrity</td><td>No ticket or seat is sold twice, even when many people buy at once. QR codes are signed so they cannot be forged, and each scan is recorded so a ticket is admitted only once.</td></tr>
+    <tr class="later"><td class="id">Peak demand</td><td>The platform stays up during on-sale rushes for popular events, and is load-tested before launch against a target the group sets (buyers at once for one event).</td></tr>
+    <tr class="later"><td class="id">Offline tickets</td><td>A downloaded ticket stays viewable without signal, since venues can have weak coverage.</td></tr>
+    <tr class="later"><td class="id">Payments</td><td>Card details are handled only by the payment gateway; the platform never stores them.</td></tr>
+  </tbody>
+</table></div>
+<div class="callout teal"><b>PDPA status:</b> a gazette order of 22 July 2026 (No. 2498/16) starts the Act's processing rules (Part I) and the duties of controllers and processors (Part III) on 1 January 2027. This comes from two reports (The Leveraged Years, Concentric); we could not open the official gazette, so confirm it before launch. Data-subject rights (Part II) and penalties (Part VII) still await a further order. The Act also sets 72 hours to report a personal data breach to the Data Protection Authority (DLA Piper). Building for the full Act now avoids rework.</div>
+
+<!-- ============================================================ 8 -->
+<h2 id="tech">8. Technical approach <span class="tag">v2</span></h2>
+<p>A recommended architecture for the ATP release, for the group to confirm. It uses one language, TypeScript, across the mobile app, the web portal and the backend, so a five-person team can share code and move between parts. Everything runs on free tiers during the ATP and the pilot. The architecture diagram is in <a href="revamp-architecture.html"><code>prd/revamp-architecture.html</code></a>.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Layer</th><th>Recommended</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Mobile app</td><td>React Native with Expo</td><td>One app for all four roles, with screens chosen by role. Expo handles builds and push notifications for Android and iOS.</td></tr>
+    <tr><td class="id">Web portal</td><td>Next.js (React), hosted on Vercel</td><td>The portal for organisers, vendors and freelancers. The admin panel is part of the same app, behind admin-only routes.</td></tr>
+    <tr><td class="id">Backend</td><td>NestJS, one deployable service split into modules (accounts, events, hiring, reviews, maps, community, messaging, admin); REST for the apps and Socket.IO for chat; JWT logins with role checks</td><td>One service to deploy and test now, with clear module boundaries if parts need to split later.</td></tr>
+    <tr><td class="id">Database</td><td>PostgreSQL (Neon) through the Prisma ORM</td><td>Bookings, stalls, reviews and rank scores are relational. PostgreSQL's built-in text search covers event and provider search at launch.</td></tr>
+    <tr><td class="id">Background jobs</td><td>Redis (Upstash) with a BullMQ worker</td><td>Sends notifications, opens and closes review windows (RV-02), and recalculates rank scores (RV-04).</td></tr>
+    <tr><td class="id">Media</td><td>Cloudinary</td><td>Images, reels (compressed for mobile data), portfolios and venue layouts. Verification documents are stored as private files that only admins can open, through short-lived signed links (PDPA).</td></tr>
+    <tr><td class="id">Notifications</td><td>Expo Push (FCM and APNs), Resend for email, an SMS gateway for sign-up codes (e.g., Notify.lk or Twilio)</td><td>Covers MS-07 and AC-01. The SMS provider is still to be chosen.</td></tr>
+    <tr><td class="id">Shared code</td><td>One repository (monorepo, e.g., Turborepo) with shared types and validation (Zod)</td><td>The app, the portal and the API agree on the same data shapes.</td></tr>
+  </tbody>
+</table></div>
+<h4>The 3D venue view (VM-05 to VM-07)</h4>
+<ul>
+  <li><b>Built from the map data, not from models.</b> The uploaded floor plan is laid flat as the floor of a 3D scene, and each pin with a footprint (VM-05) becomes a simple block: stage, stall, entrance, toilet and so on. One map record, stored as JSON in PostgreSQL, drives both the 2D map and the 3D view, so organisers need no 3D modelling skills. Ready-made glTF/GLB models (VM-07) can come later and would be stored in Cloudinary.</li>
+  <li><b>Web portal:</b> Three.js, through React Three Fiber and its helper library drei. The viewer loads only in the browser (not during server rendering) and only when someone opens it.</li>
+  <li><b>Mobile app:</b> the recommended option shows the same web viewer inside a WebView, so there is one viewer to build, and pin taps are passed back to native screens. The alternative, expo-gl with React Three Fiber's native renderer, is smoother but means a second rendering setup and more testing on low-end Android phones.</li>
+  <li><b>Loaded on request.</b> The 2D map is the default. Three.js adds roughly 150 KB or more (compressed), so it downloads only when someone taps "View in 3D", which keeps event pages within the 3-second target. The 2D map with pin labels stays the screen-reader-friendly version (WCAG 2.1 AA).</li>
+  <li><b>Light scenes</b> for older phones: few distinct shapes, identical stall blocks repeated with Three.js instancing, and uploaded models compressed with Draco or meshopt.</li>
+  <li><b>Organiser editor:</b> a drag-to-place editor in the web portal, where stalls snap onto the floor plan, would make footprints easy to set. It is part of the in-app map builder that is still under discussion (section 14), so the group decides that first.</li>
+  <li><b>Runs on the user's device.</b> The viewer draws the scene with the phone's or laptop's graphics chip (WebGL), so the server does no rendering and needs no GPU.</li>
+  <li><b>No new backend service.</b> The venue maps module stores and serves the extra map data, and the monorepo gets a shared <code>venue-viewer</code> package that both the web portal and the mobile app use.</li>
+</ul>
+
+<!-- ============================================================ 9 -->
+<h2 id="scope">9. MVP scope and priorities</h2>
+<p>The ATP release ships four core modules: events and promotion, the hiring marketplace with reviews, community, and venue maps. <span class="tag">v2</span> Ticketing and entry is the first phase after the ATP. The table is the proposed MoSCoW split for the add-ons; the group should confirm or change it.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Add-on</th><th>Proposed priority</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Admin and moderation</td><td class="p"><span class="pri must">Must</span></td><td>Needed from day one to verify accounts, act on reports and remove harmful content.</td></tr>
+    <tr><td class="id">Verified badges <span class="tag">v2</span></td><td class="p"><span class="pri must">Must</span></td><td>With stall fees and hiring paid outside the app, verification is the main guard against fake organisers who take fees and never deliver, and later against fake ticketed events.</td></tr>
+    <tr><td class="id">Transactional notifications <span class="tag">v2</span></td><td class="p"><span class="pri must">Must</span></td><td>Booking confirmations, hiring requests, stall decisions and new messages depend on them.</td></tr>
+    <tr><td class="id">Engagement notifications</td><td class="p"><span class="pri should">Should</span></td><td>Reminders and follow updates help attendance, but no task depends on them.</td></tr>
+    <tr><td class="id">Sinhala and Tamil</td><td class="p"><span class="pri should">Should</span></td><td>Widens reach across Sri Lanka. Build translation-ready from the start and add the languages once screens settle.</td></tr>
+    <tr><td class="id">Organiser analytics <span class="tag">v2</span></td><td class="p"><span class="pri should">Should</span></td><td>'Going' counts and hiring tracking are already Must (6.9); the fuller dashboard adds value but is not core.</td></tr>
+    <tr><td class="id">Availability calendar</td><td class="p"><span class="pri should">Should</span></td><td>Cuts back-and-forth when hiring; simple date blocking is enough at first.</td></tr>
+    <tr><td class="id">Recommendations</td><td class="p"><span class="pri could">Could</span></td><td>Only useful once there is usage data; search and filters cover discovery at launch.</td></tr>
+    <tr><td class="id">3D venue view <span class="tag">v2</span></td><td class="p"><span class="pri could">Could</span></td><td>Helps attendees picture large venues, but the 2D map already covers every task. Start it only once VM-01 to VM-04 work.</td></tr>
+    <tr class="later"><td class="id">Refunds and cancellations <span class="tag">v2</span></td><td class="p"><span class="pri later">Later</span></td><td>Moves with ticketing (6.3). When it arrives, full refunds on cancellation (TK-11) should be a Must and per-event refund policies (TK-10) a Should.</td></tr>
+  </tbody>
+</table></div>
+<p>Notifications are split into two rows because booking flows cannot work without the transactional ones. The release phases are drawn below; no dates are set yet, so add them once the group knows its SDGP milestones.</p>
+
+<figure>
+  <svg viewBox="0 0 760 390" role="img" aria-labelledby="fig3t">
+    <title id="fig3t">Release phases: discovery, the ATP release and a live pilot, then a decision point, then ticketing, payments in the app, hiring for private events and premium accounts.</title>
+    <defs>
+      <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3D5459"/></marker>
+    </defs>
+    <text class="h" x="20" y="24">DURING THE ATP</text>
+
+    <rect class="box" x="20" y="36" width="160" height="164" rx="8"/>
+    <text class="t" x="34" y="60">1 · Discovery</text>
+    <text class="s" x="34" y="84">Interview organisers;</text>
+    <text class="s" x="34" y="100">survey vendors,</text>
+    <text class="s" x="34" y="116">freelancers and</text>
+    <text class="s" x="34" y="132">consumers; confirm</text>
+    <text class="s" x="34" y="148">the backlog</text>
+
+    <rect class="box hl" x="200" y="36" width="230" height="164" rx="8"/>
+    <text class="t" x="214" y="60">2 · ATP release</text>
+    <text class="s" x="214" y="80">Accounts and verification</text>
+    <text class="s" x="214" y="95">Events and promotion feed</text>
+    <text class="s" x="214" y="110">Hiring marketplace and stalls</text>
+    <text class="s" x="214" y="125">Reviews and ranking</text>
+    <text class="s" x="214" y="140">Community and chat</text>
+    <text class="s" x="214" y="155">Venue maps (3D view if time allows)</text>
+    <text class="s" x="214" y="170">Admin and moderation</text>
+    <text class="s" x="214" y="185">Sinhala and Tamil, if time allows</text>
+
+    <rect class="box" x="450" y="36" width="160" height="164" rx="8"/>
+    <text class="t" x="464" y="60">3 · Live pilot</text>
+    <text class="s" x="464" y="84">1–2 partner organisers</text>
+    <text class="s" x="464" y="100">and the vendors they</text>
+    <text class="s" x="464" y="116">already use run a real</text>
+    <text class="s" x="464" y="132">event; first reviews</text>
+    <text class="s" x="464" y="148">and SDG measures</text>
+
+    <path class="ln" d="M180 118 H198" marker-end="url(#a3)"/>
+    <path class="ln" d="M430 118 H448" marker-end="url(#a3)"/>
+    <path class="ln" d="M610 118 H643" marker-end="url(#a3)"/>
+
+    <path d="M690 78 L734 118 L690 158 L646 118 Z" fill="#F7E7BF" stroke="#E3A21A" stroke-width="1.4"/>
+    <text class="t" x="690" y="114" text-anchor="middle" style="font-size:12px">Decision</text>
+    <text class="t" x="690" y="129" text-anchor="middle" style="font-size:12px">point</text>
+
+    <path class="ln" d="M690 158 V232 H100 V258" marker-end="url(#a3)"/>
+    <text class="l" x="400" y="226" text-anchor="middle">if the group takes REVAMP further</text>
+    <text class="h" x="20" y="226">BEYOND THE ATP</text>
+
+    <rect class="box" x="20" y="260" width="160" height="112" rx="8"/>
+    <text class="t" x="34" y="284">Ticketing, entry</text>
+    <text class="s" x="34" y="306">Tiers, reserved seats,</text>
+    <text class="s" x="34" y="321">free RSVP, QR tickets</text>
+    <text class="s" x="34" y="336">and gate scanning,</text>
+    <text class="s" x="34" y="351">refunds, event reviews</text>
+
+    <rect class="box" x="205" y="260" width="160" height="112" rx="8"/>
+    <text class="t" x="219" y="284">Payments in app</text>
+    <text class="s" x="219" y="306">Hiring deposits,</text>
+    <text class="s" x="219" y="321">stall fees, ticket and</text>
+    <text class="s" x="219" y="336">hiring commission,</text>
+    <text class="s" x="219" y="351">venue map extras</text>
+
+    <rect class="box" x="390" y="260" width="160" height="112" rx="8"/>
+    <text class="t" x="404" y="284">Private events</text>
+    <text class="s" x="404" y="306">Hiring for weddings,</text>
+    <text class="s" x="404" y="321">birthdays and other</text>
+    <text class="s" x="404" y="336">private events</text>
+
+    <rect class="box later" x="575" y="260" width="160" height="112" rx="8"/>
+    <text class="t" x="589" y="284">Premium accounts</text>
+    <text class="s" x="589" y="306">Later version: VIP</text>
+    <text class="s" x="589" y="321">and fast-sale ticket</text>
+    <text class="s" x="589" y="336">access</text>
+
+    <path class="ln" d="M180 316 H203" marker-end="url(#a3)"/>
+    <path class="ln" d="M365 316 H388" marker-end="url(#a3)"/>
+    <path class="ln" d="M550 316 H573" marker-end="url(#a3)"/>
+  </svg>
+  <figcaption><b>Release phases · 3 phases during the ATP, 1 decision point, then 4 steps after it.</b> <span class="tag">v2</span> This follows the proposal's roadmap. Whether the hiring marketplace extends to private events is still an open question (section 14).</figcaption>
+</figure>
+
+<!-- ============================================================ 10 -->
+<h2 id="business">10. Business model</h2>
+<p>The ATP release earns no revenue, because it takes no payments in the app. <span class="tag">v2</span> The first revenue stream, a commission on ticket sales, starts once ticketing and payments move into the app after the ATP. A hiring commission would start if hiring payments move into the app, and premium accounts arrive in a later version. Rates are not set yet (section 14).</p>
+<div class="tbl"><table>
+  <thead><tr><th>Revenue stream</th><th>Starts</th><th>How it works</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Ticket commission <span class="tag">v2</span></td><td>After the ATP, with payments in the app</td><td>A percentage or fixed fee on each paid ticket. Free RSVP events carry no fee (proposed).</td></tr>
+    <tr><td class="id">Hiring commission</td><td>Later phase, if hiring payments move into the app</td><td>A fee on each vendor or freelancer booking paid through the app.</td></tr>
+    <tr><td class="id">Premium accounts</td><td>Later version</td><td>Paid accounts that give access to VIP or fast-sale tickets. Who buys them and what they include is still to be defined.</td></tr>
+  </tbody>
+</table></div>
+
+<!-- ============================================================ 11 -->
+<h2 id="metrics">11. Success metrics</h2>
+<p>Success means each party completes its core job on the platform. These metrics are proposed, and the group sets a target for each. Only the last one can be measured on a prototype; the rest need live users in the pilot.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Goal</th><th>Metric</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Organisers run events here</td><td>Events published per month; share of organisers who publish a second event</td></tr>
+    <tr><td class="id">Consumers plan to attend <span class="tag">v2</span></td><td>Share of event page visits that end in a 'Going' mark</td></tr>
+    <tr><td class="id">Hiring works</td><td>Share of booking requests and job posts that end in a confirmed booking</td></tr>
+    <tr><td class="id">Stalls fill here <span class="tag">v2</span></td><td>Share of stall slots filled through applications or invitations</td></tr>
+    <tr><td class="id">Reputation builds <span class="tag">v2</span></td><td>Share of completed bookings, confirmed stalls and 'Going' marks that receive a review</td></tr>
+    <tr><td class="id">Community is active</td><td>Weekly active users on boards and communities; meetup threads per event</td></tr>
+    <tr><td class="id">Consumers come back <span class="tag">v2</span></td><td>Share of consumers who mark 'Going' on a second event</td></tr>
+    <tr><td class="id">The prototype is usable <span class="tag">v2</span></td><td>Task completion rate in usability tests: publish an event, post a job, upload a venue map</td></tr>
+  </tbody>
+</table></div>
+<h4>Added with ticketing, after the ATP <span class="tag">v2</span></h4>
+<div class="tbl"><table>
+  <thead><tr><th>Goal</th><th>Metric</th></tr></thead>
+  <tbody>
+    <tr class="later"><td class="id">Consumers buy tickets</td><td>Share of event page visits that end in a ticket purchase or RSVP</td></tr>
+    <tr class="later"><td class="id">Entry runs smoothly</td><td>Share of tickets admitted by QR scan without a manual lookup</td></tr>
+  </tbody>
+</table></div>
+
+<!-- ============================================================ 12 -->
+<h2 id="assumptions">12. Assumptions and dependencies</h2>
+<p>The ATP release rests on organisers, providers and consumers all using one new platform; the ticketing phase will also rest on organisers accepting platform tickets at the gate and on a local payment gateway. Check these assumptions early. <span class="tag">v2</span></p>
+<h4>Assumptions</h4>
+<ul>
+  <li>Consumers have smartphones with mobile data (and, for ticketing, can pay online).</li>
+  <li>Everyone can like, comment on and share organiser posts, even though only organisers publish to the feed.</li>
+  <li>Stall vendors are businesses; freelancers do not take stalls.</li>
+  <li>Hiring and stall fees are paid outside the app in the MVP, so disputes about them rely on the booking record as evidence.</li>
+  <li><span class="tag">v2</span> Organisers keep selling tickets through their current channels during the ATP, and can link to them from the event page (EV-01).</li>
+  <li><span class="tag">v2</span> 'Going' marks are honest enough to unlock reviews, with moderation (RV-07) catching abuse.</li>
+  <li><b>For ticketing:</b> organisers will accept the platform's QR and online tickets at the gate. The team notes that some Sri Lankan organisers already accept online and QR tickets.</li>
+</ul>
+<h4>Dependencies</h4>
+<div class="tbl"><table>
+  <thead><tr><th>Dependency</th><th>Used for</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Push notification services</td><td>Alerts on Android and iOS</td><td>For example Firebase Cloud Messaging and Apple Push Notification service, reached through Expo Push (section 8).</td></tr>
+    <tr><td class="id">Email delivery service <span class="tag">v2</span></td><td>Booking confirmations and verification emails (e-tickets and receipts once ticketing arrives)</td><td>Recommended: Resend (section 8).</td></tr>
+    <tr><td class="id">Media storage and streaming <span class="tag">v2</span></td><td>Images, reels, portfolios, venue layouts, verification documents, and 3D models (VM-07)</td><td>Reels need compression so they load quickly on mobile data. Recommended: Cloudinary (section 8).</td></tr>
+    <tr><td class="id">3D rendering library <span class="tag">v2</span></td><td>The 3D venue view (VM-06)</td><td>Three.js with React Three Fiber; open source, no service cost. Only needed if VM-06 is built.</td></tr>
+    <tr><td class="id">Verification checks</td><td>NIC and business registration</td><td>Manual admin review in the MVP.</td></tr>
+    <tr><td class="id">SMS service</td><td>One-time codes to verify phone numbers at sign-up (AC-01)</td><td>Provider not chosen yet; for example Notify.lk or Twilio.</td></tr>
+    <tr><td class="id">Maps service</td><td>Not needed in the MVP</td><td>Only if Google Maps directions are added later.</td></tr>
+    <tr class="later"><td class="id">Payment gateway supporting LKR <span class="tag">v2</span></td><td>Ticket payments and refunds, after the ATP</td><td>Must offer a sandbox so testing can run without real money. Options that support LKR and have a sandbox: PayHere, Onepay, DirectPay, WEBXPAY and PAYable. PayHere also offers Flutter and React Native SDKs.</td></tr>
+  </tbody>
+</table></div>
+
+<!-- ============================================================ 13 -->
+<h2 id="risks">13. Risks and mitigations</h2>
+<p>The biggest risks are scope, getting all four parties on board at once, and trust: fake organisers, fake reviews and unsafe contact.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead>
+  <tbody>
+    <tr><td>The scope is large for an SDGP timeline: four core modules plus add-ons, on mobile and web. <span class="tag">v2</span></td><td class="p">High</td><td>Build thin end-to-end slices first (publish an event, hire a provider, upload a venue map). Keep Should and Could items, including the 3D view, out until the Musts work, and review scope every sprint.</td></tr>
+    <tr><td>Cold start: organisers won't join without consumers and providers, and the reverse.</td><td class="p">High</td><td>Pilot with one or two partner organisers and the vendors they already use. Seed communities by city and topic.</td></tr>
+    <tr><td>Fake organisers: fake events, or stall fees and bookings agreed in the app and never honoured. <span class="tag">v2</span></td><td class="p">High</td><td>Verify organisers before they open stalls or hire (AC-08), let admins unpublish reported events (AD-03), and keep the booking and stall record as evidence for disputes (AD-04).</td></tr>
+    <tr><td>Harassment or unsafe meetups through direct messages and group chats.</td><td class="p">High</td><td>Privacy settings, opt-in 'Going' lists, block and report, and active moderation. The minimum age is still to be decided.</td></tr>
+    <tr><td>Personal data such as NIC scans and messages creates legal obligations.</td><td class="p">High</td><td>Collect the minimum, restrict documents to admins, and follow the PDPA (section 7).</td></tr>
+    <tr><td>Without ticketing, organisers still need another site to sell tickets, so REVAMP adds a tool instead of replacing one. <span class="tag">v2</span></td><td class="p">Medium</td><td>Link to ticket sales from the event page (EV-01), lead with hiring, reputation and community, which rivals lack (section 5), and bring ticketing first after the ATP.</td></tr>
+    <tr><td>Fake or revenge reviews. <span class="tag">v2</span></td><td class="p">Medium</td><td>Reviews only from completed bookings, confirmed stalls or 'Going' marks made before the event, a rank score that damps small samples, and admin moderation.</td></tr>
+    <tr><td>'Going' is weak proof of attendance, so consumers can review events they never went to. <span class="tag">v2</span></td><td class="p">Medium</td><td>Count only 'Going' marks made before the event starts, allow one review per event, and moderate under RV-07. Checked-in tickets replace 'Going' when ticketing arrives.</td></tr>
+    <tr><td>Storage and streaming costs for reels grow quickly.</td><td class="p">Medium</td><td>Upload limits, compression and a managed media service.</td></tr>
+    <tr><td>With hiring paid outside the app, the platform cannot enforce deals or earn hiring commission in the MVP.</td><td class="p">Medium</td><td>Keep the booking record as evidence, and move hiring payments into the app in a later phase if the group goes further.</td></tr>
+    <tr><td>The 3D view adds scope and runs poorly on low-end phones. <span class="tag">v2</span></td><td class="p">Low</td><td>Keep it a Could, generate it from existing pins (no modelling), load it only on request, and keep the 2D map as the default.</td></tr>
+  </tbody>
+</table></div>
+<h4>Risks for the ticketing phase <span class="tag">v2</span></h4>
+<div class="tbl"><table>
+  <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead>
+  <tbody>
+    <tr class="later"><td>Fake ticketed events and ticket scams.</td><td class="p">High</td><td>Verification before ticket sales (AC-08), admins pause sales on reported events (AD-03), and decide payout timing (section 14).</td></tr>
+    <tr class="later"><td>Weak signal at venues stops QR check-in.</td><td class="p">Medium</td><td>Tickets stay viewable offline on consumer phones; offline scanning is an open question.</td></tr>
+    <tr class="later"><td>Going live with a payment gateway may need merchant registration and approval.</td><td class="p">Medium</td><td>Build against the gateway's sandbox first, and start onboarding early.</td></tr>
+  </tbody>
+</table></div>
+
+<!-- ============================================================ 14 -->
+<h2 id="questions">14. Open questions</h2>
+<p>These decisions are still open. Tick each one off as the group settles it, and update the section it affects.</p>
+<h4>For the ATP release</h4>
+<ul class="qs">
+  <li class="done">The product name. <i>Settled 6 October 2026: REVAMP.</i></li>
+  <li class="done">Is ticketing in the MVP? <i>Settled 6 October 2026: no, it is the first phase after the ATP (6.3).</i></li>
+  <li>Can one email address or phone number register separate accounts for different roles?</li>
+  <li>What is the minimum user age, and how are age-restricted events (e.g., 18+) handled?</li>
+  <li><span class="tag">v2</span> Can unverified organisers publish events at all, or only promote them without hiring and stalls?</li>
+  <li><span class="tag">v2</span> Is a 'Going' mark enough to unlock attendee reviews, or should it need more, such as a location check-in at the venue?</li>
+  <li><span class="tag">v2</span> Venue map extras under discussion: an in-app 2D or 3D map builder, stalls linked to vendor profiles, Google Maps directions.</li>
+  <li><span class="tag">v2</span> Is the 3D venue view (VM-05, VM-06) built during the ATP if time allows, or after it?</li>
+  <li>Who creates communities: admins only, or users too?</li>
+  <li>Which verification documents each role must submit.</li>
+  <li>Rank score weights, tier badge thresholds and the review window length.</li>
+  <li>A target for each success metric.</li>
+  <li>Can organisers use the hiring marketplace for private events with no public event page, such as weddings?</li>
+  <li><span class="tag">v2</span> Does the group confirm the recommended stack (section 8)?</li>
+  <li><span class="tag">v2</span> If the timeline slips, which core features move to Should first? Proposed candidates: reels, leaderboards, tier badges, forum voting and counter-offers.</li>
+</ul>
+<h4>For the ticketing phase <span class="tag">v2</span></h4>
+<ul class="qs">
+  <li>Gate staff access: staff sub-accounts, the organiser's own account only, or a temporary check-in code?</li>
+  <li>Offline scanning: should the organiser app check tickets without signal and sync later? TicketsMinistry already offers an offline mode (section 5).</li>
+  <li>Can unverified organisers publish free RSVP events?</li>
+  <li>Reserved seating: is setting up sections, rows and seats (TK-02) enough, or do some venues need a drawn seating plan?</li>
+  <li>Commission rates, and whether the ticket fee is added for the buyer or taken from the organiser's revenue.</li>
+  <li>How and when is ticket money paid out to organisers (before or after the event, and to which account), and who covers refunds?</li>
+  <li>Which payment gateway to use.</li>
+  <li>Will testing run on the payment gateway's sandbox only, or take real payments in a live pilot?</li>
+  <li>Can one consumer buy several tickets in one order and send them to friends' accounts, and what is the per-order limit?</li>
+  <li>Premium accounts: who buys them, and what do "VIP or fast-sale tickets" include?</li>
+</ul>
+
+<!-- ============================================================ Sources -->
+<h2 id="sources">Sources</h2>
+<p class="note">Pages checked on 30 September 2026. The full research, and how reliable each source is, is in <a href="../PRD%20Research.md">PRD Research.md</a>.</p>
+<h4>Competitors</h4>
+<ul class="sources">
+  <li><a href="https://mytickets.lk/">MyTickets</a>, its <a href="https://mytickets.lk/faq">FAQ</a>, <a href="https://mytickets.lk/ticket-policy">ticket policy</a> and <a href="https://mytickets.lk/business">business page</a></li>
+  <li>TicketsMinistry for organisers and its Sri Lanka ticketing guide</li>
+  <li><a href="https://clicktickets.lk/">ClickTickets</a></li>
+  <li><a href="https://lk.bookmyshow.com/">BookMyShow LK</a> and <a href="https://www.ft.lk/article/563792/BookMyShow--India-s-largest-online-entertainment-ticketing-platform--comes-to-Sri-Lanka">Daily FT: BookMyShow comes to Sri Lanka</a></li>
+  <li>WeddingArcade, <a href="https://planawedding.lk/vendor-marketplace">Plan A Wedding vendor marketplace</a> and WedMeGood Sri Lanka</li>
+  <li><a href="https://djbooking.lk/">DJBooking.lk</a> and <a href="https://ikman.lk/en/ads/sri-lanka/events-entertainment">ikman.lk Events &amp; Entertainment</a></li>
+  <li><a href="https://www.eventeny.com/why-eventeny/">Why Eventeny</a> and <a href="https://www.eventeny.com/mapping/">Eventeny mapping</a></li>
+  <li><a href="https://apps.apple.com/us/app/posh-social-experiences/id1556928106">Posh on the App Store</a></li>
+  <li>Eventbrite on Wikipedia and <a href="https://www.eventbrite.com/organizer/features/reserved-seating/">Eventbrite reserved seating</a></li>
+  <li>Meetup on Wikipedia and <a href="https://help.meetup.com/hc/en-us/articles/360002883891-Setting-event-fees">Meetup: setting event fees</a></li>
+</ul>
+<h4>Privacy law</h4>
+<ul class="sources">
+  <li><a href="https://www.parliament.lk/uploads/acts/gbills/english/6242.pdf">Personal Data Protection Act, No. 9 of 2022</a> (Parliament of Sri Lanka)</li>
+  <li><a href="https://www.dlapiperdataprotection.com/index.html?t=law&amp;c=LK">DLA Piper: data protection laws of Sri Lanka</a></li>
+  <li>The Leveraged Years: PDPA commencement order, 3 August 2026</li>
+  <li><a href="https://concentric.ai/sri-lankas-pdpa-takes-effect-january-1-2027-what-global-enterprises-need-to-know/">Concentric: Sri Lanka's PDPA takes effect 1 January 2027</a>, 20 August 2026</li>
+</ul>
+<h4>Payment gateways (for the ticketing phase)</h4>
+<ul class="sources">
+  <li><a href="https://support.payhere.lk/sandbox-and-testing">PayHere sandbox and testing</a> and <a href="https://support.payhere.lk/api-&amp;-mobile-sdk/checkout-api">PayHere checkout API and SDKs</a></li>
+  <li><a href="https://docs.onepay.lk/api-documentation">Onepay API documentation</a></li>
+  <li><a href="https://www.directpay.lk/faq">DirectPay FAQ</a></li>
+  <li><a href="https://developers.webxpay.com/Guides/Redirect-Integration/redirect.html">WEBXPAY redirect integration</a></li>
+  <li><a href="https://github.com/payable/ipg-merchant-apis">PAYable IPG merchant APIs</a></li>
+</ul>
+<h4>Organisers</h4>
+<ul class="sources">
+  <li><a href="https://agastra.lk/">Agastra Events</a></li>
+</ul>
+<p class="note">The technical approach (section 8) is a recommendation from general engineering practice. It was not part of the 30 September research and has no sources checked yet.</p>
+
+</main>
+</body>
+</html>

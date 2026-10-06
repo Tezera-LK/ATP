@@ -1,0 +1,4 @@
+# Archify build output: keep only the diagram source (candidate.json)
+.archify/**/*
+!.archify/**/
+!.archify/**/candidate.json

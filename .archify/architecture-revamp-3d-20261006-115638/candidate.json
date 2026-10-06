@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "REVAMP Platform Architecture (ATP release, no ticketing)",
+    "subtitle": "Retail Engagement, Vendor Activation & Marketing Platform · Transform + Amplify",
+    "output": ".archify/architecture-revamp-3d-20261006-115638/revamp-architecture.html",
+    "quality_profile": "showcase",
+    "locale": "en"
+  },
+  "components": [
+    { "id": "attendee", "type": "external", "label": "Attendees", "sublabel": "consumers", "pos": [40, 100], "size": [150, 60] },
+    { "id": "org-prov", "type": "external", "label": "Organisers & providers", "sublabel": "vendors, freelancers", "pos": [40, 285], "size": [150, 60] },
+    { "id": "admin", "type": "external", "label": "Admins", "sublabel": "platform staff", "pos": [40, 490], "size": [150, 60] },
+
+    { "id": "mobile", "type": "frontend", "label": "Mobile app", "sublabel": "React Native · Expo", "tag": "Android + iOS", "pos": [330, 120], "size": [170, 80] },
+    { "id": "viewer", "type": "frontend", "label": "3D venue viewer", "sublabel": "Three.js · React Three Fiber", "tag": "shared package", "pos": [320, 270], "size": [190, 70] },
+    { "id": "web", "type": "frontend", "label": "Web portal", "sublabel": "Next.js on Vercel", "tag": "+ admin panel", "pos": [330, 410], "size": [170, 80] },
+
+    { "id": "media", "type": "cloud", "label": "Cloudinary", "sublabel": "images, reels, maps, docs", "tag": "CDN", "pos": [620, 60], "size": [190, 80] },
+    { "id": "api", "type": "backend", "label": "REVAMP API", "sublabel": "NestJS · REST + Socket.IO", "tag": "JWT + RBAC", "pos": [620, 260], "size": [190, 90] },
+    { "id": "db", "type": "database", "label": "PostgreSQL", "sublabel": "Neon · Prisma ORM", "pos": [940, 265], "size": [180, 80] },
+    { "id": "redis", "type": "messagebus", "label": "Redis", "sublabel": "Upstash · queue, pub/sub", "pos": [620, 480], "size": [190, 80] },
+    { "id": "worker", "type": "backend", "label": "Job worker", "sublabel": "BullMQ · notify, reviews", "pos": [940, 480], "size": [180, 80] },
+
+    { "id": "push", "type": "external", "label": "Push service", "sublabel": "Expo Push · FCM/APNs", "pos": [1250, 380], "size": [170, 60] },
+    { "id": "email", "type": "external", "label": "Email service", "sublabel": "Resend", "pos": [1250, 490], "size": [170, 60] },
+    { "id": "sms", "type": "external", "label": "SMS gateway", "sublabel": "Notify.lk · OTP", "pos": [1250, 600], "size": [170, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Backend · TypeScript on free tiers (Render, Neon, Upstash)", "wraps": ["api", "db", "redis", "worker"] }
+  ],
+  "connections": [
+    { "id": "attendee-mobile", "from": "attendee", "to": "mobile", "label": "browse, chat", "variant": "emphasis" },
+    { "id": "orgprov-mobile", "from": "org-prov", "to": "mobile", "label": "on the go" },
+    { "id": "orgprov-web", "from": "org-prov", "to": "web", "label": "manage events" },
+    { "id": "admin-web", "from": "admin", "to": "web", "label": "verify, moderate", "variant": "security" },
+    { "id": "mobile-viewer", "from": "mobile", "to": "viewer", "label": "WebView", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "web-viewer", "from": "web", "to": "viewer", "label": "loads on tap", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "id": "mobile-api", "from": "mobile", "to": "api", "label": "HTTPS + WSS", "variant": "emphasis" },
+    { "id": "web-api", "from": "web", "to": "api", "label": "HTTPS + WSS", "variant": "emphasis" },
+    { "id": "mobile-media", "from": "mobile", "to": "media", "label": "media CDN", "variant": "dashed" },
+    { "id": "api-media", "from": "api", "to": "media", "label": "signed uploads", "fromSide": "top", "toSide": "bottom" },
+    { "id": "api-db", "from": "api", "to": "db", "label": "SQL via Prisma" },
+    { "id": "api-redis", "from": "api", "to": "redis", "label": "enqueue, pub/sub", "fromSide": "bottom", "toSide": "top" },
+    { "id": "redis-worker", "from": "redis", "to": "worker", "label": "BullMQ jobs", "variant": "dashed" },
+    { "id": "worker-db", "from": "worker", "to": "db", "label": "close reviews, rerank", "fromSide": "top", "toSide": "bottom" },
+    { "id": "worker-push", "from": "worker", "to": "push", "label": "push" },
+    { "id": "worker-email", "from": "worker", "to": "email", "label": "email" },
+    { "id": "worker-sms", "from": "worker", "to": "sms", "label": "OTP SMS" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Recommended stack", "items": [
+      "One TypeScript monorepo (Turborepo) with shared types and Zod validation",
+      "Mobile: React Native + Expo, one app for all four roles with role-based navigation",
+      "Web: Next.js portal for organisers, vendors and freelancers, plus a role-gated admin panel",
+      "Backend: NestJS modular monolith, REST + Socket.IO chat, Prisma on PostgreSQL"
+    ] },
+    { "dot": "orange", "title": "3D venue view (Could)", "items": [
+      "Built from map data: the floor plan lies flat and each pin with a footprint becomes a block",
+      "One map record (layout, pins, footprints) stored as JSON in PostgreSQL drives the 2D and 3D views",
+      "venue-viewer package: React Three Fiber + drei, loaded in the browser only, on 'View in 3D'",
+      "Mobile shows the same viewer in a WebView; pin taps go back to native screens",
+      "2D map stays the default and the accessible view; instancing keeps scenes light",
+      "Later: ready-made glTF/GLB models in Cloudinary, compressed with Draco or meshopt"
+    ] },
+    { "dot": "violet", "title": "API modules", "items": [
+      "Accounts, profiles and verification",
+      "Events and promotion feed (posts, reels)",
+      "Hiring marketplace: direct bookings, job posts, quotes, stalls",
+      "Reviews and ranking (weighted rank score, badges, leaderboards)",
+      "Venue maps: layout image, pins and 3D footprints",
+      "Community boards, meetups, messaging, announcements",
+      "Admin: verification, report queue, disputes, audit log"
+    ] },
+    { "dot": "amber", "title": "Reviews and trust", "items": [
+      "Organiser and provider reviews unlock on a completed booking or a confirmed stall",
+      "Attendee reviews unlock from a 'Going' mark made before the event, once it ends",
+      "Worker closes review windows after 14 days and recomputes rank scores",
+      "Verification documents are private Cloudinary files, opened by admins only through signed links (PDPA)"
+    ] },
+    { "dot": "slate", "title": "Out of scope", "items": [
+      "Ticketing: tiers, seats, RSVP tickets, QR entry, refunds",
+      "Payment gateway: hiring and stall fees are paid outside the app",
+      "In-app map builder (2D or 3D editor): still under discussion"
+    ] }
+  ]
+}
