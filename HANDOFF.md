@@ -16,7 +16,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | `SDG Alignment.md` | Updated: name only |
 | `CLAUDE.md`, `HANDOFF.md` | New |
 
-**Nothing is committed yet.** The working tree has the renames, the PDF deletion, the edits and the new `prd/`, `.archify/`, `CLAUDE.md` and `HANDOFF.md`.
+**Committed and pushed** on branch `docs/revamp-prd-v2` (not merged into `main` yet). `.gitignore` keeps Archify build output out of git; only the diagram source `candidate.json` is tracked.
 
 ## Decisions
 
@@ -40,7 +40,7 @@ Claude made these changes because moving ticketing out of the MVP required them.
 
 ## Next steps
 
-1. Commit the current changes (Damian to confirm).
+1. Merge `docs/revamp-prd-v2` into `main`: open a pull request at https://github.com/NDR-debugs/ATP/pull/new/docs/revamp-prd-v2, or merge directly.
 2. Group reviews the PRD v2 items above and the open questions in section 14.
 3. Confirm the recommended stack against the team's skills (PRD section 8).
 4. Discovery phase: organiser interviews, and surveys of vendors, freelancers and consumers (PRD section 1).
@@ -61,5 +61,6 @@ Claude made these changes because moving ticketing out of the MVP required them.
 - Rewrote the PRD from the PDF as `prd/revamp-prd.html` (v2): ticketing to Later, 3D view, new section 8 Technical approach, redrawn diagrams, change log. Deleted `SDGP PRD.pdf`.
 - Added the 3D viewer to the diagram; moved it to `prd/revamp-architecture.html`; deleted older diagram versions.
 - Updated `README.md`, `PRD Research.md` and `SDG Alignment.md`; created `CLAUDE.md` and this file.
+- Committed and pushed everything to the new branch `docs/revamp-prd-v2`.
 - Compressed `CLAUDE.md` with `/caveman-compress`. Validation passed; the readable original is backed up outside the repo.
 - Not verified: the PRD's Google Fonts only load online (falls back to Georgia and Segoe UI offline). The Three.js size estimate (~150 KB compressed) is from general knowledge, not measured.
