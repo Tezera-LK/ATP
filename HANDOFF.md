@@ -16,7 +16,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | `SDG Alignment.md` | Updated: name only |
 | `CLAUDE.md`, `HANDOFF.md` | New |
 
-**Committed and pushed** on branch `docs/revamp-prd-v2` (not merged into `main` yet). `.gitignore` keeps Archify build output out of git; only the diagram source `candidate.json` is tracked.
+**Committed and pushed** on branch `docs/revamp-prd-v2` (PR #1 open, not merged into `main` yet). `.gitignore` keeps Archify build output out of git; only the diagram source `candidate.json` is tracked.
 
 ## Decisions
 
@@ -40,7 +40,7 @@ Claude made these changes because moving ticketing out of the MVP required them.
 
 ## Next steps
 
-1. Merge `docs/revamp-prd-v2` into `main`: open a pull request at https://github.com/NDR-debugs/ATP/pull/new/docs/revamp-prd-v2, or merge directly.
+1. Review and merge PR #1 (https://github.com/NDR-debugs/ATP/pull/1), which takes `docs/revamp-prd-v2` into `main`.
 2. Group reviews the PRD v2 items above and the open questions in section 14.
 3. Confirm the recommended stack against the team's skills (PRD section 8).
 4. Discovery phase: organiser interviews, and surveys of vendors, freelancers and consumers (PRD section 1).
