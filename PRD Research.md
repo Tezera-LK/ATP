@@ -1,9 +1,10 @@
-# PRD Research — [Product Name]
+# PRD Research — REVAMP
 
-Everything that went into the [Product Name] PRD, where each piece came from, and how far each source can be trusted.
+Everything that went into the REVAMP PRD (written as "[Product Name]" before the name was chosen), where each piece came from, and how far each source can be trusted.
 
 - **Research date:** 30 September 2026 (all web pages were checked on this date and may have changed since)
-- **The PRD itself:** [Event Organisation Platform PRD](https://claude.ai/artifact/5t9nW3mMeL3Q7r99oCceqh) (online Claude Doc)
+- **The PRD itself:** [prd/revamp-prd.html](prd/revamp-prd.html), version 2 (6 October 2026). Version 1 was the online Claude Doc [Event Organisation Platform PRD](https://claude.ai/artifact/5t9nW3mMeL3Q7r99oCceqh).
+- **Section numbers:** this file was written against PRD version 1. Version 2 added section 8 (Technical approach), so version 1 sections 8–13 are now 9–14. Section 11 below gives both numbers.
 - **Prepared by:** Claude, from the chat in which the PRD was written
 
 ## Contents
@@ -124,7 +125,7 @@ Options tagged "(Recommended)" were Claude's suggestions; where you picked one, 
 | How should the add-ons be prioritised? | Propose a MoSCoW split (Recommended) | Claude marks each add-on Must, Should or Could as a proposal for the group to review. |
 | Should vendor and freelancer profiles have a portfolio gallery? | Yes, portfolio on profile (Recommended) | Photos and videos of past work on the profile, next to reviews. |
 | Who can post and reply in the forum? | All roles, with role badges | Consumers, organisers, vendors and freelancers can all post; a badge shows each person's role. |
-| Does the product have a name yet? | Use a placeholder | "[Product Name]" is used throughout. |
+| Does the product have a name yet? | Use a placeholder | "[Product Name]" was used throughout version 1. The product was named REVAMP on 6 October 2026. |
 
 ---
 
@@ -224,7 +225,7 @@ Not verified: whether Facebook's event ticketing is available in Sri Lanka.
 | WedMeGood, DJBooking.lk | Hiring and reviews |
 | Meetup, Facebook Events | Community and events |
 
-**What the PRD concluded from this:** local rivals already offer QR entry and seat selection, so those are table stakes. The case for [Product Name] rests on hiring, reputation and community in one place.
+**What the PRD concluded from this:** local rivals already offer QR entry and seat selection, so those are table stakes. The case for REVAMP rests on hiring, reputation and community in one place.
 
 ---
 
@@ -345,8 +346,8 @@ The PRD lists the first five as options. Genie Business was left out because its
 | 3. Users and roles | "Agastra Events" name and link | 9 |
 | 5. Competitive landscape | The comparison table (11 rows covering 13 platforms): MyTickets, TicketsMinistry, ClickTickets, BookMyShow LK, WeddingArcade / Plan A Wedding / WedMeGood, DJBooking.lk, ikman.lk, Eventeny, Posh, Eventbrite, Meetup. Also the conclusion that QR entry and seat selection are table stakes. | 3, 4, 5, 6 |
 | 7. Non-functional requirements | The Privacy row's link to the Act, and the "PDPA status" note (1 January 2027 start, Parts II and VII pending, the 72-hour breach rule) | 7 |
-| 11. Assumptions and dependencies | The payment gateway row: PayHere, Onepay, DirectPay, WEBXPAY, PAYable, and PayHere's Flutter and React Native SDKs | 8 |
-| 13. Open questions | The note that TicketsMinistry already offers offline scanning | 3 |
+| 11. Assumptions and dependencies (v2: 12) | The payment gateway row: PayHere, Onepay, DirectPay, WEBXPAY, PAYable, and PayHere's Flutter and React Native SDKs | 8 |
+| 13. Open questions (v2: 14) | The note that TicketsMinistry already offers offline scanning | 3 |
 | Sources | Links to every page the PRD cites | 13 |
 
 **Researched but not used in the PRD:**
@@ -386,8 +387,8 @@ So the group does not present any of these as researched facts:
 
 - The Must, Should, Could or Later priority on each requirement in PRD section 6. Most are Must because you put all four core modules in the MVP.
 - Making full refunds on cancelled events a Must, which came from the review pass.
-- The risks and their mitigations (PRD section 12).
-- The release-phase diagram (PRD section 8).
+- The risks and their mitigations (PRD section 12; section 13 in version 2).
+- The release-phase diagram (PRD section 8; section 9 in version 2, now redrawn to follow the proposal's roadmap).
 
 **Standard methods and examples from Claude's general knowledge (not looked up):**
 
@@ -395,6 +396,12 @@ So the group does not present any of these as researched facts:
 - The Bayesian-average rating in the rank formula, which stops one five-star review from topping a leaderboard.
 - Firebase Cloud Messaging and Apple Push Notification service, named as example push-notification services.
 - General security practice: HTTPS, hashed passwords, role-based access, card data held only by the payment gateway.
+
+**Added in PRD version 2 (6 October 2026), not from research:**
+
+- Group decisions: the name REVAMP; ticketing and entry moved out of the ATP release to match the proposal; attendee reviews unlocked by a 'Going' mark instead of a checked-in ticket; an optional 3D venue view.
+- Claude's analysis, for the group to check: organiser verification now gates stalls, job posts and booking requests (AC-08); the event page can link to external ticket sales until ticketing arrives (EV-01); only 'Going' marks made before the event count for reviews; the new risks and open questions that follow from these.
+- Claude's recommendation from general engineering knowledge (not looked up): the technical approach in PRD section 8 — React Native with Expo, Next.js, NestJS, PostgreSQL, Redis with BullMQ, Cloudinary, and Three.js with React Three Fiber for the 3D view.
 
 **Hypotheses, not findings:** the problem statement in PRD section 1. It needs validating with interviews and surveys of organisers, vendors, freelancers and consumers.
 
