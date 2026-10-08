@@ -1,11 +1,11 @@
-# SDG Alignment — REVAMP
+# SDG Alignment — Tezera
 
-**Project:** REVAMP, an event organisation platform for Sri Lanka (SDGP)
+**Project:** Tezera, an event organisation platform for Sri Lanka (SDGP)
 **Date:** 30 September 2026 (product name updated 6 October 2026)
 
 ## Summary
 
-REVAMP aligns most closely with **SDG 8: Decent Work and Economic Growth**, with **SDG 9: Industry, Innovation and Infrastructure** as a secondary goal. The link is the hiring marketplace: it helps freelancers and small vendors find paid work at events and build a visible track record.
+Tezera aligns most closely with **SDG 8: Decent Work and Economic Growth**, with **SDG 9: Industry, Innovation and Infrastructure** as a secondary goal. The link is the hiring marketplace: it helps freelancers and small vendors find paid work at events and build a visible track record.
 
 ## Primary goal: SDG 8 — Decent Work and Economic Growth
 

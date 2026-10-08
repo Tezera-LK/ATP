@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="archify 3.0.1">
   <meta name="archify-reader-contract" content="declared-wide-v1">
-  <title>REVAMP Platform Architecture (ATP release, no ticketing) Diagram</title>
+  <title>tezera Platform Architecture (ATP release, no ticketing) Diagram</title>
   <script>
     // Resolve the theme before first paint so light-preference users don't
     // see a dark flash. The toolbar script below re-applies with UI state.
@@ -4978,9 +4978,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
            data-preset-badge-blueprint="BLUEPRINT / REV 01"
            data-preset-badge-editorial="EDITORIAL / FIELD NOTE">
         <div class="pulse-dot"></div>
-        <h1>REVAMP Platform Architecture (ATP release, no ticketing)</h1>
+        <h1>tezera Platform Architecture (ATP release, no ticketing)</h1>
       </div>
-      <p class="subtitle">Retail Engagement, Vendor Activation &amp; Marketing Platform · Transform + Amplify</p>
+      <p class="subtitle">Mobile app and web portal for organisers, providers and consumers</p>
     </div>
 
 
@@ -4988,9 +4988,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / PLATE 04">
-      <svg viewBox="0 0 1460 728" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" data-reader-primary-text="14">
-        <title id="archify-diagram-title">REVAMP Platform Architecture (ATP release, no ticketing)</title>
-        <desc id="archify-diagram-description">Retail Engagement, Vendor Activation &amp; Marketing Platform · Transform + Amplify</desc>
+      <svg viewBox="0 0 1680 728" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" data-reader-primary-text="14">
+        <title id="archify-diagram-title">tezera Platform Architecture (ATP release, no ticketing)</title>
+        <desc id="archify-diagram-description">Mobile app and web portal for organisers, providers and consumers</desc>
         <!-- Definitions -->
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -5014,113 +5014,121 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         <!-- Boundaries (behind everything) -->
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="Backend · TypeScript on free tiers (Render, Neon, Upstash)" x="590" y="230" width="560" height="350" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="Backend · TypeScript on free tiers (Render, Neon, Upstash)" x="810" y="225" width="560" height="355" rx="12" class="c-region" stroke-width="1"/>
 
         <!-- Connection paths (before components for correct z-order) -->
         <g data-graph-role="automatic-crossover" style="--step:0">
-          <path data-graph-role="automatic-crossover-underlay" d="M 190 130 L 252 130 Q 260 130 260 138 L 260 143.95 Q 260 151.95 268 151.95 L 330 151.95" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="attendee" data-edge-to="mobile" data-edge-label="browse, chat" data-edge-key="0" data-edge-id="attendee-mobile" data-composition-points="190,130;260,130;260,151.95;330,151.95" data-composition-crossover="halo" data-composition-independent="true" d="M 190 130 L 252 130 Q 260 130 260 138 L 260 143.95 Q 260 151.95 268 151.95 L 330 151.95" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 190 150.9 L 206 150.9 Q 214 150.9 214 158.9 L 214 159.95 Q 214 167.95 222 167.95 L 298 167.95 Q 306 167.95 306 159.95 L 306 159.95 Q 306 151.95 314 151.95 L 330 151.95" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="attendee" data-edge-to="mobile" data-edge-label="browse, chat" data-edge-key="0" data-edge-id="attendee-mobile" data-composition-points="190,150.9;214,150.9;214,167.95;306,167.95;306,151.95;330,151.95" data-composition-crossover="halo" data-composition-independent="true" d="M 190 150.9 L 206 150.9 Q 214 150.9 214 158.9 L 214 159.95 Q 214 167.95 222 167.95 L 298 167.95 Q 306 167.95 306 159.95 L 306 159.95 Q 306 151.95 314 151.95 L 330 151.95" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:1">
-          <path data-graph-role="automatic-crossover-underlay" d="M 190 308 L 252 308 Q 260 308 260 300 L 260 175 Q 260 167 268 167 L 330 167" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="org-prov" data-edge-to="mobile" data-edge-label="on the go" data-edge-key="1" data-edge-id="orgprov-mobile" data-composition-points="190,308;260,308;260,167;330,167" data-composition-crossover="halo" data-composition-independent="true" d="M 190 308 L 252 308 Q 260 308 260 300 L 260 175 Q 260 167 268 167 L 330 167" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 190 167 L 206 167 Q 214 167 214 175 L 214 435 Q 214 443 222 443 L 330 443" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="attendee" data-edge-to="web" data-edge-label="same features" data-edge-key="1" data-edge-id="attendee-web" data-composition-points="190,167;214,167;214,443;330,443" data-composition-crossover="halo" data-composition-independent="true" d="M 190 167 L 206 167 Q 214 167 214 175 L 214 435 Q 214 443 222 443 L 330 443" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:2">
-          <path data-graph-role="automatic-crossover-underlay" d="M 190 322 L 252 322 Q 260 322 260 330 L 260 435 Q 260 443 268 443 L 330 443" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="org-prov" data-edge-to="web" data-edge-label="manage events" data-edge-key="2" data-edge-id="orgprov-web" data-composition-points="190,322;260,322;260,443;330,443" data-composition-crossover="halo" data-composition-independent="true" d="M 190 322 L 252 322 Q 260 322 260 330 L 260 435 Q 260 443 268 443 L 330 443" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 115 420 L 115 201 Q 115 193 123 193 L 298 193 Q 306 193 306 185 L 306 175 Q 306 167 314 167 L 330 167" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="org-prov" data-edge-to="mobile" data-edge-label="on the go" data-edge-key="2" data-edge-id="orgprov-mobile" data-composition-points="115,420;115,193;306,193;306,167;330,167" data-composition-crossover="halo" data-composition-independent="true" d="M 115 420 L 115 201 Q 115 193 123 193 L 298 193 Q 306 193 306 185 L 306 175 Q 306 167 314 167 L 330 167" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:3">
-          <path data-graph-role="automatic-crossover-underlay" d="M 190 520 L 252 520 Q 260 520 260 512 L 260 465 Q 260 457 268 457 L 330 457" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="admin" data-edge-to="web" data-edge-label="verify, moderate" data-edge-key="3" data-edge-id="admin-web" data-composition-points="190,520;260,520;260,457;330,457" data-composition-crossover="halo" data-composition-independent="true" d="M 190 520 L 252 520 Q 260 520 260 512 L 260 465 Q 260 457 268 457 L 330 457" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 190 457 L 206 457 Q 214 457 214 465 L 214 466.05 Q 214 474.05 222 474.05 L 298 474.05 Q 306 474.05 306 466.05 L 306 466.05 Q 306 458.05 314 458.05 L 330 458.05" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="org-prov" data-edge-to="web" data-edge-label="manage events" data-edge-key="3" data-edge-id="orgprov-web" data-composition-points="190,457;214,457;214,474.05;306,474.05;306,458.05;330,458.05" data-composition-crossover="halo" data-composition-independent="true" d="M 190 457 L 206 457 Q 214 457 214 465 L 214 466.05 Q 214 474.05 222 474.05 L 298 474.05 Q 306 474.05 306 466.05 L 306 466.05 Q 306 458.05 314 458.05 L 330 458.05" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:4">
-          <path data-graph-role="automatic-crossover-underlay" d="M 406.95 200 L 406.95 270" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="mobile" data-edge-to="viewer" data-edge-label="WebView" data-edge-key="4" data-edge-id="mobile-viewer" data-composition-points="406.95,200;406.95,270" data-composition-crossover="halo" data-composition-independent="true" d="M 406.95 200 L 406.95 270" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 405 600 L 405 490" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="admin" data-edge-to="web" data-edge-label="verify, moderate" data-edge-key="4" data-edge-id="admin-web" data-composition-points="405,600;405,490" data-composition-crossover="halo" data-composition-independent="true" d="M 405 600 L 405 490" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:5">
-          <path data-graph-role="automatic-crossover-underlay" d="M 406.95 410 L 406.95 340" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="web" data-edge-to="viewer" data-edge-label="loads on tap" data-edge-key="5" data-edge-id="web-viewer" data-composition-points="406.95,410;406.95,340" data-composition-crossover="halo" data-composition-independent="true" d="M 406.95 410 L 406.95 340" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 415 200 L 415 270" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="mobile" data-edge-to="viewer" data-edge-label="WebView" data-edge-key="5" data-edge-id="mobile-viewer" data-composition-points="415,200;415,270" data-composition-crossover="halo" data-composition-independent="true" d="M 415 200 L 415 270" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:6">
-          <path data-graph-role="automatic-crossover-underlay" d="M 422 200 L 422 216 Q 422 224 430 224 L 700 224 Q 708 224 708 232 L 708 260" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="mobile" data-edge-to="api" data-edge-label="HTTPS + WSS" data-edge-key="6" data-edge-id="mobile-api" data-composition-points="422,200;422,224;708,224;708,260" data-composition-crossover="halo" data-composition-independent="true" d="M 422 200 L 422 216 Q 422 224 430 224 L 700 224 Q 708 224 708 232 L 708 260" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 415 410 L 415 340" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="web" data-edge-to="viewer" data-edge-label="loads on tap" data-edge-key="6" data-edge-id="web-viewer" data-composition-points="415,410;415,340" data-composition-crossover="halo" data-composition-independent="true" d="M 415 410 L 415 340" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:7">
-          <path data-graph-role="automatic-crossover-underlay" d="M 422 410 L 422 388 Q 422 380 430 380 L 700 380 Q 708 380 708 372 L 708 350" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + WSS" data-edge-key="7" data-edge-id="web-api" data-composition-points="422,410;422,380;708,380;708,350" data-composition-crossover="halo" data-composition-independent="true" d="M 422 410 L 422 388 Q 422 380 430 380 L 700 380 Q 708 380 708 372 L 708 350" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 500 153 L 927 153 Q 935 153 935 161 L 935 255" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="mobile" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="7" data-edge-id="mobile-api" data-composition-points="500,153;935,153;935,255" data-composition-crossover="halo" data-composition-independent="true" d="M 500 153 L 927 153 Q 935 153 935 161 L 935 255" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:8">
-          <path data-graph-role="automatic-crossover-underlay" d="M 500 160 L 552 160 Q 560 160 560 152 L 560 108 Q 560 100 568 100 L 620 100" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="mobile" data-edge-to="media" data-edge-label="media CDN" data-edge-key="8" data-edge-id="mobile-media" data-composition-points="500,160;560,160;560,100;620,100" data-composition-crossover="halo" data-composition-independent="true" d="M 500 160 L 552 160 Q 560 160 560 152 L 560 108 Q 560 100 568 100 L 620 100" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 500 443 L 808 443 Q 816 443 816 435 L 816 315 Q 816 307 824 307 L 840 307" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="8" data-edge-id="web-api" data-composition-points="500,443;816,443;816,307;840,307" data-composition-crossover="halo" data-composition-independent="true" d="M 500 443 L 808 443 Q 816 443 816 435 L 816 315 Q 816 307 824 307 L 840 307" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:9">
-          <path data-graph-role="automatic-crossover-underlay" d="M 723.05 260 L 723.05 140" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="api" data-edge-to="media" data-edge-label="signed uploads" data-edge-key="9" data-edge-id="api-media" data-composition-points="723.05,260;723.05,140" data-composition-crossover="halo" data-composition-independent="true" d="M 723.05 260 L 723.05 140" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 500 168.05 L 527 168.05 Q 535 168.05 535 176.05 L 535 287 Q 535 295 543 295 L 570 295" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="mobile" data-edge-to="media" data-edge-label="media CDN" data-edge-key="9" data-edge-id="mobile-media" data-composition-points="500,168.05;535,168.05;535,295;570,295" data-composition-crossover="halo" data-composition-independent="true" d="M 500 168.05 L 527 168.05 Q 535 168.05 535 176.05 L 535 287 Q 535 295 543 295 L 570 295" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:10">
-          <path data-graph-role="automatic-crossover-underlay" d="M 810 305 L 940 305" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="api" data-edge-to="db" data-edge-label="SQL via Prisma" data-edge-key="10" data-edge-id="api-db" data-composition-points="810,305;940,305" data-composition-crossover="halo" data-composition-independent="true" d="M 810 305 L 940 305" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 500 458.05 L 527 458.05 Q 535 458.05 535 450.05 L 535 317 Q 535 309 543 309 L 570 309" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="web" data-edge-to="media" data-edge-label="media CDN" data-edge-key="10" data-edge-id="web-media" data-composition-points="500,458.05;535,458.05;535,309;570,309" data-composition-crossover="halo" data-composition-independent="true" d="M 500 458.05 L 527 458.05 Q 535 458.05 535 450.05 L 535 317 Q 535 309 543 309 L 570 309" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:11">
-          <path data-graph-role="automatic-crossover-underlay" d="M 723.05 350 L 723.05 480" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="api" data-edge-to="redis" data-edge-label="enqueue, pub/sub" data-edge-key="11" data-edge-id="api-redis" data-composition-points="723.05,350;723.05,480" data-composition-crossover="halo" data-composition-independent="true" d="M 723.05 350 L 723.05 480" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 840 291.95 L 760 291.95" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="api" data-edge-to="media" data-edge-label="signed uploads" data-edge-key="11" data-edge-id="api-media" data-composition-points="840,291.95;760,291.95" data-composition-crossover="halo" data-composition-independent="true" d="M 840 291.95 L 760 291.95" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:12">
-          <path data-graph-role="automatic-crossover-underlay" d="M 810 520 L 940 520" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="redis" data-edge-to="worker" data-edge-label="BullMQ jobs" data-edge-key="12" data-edge-id="redis-worker" data-composition-points="810,520;940,520" data-composition-crossover="halo" data-composition-independent="true" d="M 810 520 L 940 520" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1030 300 L 1160 300" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="api" data-edge-to="db" data-edge-label="SQL via Prisma" data-edge-key="12" data-edge-id="api-db" data-composition-points="1030,300;1160,300" data-composition-crossover="halo" data-composition-independent="true" d="M 1030 300 L 1160 300" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:13">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1030 480 L 1030 345" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="db" data-edge-label="close reviews, rerank" data-edge-key="13" data-edge-id="worker-db" data-composition-points="1030,480;1030,345" data-composition-crossover="halo" data-composition-independent="true" d="M 1030 480 L 1030 345" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 935 345 L 935 480" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="api" data-edge-to="redis" data-edge-label="enqueue, pub/sub" data-edge-key="13" data-edge-id="api-redis" data-composition-points="935,345;935,480" data-composition-crossover="halo" data-composition-independent="true" d="M 935 345 L 935 480" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:14">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1120 506 L 1136 506 Q 1144 506 1144 498 L 1144 418 Q 1144 410 1152 410 L 1250 410" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="push" data-edge-label="push" data-edge-key="14" data-edge-id="worker-push" data-composition-points="1120,506;1144,506;1144,410;1250,410" data-composition-crossover="halo" data-composition-independent="true" d="M 1120 506 L 1136 506 Q 1144 506 1144 498 L 1144 418 Q 1144 410 1152 410 L 1250 410" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1030 520 L 1160 520" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="redis" data-edge-to="worker" data-edge-label="BullMQ jobs" data-edge-key="14" data-edge-id="redis-worker" data-composition-points="1030,520;1160,520" data-composition-crossover="halo" data-composition-independent="true" d="M 1030 520 L 1160 520" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:15">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1120 520 L 1250 520" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="email" data-edge-label="email" data-edge-key="15" data-edge-id="worker-email" data-composition-points="1120,520;1250,520" data-composition-crossover="halo" data-composition-independent="true" d="M 1120 520 L 1250 520" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1250 480 L 1250 342" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="worker" data-edge-to="db" data-edge-label="close reviews, rerank" data-edge-key="15" data-edge-id="worker-db" data-composition-points="1250,480;1250,342" data-composition-crossover="halo" data-composition-independent="true" d="M 1250 480 L 1250 342" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:16">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1120 534 L 1177 534 Q 1185 534 1185 542 L 1185 622 Q 1185 630 1193 630 L 1250 630" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="sms" data-edge-label="OTP SMS" data-edge-key="16" data-edge-id="worker-sms" data-composition-points="1120,534;1185,534;1185,630;1250,630" data-composition-crossover="halo" data-composition-independent="true" d="M 1120 534 L 1177 534 Q 1185 534 1185 542 L 1185 622 Q 1185 630 1193 630 L 1250 630" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1340 506 L 1356 506 Q 1364 506 1364 498 L 1364 418 Q 1364 410 1372 410 L 1470 410" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="worker" data-edge-to="push" data-edge-label="push" data-edge-key="16" data-edge-id="worker-push" data-composition-points="1340,506;1364,506;1364,410;1470,410" data-composition-crossover="halo" data-composition-independent="true" d="M 1340 506 L 1356 506 Q 1364 506 1364 498 L 1364 418 Q 1364 410 1372 410 L 1470 410" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        </g>
+        <g data-graph-role="automatic-crossover" style="--step:17">
+          <path data-graph-role="automatic-crossover-underlay" d="M 1340 520 L 1470 520" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="worker" data-edge-to="email" data-edge-label="email" data-edge-key="17" data-edge-id="worker-email" data-composition-points="1340,520;1470,520" data-composition-crossover="halo" data-composition-independent="true" d="M 1340 520 L 1470 520" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        </g>
+        <g data-graph-role="automatic-crossover" style="--step:18">
+          <path data-graph-role="automatic-crossover-underlay" d="M 1340 534 L 1397 534 Q 1405 534 1405 542 L 1405 622 Q 1405 630 1413 630 L 1470 630" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="worker" data-edge-to="sms" data-edge-label="OTP, urgent alerts" data-edge-key="18" data-edge-id="worker-sms" data-composition-points="1340,534;1405,534;1405,630;1470,630" data-composition-crossover="halo" data-composition-independent="true" d="M 1340 534 L 1397 534 Q 1405 534 1405 542 L 1405 622 Q 1405 630 1413 630 L 1470 630" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
 
         <!-- Components -->
-        <g id="node-attendee" data-node-id="attendee" data-node-label="Attendees" tabindex="0" role="button" aria-label="Focus Attendees, consumers, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="consumers" data-node-context="Architecture component">
-          <title>Attendees · consumers · Architecture component</title>
-          <rect x="40" y="100" width="150" height="60" rx="6" class="c-mask"/>
-          <rect x="40" y="100" width="150" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(46 106) scale(0.6875)">
+        <g id="node-attendee" data-node-id="attendee" data-node-label="Consumers" tabindex="0" role="button" aria-label="Focus Consumers, attendees, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="attendees" data-node-context="Architecture component">
+          <title>Consumers · attendees · Architecture component</title>
+          <rect x="40" y="130" width="150" height="60" rx="6" class="c-mask"/>
+          <rect x="40" y="130" width="150" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(46 136) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="115" y="128" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Attendees</text>
-        <text data-detail="context" x="115" y="144" class="t-muted" font-size="9" text-anchor="middle">consumers</text>
+          <text data-node-label="" data-detail-anchor="" x="115" y="158" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Consumers</text>
+        <text data-detail="context" x="115" y="174" class="t-muted" font-size="9" text-anchor="middle">attendees</text>
         </g>
 
         <g id="node-org-prov" data-node-id="org-prov" data-node-label="Organisers &amp; providers" tabindex="0" role="button" aria-label="Focus Organisers &amp; providers, vendors, freelancers, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="vendors, freelancers" data-node-context="Architecture component">
           <title>Organisers &amp; providers · vendors, freelancers · Architecture component</title>
-          <rect x="40" y="285" width="150" height="60" rx="6" class="c-mask"/>
-          <rect x="40" y="285" width="150" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(46 291) scale(0.6875)">
+          <rect x="40" y="420" width="150" height="60" rx="6" class="c-mask"/>
+          <rect x="40" y="420" width="150" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(46 426) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="115" y="313" class="t-primary" font-size="10.7" font-weight="600" text-anchor="middle">Organisers &amp; providers</text>
-        <text data-detail="context" x="115" y="329" class="t-muted" font-size="9" text-anchor="middle">vendors, freelancers</text>
+          <text data-node-label="" data-detail-anchor="" x="115" y="448" class="t-primary" font-size="10.7" font-weight="600" text-anchor="middle">Organisers &amp; providers</text>
+        <text data-detail="context" x="115" y="464" class="t-muted" font-size="9" text-anchor="middle">vendors, freelancers</text>
         </g>
 
         <g id="node-admin" data-node-id="admin" data-node-label="Admins" tabindex="0" role="button" aria-label="Focus Admins, platform staff, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="platform staff" data-node-context="Architecture component">
           <title>Admins · platform staff · Architecture component</title>
-          <rect x="40" y="490" width="150" height="60" rx="6" class="c-mask"/>
-          <rect x="40" y="490" width="150" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(46 496) scale(0.6875)">
+          <rect x="330" y="600" width="150" height="60" rx="6" class="c-mask"/>
+          <rect x="330" y="600" width="150" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(336 606) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="115" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Admins</text>
-        <text data-detail="context" x="115" y="534" class="t-muted" font-size="9" text-anchor="middle">platform staff</text>
+          <text data-node-label="" data-detail-anchor="" x="405" y="628" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Admins</text>
+        <text data-detail="context" x="405" y="644" class="t-muted" font-size="9" text-anchor="middle">platform staff</text>
         </g>
 
         <g id="node-mobile" data-node-id="mobile" data-node-label="Mobile app" tabindex="0" role="button" aria-label="Focus Mobile app, React Native · Expo, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="React Native · Expo" data-node-tag="Android + iOS" data-node-context="Architecture component">
@@ -5153,8 +5161,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="415" y="332" class="t-frontend" font-size="7" text-anchor="middle">shared package</text>
         </g>
 
-        <g id="node-web" data-node-id="web" data-node-label="Web portal" tabindex="0" role="button" aria-label="Focus Web portal, Next.js on Vercel, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Next.js on Vercel" data-node-tag="+ admin panel" data-node-context="Architecture component">
-          <title>Web portal · Next.js on Vercel · Architecture component · + admin panel</title>
+        <g id="node-web" data-node-id="web" data-node-label="Web portal" tabindex="0" role="button" aria-label="Focus Web portal, Next.js on Vercel, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Next.js on Vercel" data-node-tag="all roles + admin" data-node-context="Architecture component">
+          <title>Web portal · Next.js on Vercel · Architecture component · all roles + admin</title>
           <rect x="330" y="410" width="170" height="80" rx="6" class="c-mask"/>
           <rect x="330" y="410" width="170" height="80" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(336 416) scale(0.6875)">
@@ -5165,180 +5173,188 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="415" y="448" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Web portal</text>
         <text data-detail="context" x="415" y="464" class="t-muted" font-size="9" text-anchor="middle">Next.js on Vercel</text>
-        <text data-detail="fine" x="415" y="482" class="t-frontend" font-size="7" text-anchor="middle">+ admin panel</text>
+        <text data-detail="fine" x="415" y="482" class="t-frontend" font-size="7" text-anchor="middle">all roles + admin</text>
         </g>
 
         <g id="node-media" data-node-id="media" data-node-label="Cloudinary" tabindex="0" role="button" aria-label="Focus Cloudinary, images, reels, maps, docs, Architecture component" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="images, reels, maps, docs" data-node-tag="CDN" data-node-context="Architecture component">
           <title>Cloudinary · images, reels, maps, docs · Architecture component · CDN</title>
-          <rect x="620" y="60" width="190" height="80" rx="6" class="c-mask"/>
-          <rect x="620" y="60" width="190" height="80" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(626 66) scale(0.6875)">
+          <rect x="570" y="262" width="190" height="80" rx="6" class="c-mask"/>
+          <rect x="570" y="262" width="190" height="80" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(576 268) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="715" y="98" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Cloudinary</text>
-        <text data-detail="context" x="715" y="114" class="t-muted" font-size="9" text-anchor="middle">images, reels, maps, docs</text>
-        <text data-detail="fine" x="715" y="132" class="t-cloud" font-size="7" text-anchor="middle">CDN</text>
+          <text data-node-label="" data-detail-anchor="" x="665" y="300" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Cloudinary</text>
+        <text data-detail="context" x="665" y="316" class="t-muted" font-size="9" text-anchor="middle">images, reels, maps, docs</text>
+        <text data-detail="fine" x="665" y="334" class="t-cloud" font-size="7" text-anchor="middle">CDN</text>
         </g>
 
-        <g id="node-api" data-node-id="api" data-node-label="REVAMP API" tabindex="0" role="button" aria-label="Focus REVAMP API, NestJS · REST + Socket.IO, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="NestJS · REST + Socket.IO" data-node-tag="JWT + RBAC" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <title>REVAMP API · NestJS · REST + Socket.IO · Backend · TypeScript on free tiers (Render, Neon, Upstash) · JWT + RBAC</title>
-          <rect x="620" y="260" width="190" height="90" rx="6" class="c-mask"/>
-          <rect x="620" y="260" width="190" height="90" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(626 266) scale(0.6875)">
+        <g id="node-api" data-node-id="api" data-node-label="Tezera API" tabindex="0" role="button" aria-label="Focus Tezera API, NestJS · REST + SSE, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="NestJS · REST + SSE" data-node-tag="JWT + RBAC" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
+          <title>Tezera API · NestJS · REST + SSE · Backend · TypeScript on free tiers (Render, Neon, Upstash) · JWT + RBAC</title>
+          <rect x="840" y="255" width="190" height="90" rx="6" class="c-mask"/>
+          <rect x="840" y="255" width="190" height="90" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(846 261) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="715" y="303" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">REVAMP API</text>
-        <text data-detail="context" x="715" y="319" class="t-muted" font-size="9" text-anchor="middle">NestJS · REST + Socket.IO</text>
-        <text data-detail="fine" x="715" y="342" class="t-backend" font-size="7" text-anchor="middle">JWT + RBAC</text>
+          <text data-node-label="" data-detail-anchor="" x="935" y="298" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Tezera API</text>
+        <text data-detail="context" x="935" y="314" class="t-muted" font-size="9" text-anchor="middle">NestJS · REST + SSE</text>
+        <text data-detail="fine" x="935" y="337" class="t-backend" font-size="7" text-anchor="middle">JWT + RBAC</text>
         </g>
 
         <g id="node-db" data-node-id="db" data-node-label="PostgreSQL" tabindex="0" role="button" aria-label="Focus PostgreSQL, Neon · Prisma ORM, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="database" data-node-sublabel="Neon · Prisma ORM" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
           <title>PostgreSQL · Neon · Prisma ORM · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
-          <rect x="940" y="265" width="180" height="80" rx="6" class="c-mask"/>
-          <rect x="940" y="265" width="180" height="80" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(946 271) scale(0.6875)">
+          <rect x="1160" y="262" width="180" height="80" rx="6" class="c-mask"/>
+          <rect x="1160" y="262" width="180" height="80" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(1166 268) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1030" y="303" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">PostgreSQL</text>
-        <text data-detail="context" x="1030" y="319" class="t-muted" font-size="9" text-anchor="middle">Neon · Prisma ORM</text>
+          <text data-node-label="" data-detail-anchor="" x="1250" y="300" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">PostgreSQL</text>
+        <text data-detail="context" x="1250" y="316" class="t-muted" font-size="9" text-anchor="middle">Neon · Prisma ORM</text>
         </g>
 
         <g id="node-redis" data-node-id="redis" data-node-label="Redis" tabindex="0" role="button" aria-label="Focus Redis, Upstash · queue, pub/sub, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="Upstash · queue, pub/sub" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
           <title>Redis · Upstash · queue, pub/sub · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
-          <rect x="620" y="480" width="190" height="80" rx="6" class="c-mask"/>
-          <rect x="620" y="480" width="190" height="80" rx="6" class="c-messagebus" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(626 486) scale(0.6875)">
+          <rect x="840" y="480" width="190" height="80" rx="6" class="c-mask"/>
+          <rect x="840" y="480" width="190" height="80" rx="6" class="c-messagebus" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(846 486) scale(0.6875)">
             <path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/>
             <circle cx="5" cy="4.5" r="1" class="sigil-fill"/>
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="715" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Redis</text>
-        <text data-detail="context" x="715" y="534" class="t-muted" font-size="9" text-anchor="middle">Upstash · queue, pub/sub</text>
+          <text data-node-label="" data-detail-anchor="" x="935" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Redis</text>
+        <text data-detail="context" x="935" y="534" class="t-muted" font-size="9" text-anchor="middle">Upstash · queue, pub/sub</text>
         </g>
 
         <g id="node-worker" data-node-id="worker" data-node-label="Job worker" tabindex="0" role="button" aria-label="Focus Job worker, BullMQ · notify, reviews, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="BullMQ · notify, reviews" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
           <title>Job worker · BullMQ · notify, reviews · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
-          <rect x="940" y="480" width="180" height="80" rx="6" class="c-mask"/>
-          <rect x="940" y="480" width="180" height="80" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(946 486) scale(0.6875)">
+          <rect x="1160" y="480" width="180" height="80" rx="6" class="c-mask"/>
+          <rect x="1160" y="480" width="180" height="80" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1166 486) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1030" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Job worker</text>
-        <text data-detail="context" x="1030" y="534" class="t-muted" font-size="9" text-anchor="middle">BullMQ · notify, reviews</text>
+          <text data-node-label="" data-detail-anchor="" x="1250" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Job worker</text>
+        <text data-detail="context" x="1250" y="534" class="t-muted" font-size="9" text-anchor="middle">BullMQ · notify, reviews</text>
         </g>
 
         <g id="node-push" data-node-id="push" data-node-label="Push service" tabindex="0" role="button" aria-label="Focus Push service, Expo Push · FCM/APNs, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Expo Push · FCM/APNs" data-node-context="Architecture component">
           <title>Push service · Expo Push · FCM/APNs · Architecture component</title>
-          <rect x="1250" y="380" width="170" height="60" rx="6" class="c-mask"/>
-          <rect x="1250" y="380" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1256 386) scale(0.6875)">
+          <rect x="1470" y="380" width="170" height="60" rx="6" class="c-mask"/>
+          <rect x="1470" y="380" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1476 386) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1335" y="408" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Push service</text>
-        <text data-detail="context" x="1335" y="424" class="t-muted" font-size="9" text-anchor="middle">Expo Push · FCM/APNs</text>
+          <text data-node-label="" data-detail-anchor="" x="1555" y="408" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Push service</text>
+        <text data-detail="context" x="1555" y="424" class="t-muted" font-size="9" text-anchor="middle">Expo Push · FCM/APNs</text>
         </g>
 
         <g id="node-email" data-node-id="email" data-node-label="Email service" tabindex="0" role="button" aria-label="Focus Email service, Resend, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Resend" data-node-context="Architecture component">
           <title>Email service · Resend · Architecture component</title>
-          <rect x="1250" y="490" width="170" height="60" rx="6" class="c-mask"/>
-          <rect x="1250" y="490" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1256 496) scale(0.6875)">
+          <rect x="1470" y="490" width="170" height="60" rx="6" class="c-mask"/>
+          <rect x="1470" y="490" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1476 496) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1335" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Email service</text>
-        <text data-detail="context" x="1335" y="534" class="t-muted" font-size="9" text-anchor="middle">Resend</text>
+          <text data-node-label="" data-detail-anchor="" x="1555" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Email service</text>
+        <text data-detail="context" x="1555" y="534" class="t-muted" font-size="9" text-anchor="middle">Resend</text>
         </g>
 
-        <g id="node-sms" data-node-id="sms" data-node-label="SMS gateway" tabindex="0" role="button" aria-label="Focus SMS gateway, Notify.lk · OTP, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Notify.lk · OTP" data-node-context="Architecture component">
-          <title>SMS gateway · Notify.lk · OTP · Architecture component</title>
-          <rect x="1250" y="600" width="170" height="60" rx="6" class="c-mask"/>
-          <rect x="1250" y="600" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1256 606) scale(0.6875)">
+        <g id="node-sms" data-node-id="sms" data-node-label="SMS gateway" tabindex="0" role="button" aria-label="Focus SMS gateway, Dialog e-SMS · OTP, alerts, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Dialog e-SMS · OTP, alerts" data-node-context="Architecture component">
+          <title>SMS gateway · Dialog e-SMS · OTP, alerts · Architecture component</title>
+          <rect x="1470" y="600" width="170" height="60" rx="6" class="c-mask"/>
+          <rect x="1470" y="600" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1476 606) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1335" y="628" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SMS gateway</text>
-        <text data-detail="context" x="1335" y="644" class="t-muted" font-size="9" text-anchor="middle">Notify.lk · OTP</text>
+          <text data-node-label="" data-detail-anchor="" x="1555" y="628" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SMS gateway</text>
+        <text data-detail="context" x="1555" y="644" class="t-muted" font-size="9" text-anchor="middle">Dialog e-SMS · OTP, alerts</text>
         </g>
 
         <!-- Connection labels -->
         <g data-detail="context" data-edge-from="attendee" data-edge-to="mobile" data-edge-label="browse, chat" data-edge-key="0" data-edge-id="attendee-mobile">
-          <rect x="226.2" y="120.975" width="67.6" height="14" rx="3" class="c-mask"/>
-          <text x="260" y="130.975" class="t-edge-emphasis" font-size="8" text-anchor="middle">browse, chat</text>
+          <rect x="226.2" y="147.95" width="67.6" height="14" rx="3" class="c-mask"/>
+          <text x="260" y="157.95" class="t-edge-emphasis" font-size="8" text-anchor="middle">browse, chat</text>
         </g>
-        <g data-detail="context" data-edge-from="org-prov" data-edge-to="mobile" data-edge-label="on the go" data-edge-key="1" data-edge-id="orgprov-mobile">
-          <rect x="233.4" y="217.5" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
-          <text x="260" y="227.5" class="t-edge-default" font-size="8" text-anchor="middle">on the go</text>
+        <g data-detail="context" data-edge-from="attendee" data-edge-to="web" data-edge-label="same features" data-edge-key="1" data-edge-id="attendee-web">
+          <rect x="177.8" y="285" width="72.4" height="14" rx="3" class="c-mask"/>
+          <text x="214" y="295" class="t-edge-emphasis" font-size="8" text-anchor="middle">same features</text>
         </g>
-        <g data-detail="context" data-edge-from="org-prov" data-edge-to="web" data-edge-label="manage events" data-edge-key="2" data-edge-id="orgprov-web">
-          <rect x="223.8" y="362.5" width="72.4" height="14" rx="3" class="c-mask"/>
-          <text x="260" y="372.5" class="t-edge-default" font-size="8" text-anchor="middle">manage events</text>
+        <g data-detail="context" data-edge-from="org-prov" data-edge-to="mobile" data-edge-label="on the go" data-edge-key="2" data-edge-id="orgprov-mobile">
+          <rect x="55.80000000000001" y="299.5" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
+          <text x="82.4" y="309.5" class="t-edge-default" font-size="8" text-anchor="middle">on the go</text>
         </g>
-        <g data-detail="context" data-edge-from="admin" data-edge-to="web" data-edge-label="verify, moderate" data-edge-key="3" data-edge-id="admin-web">
-          <rect x="216.6" y="468.5" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="260" y="478.5" class="t-edge-security" font-size="8" text-anchor="middle">verify, moderate</text>
+        <g data-detail="context" data-edge-from="org-prov" data-edge-to="web" data-edge-label="manage events" data-edge-key="3" data-edge-id="orgprov-web">
+          <rect x="223.8" y="454.05" width="72.4" height="14" rx="3" class="c-mask"/>
+          <text x="260" y="464.05" class="t-edge-default" font-size="8" text-anchor="middle">manage events</text>
         </g>
-        <g data-detail="context" data-edge-from="mobile" data-edge-to="viewer" data-edge-label="WebView" data-edge-key="4" data-edge-id="mobile-viewer">
-          <rect x="357.34999999999997" y="228" width="43.6" height="14" rx="3" class="c-mask"/>
-          <text x="379.15" y="238" class="t-edge-dashed" font-size="8" text-anchor="middle">WebView</text>
+        <g data-detail="context" data-edge-from="admin" data-edge-to="web" data-edge-label="verify, moderate" data-edge-key="4" data-edge-id="admin-web">
+          <rect x="361.6" y="580" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="405" y="590" class="t-edge-security" font-size="8" text-anchor="middle">verify, moderate</text>
         </g>
-        <g data-detail="context" data-edge-from="web" data-edge-to="viewer" data-edge-label="loads on tap" data-edge-key="5" data-edge-id="web-viewer">
-          <rect x="333.34999999999997" y="368" width="67.6" height="14" rx="3" class="c-mask"/>
-          <text x="367.15" y="378" class="t-edge-dashed" font-size="8" text-anchor="middle">loads on tap</text>
+        <g data-detail="context" data-edge-from="mobile" data-edge-to="viewer" data-edge-label="WebView" data-edge-key="5" data-edge-id="mobile-viewer">
+          <rect x="365.4" y="228" width="43.6" height="14" rx="3" class="c-mask"/>
+          <text x="387.2" y="238" class="t-edge-dashed" font-size="8" text-anchor="middle">WebView</text>
         </g>
-        <g data-detail="context" data-edge-from="mobile" data-edge-to="api" data-edge-label="HTTPS + WSS" data-edge-key="6" data-edge-id="mobile-api">
-          <rect x="533.6" y="204" width="62.8" height="14" rx="3" class="c-mask"/>
-          <text x="565" y="214" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + WSS</text>
+        <g data-detail="context" data-edge-from="web" data-edge-to="viewer" data-edge-label="loads on tap" data-edge-key="6" data-edge-id="web-viewer">
+          <rect x="381.2" y="390" width="67.6" height="14" rx="3" class="c-mask"/>
+          <text x="415" y="400" class="t-edge-dashed" font-size="8" text-anchor="middle">loads on tap</text>
         </g>
-        <g data-detail="context" data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + WSS" data-edge-key="7" data-edge-id="web-api">
-          <rect x="533.6" y="360" width="62.8" height="14" rx="3" class="c-mask"/>
-          <text x="565" y="370" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + WSS</text>
+        <g data-detail="context" data-edge-from="mobile" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="7" data-edge-id="mobile-api">
+          <rect x="903.6" y="184" width="62.8" height="14" rx="3" class="c-mask"/>
+          <text x="935" y="194" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + SSE</text>
         </g>
-        <g data-detail="context" data-edge-from="mobile" data-edge-to="media" data-edge-label="media CDN" data-edge-key="8" data-edge-id="mobile-media">
-          <rect x="533.4" y="110" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
-          <text x="560" y="120" class="t-edge-dashed" font-size="8" text-anchor="middle">media CDN</text>
+        <g data-detail="context" data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="8" data-edge-id="web-api">
+          <rect x="784.6" y="355" width="62.8" height="14" rx="3" class="c-mask"/>
+          <text x="816" y="365" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + SSE</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="media" data-edge-label="signed uploads" data-edge-key="9" data-edge-id="api-media">
-          <rect x="639.8499999999999" y="193" width="77.2" height="14" rx="3" class="c-mask"/>
-          <text x="678.4499999999999" y="203" class="t-edge-default" font-size="8" text-anchor="middle">signed uploads</text>
+        <g data-detail="context" data-edge-from="mobile" data-edge-to="media" data-edge-label="media CDN" data-edge-key="9" data-edge-id="mobile-media">
+          <rect x="508.4" y="211.525" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
+          <text x="535" y="221.525" class="t-edge-dashed" font-size="8" text-anchor="middle">media CDN</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="db" data-edge-label="SQL via Prisma" data-edge-key="10" data-edge-id="api-db">
-          <rect x="836.4" y="285" width="77.2" height="14" rx="3" class="c-mask"/>
-          <text x="875" y="295" class="t-edge-default" font-size="8" text-anchor="middle">SQL via Prisma</text>
+        <g data-detail="context" data-edge-from="web" data-edge-to="media" data-edge-label="media CDN" data-edge-key="10" data-edge-id="web-media">
+          <rect x="508.4" y="363.525" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
+          <text x="535" y="373.525" class="t-edge-dashed" font-size="8" text-anchor="middle">media CDN</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="redis" data-edge-label="enqueue, pub/sub" data-edge-key="11" data-edge-id="api-redis">
-          <rect x="630.25" y="408" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="673.65" y="418" class="t-edge-default" font-size="8" text-anchor="middle">enqueue, pub/sub</text>
+        <g data-detail="context" data-edge-from="api" data-edge-to="media" data-edge-label="signed uploads" data-edge-key="11" data-edge-id="api-media">
+          <rect x="761.4" y="271.95" width="77.2" height="14" rx="3" class="c-mask"/>
+          <text x="800" y="281.95" class="t-edge-default" font-size="8" text-anchor="middle">signed uploads</text>
         </g>
-        <g data-detail="context" data-edge-from="redis" data-edge-to="worker" data-edge-label="BullMQ jobs" data-edge-key="12" data-edge-id="redis-worker">
-          <rect x="843.6" y="500" width="62.8" height="14" rx="3" class="c-mask"/>
-          <text x="875" y="510" class="t-edge-dashed" font-size="8" text-anchor="middle">BullMQ jobs</text>
+        <g data-detail="context" data-edge-from="api" data-edge-to="db" data-edge-label="SQL via Prisma" data-edge-key="12" data-edge-id="api-db">
+          <rect x="1056.4" y="280" width="77.2" height="14" rx="3" class="c-mask"/>
+          <text x="1095" y="290" class="t-edge-default" font-size="8" text-anchor="middle">SQL via Prisma</text>
         </g>
-        <g data-detail="context" data-edge-from="worker" data-edge-to="db" data-edge-label="close reviews, rerank" data-edge-key="13" data-edge-id="worker-db">
-          <rect x="974.6" y="460" width="110.8" height="14" rx="3" class="c-mask"/>
-          <text x="1030" y="470" class="t-edge-default" font-size="8" text-anchor="middle">close reviews, rerank</text>
+        <g data-detail="context" data-edge-from="api" data-edge-to="redis" data-edge-label="enqueue, pub/sub" data-edge-key="13" data-edge-id="api-redis">
+          <rect x="842.2" y="405.5" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="885.6" y="415.5" class="t-edge-default" font-size="8" text-anchor="middle">enqueue, pub/sub</text>
         </g>
-        <g data-detail="context" data-edge-from="worker" data-edge-to="push" data-edge-label="push" data-edge-key="14" data-edge-id="worker-push">
-          <rect x="1129" y="438" width="30" height="14" rx="3" class="c-mask"/>
-          <text x="1144" y="448" class="t-edge-default" font-size="8" text-anchor="middle">push</text>
+        <g data-detail="context" data-edge-from="redis" data-edge-to="worker" data-edge-label="BullMQ jobs" data-edge-key="14" data-edge-id="redis-worker">
+          <rect x="1063.6" y="500" width="62.8" height="14" rx="3" class="c-mask"/>
+          <text x="1095" y="510" class="t-edge-dashed" font-size="8" text-anchor="middle">BullMQ jobs</text>
         </g>
-        <g data-detail="context" data-edge-from="worker" data-edge-to="email" data-edge-label="email" data-edge-key="15" data-edge-id="worker-email">
-          <rect x="1168" y="500" width="34" height="14" rx="3" class="c-mask"/>
-          <text x="1185" y="510" class="t-edge-default" font-size="8" text-anchor="middle">email</text>
+        <g data-detail="context" data-edge-from="worker" data-edge-to="db" data-edge-label="close reviews, rerank" data-edge-key="15" data-edge-id="worker-db">
+          <rect x="1194.6" y="460" width="110.8" height="14" rx="3" class="c-mask"/>
+          <text x="1250" y="470" class="t-edge-default" font-size="8" text-anchor="middle">close reviews, rerank</text>
         </g>
-        <g data-detail="context" data-edge-from="worker" data-edge-to="sms" data-edge-label="OTP SMS" data-edge-key="16" data-edge-id="worker-sms">
-          <rect x="1163.2" y="562" width="43.6" height="14" rx="3" class="c-mask"/>
-          <text x="1185" y="572" class="t-edge-default" font-size="8" text-anchor="middle">OTP SMS</text>
+        <g data-detail="context" data-edge-from="worker" data-edge-to="push" data-edge-label="push" data-edge-key="16" data-edge-id="worker-push">
+          <rect x="1349" y="438" width="30" height="14" rx="3" class="c-mask"/>
+          <text x="1364" y="448" class="t-edge-default" font-size="8" text-anchor="middle">push</text>
+        </g>
+        <g data-detail="context" data-edge-from="worker" data-edge-to="email" data-edge-label="email" data-edge-key="17" data-edge-id="worker-email">
+          <rect x="1388" y="500" width="34" height="14" rx="3" class="c-mask"/>
+          <text x="1405" y="510" class="t-edge-default" font-size="8" text-anchor="middle">email</text>
+        </g>
+        <g data-detail="context" data-edge-from="worker" data-edge-to="sms" data-edge-label="OTP, urgent alerts" data-edge-key="18" data-edge-id="worker-sms">
+          <rect x="1356.8" y="562" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="1405" y="572" class="t-edge-default" font-size="8" text-anchor="middle">OTP, urgent alerts</text>
         </g>
 
         <!-- Boundary labels (foreground masks keep routes out of titles) -->
         <g data-graph-role="structural-frame-label" data-composition-frame-id="0" data-composition-frame-kind="region" data-composition-frame-label="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <rect data-graph-role="structural-frame-label-mask" x="594" y="239" width="337.7935831870968" height="17" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="598" y="252.4193558387097" class="t-cloud" font-size="9.419355838709677" font-weight="600">Backend · TypeScript on free tiers (Render, Neon, Upstash)</text>
+          <rect data-graph-role="structural-frame-label-mask" x="814" y="233" width="387.18713157419353" height="18" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="818" y="247.83871067741936" class="t-cloud" font-size="10.838710677419353" font-weight="600">Backend · TypeScript on free tiers (Render, Neon, Upstash)</text>
         </g>
 
         <!-- Legend -->
@@ -5547,14 +5563,42 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <div class="cards">
       <div class="card">
         <div class="card-header">
+          <div class="card-dot emerald"></div>
+          <h3>Where it runs: why, and alternatives</h3>
+        </div>
+        <ul>
+          <li>Vercel (web portal). Why: made by the Next.js team, so deploys need no setup; a preview link for every pull request; pages served from its edge network; free Hobby tier. Alternatives: Netlify, Cloudflare Pages.</li>
+          <li>Render (API and job worker). Why: runs long-lived Node processes, which SSE streams and BullMQ workers need (serverless functions time out); deploys from GitHub; free tier. Watch: free instances sleep when idle, so the first request after a pause is slow. Alternatives: Railway, Fly.io, Koyeb.</li>
+          <li>Neon (PostgreSQL). Why: managed Postgres with a free tier and database branches for testing; works with Prisma. Alternatives: Supabase, Render Postgres, Aiven.</li>
+          <li>Upstash (Redis). Why: managed Redis billed per request, with a free tier; carries BullMQ jobs and the SSE pub/sub. Watch: BullMQ polls Redis often, so check usage against the free limit. Alternatives: Redis Cloud, Render Key Value.</li>
+          <li>Cloudinary (media CDN). Why: stores images, reels, layouts and private verification documents, resizes and compresses on request, and serves the app and the web portal from one CDN; free tier. Alternatives: Cloudflare R2 with Cloudflare Images, AWS S3 with CloudFront, Bunny.net.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot rose"></div>
+          <h3>Services and protocols: why, and alternatives</h3>
+        </div>
+        <ul>
+          <li>SSE instead of WebSockets. Why: one-way server-to-client updates over plain HTTPS, with automatic reconnect, that pass through proxies easily; sending a message stays a REST call. The mobile app needs a small SSE library (for example react-native-sse). Alternatives: Socket.IO or raw WebSockets, polling, Ably or Pusher.</li>
+          <li>Expo (EAS Build and Expo Push). Why: one React Native codebase for Android and iOS, cloud builds without a Mac, one push API over FCM and APNs. Alternatives: bare React Native with Firebase Cloud Messaging, OneSignal.</li>
+          <li>Resend (email). Why: simple API, free tier, email templates written in React. Alternatives: Amazon SES, Brevo, Postmark.</li>
+          <li>Dialog e-SMS (OTP and urgent alerts). Why: a Sri Lankan operator&#39;s own gateway, with sender ID masking, delivery reports and billing in LKR. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Notify.lk, Twilio, other local bulk-SMS gateways.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
           <div class="card-dot cyan"></div>
           <h3>Recommended stack</h3>
         </div>
         <ul>
           <li>One TypeScript monorepo (Turborepo) with shared types and Zod validation</li>
           <li>Mobile: React Native + Expo, one app for all four roles with role-based navigation</li>
-          <li>Web: Next.js portal for organisers, vendors and freelancers, plus a role-gated admin panel</li>
-          <li>Backend: NestJS modular monolith, REST + Socket.IO chat, Prisma on PostgreSQL</li>
+          <li>Web: Next.js portal for every role, consumers included, plus a role-gated admin panel</li>
+          <li>Backend: NestJS modular monolith on Prisma and PostgreSQL; REST for requests, Server-Sent Events (SSE) for live updates</li>
+          <li>Live updates: each client keeps one SSE stream open; Redis pub/sub passes events between API instances</li>
         </ul>
       </div>
 
