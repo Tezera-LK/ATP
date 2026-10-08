@@ -15,7 +15,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | `Tezera Proposal.pdf` + `proposal/tezera-proposal.html` | Renamed; acronym and tagline removed; PDF regenerated on the Mac, 8 pages |
 | `README.md`, `PRD Research.md`, `SDG Alignment.md`, `CLAUDE.md` | Renamed throughout; README lists the research docs; CLAUDE.md has a macOS PDF command |
 
-**Not committed.** Everything from 8 October is in the working tree on `main` (PR #1 was merged). The raw survey CSVs are not in the repo because they contain respondents' email addresses.
+**Committed and pushed** on branch `docs/tezera-research-stack`; PR #2 (https://github.com/NDR-debugs/ATP/pull/2) is open into `main`. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
 
 ## Decisions
 
@@ -41,7 +41,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 ## Next steps
 
 1. Group reviews the survey analysis and decides on R1–R12; update the PRD (v4) and the user stories to match.
-2. Commit the rename and the research docs (branch first; nothing is committed yet).
+2. Review and merge PR #2.
 3. Follow-up research (analysis section 9): interview 2–3 organisers, test R1–R4 with providers, reach beyond Colombo and students.
 4. Confirm the recommended stack against the team's skills (PRD section 8).
 
@@ -62,6 +62,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - Decisions (user): name casing, no tagline, whole-repo rename, survey-led stories.
 - Regenerated the architecture diagram from the renamed `candidate.json` with archify `finalize` (all gates passed) and checked a screenshot.
 - Stack change (user): SSE instead of WebSockets, Dialog e-SMS (OTP + urgent alerts) instead of Notify.lk, consumers on the web portal, web portal linked to the Cloudinary CDN. Redrew the diagram in a new archify folder with platform reasons and alternatives as cards under the legend; one placement repair cut route crossings from 4 to 2. Updated PRD (section 7 Platforms, MS-07, section 8, SMS dependency; v3 tags and change log) and `CLAUDE.md`.
+- Committed on `docs/tezera-research-stack` and opened PR #2.
 - Not verified: free-tier limits and platform claims in the diagram cards are from general knowledge, not checked online; Dialog e-SMS was checked only through its product page and community API clients.
 - Not verified: free-text theme counts are hand-coded; Google Fonts load only online.
 
