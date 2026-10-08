@@ -23,9 +23,10 @@ Docs diverge → also update README "How the proposal and the PRD differ".
 | `Tezera Proposal.pdf` | GENERATED from proposal HTML. |
 | `research/tezera-survey-analysis.html`, `research/tezera-user-stories.html` | Hand-edited HTML, generated from the 3 survey CSVs (not in repo; contain emails). Stories = title + Given/When/Then scenarios (`<div class="gwt">`), no "As a" line. |
 | `PRD Research.md` | Research record for PRD v1 (30 Sep 2026) + v2/v3 notes. No rewriting findings; append. |
+| `brand/tezera-brand-manual.html` | Brand manual, hand-edited HTML (tiles + colour cards built by inline JS). Palettes in CSS `.org/.orgd/.ven/.vend/.att/.attd` AND JS `pal` object → change both. Vendor palette = inverse of organiser (intended). Vendor dark = (proposed). |
 | `SDG Alignment.md` | SDG 8 primary, 9 secondary, 10 supporting. |
 
-All 4 HTML docs share a navbar (`.brandbar` / `.doclinks`: PRD, Architecture, Survey analysis, User stories). New doc → add link in all 4 (architecture via `.archify/inject-nav.py`).
+All 5 HTML docs share a navbar (`.brandbar` / `.doclinks`: PRD, Architecture, Survey analysis, User stories, Brand manual; brand manual's sits on its cover as `.docnav`). New doc → add link in all 5 (architecture via `.archify/inject-nav.py`).
 
 Regen proposal PDF (Git Bash, Windows):
 ```

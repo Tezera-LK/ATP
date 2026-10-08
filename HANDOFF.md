@@ -2,7 +2,7 @@
 
 Where the work stands, what was decided, and what comes next. **Update this file at the end of every session or section of work** (see `CLAUDE.md` for the steps).
 
-**Last updated:** 8 October 2026, Claude Code session on Windows (git user Damian De Cruz)
+**Last updated:** 8 October 2026, Claude Code session on Windows (git user Damian De Cruz), brand manual added
 
 ## Current state
 
@@ -12,6 +12,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | `research/tezera-survey-analysis.html` | New. Analysis of the three discovery surveys (26 attendees, 7 organisers, 13 vendors and freelancers; 4–8 Oct 2026), the PRD's section 1 hypotheses checked, and 12 proposed PRD changes (R1–R12) |
 | `research/tezera-user-stories.html` | Version 2. 48 user stories (17 consumer, 14 organiser, 13 provider, 4 admin), each a title plus Given / When / Then scenarios (the "As a… I want… so that…" line was dropped), with PRD links and survey evidence; 16 depend on R1–R12. Filter by role, priority and "PRD change" |
 | `prd/tezera-architecture.html` | Redrawn from `.archify/architecture-tezera-sse-20261008-132233/candidate.json`: consumers on the web portal, web portal to Cloudinary CDN, SSE instead of Socket.IO, Dialog e-SMS for OTP and urgent alerts, and two cards with the reasons for each platform and its alternatives. Archify `finalize` passed all four gates; screenshot reviewed. Shared navbar injected by `.archify/inject-nav.py`, which must be re-run after every regeneration |
+| `brand/tezera-brand-manual.html` | New. Brand manual v1.1, brought in from the team's "TESSERA Brand Manual" and renamed to Tezera. Attendee and vendor palettes swapped (attendee = coral/pink/yellow; vendor = sage/slate, the inverse of the organiser palette), personality words swapped with them, animations fixed, copy edited. Linked from every doc's navbar |
 | `Tezera Proposal.pdf` + `proposal/tezera-proposal.html` | Renamed; acronym and tagline removed; PDF regenerated on the Mac, 8 pages |
 | `README.md`, `PRD Research.md`, `SDG Alignment.md`, `CLAUDE.md` | Renamed throughout; README lists the research docs; CLAUDE.md has a macOS PDF command |
 
@@ -22,6 +23,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | Date | Decision | Made by |
 | --- | --- | --- |
 | 8 Oct 2026 | Product name: **Tezera**. Written "tezera" as a wordmark (logo, h1, diagram title), "Tezera" in prose. No acronym, no tagline | User (this session) |
+| 8 Oct 2026 | Brand: attendee takes the old vendor palette (light and dark, unchanged); vendor takes #050316 / #e9e7e2 / #70a992 / #658095 / #b6c3a7, the organiser palette inverted on purpose; the personality words move with the colours (vendor fresh and loose, attendee energetic and moving) | User (this session) |
 | 8 Oct 2026 | Stack: SSE instead of WebSockets everywhere (sending stays REST); Dialog e-SMS for OTP and urgent alerts (event cancelled or moved, booking cancelled), replacing Notify.lk; consumers get the web portal with full app parity; web portal loads media from the Cloudinary CDN | User (this session) |
 | 8 Oct 2026 | User stories are survey-led and mapped to PRD IDs, rather than a full backlog of every PRD feature | User (this session) |
 | 6 Oct 2026 | Product name REVAMP (superseded 8 Oct by Tezera) | Group (via Damian) |
@@ -37,6 +39,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - **Survey recommendations R1–R12** (analysis section 7). Biggest: structured briefs (R1) and payment and cancellation terms on bookings (R2), both extending Musts; payment tracking without payments (R3, new HR-15); late cancellations on the record (R4); "Know before you go" (R5); live event status (R6). If accepted, edit the PRD rows, tag them v4, and drop the "PRD change" tags in the user stories.
 - **Stack changes (8 Oct):** PRD section 8, MS-07, Platforms and the SMS dependency are tagged v3. Dialog e-SMS needs a Dialog Enterprise account and sender ID; its API docs are thin (only community clients found), so test it early.
 - **Survey method:** the analysis assumes responses came from the team's own networks. Confirm how the forms were shared.
+- **Brand manual (8 Oct):** vendor dark mode is derived and marked (proposed): #dcdbe4 / #1d1b16 / #5a9179 / #7d97ab / #4b583c. Confirm or replace. "Tezera comes from tessera" is now in the name section; check that's the story the team wants. Button text on the vendor primary (#e9e7e2 on #70a992) is 2.2:1 contrast, below the 4.5:1 for normal text; the old attendee primary was worse (1.6:1). The logo is still a placeholder.
 - **From 6 Oct, still open:** AC-08 verification gate, EV-01 external ticket link, 'Going' before start for reviews, and the new section 14 questions.
 
 ## Next steps
@@ -54,6 +57,16 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - The research docs were generated once from the CSVs by a script that was not kept; edit the HTML by hand. Each chart bar is `<li style="--v:COUNT">` inside `<ol class="bars" style="--n:TOTAL">`.
 
 ## Session log
+
+### 8 October 2026: brand manual
+- New `brand/tezera-brand-manual.html` from the team's "TESSERA Brand Manual" (Downloads). Renamed to Tezera (wordmark "tezera", email hello@tezera.lk), version 1.1, cover subtitle tagline dropped.
+- Colours: attendee takes the old vendor palette; vendor takes the user's new values (organiser inverted, per the user); vendor dark derived (proposed). Hardcoded colours on the cover blobs, the section 09 number, the social tile and the Do box follow the swap. Personality cards, tags and the three-experiences sentence swapped to match.
+- Animations: hover-to-settle was blocked on the corner grids by full-width headings (now shrink-wrapped) and fired on touch taps (now gated to mouse); added reduced-motion handling for the tiles; the motion section's four frames all animated together, so its labels were wrong half the time. They are now a still storyboard beside a live frame that runs the stated 900 ms ease-in-out per tile, one tile after another. Offsets are now percentages so frames scale.
+- Additions: cover tiles fade in as a diagonal wave on load; the attendee grid idles with a 2 px bob ("never quite sits still"); scattered tiles settle in a staggered order and spring back faster than they settle.
+- Copy edited with `/no-ai-slop` (essence, name, the quote line, three-experiences sentence, vague Do items). "Ticket sales" sample became "People going" because ticketing is out of the ATP.
+- Removed the logo box's "Final approved logo…" sentence (user).
+- Added a Brand manual link to the navbar of the PRD, both research docs and (via `.archify/inject-nav.py`) the architecture page. README and CLAUDE.md updated.
+- Checked with headless Chrome: screenshots of cover, essence, three experiences, colour and motion; a hover-reach probe (all scattered grids reachable) and keyframe sampling of the live frame. Not verified: true 390 px phone width (headless Chrome stops at 504 px; no overflow there), and hover feel in a real browser.
 
 ### 8 October 2026: Given / When / Then stories, shared navbar
 - `research/tezera-user-stories.html` (v2): replaced each story's "As a… I want… so that…" line and acceptance-criteria checklist with named Given / When / Then scenarios (stacked lines, new `.gwt` styles); updated the intro and "How to read a story". "(proposed)" markers kept.

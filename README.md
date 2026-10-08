@@ -13,6 +13,7 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 | [prd/tezera-architecture.html](prd/tezera-architecture.html) | The system architecture diagram (interactive, works offline), including the optional 3D venue viewer | You want to see how the apps, backend and services fit together |
 | [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) | Analysis of the discovery surveys of attendees, organisers, and vendors and freelancers (4–8 October 2026), with recommended PRD changes | You want to know what the market research found |
 | [research/tezera-user-stories.html](research/tezera-user-stories.html) | User stories for each role as Given / When / Then scenarios, drawn from the survey evidence and mapped to PRD requirement IDs | You are planning the backlog or a sprint |
+| [brand/tezera-brand-manual.html](brand/tezera-brand-manual.html) | The brand manual: name story, the three account personalities, light and dark palettes for organiser, vendor and attendee, type, icons, the tile system, motion rules, voice and applications | You are designing a screen, a post or a poster |
 | [HANDOFF.md](HANDOFF.md) | Where the work stands, what was decided, and what comes next. Updated after every session | You're picking up the work |
 
 Supporting files:

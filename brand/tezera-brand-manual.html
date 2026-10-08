@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tezera Brand Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--t:#282829;--b:#d7dfea;--p:#526c80;--s:#70a98d;--a:#6f908b;--ease-io:cubic-bezier(.65,0,.25,1);--ease-out:cubic-bezier(.23,1,.32,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+.org{--t:#282829;--b:#d7dfea;--p:#526c80;--s:#70a98d;--a:#6f908b}
+.orgd{--t:#d6d6d7;--b:#151d28;--p:#7f9aad;--s:#568f76;--a:#6f908b}
+.ven{--t:#050316;--b:#e9e7e2;--p:#70a992;--s:#658095;--a:#b6c3a7}
+.vend{--t:#dcdbe4;--b:#1d1b16;--p:#5a9179;--s:#7d97ab;--a:#4b583c}
+.att{--t:#392f3d;--b:#f7f0ed;--p:#d77e70;--s:#f09eb4;--a:#e5c76c}
+.attd{--t:#ccc2d0;--b:#120b08;--p:#8f3628;--s:#610f25;--a:#93751a}
+body{font:400 17px/1.55 'Instrument Sans',system-ui,sans-serif;background:#d7dfea;color:#282829}
+h1,h2,h3,.d{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing:-.02em;line-height:1}
+.pg{position:relative;overflow:hidden;min-height:100vh;padding:clamp(28px,6vw,88px);background:var(--b);color:var(--t)}
+.pg>*{position:relative;z-index:1}
+.num{font:800 clamp(120px,22vw,300px)/.8 'Bricolage Grotesque';color:var(--p);opacity:.9;letter-spacing:-.05em}
+h2{font-size:clamp(40px,7vw,96px);font-weight:800;margin:.2em 0 .3em}
+/* shrink-wrap so full-width blocks don't sit over the corner tile grids and swallow hover */
+.num,h2{width:fit-content}
+h3{font-size:24px;font-weight:700;margin-bottom:8px}
+p{max-width:60ch;margin-bottom:1em}
+.q{font:700 clamp(26px,4vw,48px)/1.08 'Bricolage Grotesque';max-width:20ch;color:var(--p);letter-spacing:-.02em}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;align-items:start}
+.g{display:grid;position:absolute!important;z-index:0!important;gap:5px;align-content:start}
+.g>i{display:block;aspect-ratio:1/.92;border-radius:24%;grid-column:span 2;transition:transform .4s var(--ease-out)}
+.g>i.gh{background:var(--t)!important;opacity:.13}
+/* hover a scattered grid and its tiles settle into place, one after another */
+@media(hover:hover) and (pointer:fine){.g:hover>i{transform:none!important;transition:transform .7s var(--ease-io) calc(var(--d,0)*30ms)}}
+/* the attendee grid keeps moving; translate composes with each tile's inline transform */
+@keyframes bob{from{translate:0 -2px}to{translate:0 2px}}
+.att.sys .g>i{animation:bob 2.4s ease-in-out infinite alternate;animation-delay:calc(var(--ph,0)*-2.4s)}
+.cut{right:-6%;top:-4%;width:min(46vw,520px);aspect-ratio:1}
+.cutb{left:-8%;bottom:-8%;width:min(40vw,440px);aspect-ratio:1}
+/* cover */
+.cover{background:#526c80;display:grid;place-items:center;text-align:center;min-height:100vh;color:#fff}
+.cover .blob{position:absolute;border-radius:50%;filter:blur(40px);z-index:0}
+.cover h1{font-weight:800;font-size:clamp(64px,16vw,220px);letter-spacing:.02em;color:#fff;text-shadow:0 2px 0 rgba(40,40,41,.18),0 12px 60px rgba(40,40,41,.45)}
+.cover p{margin:16px auto 0;font-size:clamp(16px,2vw,24px);text-shadow:0 2px 20px rgba(40,40,41,.5)}
+@keyframes tilein{from{opacity:0;translate:0 10px}}
+#cg>i{animation:tilein .5s var(--ease-out) both;animation-delay:calc(var(--d,0)*40ms)}
+.cover>.docnav{position:absolute;top:0;left:0;right:0;z-index:2;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px;padding:16px clamp(16px,4vw,40px);text-align:left}
+.docnav .wordmark{font:800 24px 'Bricolage Grotesque';letter-spacing:-.02em;color:#fff;text-decoration:none}
+.docnav .doclinks{display:flex;gap:6px;flex-wrap:wrap;font-size:14px}
+.docnav .doclinks a{padding:5px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;color:#fff;text-decoration:none;background:rgba(21,29,40,.25);transition:background-color .15s ease}
+.docnav .doclinks a:hover{background:rgba(21,29,40,.5)}
+.docnav .doclinks a[aria-current]{background:#fff;color:#282829;border-color:#fff}
+/* surfaces */
+.card{background:var(--b);color:var(--t);border:1.5px solid var(--p);border-radius:20px 20px 4px 20px;padding:20px}
+.btn{display:inline-block;background:var(--p);color:var(--b);font:600 15px 'Instrument Sans';padding:12px 20px;border-radius:14px 14px 3px 14px}
+.btn.o{background:none;color:var(--t);border:1.5px solid var(--p)}
+.tag{display:inline-block;font:600 13px 'Instrument Sans';padding:4px 12px;border-radius:99px;background:var(--s);color:var(--t)}
+.sw{display:flex;height:64px;border-radius:14px;overflow:hidden;margin:10px 0}
+.sw i{flex:1;display:block}
+.hex{font:500 13px 'Instrument Sans';display:flex;justify-content:space-between;opacity:.85}
+.sys{padding:22px;border-radius:24px 24px 4px 24px;background:var(--b);color:var(--t);border:1.5px solid var(--p)}
+.phone{width:250px;height:480px;border-radius:34px;background:var(--b);color:var(--t);border:2px solid var(--p);padding:16px;position:relative;overflow:hidden;margin:auto;font-size:13px;line-height:1.35}
+.phone h4{font:800 22px 'Bricolage Grotesque';margin:6px 0 10px;letter-spacing:-.02em}
+.bar{height:8px;border-radius:4px;background:var(--p)}
+.mini{display:flex;align-items:center;gap:10px;background:var(--p);color:var(--b);border-radius:14px 14px 3px 14px;padding:10px;margin-bottom:8px;font-weight:600}
+.mini b{width:34px;height:34px;flex:none;background:var(--b);border-radius:8px 8px 2px 8px;opacity:.9}
+.nav{position:absolute;left:16px;right:16px;bottom:14px;display:flex;justify-content:space-around;padding-top:10px;border-top:1.5px solid var(--p)}
+.nav i{width:22px;height:22px;background:var(--p);border-radius:6px 6px 1px 6px}
+.nav i:first-child{background:var(--a)}
+.icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:14px}
+.ic{text-align:center;font-size:13px;font-weight:500}
+.ic svg{width:64px;height:64px;display:block;margin:0 auto 6px}
+.frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.fr{aspect-ratio:1;position:relative;border-radius:18px;background:var(--b);border:1.5px solid var(--p);overflow:hidden}
+.fr svg{position:absolute;width:34%;height:34%}
+.fr span{position:absolute;left:12px;bottom:8px;font-weight:600;font-size:13px}
+.cap{font-weight:600;font-size:14px;margin-top:8px}
+/* live frame: each tile makes one 900 ms ease-in-out move, 300 ms after the one before, then the loop fades and resets */
+@keyframes fit{
+ 0%,12%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:1;animation-timing-function:var(--ease-io)}
+ 30%,86%{transform:none;opacity:1}
+ 94%{transform:none;opacity:0}
+ 94.1%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}
+ 100%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:1}}
+.live svg{animation:fit 5s linear infinite both}
+.motion{grid-template-columns:minmax(220px,1fr) 2fr;align-items:center}
+.sq{aspect-ratio:1;position:relative;overflow:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;background:var(--b);color:var(--t)}
+.sq .d{font-size:clamp(22px,3vw,34px);font-weight:800;position:relative;z-index:1}
+.poster{aspect-ratio:3/4;border-radius:10px;position:relative;overflow:hidden;padding:20px;display:flex;flex-direction:column;justify-content:space-between;background:var(--p);color:var(--b)}
+.poster .d{font-size:clamp(34px,5vw,62px);font-weight:800;position:relative;z-index:1}
+.lp{border:2px dashed var(--p);border-radius:24px;padding:48px;text-align:center;max-width:620px;font:700 22px 'Bricolage Grotesque'}
+.do,.dont{border-radius:20px 20px 4px 20px;padding:22px}
+.do{background:var(--s);color:var(--t)}.dont{border:1.5px solid var(--p)}
+li{margin:0 0 .5em 1.1em}
+a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+@media(max-width:640px){.pg{min-height:0}.phone{width:100%;max-width:290px}.row:not(.keep){grid-template-columns:1fr!important}.cover{min-height:100vh;padding-top:120px}}
+/* reduced motion: tiles appear in their final place, no movement */
+@media(prefers-reduced-motion:reduce){.g>i,.live svg{transition:none!important;animation:none!important}.live svg{transform:none!important}}
+</style></head><body>
+
+<!-- 01 COVER -->
+<section class="pg cover" id="cover">
+<nav class="docnav" aria-label="Tezera documents">
+  <a class="wordmark" href="../prd/tezera-prd.html">tezera</a>
+  <div class="doclinks">
+    <a href="../prd/tezera-prd.html">PRD</a>
+    <a href="../prd/tezera-architecture.html">Architecture</a>
+    <a href="../research/tezera-survey-analysis.html">Survey analysis</a>
+    <a href="../research/tezera-user-stories.html">User stories</a>
+    <a href="tezera-brand-manual.html" aria-current="page">Brand manual</a>
+  </div>
+</nav>
+<div class="blob" style="width:70vw;height:70vw;left:-20vw;top:-25vw;background:#526c80"></div>
+<div class="blob" style="width:60vw;height:60vw;right:-18vw;top:5vw;background:#d77e70"></div>
+<div class="blob" style="width:70vw;height:70vw;left:15vw;bottom:-38vw;background:#70a992"></div>
+<div class="g org" id="cg" data-c="10" data-r="8" data-k="p,s,a" data-o=".28" style="inset:0;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(8,1fr)"></div>
+<div><h1>tezera</h1><p>Brand manual, version 1.1</p></div>
+</section>
+
+<!-- 02 OVERVIEW / STORY / NAME -->
+<section class="pg org">
+<div class="g cut" data-c="4" data-r="4" data-k="p,s,a" data-o=".9" style="grid-template-columns:repeat(4,1fr)"></div>
+<div class="num">01</div>
+<h2>Many pieces.<br>One event.</h2>
+<div class="row" style="margin-top:40px">
+<div><h3>Overview</h3><p>Tezera is a mobile app and web portal where Sri Lankan event organisers hire vendors and freelancers, and attendees find events and each other. Three kinds of people, three accounts, one app.</p></div>
+<div><h3>Story</h3><p>Everything an event needs already exists: performers, venues, caterers, crews, audiences. It is scattered across chats, contacts and platforms. Tezera brings the pieces into one place and helps them fit.</p></div>
+<div><h3>The name</h3><p>Tezera comes from tessera, a single tile in a mosaic. Alone it is a small fragment. Placed beside others it becomes the picture. The identity shows tiles fitting together, never jigsaw pieces.</p></div>
+</div>
+<p class="q" style="margin-top:50px">“Tezera made it easy.”</p>
+<p>Every screen, post and poster should leave people saying that.</p>
+</section>
+
+<!-- 03 ESSENCE / PERSONALITY / ARCHITECTURE -->
+<section class="pg att">
+<div class="g cutb" data-c="4" data-r="4" data-k="p,s,a" data-o=".9" style="grid-template-columns:repeat(4,1fr)"></div>
+<div class="num">02</div>
+<h2>Clean and soothing.<br>Fun and engaging.</h2>
+<div class="row">
+<div><h3>Essence</h3><p>An event pulls in dozens of people who have never worked together. Tezera puts them in one place, so planning one feels manageable instead of chaotic.</p></div>
+<div><h3>Personality</h3><p>Confident, concise, clever, human, inviting and occasionally playful. A capable creative partner, never a corporate portal and never a toy.</p></div>
+<div><h3>Architecture</h3><p>One shared system: typography, logo, geometry, components, icons, spacing. Each account changes only palette and emphasis.</p></div>
+</div>
+<div class="row" style="margin-top:50px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+<div class="card org"><h3>Organiser</h3>Structured, calm, dependable. Sophisticated, but not corporate.</div>
+<div class="card ven"><h3>Vendor</h3>Fresh, collaborative, opportunity-driven. Creative, but not chaotic.</div>
+<div class="card att"><h3>Attendee</h3>Energetic, social, welcoming. Lively, but not trend-chasing.</div>
+</div>
+</section>
+
+<!-- 04 THREE EXPERIENCES -->
+<section class="pg" style="background:#282829;color:#d6d6d7">
+<div class="num" style="color:#d77e70">03</div>
+<h2>Three experiences.<br>One Tezera.</h2>
+<div class="row" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:30px">
+<div class="org sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" data-pos="static" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Organiser</h3><span class="tag">Ordered grid</span> <span class="tag">Calm</span></div>
+<div class="ven sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" data-rot="1" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Vendor</h3><span class="tag">Loose and open</span> <span class="tag">Fresh</span></div>
+<div class="att sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" data-rot="1" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Attendee</h3><span class="tag">Shifting tiles</span> <span class="tag">Warm</span></div>
+</div>
+<p style="margin-top:30px;color:#d6d6d7">All three use the same rounded tile, offset rows and type. Only colour and arrangement change. The organiser grid is orderly, the vendor grid is loose and open, and the attendee grid never quite sits still.</p>
+</section>
+
+<!-- 05 COLOUR -->
+<section class="pg org">
+<div class="num">04</div>
+<h2>Colour at work</h2>
+<p>Each account has a light and a dark mode. Primary carries actions and structure, secondary carries support and highlights, accent carries small moments of attention. Hexadecimal values are fixed and never substituted.</p>
+<p>The vendor palette inverts the organiser's. The organiser's sage support colour leads for vendors, and the organiser's slate steps back to support. Organisers and vendors work as two sides of the same booking.</p>
+<div class="row" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:30px" id="colours"></div>
+</section>
+
+<!-- 06 TYPOGRAPHY -->
+<section class="pg ven">
+<div class="g cut" data-c="4" data-r="4" data-k="p,s,a" data-o=".9" data-rot="1" style="grid-template-columns:repeat(4,1fr)"></div>
+<div class="num">05</div>
+<h2>Type that fits</h2>
+<div class="row" style="grid-template-columns:2fr 1fr">
+<div>
+<div class="d" style="font-size:clamp(56px,11vw,150px);font-weight:800;color:var(--p)">Find the fit.</div>
+<p class="cap">Bricolage Grotesque 800, display. Warm, slightly quirky terminals that feel human at large sizes.</p>
+<h3 style="font-size:36px;margin-top:30px">Book three vendors in one afternoon</h3>
+<p class="cap">Bricolage Grotesque 700, headings.</p>
+<p style="margin-top:20px">Instrument Sans 400 is the body face: clear, friendly and technical enough to trust. It holds up in long schedules and in small interface text.</p>
+<p class="cap">Instrument Sans 400 and 500, body and UI labels.</p>
+<blockquote class="q" style="margin:30px 0">“Every piece in its place.”</blockquote>
+</div>
+<div class="card"><span class="tag">Confirmed</span><p style="margin-top:12px;font:600 14px 'Instrument Sans'">People going</p>
+<div class="d" style="font-size:64px;font-weight:800;font-variant-numeric:tabular-nums">1,284</div>
+<p class="cap">Numbers: Bricolage 800, tabular figures.</p><span class="btn">Send offer</span>
+<p class="cap" style="margin-top:14px">Buttons: Instrument Sans 600, sentence case, verb first.</p></div>
+</div>
+</section>
+
+<!-- 07 ICONS -->
+<section class="pg att">
+<div class="num">06</div>
+<h2>Icons built from tiles</h2>
+<p>Every icon sits on a 24-unit grid, drawn with 2-unit strokes, round joins and one filled tile as its anchor. The filled tile is the piece; the outline is the context it fits into.</p>
+<div class="icons" id="icons" style="margin-top:30px"></div>
+</section>
+
+<!-- 08 GRAPHIC LANGUAGE + MODULAR SYSTEM -->
+<section class="pg ven">
+<div class="num">07</div>
+<h2>The tile system</h2>
+<p>One soft, rounded tile. Laid in offset rows, the tiles fit together like bricks, and the gaps between them stay small and even. Leave a tile empty and it reads as a piece still to be connected. Four moves build every composition: repeat, layer, connect, crop.</p>
+<div class="row" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin:30px 0"><div class="org"><div class="g" data-c="4" data-r="4"  style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Repeat: one tile, many times, with a few left open.</p></div><div class="ven"><div class="g" data-c="4" data-r="4" data-rot="1" style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Layer: tiles stacked in staggered rows.</p></div><div class="att"><div class="g" data-c="4" data-r="4"  style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Connect: rows lock together edge to edge.</p></div><div class="orgd"><div class="g" data-c="4" data-r="4" data-rot="1" data-gap="1" style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Crop: the pattern runs off the page.</p></div></div>
+<div class="row" style="grid-template-columns:1fr 1fr">
+<div><div class="g" data-c="8" data-r="4" data-k="p,s,a" data-o="1" style="position:relative!important;grid-template-columns:repeat(8,1fr);aspect-ratio:2/1;border-radius:16px;overflow:hidden"></div><p class="cap">Assembled: a complete pattern.</p></div>
+<div><div class="g" data-c="8" data-r="4" data-k="p,s,a" data-o="1" data-rot="1" data-gap="1" style="position:relative!important;grid-template-columns:repeat(8,1fr);aspect-ratio:2/1;border-radius:16px;overflow:hidden"></div><p class="cap">Scattered: pieces about to find their places.</p></div>
+</div>
+<p style="margin-top:20px">Rules: keep one anchor tile per composition, let at least one edge crop off the page, and use negative space to show what has not yet connected.</p>
+</section>
+
+<!-- 09 MOTION -->
+<section class="pg org">
+<div class="num">08</div>
+<h2>Pieces finding where they belong</h2>
+<p>Motion moves tiles toward alignment: drift, rotate, snap, settle. Use a 600 to 900 millisecond ease-in-out curve and move one tile at a time. With reduced motion turned on, tiles appear in their final place without moving.</p>
+<p>Hover any scattered grid in this manual to watch its tiles settle.</p>
+<div class="row motion" style="margin-top:30px">
+<div><div class="fr live" id="live"></div><p class="cap">Live: each tile moves for 900 ms, 300 ms after the one before.</p></div>
+<div class="frames" id="frames"></div>
+</div>
+</section>
+
+<!-- 10 UI -->
+<section class="pg" style="background:#282829;color:#d6d6d7">
+<div class="num" style="color:#70a992">09</div>
+<h2>Interface direction</h2>
+<p>Make a complex ecosystem feel simple: one clear action per screen, strong hierarchy, generous touch targets, visible focus and consistent component corners (large, large, large, small).</p>
+<div class="row" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:40px">
+<div><div class="phone org"><span class="tag">Saturday</span><h4>Colombo Food Fair</h4>
+<div class="bar" style="width:68%"></div><p style="margin:6px 0 12px">68% of vendor slots filled</p>
+<div class="mini"><b></b>Sound and lights<span style="margin-left:auto">Confirmed</span></div>
+<div class="mini" style="background:var(--s);color:#282829"><b></b>Catering<span style="margin-left:auto">3 offers</span></div>
+<div class="mini" style="background:none;color:var(--t);border:1.5px solid var(--p)"><b style="background:var(--p)"></b>Photography<span style="margin-left:auto">Open</span></div>
+<div class="nav"><i></i><i></i><i></i><i></i></div></div><p class="cap" style="text-align:center">Organiser: schedule, status, control.</p></div>
+<div><div class="phone ven"><span class="tag">New gig</span><h4>Wedding photographer needed</h4>
+<div class="card" style="margin-bottom:10px"><b>Kandy, 14 Nov</b><br>Budget set by organiser<br><br><span class="btn">Apply now</span></div>
+<div class="mini" style="background:var(--a);color:var(--t)"><b></b>Your portfolio is 80% complete</div>
+<div class="mini"><b></b>2 messages waiting</div>
+<div class="nav"><i></i><i></i><i></i><i></i></div></div><p class="cap" style="text-align:center">Vendor: opportunities, portfolio, bookings.</p></div>
+<div><div class="phone att"><h4>Tonight near you</h4>
+<div style="height:150px;border-radius:20px 20px 4px 20px;position:relative;overflow:hidden;margin-bottom:10px"><div class="g" data-c="4" data-r="3" data-k="p,s,a" data-o="1" data-rot="1" style="grid-template-columns:repeat(4,1fr);inset:0"></div></div>
+<b>Rooftop sunset set</b><br>112 going, 6 friends<br><br><span class="btn">I'm in</span> <span class="tag">Music</span>
+<div class="nav"><i></i><i></i><i></i><i></i></div></div><p class="cap" style="text-align:center">Attendee: discover, join, share.</p></div>
+</div>
+</section>
+
+<!-- 11 VOICE -->
+<section class="pg att">
+<div class="g cut" data-c="4" data-r="4" data-k="p,s,a" data-o=".9" style="grid-template-columns:repeat(4,1fr)"></div>
+<div class="num">10</div>
+<h2>Voice</h2>
+<p>Confident, concise, clever, human, inviting, occasionally playful. No jargon, no hype, no pile of exclamation marks.</p>
+<div class="row" style="margin-top:30px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+<div class="card"><span class="tag">Headline</span><p class="q" style="font-size:30px;margin-top:10px">Every event starts with the right pieces.</p></div>
+<div class="card"><span class="tag">Empty state</span><p class="q" style="font-size:30px;margin-top:10px">No vendors yet. Add one and watch it come together.</p></div>
+<div class="card"><span class="tag">Confirmation</span><p class="q" style="font-size:30px;margin-top:10px">Booked. Your caterer has the details.</p></div>
+<div class="card"><span class="tag">Error</span><p class="q" style="font-size:30px;margin-top:10px">That date is taken. Pick another and we will recheck.</p></div>
+</div></section>
+
+<!-- 12 SOCIAL -->
+<section class="pg org">
+<div class="num">11</div>
+<h2>Social, in pieces</h2>
+<p>Posts are tiles of a larger composition. A shape that leaves one post enters the next, so a carousel or a profile grid reads as one picture.</p>
+<div class="row keep" style="grid-template-columns:repeat(3,1fr);gap:6px;margin-top:30px">
+<div class="sq att"><div class="g" data-c="2" data-r="2" data-k="p,s,a" data-o="1" style="grid-template-columns:repeat(2,1fr);inset:0;width:100%"></div></div>
+<div class="sq ven" style="background:var(--p);color:var(--b)"><div class="d">Pieces find each other.</div></div>
+<div class="sq org"><div class="g" data-c="2" data-r="2" data-k="p,s,a" data-o="1" data-rot="1" style="grid-template-columns:repeat(2,1fr);inset:0;width:100%"></div></div>
+<div class="sq att" style="background:var(--p)"><div class="d">Tonight, near you.</div></div>
+<div class="sq org"><div class="g" data-c="3" data-r="3" data-k="p,s,a" data-o="1" style="grid-template-columns:repeat(3,1fr);inset:0;width:100%"></div></div>
+<div class="sq ven"><span class="tag" style="align-self:flex-start;margin-bottom:auto">New</span><div class="d">Vendor profiles, now with portfolios.</div></div>
+</div>
+<p class="cap">Event promotion, feature announcement, brand statement, carousel opener, event recap.</p>
+</section>
+
+<!-- 13 APPLICATIONS -->
+<section class="pg ven">
+<div class="num">12</div>
+<h2>Out in the world</h2>
+<div class="row" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:20px">
+<div><div class="poster att" style="background:var(--p)"><div class="g" data-c="3" data-r="2" data-k="s,a,b" data-o="1" data-rot="1" style="grid-template-columns:repeat(3,1fr);right:-15%;top:-5%;width:80%;height:40%"></div><span class="tag" style="align-self:flex-start">12 Dec</span><div class="d">Open air, open doors.</div></div><p class="cap">Poster</p></div>
+<div><div class="poster org" style="aspect-ratio:16/9;margin-bottom:14px"><div class="d" style="font-size:26px">Colombo Food Fair<br>Hall B</div></div><p class="cap">Event signage</p>
+<div class="card" style="margin-top:14px"><b>Dilani Perera</b><br>Partnerships<br><small>hello@tezera.lk</small></div><p class="cap">Business card</p></div>
+<div><div class="poster ven" style="aspect-ratio:1;border-radius:50% 50% 8px 8px"><div class="d" style="font-size:40px;text-align:center">Fit in.</div></div><p class="cap">Tote bag and merchandise</p>
+<div class="card org" style="margin-top:14px"><div class="d" style="font-size:32px;font-weight:800">Q3: 1,284 events</div></div><p class="cap">Presentation slide</p></div>
+</div></section>
+
+<!-- 14 DOS DONTS -->
+<section class="pg att">
+<div class="num">13</div>
+<h2>Do and don't</h2>
+<div class="row" style="grid-template-columns:1fr 1fr">
+<div class="do att"><h3>Do</h3><ul><li>Make complexity feel simple</li><li>Use the modular tile system</li><li>Connect tiles only where things relate</li><li>Keep the three accounts one family</li><li>Let each account keep its personality</li><li>Give primary, secondary and accent their own jobs</li><li>Balance play with sophistication</li><li>Start every layout from the tile</li></ul></div>
+<div class="dont"><h3>Don't</h3><ul><li>Look childish</li><li>Draw jigsaw puzzles</li><li>Make accounts feel like separate products</li><li>Introduce extra colours</li><li>Pile on trendy effects</li><li>Add geometry without a reason</li><li>Trade usability for experiments</li><li>Drift into corporate</li></ul></div>
+</div></section>
+
+<!-- 15 LOGO -->
+<section class="pg org" style="display:grid;place-items:center;min-height:70vh">
+<div class="num" style="position:absolute;left:5vw;top:3vw;font-size:clamp(90px,16vw,200px)">14</div>
+<div class="lp">tezera logo</div>
+</section>
+
+<script>
+const P={sq:'M0 0h40v40H0z',qc:'M0 40V0a40 40 0 0 1 40 40z',sm:'M0 40a20 20 0 0 1 40 0z',tr:'M0 40L40 0v40z',di:'M20 0L40 20L20 40L0 20z'};
+const fill={p:'var(--p)',s:'var(--s)',a:'var(--a)',b:'var(--b)'};
+let n=7;const rnd=()=>(n=(n*9301+49297)%233280)/233280;
+document.querySelectorAll('.g').forEach(g=>{
+ const c=+g.dataset.c,r=+g.dataset.r,ks=(g.dataset.k||'p,s,a').split(','),cv=g.id==='cg';
+ g.style.gridTemplateColumns=`repeat(${2*c+1},1fr)`;
+ let h='';
+ for(let y=0;y<r;y++)for(let x=0;x<c;x++){
+  const gh=!cv&&rnd()<.22,col=cv?(rnd()<.2?'rgba(255,255,255,.1)':'rgba(255,255,255,.28)'):fill[ks[Math.floor(rnd()*ks.length)]];
+  const sc=g.dataset.rot?`transform:translate(${(rnd()-.5)*(g.dataset.gap?16:8)}px,${(rnd()-.5)*10}px) rotate(${(rnd()-.5)*(g.dataset.gap?44:14)}deg);`:'';
+  // --d: stagger step (diagonal wave), --ph: idle-motion phase; both deterministic so the seeded layout stays the same
+  h+=`<i class="${gh?'gh':''}" style="--d:${x+y};--ph:${((x*7+y*3)%10)/10};background:${col};${y%2==0&&x==0?'grid-column:2/span 2;':''}${sc}"></i>`}
+ g.innerHTML=h});
+const pal={Organiser:['org','orgd',{org:['#282829','#d7dfea','#526c80','#70a98d','#6f908b'],orgd:['#d6d6d7','#151d28','#7f9aad','#568f76','#6f908b']}],Vendor:['ven','vend',{ven:['#050316','#e9e7e2','#70a992','#658095','#b6c3a7'],vend:['#dcdbe4','#1d1b16','#5a9179','#7d97ab','#4b583c']}],Attendee:['att','attd',{att:['#392f3d','#f7f0ed','#d77e70','#f09eb4','#e5c76c'],attd:['#ccc2d0','#120b08','#8f3628','#610f25','#93751a']}]};
+const nm=['Text','Background','Primary','Secondary','Accent'];
+let ch='';
+for(const[name,[l,d,v]]of Object.entries(pal)){for(const m of[l,d]){
+ ch+=`<div class="${m} sys"><h3>${name} ${m===l?'light':'dark'}${m==='vend'?' (proposed)':''}</h3><div class="sw">${v[m].map(x=>`<i style="background:${x}"></i>`).join('')}</div>`+nm.map((x,i)=>`<div class="hex"><span>${x}</span><span>${v[m][i]}</span></div>`).join('')+`<div style="margin-top:16px"><span class="btn">Primary action</span> <span class="tag">Secondary</span> <span class="tag" style="background:var(--a)">Accent</span></div></div>`}}
+document.getElementById('colours').innerHTML=ch;
+const I={Search:'<circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/>',Calendar:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18"/>',Vendors:'<rect x="3" y="3" width="8" height="8" rx="2"/><path d="M13 3h8v8a8 8 0 0 1-8-8z" class="f"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',Chat:'<path d="M4 5h16v11H10l-5 4v-4H4z"/>',Book:'<path d="M5 12l5 5L20 6"/>',Discover:'<circle cx="12" cy="12" r="9"/><path d="M12 12l4-4v0" /><path d="M9 15l3-3" />',Profile:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',Connect:'<circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 11l6-4M9 13l6 4"/>'};
+document.getElementById('icons').innerHTML=Object.entries(I).map(([k,v])=>`<div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${v.replace('class="f"','fill="var(--s)"')}</svg>${k}</div>`).join('');
+P.qc=P.sm=P.sq='M10 0h20a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H10A10 10 0 0 1 0 30V10A10 10 0 0 1 10 0z';
+const tiles=['qc','sq','sm'],at=j=>`left:${10+j*28}%;top:${20+(j%2)*28}%`;
+// storyboard: four still frames of the same move
+// offsets are % of the tile, so they scale with the frame
+const st=[['Scattered','90%','-70%','60deg'],['Drift','55%','-35%','30deg'],['Align','22%','-12%','10deg'],['Connected','0%','0%','0deg']];
+document.getElementById('frames').innerHTML=st.map(([t,x,y,r],i)=>`<div class="fr">${tiles.map((k,j)=>`<svg viewBox="0 0 40 40" style="${at(j)};transform:translate(${x},${y}) rotate(${r})"><path fill="var(--${['p','s','a'][j]})" d="${P[k]}"/></svg>`).join('')}<span>${i+1}. ${t}</span></div>`).join('');
+// live frame: each tile starts from its own scattered spot and settles in turn
+const sc=[['32%','-40%','45deg'],['-36%','28%','-30deg'],['24%','32%','20deg']];
+document.getElementById('live').innerHTML=tiles.map((k,j)=>`<svg viewBox="0 0 40 40" style="${at(j)};--x:${sc[j][0]};--y:${sc[j][1]};--r:${sc[j][2]};animation-delay:${j*300}ms"><path fill="var(--${['p','s','a'][j]})" d="${P[k]}"/></svg>`).join('')+'<span>Live</span>';
+</script>
+</body></html>
