@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  REVAMP: Product Requirements Document (editable source)
+  Tezera: Product Requirements Document (editable source)
 
   How to edit:
   - Priorities: change the class and text of a pill, e.g. <span class="pri should">Should</span>.
@@ -14,7 +14,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>REVAMP PRD</title>
+<title>Tezera PRD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -49,9 +49,6 @@
   /* Header */
   .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0 0 8px; }
   h1 { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 6vw, 52px); line-height: 1.05; margin: 0; letter-spacing: -.01em; }
-  .expansion { font-family: var(--display); font-size: 20px; color: var(--ink-2); margin: 10px 0 4px; }
-  .expansion b { color: var(--ink); font-weight: 600; }
-  .core { display: inline-block; margin: 10px 0 0; padding: 4px 12px; border-radius: 999px; background: var(--marigold-soft); font-weight: 600; font-size: 14px; }
   .byline { color: var(--muted); font-size: 14px; margin: 18px 0 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
   .lead { font-size: 18px; margin: 24px 0; }
 
@@ -149,13 +146,21 @@
 
 <header>
   <p class="eyebrow">Product Requirements Document · SDGP Agile Team Project</p>
-  <h1>REVAMP</h1>
-  <p class="expansion"><b>R</b>etail <b>E</b>ngagement, <b>V</b>endor <b>A</b>ctivation &amp; <b>M</b>arketing <b>P</b>latform</p>
-  <span class="core">Core idea: Transform + Amplify</span>
-  <p class="byline">Version 2 · updated 6 October 2026 · first written 30 September 2026 by Navindu Ranwatte</p>
+  <h1>tezera</h1>
+  <p class="byline">Version 3 · updated 8 October 2026 · first written 30 September 2026 by Navindu Ranwatte</p>
 </header>
 
-<p class="lead">REVAMP is a mobile app and web portal that brings Sri Lanka's event organisers, vendors, freelancers and consumers onto one platform. Organisers promote events, hire vendors and freelancers, fill stalls and share venue maps; consumers discover events, mark that they're going and meet up through forums. The ATP release covers all four core modules: events and promotion, the hiring marketplace, community and venue maps. Ticketing and entry come first after the ATP, followed by payments in the app; premium accounts come in a later version.</p>
+<p class="lead">Tezera is a mobile app and web portal that brings Sri Lanka's event organisers, vendors, freelancers and consumers onto one platform. Organisers promote events, hire vendors and freelancers, fill stalls and share venue maps; consumers discover events, mark that they're going and meet up through forums. The ATP release covers all four core modules: events and promotion, the hiring marketplace, community and venue maps. Ticketing and entry come first after the ATP, followed by payments in the app; premium accounts come in a later version.</p>
+
+<details class="changes">
+  <summary>What changed in version 3 (8 October 2026)</summary>
+  <ul>
+    <li><b>Name:</b> the product is now Tezera, written "tezera" as a wordmark. The REVAMP acronym and the "Transform + Amplify" tagline are dropped.</li>
+    <li><b>Discovery surveys:</b> surveys of attendees, organisers, and vendors and freelancers ran from 4 to 8 October 2026. The findings are in <a href="../research/tezera-survey-analysis.html"><code>research/tezera-survey-analysis.html</code></a> and the user stories in <a href="../research/tezera-user-stories.html"><code>research/tezera-user-stories.html</code></a>. No requirements have changed yet; the group reviews the recommended changes first (section 1).</li>
+    <li><b>Stack changes</b> (section 8): live updates use Server-Sent Events (SSE) instead of Socket.IO; Dialog e-SMS replaces Notify.lk or Twilio as the SMS provider, and also sends urgent alerts (MS-07); consumers can use the web portal with the same features as the app (section 7, Platforms). The architecture diagram is redrawn to match, with the reasons for each platform and its alternatives.</li>
+  </ul>
+  <p class="note">Rows changed in this version carry a <span class="tag">v3</span> tag.</p>
+</details>
 
 <details class="changes">
   <summary>What changed in version 2 (6 October 2026)</summary>
@@ -203,6 +208,7 @@
     <tr><td class="id">Consumers</td><td>Event details are spread across organisers' social pages, venue layouts are rarely shared ahead of time, and there is no easy way to find others who are going.</td><td>Consumer survey</td></tr>
   </tbody>
 </table></div>
+<div class="callout teal"><span class="tag">v3</span> <b>Survey results are in.</b> Surveys of 26 attendees, 7 organisers and 13 vendors and freelancers ran from 4 to 8 October 2026. The findings, and the PRD changes they suggest, are in the <a href="../research/tezera-survey-analysis.html">survey analysis</a> for the group to review. The requirements below have not been changed yet.</div>
 <p><b>The opportunity:</b> one platform where each party's activity feeds the others. Events create demand for vendors and freelancers. Completed jobs and attended events create reviews. Forum activity builds an audience for the organiser's next event.</p>
 
 <!-- ============================================================ 2 -->
@@ -317,7 +323,7 @@
     <tr><td class="id">Meetup</td><td>Global</td><td>Interest-based communities that host events; paid plans can charge event fees</td><td>Seating, vendor hiring</td></tr>
   </tbody>
 </table></div>
-<p>Eventeny is the closest match: it handles vendors and maps, but not freelancers or community. "Not found" means absent from the pages checked, not proven missing. Local rivals already offer QR entry and seat selection, so those are table stakes; the case for REVAMP rests on hiring, reputation and community in one place. <span class="tag">v2</span> That is also why the ATP release can leave ticketing out: it is not what sets REVAMP apart, and it comes first after the ATP.</p>
+<p>Eventeny is the closest match: it handles vendors and maps, but not freelancers or community. "Not found" means absent from the pages checked, not proven missing. Local rivals already offer QR entry and seat selection, so those are table stakes; the case for Tezera rests on hiring, reputation and community in one place. <span class="tag">v2</span> That is also why the ATP release can leave ticketing out: it is not what sets Tezera apart, and it comes first after the ATP.</p>
 
 <!-- ============================================================ 6 -->
 <h2 id="functional">6. Functional requirements</h2>
@@ -521,7 +527,7 @@
     <tr><td class="id">MS-04 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Each event has a group chat that consumers who marked it 'Going' can choose to join (ticket holders, once ticketing arrives).</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">MS-05 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Announcements to consumers who marked an event 'Going' or 'Interested' and to the organiser's followers (e.g., 'Gates open at 5 PM'), delivered in the app and as push notifications.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">MS-06</td><td class="who">All</td><td>Public Q&amp;A on each event page; the organiser's answers are visible to everyone.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">MS-07 <span class="tag">v2</span></td><td class="who">All</td><td>Transactional notifications by push, in-app and email: booking confirmations, booking requests and quotes, stall decisions, verification decisions, new messages and event changes.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">MS-07 <span class="tag">v2</span> <span class="tag">v3</span></td><td class="who">All</td><td>Transactional notifications by push, in-app and email: booking confirmations, booking requests and quotes, stall decisions, verification decisions, new messages and event changes. Urgent ones (an event cancelled or moved, a booking cancelled) also go by SMS (proposed).</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">MS-08</td><td class="who">All</td><td>Engagement notifications: event reminders, new events from followed organisers and friend activity. Each type can be switched off.</td><td class="p"><span class="pri should">Should</span></td></tr>
   </tbody>
 </table></div>
@@ -558,7 +564,7 @@
 <div class="tbl"><table>
   <thead><tr><th>Area</th><th>Requirement</th></tr></thead>
   <tbody>
-    <tr><td class="id">Platforms</td><td>Android and iOS apps for all roles. A web portal where organisers and vendors manage events, bookings and venue maps on a larger screen. Proposed: freelancers can use the portal too, and admins work from a web admin panel.</td></tr>
+    <tr><td class="id">Platforms <span class="tag">v3</span></td><td>Android and iOS apps for all roles. A web portal for all roles too: organisers and vendors manage events, bookings and venue maps on a larger screen, and consumers get the same features as in the app. Proposed: freelancers can use the portal too, and admins work from a web admin panel.</td></tr>
     <tr><td class="id">Performance <span class="tag">v2</span></td><td>Feed, event pages and search load within 3 seconds on 4G mobile data (proposed). Reels start quickly on mobile data. The 3D venue view (VM-06), if built, downloads only when a consumer opens it, so it never slows the 2D map or the event page.</td></tr>
     <tr><td class="id">Security</td><td>All traffic over HTTPS, passwords hashed, and role-based access so each role sees only its own tools.</td></tr>
     <tr><td class="id">Privacy</td><td>Collect only the data each feature needs, and ask consent for marketing messages. Users can view, correct and delete their data. NIC and registration documents are visible to admins only. The platform must comply with Sri Lanka's Personal Data Protection Act, No. 9 of 2022 (PDPA).</td></tr>
@@ -581,17 +587,17 @@
 
 <!-- ============================================================ 8 -->
 <h2 id="tech">8. Technical approach <span class="tag">v2</span></h2>
-<p>A recommended architecture for the ATP release, for the group to confirm. It uses one language, TypeScript, across the mobile app, the web portal and the backend, so a five-person team can share code and move between parts. Everything runs on free tiers during the ATP and the pilot. The architecture diagram is in <a href="revamp-architecture.html"><code>prd/revamp-architecture.html</code></a>.</p>
+<p>A recommended architecture for the ATP release, for the group to confirm. It uses one language, TypeScript, across the mobile app, the web portal and the backend, so a five-person team can share code and move between parts. Everything runs on free tiers during the ATP and the pilot. The architecture diagram is in <a href="tezera-architecture.html"><code>prd/tezera-architecture.html</code></a>.</p>
 <div class="tbl"><table>
   <thead><tr><th>Layer</th><th>Recommended</th><th>Why</th></tr></thead>
   <tbody>
     <tr><td class="id">Mobile app</td><td>React Native with Expo</td><td>One app for all four roles, with screens chosen by role. Expo handles builds and push notifications for Android and iOS.</td></tr>
-    <tr><td class="id">Web portal</td><td>Next.js (React), hosted on Vercel</td><td>The portal for organisers, vendors and freelancers. The admin panel is part of the same app, behind admin-only routes.</td></tr>
-    <tr><td class="id">Backend</td><td>NestJS, one deployable service split into modules (accounts, events, hiring, reviews, maps, community, messaging, admin); REST for the apps and Socket.IO for chat; JWT logins with role checks</td><td>One service to deploy and test now, with clear module boundaries if parts need to split later.</td></tr>
+    <tr><td class="id">Web portal <span class="tag">v3</span></td><td>Next.js (React), hosted on Vercel</td><td>The portal for every role, consumers included. Media loads from the Cloudinary CDN, as in the app. The admin panel is part of the same app, behind admin-only routes.</td></tr>
+    <tr><td class="id">Backend</td><td>NestJS, one deployable service split into modules (accounts, events, hiring, reviews, maps, community, messaging, admin); REST for the apps and Server-Sent Events (SSE) for live updates such as new chat messages, event status and 'Going' counts; sending a message is a REST call; JWT logins with role checks <span class="tag">v3</span></td><td>One service to deploy and test now, with clear module boundaries if parts need to split later.</td></tr>
     <tr><td class="id">Database</td><td>PostgreSQL (Neon) through the Prisma ORM</td><td>Bookings, stalls, reviews and rank scores are relational. PostgreSQL's built-in text search covers event and provider search at launch.</td></tr>
     <tr><td class="id">Background jobs</td><td>Redis (Upstash) with a BullMQ worker</td><td>Sends notifications, opens and closes review windows (RV-02), and recalculates rank scores (RV-04).</td></tr>
     <tr><td class="id">Media</td><td>Cloudinary</td><td>Images, reels (compressed for mobile data), portfolios and venue layouts. Verification documents are stored as private files that only admins can open, through short-lived signed links (PDPA).</td></tr>
-    <tr><td class="id">Notifications</td><td>Expo Push (FCM and APNs), Resend for email, an SMS gateway for sign-up codes (e.g., Notify.lk or Twilio)</td><td>Covers MS-07 and AC-01. The SMS provider is still to be chosen.</td></tr>
+    <tr><td class="id">Notifications <span class="tag">v3</span></td><td>Expo Push (FCM and APNs), Resend for email, Dialog e-SMS for sign-up codes and urgent alerts</td><td>Covers MS-07 and AC-01. Dialog e-SMS needs a Dialog Enterprise account, and its API documentation is thin, so test it early.</td></tr>
     <tr><td class="id">Shared code</td><td>One repository (monorepo, e.g., Turborepo) with shared types and validation (Zod)</td><td>The app, the portal and the API agree on the same data shapes.</td></tr>
   </tbody>
 </table></div>
@@ -671,7 +677,7 @@
     <text class="t" x="690" y="129" text-anchor="middle" style="font-size:12px">point</text>
 
     <path class="ln" d="M690 158 V232 H100 V258" marker-end="url(#a3)"/>
-    <text class="l" x="400" y="226" text-anchor="middle">if the group takes REVAMP further</text>
+    <text class="l" x="400" y="226" text-anchor="middle">if the group takes Tezera further</text>
     <text class="h" x="20" y="226">BEYOND THE ATP</text>
 
     <rect class="box" x="20" y="260" width="160" height="112" rx="8"/>
@@ -766,7 +772,7 @@
     <tr><td class="id">Media storage and streaming <span class="tag">v2</span></td><td>Images, reels, portfolios, venue layouts, verification documents, and 3D models (VM-07)</td><td>Reels need compression so they load quickly on mobile data. Recommended: Cloudinary (section 8).</td></tr>
     <tr><td class="id">3D rendering library <span class="tag">v2</span></td><td>The 3D venue view (VM-06)</td><td>Three.js with React Three Fiber; open source, no service cost. Only needed if VM-06 is built.</td></tr>
     <tr><td class="id">Verification checks</td><td>NIC and business registration</td><td>Manual admin review in the MVP.</td></tr>
-    <tr><td class="id">SMS service</td><td>One-time codes to verify phone numbers at sign-up (AC-01)</td><td>Provider not chosen yet; for example Notify.lk or Twilio.</td></tr>
+    <tr><td class="id">SMS service <span class="tag">v3</span></td><td>One-time codes to verify phone numbers at sign-up (AC-01), and urgent alerts (MS-07)</td><td>Dialog e-SMS (Dialog Enterprise). Needs a business account and sender ID approval (proposed: confirm with Dialog).</td></tr>
     <tr><td class="id">Maps service</td><td>Not needed in the MVP</td><td>Only if Google Maps directions are added later.</td></tr>
     <tr class="later"><td class="id">Payment gateway supporting LKR <span class="tag">v2</span></td><td>Ticket payments and refunds, after the ATP</td><td>Must offer a sandbox so testing can run without real money. Options that support LKR and have a sandbox: PayHere, Onepay, DirectPay, WEBXPAY and PAYable. PayHere also offers Flutter and React Native SDKs.</td></tr>
   </tbody>
@@ -783,7 +789,7 @@
     <tr><td>Fake organisers: fake events, or stall fees and bookings agreed in the app and never honoured. <span class="tag">v2</span></td><td class="p">High</td><td>Verify organisers before they open stalls or hire (AC-08), let admins unpublish reported events (AD-03), and keep the booking and stall record as evidence for disputes (AD-04).</td></tr>
     <tr><td>Harassment or unsafe meetups through direct messages and group chats.</td><td class="p">High</td><td>Privacy settings, opt-in 'Going' lists, block and report, and active moderation. The minimum age is still to be decided.</td></tr>
     <tr><td>Personal data such as NIC scans and messages creates legal obligations.</td><td class="p">High</td><td>Collect the minimum, restrict documents to admins, and follow the PDPA (section 7).</td></tr>
-    <tr><td>Without ticketing, organisers still need another site to sell tickets, so REVAMP adds a tool instead of replacing one. <span class="tag">v2</span></td><td class="p">Medium</td><td>Link to ticket sales from the event page (EV-01), lead with hiring, reputation and community, which rivals lack (section 5), and bring ticketing first after the ATP.</td></tr>
+    <tr><td>Without ticketing, organisers still need another site to sell tickets, so Tezera adds a tool instead of replacing one. <span class="tag">v2</span></td><td class="p">Medium</td><td>Link to ticket sales from the event page (EV-01), lead with hiring, reputation and community, which rivals lack (section 5), and bring ticketing first after the ATP.</td></tr>
     <tr><td>Fake or revenge reviews. <span class="tag">v2</span></td><td class="p">Medium</td><td>Reviews only from completed bookings, confirmed stalls or 'Going' marks made before the event, a rank score that damps small samples, and admin moderation.</td></tr>
     <tr><td>'Going' is weak proof of attendance, so consumers can review events they never went to. <span class="tag">v2</span></td><td class="p">Medium</td><td>Count only 'Going' marks made before the event starts, allow one review per event, and moderate under RV-07. Checked-in tickets replace 'Going' when ticketing arrives.</td></tr>
     <tr><td>Storage and streaming costs for reels grow quickly.</td><td class="p">Medium</td><td>Upload limits, compression and a managed media service.</td></tr>
@@ -806,7 +812,7 @@
 <p>These decisions are still open. Tick each one off as the group settles it, and update the section it affects.</p>
 <h4>For the ATP release</h4>
 <ul class="qs">
-  <li class="done">The product name. <i>Settled 6 October 2026: REVAMP.</i></li>
+  <li class="done">The product name. <i>Settled 8 October 2026: Tezera (previously REVAMP, settled 6 October). <span class="tag">v3</span></i></li>
   <li class="done">Is ticketing in the MVP? <i>Settled 6 October 2026: no, it is the first phase after the ATP (6.3).</i></li>
   <li>Can one email address or phone number register separate accounts for different roles?</li>
   <li>What is the minimum user age, and how are age-restricted events (e.g., 18+) handled?</li>

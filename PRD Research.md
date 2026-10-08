@@ -1,9 +1,9 @@
-# PRD Research — REVAMP
+# PRD Research — Tezera
 
-Everything that went into the REVAMP PRD (written as "[Product Name]" before the name was chosen), where each piece came from, and how far each source can be trusted.
+Everything that went into the Tezera PRD (written as "[Product Name]" before the name was chosen), where each piece came from, and how far each source can be trusted.
 
 - **Research date:** 30 September 2026 (all web pages were checked on this date and may have changed since)
-- **The PRD itself:** [prd/revamp-prd.html](prd/revamp-prd.html), version 2 (6 October 2026). Version 1 was the online Claude Doc [Event Organisation Platform PRD](https://claude.ai/artifact/5t9nW3mMeL3Q7r99oCceqh).
+- **The PRD itself:** [prd/tezera-prd.html](prd/tezera-prd.html), version 3 (8 October 2026; version 2 was 6 October 2026). Version 1 was the online Claude Doc [Event Organisation Platform PRD](https://claude.ai/artifact/5t9nW3mMeL3Q7r99oCceqh).
 - **Section numbers:** this file was written against PRD version 1. Version 2 added section 8 (Technical approach), so version 1 sections 8–13 are now 9–14. Section 11 below gives both numbers.
 - **Prepared by:** Claude, from the chat in which the PRD was written
 
@@ -125,7 +125,7 @@ Options tagged "(Recommended)" were Claude's suggestions; where you picked one, 
 | How should the add-ons be prioritised? | Propose a MoSCoW split (Recommended) | Claude marks each add-on Must, Should or Could as a proposal for the group to review. |
 | Should vendor and freelancer profiles have a portfolio gallery? | Yes, portfolio on profile (Recommended) | Photos and videos of past work on the profile, next to reviews. |
 | Who can post and reply in the forum? | All roles, with role badges | Consumers, organisers, vendors and freelancers can all post; a badge shows each person's role. |
-| Does the product have a name yet? | Use a placeholder | "[Product Name]" was used throughout version 1. The product was named REVAMP on 6 October 2026. |
+| Does the product have a name yet? | Use a placeholder | "[Product Name]" was used throughout version 1. The product was named REVAMP on 6 October 2026 and renamed Tezera on 8 October 2026. |
 
 ---
 
@@ -225,7 +225,7 @@ Not verified: whether Facebook's event ticketing is available in Sri Lanka.
 | WedMeGood, DJBooking.lk | Hiring and reviews |
 | Meetup, Facebook Events | Community and events |
 
-**What the PRD concluded from this:** local rivals already offer QR entry and seat selection, so those are table stakes. The case for REVAMP rests on hiring, reputation and community in one place.
+**What the PRD concluded from this:** local rivals already offer QR entry and seat selection, so those are table stakes. The case for Tezera rests on hiring, reputation and community in one place.
 
 ---
 
@@ -402,6 +402,11 @@ So the group does not present any of these as researched facts:
 - Group decisions: the name REVAMP; ticketing and entry moved out of the ATP release to match the proposal; attendee reviews unlocked by a 'Going' mark instead of a checked-in ticket; an optional 3D venue view.
 - Claude's analysis, for the group to check: organiser verification now gates stalls, job posts and booking requests (AC-08); the event page can link to external ticket sales until ticketing arrives (EV-01); only 'Going' marks made before the event count for reviews; the new risks and open questions that follow from these.
 - Claude's recommendation from general engineering knowledge (not looked up): the technical approach in PRD section 8 — React Native with Expo, Next.js, NestJS, PostgreSQL, Redis with BullMQ, Cloudinary, and Three.js with React Three Fiber for the 3D view.
+
+**Added in PRD version 3 (8 October 2026):**
+
+- Group decision: the product is renamed Tezera (written "tezera" as a wordmark). The REVAMP acronym and the "Transform + Amplify" tagline are dropped.
+- Discovery surveys ran from 4 to 8 October 2026: 26 attendees, 7 organisers, and 13 vendors and freelancers. The analysis is in [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) and the user stories in [research/tezera-user-stories.html](research/tezera-user-stories.html). The raw responses are not kept in the repository because they contain email addresses.
 
 **Hypotheses, not findings:** the problem statement in PRD section 1. It needs validating with interviews and surveys of organisers, vendors, freelancers and consumers.
 

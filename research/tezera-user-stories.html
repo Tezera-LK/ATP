@@ -1,0 +1,629 @@
+<!doctype html>
+<!--
+  tezera: User stories (editable source)
+
+  Written 8 October 2026 from the discovery surveys (see tezera-survey-analysis.html) and PRD v3.
+  Each story is an <article class="story"> with data-role (consumer|organiser|provider|admin),
+  data-pri (must|should|could|later) and data-change (1 if it needs a PRD change).
+  Priorities follow the PRD. Stories marked "PRD change" depend on a recommendation (R1-R12)
+  in the survey analysis that the group has not yet accepted.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tezera User Stories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F7F4;
+    --card: #FFFFFF;
+    --surface: #E9EEEB;
+    --rule: #D2DAD7;
+    --ink: #0E2A30;
+    --ink-2: #3D5459;
+    --muted: #6E8185;
+    --marigold: #E3A21A;
+    --marigold-soft: #F7E7BF;
+    --marigold-ink: #7A5300;
+    --teal: #1F6F78;
+    --teal-soft: #DCEBEA;
+    --bar: #1F6F78;
+    --s1: #86C0C0; --s2: #56A3A7; --s3: #2D838A; --s4: #1B6168; --s5: #0D3F45;
+    --on-s-light: #0E2A30; --on-s-dark: #FFFFFF;
+    --display: "Bricolage Grotesque", Georgia, serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0F1B1D; --card: #162528; --surface: #1D3034; --rule: #2C4246;
+      --ink: #E6EEEE; --ink-2: #B3C4C5; --muted: #8DA0A2;
+      --marigold: #F0B73E; --marigold-soft: #3B2F12; --marigold-ink: #F3CF7F;
+      --teal: #6CC0C6; --teal-soft: #183B3E; --bar: #5AA4A9;
+      --s1: #30696E; --s2: #3F868C; --s3: #5AA4A9; --s4: #84C4C7; --s5: #BCE5E6;
+      --on-s-light: #FFFFFF; --on-s-dark: #0E2A30;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0F1B1D; --card: #162528; --surface: #1D3034; --rule: #2C4246;
+    --ink: #E6EEEE; --ink-2: #B3C4C5; --muted: #8DA0A2;
+    --marigold: #F0B73E; --marigold-soft: #3B2F12; --marigold-ink: #F3CF7F;
+    --teal: #6CC0C6; --teal-soft: #183B3E; --bar: #5AA4A9;
+    --s1: #30696E; --s2: #3F868C; --s3: #5AA4A9; --s4: #84C4C7; --s5: #BCE5E6;
+    --on-s-light: #FFFFFF; --on-s-dark: #0E2A30;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+  .doc { max-width: 920px; margin: 0 auto; padding: 40px 16px 96px; }
+
+  /* Header */
+  .brandbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  .wordmark { font-family: var(--display); font-weight: 600; font-size: 26px; letter-spacing: -.02em; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .wordmark .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--marigold); box-shadow: 14px 0 0 var(--teal); margin-right: 18px; }
+  .doclinks { display: flex; gap: 6px; flex-wrap: wrap; font-size: 14px; }
+  .doclinks a { padding: 5px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); text-decoration: none; background: var(--card); }
+  .doclinks a[aria-current] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0 0 8px; }
+  h1 { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 6vw, 54px); line-height: 1.04; margin: 0; letter-spacing: -.015em; max-width: 18ch; }
+  .byline { color: var(--muted); font-size: 14px; margin: 18px 0 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .lead { font-size: 19px; margin: 24px 0; color: var(--ink); }
+
+  /* Headings & text */
+  h2 { font-family: var(--display); font-weight: 600; font-size: 28px; margin: 60px 0 12px; padding-top: 10px; border-top: 2px solid var(--ink); scroll-margin-top: 16px; }
+  h2 .num { color: var(--muted); font-weight: 500; margin-right: 6px; }
+  h3 { font-family: var(--display); font-weight: 600; font-size: 20px; margin: 36px 0 8px; scroll-margin-top: 16px; }
+  h4 { font-size: 14px; font-weight: 600; margin: 24px 0 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+  p { margin: 10px 0; }
+  ul, ol { padding-left: 22px; margin: 10px 0; }
+  li { margin: 4px 0; }
+  a { color: var(--teal); }
+  .muted { color: var(--muted); }
+  .note { font-size: 14px; color: var(--ink-2); }
+  b, strong { font-weight: 600; }
+
+  /* Contents */
+  nav.toc { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 20px; margin: 24px 0; }
+  nav.toc p { margin: 0 0 8px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  nav.toc ol { columns: 2; column-gap: 32px; margin: 0; padding-left: 22px; font-size: 15px; }
+  nav.toc li { break-inside: avoid; }
+  @media (max-width: 640px) { nav.toc ol { columns: 1; } }
+
+  /* Stat tiles */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 20px 0; }
+  .stat { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+  .stat .k { font-size: 13px; color: var(--ink-2); }
+  .stat .v { font-family: var(--body); font-weight: 600; font-size: 32px; line-height: 1.1; margin-top: 4px; }
+  .stat .d { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .stat.hl { border-top: 3px solid var(--marigold); }
+
+  /* Callouts */
+  .callout { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--marigold); border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 15px; }
+  .callout.teal { border-left-color: var(--teal); }
+  .callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+
+  /* Key findings */
+  ol.findings { list-style: none; padding: 0; counter-reset: f; display: grid; gap: 10px; }
+  ol.findings > li { counter-increment: f; position: relative; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px 14px 56px; margin: 0; }
+  ol.findings > li::before { content: counter(f); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--marigold-soft); color: var(--marigold-ink); font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+  ol.findings b.h { display: block; font-size: 16.5px; margin-bottom: 2px; }
+
+  /* Charts: horizontal bars (single series) */
+  .chart { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 16px 12px; margin: 16px 0; }
+  .chart .title { font-weight: 600; margin: 0; font-size: 15.5px; }
+  .chart .sub { font-size: 13.5px; color: var(--muted); margin: 2px 0 12px; }
+  .chart .foot { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .grid2 > .chart { margin: 8px 0; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  ol.bars { list-style: none; padding: 0; margin: 0; display: grid; gap: 3px; }
+  ol.bars li { display: grid; grid-template-columns: minmax(110px, 38%) 1fr auto; align-items: center; gap: 10px; margin: 0; padding: 3px 4px; border-radius: 6px; position: relative; font-size: 14px; }
+  ol.bars li:hover { background: var(--surface); }
+  ol.bars .lbl { color: var(--ink-2); line-height: 1.25; }
+  ol.bars .track { height: 14px; position: relative; }
+  ol.bars .fill { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) / var(--n) * 100%); background: var(--bar); border-radius: 0 4px 4px 0; min-width: 2px; }
+  ol.bars .val { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 64px; text-align: right; color: var(--ink); }
+  ol.bars .pc { font-weight: 400; color: var(--muted); display: inline-block; min-width: 4.4ch; }
+
+  /* Charts: 100% stacked (ordinal scale) */
+  .stack { display: flex; gap: 2px; height: 30px; border-radius: 4px; overflow: visible; margin: 4px 0 10px; }
+  .stack .seg { flex: var(--v) 1 0; display: grid; place-items: center; font-size: 13px; font-weight: 600; position: relative; min-width: 4px; }
+  .stack .seg:first-child { border-radius: 4px 0 0 4px; } .stack .seg:last-child { border-radius: 0 4px 4px 0; }
+  .stack .seg:only-child { border-radius: 4px; }
+  .stack .seg:hover { outline: 2px solid var(--ink); outline-offset: 1px; z-index: 1; }
+  .s1 { background: var(--s1); color: var(--on-s-light); } .s2 { background: var(--s2); color: var(--on-s-light); }
+  .s3 { background: var(--s3); color: var(--on-s-dark); } .s4 { background: var(--s4); color: var(--on-s-dark); } .s5 { background: var(--s5); color: var(--on-s-dark); }
+  ul.key { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+  ul.key li { margin: 0; display: inline-flex; align-items: center; gap: 6px; }
+  ul.key b { color: var(--ink); }
+  ul.key .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+  /* Tooltip (hover / keyboard focus) */
+  [data-tip]:hover::after { content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%); background: var(--ink); color: var(--paper); font-size: 12.5px; font-weight: 500; padding: 5px 9px; border-radius: 6px; white-space: nowrap; pointer-events: none; z-index: 5; }
+
+  /* Quotes */
+  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 14px 0; }
+  blockquote { margin: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; font-size: 15px; position: relative; }
+  blockquote p { margin: 0; }
+  blockquote p::before { content: "\201C"; font-family: var(--display); font-size: 34px; line-height: 0; vertical-align: -12px; color: var(--marigold); margin-right: 3px; }
+  blockquote footer { margin-top: 8px; font-size: 13px; color: var(--muted); }
+
+  /* Tables */
+  .tbl { overflow-x: auto; margin: 14px 0; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+  th { background: var(--surface); font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  td.id { white-space: nowrap; font-weight: 600; font-variant-numeric: tabular-nums; }
+  td.p { white-space: nowrap; }
+  td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* Pills */
+  .pri { display: inline-block; min-width: 58px; text-align: center; padding: 2px 8px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+  .pri.must { background: var(--ink); color: var(--paper); }
+  .pri.should { background: var(--marigold); color: #0E2A30; }
+  .pri.could { background: var(--teal-soft); color: var(--teal); border: 1px solid var(--teal); }
+  .pri.later { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+  .verdict { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+  .verdict.yes { background: var(--teal-soft); color: var(--teal); }
+  .verdict.part { background: var(--marigold-soft); color: var(--marigold-ink); }
+  .verdict.no { background: var(--surface); color: var(--ink-2); }
+  .tag { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 4px; background: var(--marigold-soft); color: var(--marigold-ink); font-size: 11.5px; font-weight: 600; vertical-align: 1px; white-space: nowrap; }
+  .tag.new { background: var(--marigold); color: #0E2A30; }
+  .tag.gap { background: var(--surface); color: var(--ink-2); }
+  code { font-size: .9em; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
+
+
+  /* User stories */
+  .filters { position: sticky; top: 0; z-index: 4; background: var(--paper); padding: 10px 0; margin: 8px 0 4px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 14px; }
+  .filters .grp { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .filters .grp > span { color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; margin-right: 4px; }
+  .filters button { font: inherit; font-size: 13.5px; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--rule); background: var(--card); color: var(--ink-2); cursor: pointer; }
+  .filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .filters label { display: inline-flex; gap: 6px; align-items: center; color: var(--ink-2); cursor: pointer; }
+  .filters .shown { margin-left: auto; color: var(--muted); font-size: 13px; }
+  .story { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; margin: 12px 0; scroll-margin-top: 70px; }
+  .story:target { border-color: var(--marigold); box-shadow: 0 0 0 2px var(--marigold-soft); }
+  .story[hidden] { display: none; }
+  .shead { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .shead h4 { margin: 0; flex: 1 1 260px; font-family: var(--display); font-size: 18px; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--ink); }
+  .sid { font-weight: 600; font-size: 13px; color: var(--teal); font-variant-numeric: tabular-nums; }
+  .story p.as { margin: 8px 0 6px; font-size: 15.5px; }
+  .story p.as b { color: var(--teal); font-weight: 600; }
+  .story p.lab { margin: 10px 0 2px; font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  ul.ac { margin: 4px 0 8px; padding-left: 0; list-style: none; font-size: 14.5px; }
+  ul.ac li { position: relative; padding-left: 24px; margin: 3px 0; }
+  ul.ac li::before { content: ""; position: absolute; left: 2px; top: 5px; width: 12px; height: 12px; border: 1.5px solid var(--ink-2); border-radius: 3px; }
+  .sfoot { display: grid; gap: 4px; border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 8px; font-size: 13.5px; color: var(--ink-2); }
+  .sfoot .refs a { font-weight: 600; }
+  a.tag { text-decoration: none; }
+  .rolehead { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .rolehead .cnt { font-size: 14px; color: var(--muted); }
+
+  @media print {
+    @page { size: A4; margin: 15mm 13mm; }
+    :root { --paper: #fff; }
+    body { font-size: 10.5pt; }
+    .doc { max-width: none; padding: 0; }
+    .doclinks, .filters { display: none !important; }
+    h2 { break-after: avoid; } h3, h4 { break-after: avoid; }
+    .chart, .tbl, tr, .callout, blockquote, .story, ol.findings > li { break-inside: avoid; }
+    a { color: var(--ink); text-decoration: none; }
+    [data-tip]:hover::after { display: none; }
+  }
+
+</style>
+</head>
+<body>
+<main class="doc">
+
+<div class="brandbar">
+  <a class="wordmark" href="../prd/tezera-prd.html"><span class="dot" aria-hidden="true"></span>tezera</a>
+  <nav class="doclinks" aria-label="Tezera documents">
+    <a href="../prd/tezera-prd.html">PRD</a>
+    <a href="tezera-survey-analysis.html">Survey analysis</a>
+    <a href="tezera-user-stories.html" aria-current="page">User stories</a>
+  </nav>
+</div>
+
+<header>
+  <p class="eyebrow">Product backlog · ATP release</p>
+  <h1>User stories</h1>
+  <p class="byline">Version 1 · 8 October 2026 · based on the discovery surveys and PRD version 3 · SDGP Agile Team Project</p>
+</header>
+
+<p class="lead">These stories describe what organisers, vendors, freelancers, consumers and admins need from Tezera. Each one comes from something people told us in the surveys, links to the PRD requirements that deliver it, and has acceptance criteria the team can test against.</p>
+
+<div class="stats">
+  <div class="stat hl"><div class="k">Stories</div><div class="v">48</div><div class="d">36 Must · 8 Should · 2 Could · 2 Later</div></div>
+  <div class="stat"><div class="k">Consumers</div><div class="v">17</div><div class="d">people attending events</div></div>
+  <div class="stat"><div class="k">Organisers</div><div class="v">14</div><div class="d">people running events</div></div>
+  <div class="stat"><div class="k">Providers</div><div class="v">13</div><div class="d">vendors and freelancers</div></div>
+  <div class="stat"><div class="k">Admins</div><div class="v">4</div><div class="d">platform staff</div></div>
+</div>
+
+<h2 id="how">How to read a story</h2>
+<ul>
+  <li><b>Format.</b> "As a [role], I want [something], so that [reason]", then acceptance criteria. A story is done when every criterion passes.</li>
+  <li><b>Priority</b> comes from the PRD, using MoSCoW: <span class="pri must">Must</span> <span class="pri should">Should</span> <span class="pri could">Could</span>, and <span class="pri later">Later</span> for anything after the ATP release, such as ticketing.</li>
+  <li><b>PRD</b> lists the requirements that deliver the story. Click one to jump to it.</li>
+  <li><span class="tag new">R1 · PRD change</span> means the story needs a change the PRD doesn't have yet. The R number links to that recommendation in the <a href="tezera-survey-analysis.html#recommendations">survey analysis</a>. Until the group accepts it, treat its priority as proposed.</li>
+  <li><b>Evidence</b> is the survey finding behind the story. Numbers are counts of respondents, out of 26 attendees, 7 organisers or 13 vendors and freelancers.</li>
+  <li><b>Roles.</b> Like the PRD, these stories say "consumer" for someone who attends events, and "provider" for vendors and freelancers together.</li>
+</ul>
+
+<div class="filters" role="group" aria-label="Filter stories">
+  <div class="grp"><span>Role</span>
+    <button type="button" data-f="role" data-v="all" aria-pressed="true">All</button>
+    <button type="button" data-f="role" data-v="consumer" aria-pressed="false">Consumers</button>
+    <button type="button" data-f="role" data-v="organiser" aria-pressed="false">Organisers</button>
+    <button type="button" data-f="role" data-v="provider" aria-pressed="false">Providers</button>
+    <button type="button" data-f="role" data-v="admin" aria-pressed="false">Admins</button>
+  </div>
+  <div class="grp"><span>Priority</span>
+    <button type="button" data-f="pri" data-v="all" aria-pressed="true">All</button>
+    <button type="button" data-f="pri" data-v="must" aria-pressed="false">Must</button>
+    <button type="button" data-f="pri" data-v="should" aria-pressed="false">Should</button>
+    <button type="button" data-f="pri" data-v="could" aria-pressed="false">Could</button>
+    <button type="button" data-f="pri" data-v="later" aria-pressed="false">Later</button>
+  </div>
+  <label><input type="checkbox" id="onlyChange"> Only PRD changes</label>
+  <span class="shown" aria-live="polite"></span>
+</div>
+
+<section data-section="consumer">
+<h2 id="consumers">Consumers</h2>
+<p>People who go to events. They want every detail in one place, live news when plans change, and help finding their way and their friends on the day.</p>
+<article class="story" id="US-C01" data-role="consumer" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-C01</span><h4>Find every event in one place</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to browse and search upcoming events by keyword, category, date, district and price, <b>so that</b> I stop missing events that were only announced on a page I don&#x27;t follow.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Search matches event titles, organisers and line-ups.</li><li>Filters for category, date range, district and price, including free events, can be combined.</li><li>Each result shows the date, venue, price or &#x27;free&#x27;, and the organiser with a Verified badge where earned.</li><li>Past and cancelled events are left out of results by default.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-05</a></span><span class="ev"><b>Evidence:</b> 17 of 26 attendees have missed events because they found out too late; scattered information was the most common complaint.</span></div>
+</article>
+<article class="story" id="US-C02" data-role="consumer" data-pri="should" data-change="0">
+  <div class="shead"><span class="sid">US-C02</span><h4>Hear about new events from organisers I follow</h4><span class="pri should">Should</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to follow organisers and be notified when they publish an event, <b>so that</b> I hear about it the day it&#x27;s announced, not after tickets sell out.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>A Follow button on every organiser profile and event page.</li><li>A push and in-app notification when a followed organiser publishes an event.</li><li>This notification type can be switched off in settings.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-04</a>, <a href="../prd/tezera-prd.html#m-messaging">MS-08</a></span><span class="ev"><b>Evidence:</b> &quot;I wasn&#x27;t following that page&quot;; &quot;I find out about the event on the day itself&quot; (attendees).</span></div>
+</article>
+<article class="story" id="US-C03" data-role="consumer" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-C03</span><h4>See the essentials at a glance</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> the date, time, venue, price, line-up and organiser at the top of the event page, <b>so that</b> I can decide whether to go without hunting through posters and group chats.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The top of the page shows date and time, venue name and address, price or &quot;free&quot;, line-up or schedule, and organiser.</li><li>Where tickets are sold elsewhere, the page links to the official seller (proposed).</li><li>Everything the organiser has published about the event is on this one page.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-01</a></span><span class="ev"><b>Evidence:</b> Attendees decide on date and time (24 of 26), price (23), venue (21) and line-up (18).</span></div>
+</article>
+<article class="story" id="US-C04" data-role="consumer" data-pri="should" data-change="1">
+  <div class="shead"><span class="sid">US-C04</span><h4>Know what to wear, bring and expect</h4><span class="pri should">Should</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> a &quot;Know before you go&quot; section with dress code, parking and transport, what to bring, rules, food and drink prices, and rain cover, <b>so that</b> I turn up prepared, and don&#x27;t have to message the organiser with the same questions as everyone else.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Organisers can fill in each field; empty fields are hidden.</li><li>Rules can include an age limit, re-entry and banned items.</li><li>Food and drink can show a price range in LKR.</li><li>Changes to this section notify people who marked the event Going (proposed).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-01</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R5">R5 · PRD change</a></span><span class="ev"><b>Evidence:</b> In open answers, 5 attendees asked about dress code and 3 about transport or parking; others asked about prices, re-entry and umbrellas.</span></div>
+</article>
+<article class="story" id="US-C05" data-role="consumer" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-C05</span><h4>Tell a real event from a fake one</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to see whether an event&#x27;s organiser has been verified, and to report an event that looks fake, <b>so that</b> I don&#x27;t pay a scammer or travel to an event that isn&#x27;t happening.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Verified organisers carry a Verified badge on their profile, their events and their posts.</li><li>Events by unverified organisers are labelled as such.</li><li>A Report button on every event page sends it to the admin report queue.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-accounts">AC-08</a>, <a href="../prd/tezera-prd.html#m-community">CM-04</a>, <a href="../prd/tezera-prd.html#m-admin">AD-03</a></span><span class="ev"><b>Evidence:</b> 24 of 26 attendees trust information from the official organiser account; one described duplicate ticket sellers.</span></div>
+</article>
+<article class="story" id="US-C06" data-role="consumer" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-C06</span><h4>Be told when plans change</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to be notified straight away if an event I marked is moved, postponed or cancelled, <b>so that</b> I don&#x27;t turn up on the wrong day or wait for a refund announcement that never comes.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>A change to date, time or venue, a postponement or a cancellation notifies everyone who marked the event &#x27;Going&#x27; or &#x27;Interested&#x27;, by push and in the app.</li><li>The event page shows a banner saying what changed and when.</li><li>A cancelled event stays visible, marked Cancelled, rather than disappearing.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-02</a>, <a href="../prd/tezera-prd.html#m-messaging">MS-05</a></span><span class="ev"><b>Evidence:</b> &quot;Two events … got cancelled last moment and then … there was no update regarding a reschedule or refund&quot; (attendee).</span></div>
+</article>
+<article class="story" id="US-C07" data-role="consumer" data-pri="should" data-change="1">
+  <div class="shead"><span class="sid">US-C07</span><h4>Know if the event is running late</h4><span class="pri should">Should</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to see a live status (on time, running late with a new start time, postponed, cancelled), <b>so that</b> I don&#x27;t arrive hours early or miss the start of something that was delayed.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The organiser can set the status from the app in two taps.</li><li>Running late requires a new estimated start time.</li><li>A status change is shown on the event page with the time it was set, and pushed to people who marked &#x27;Going&#x27;.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-02</a>, <a href="../prd/tezera-prd.html#m-messaging">MS-05</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R6">R6 · PRD change</a></span><span class="ev"><b>Evidence:</b> Delays and last-minute changes were the most common on-the-day complaint (6 attendees).</span></div>
+</article>
+<article class="story" id="US-C08" data-role="consumer" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-C08</span><h4>Ask the organiser and see earlier answers</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to ask questions on the event page and read the answers to other people&#x27;s questions, <b>so that</b> I don&#x27;t depend on helpline numbers that don&#x27;t answer, or a WhatsApp group I joined too late to read.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The event Q&amp;A shows every question with the organiser&#x27;s answer, visible to everyone.</li><li>Someone who arrives late sees all earlier answers.</li><li>Questions that are personal go to a private chat with the organiser.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-messaging">MS-06</a>, <a href="../prd/tezera-prd.html#m-messaging">MS-01</a></span><span class="ev"><b>Evidence:</b> &quot;I was added to the WhatsApp group late and I couldn&#x27;t view the previous messages&quot; (attendee). Another found helpline numbers unanswered.</span></div>
+</article>
+<article class="story" id="US-C09" data-role="consumer" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-C09</span><h4>See which friends are going</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to see which of my friends marked an event as Going, <b>so that</b> I can decide whether to go and make plans with them.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The event page shows friends who marked Going, if their privacy settings allow it.</li><li>Going status is private by default (proposed).</li><li>I can mark Going or Interested from the event page in one tap.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-community">CM-05</a>, <a href="../prd/tezera-prd.html#m-community">CM-06</a>, <a href="../prd/tezera-prd.html#m-events">EV-06</a></span><span class="ev"><b>Evidence:</b> 20 of 26 attendees say who else is attending matters, more than the line-up.</span></div>
+</article>
+<article class="story" id="US-C10" data-role="consumer" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-C10</span><h4>Plan with people going to the same event</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to join the event group chat and the event board, <b>so that</b> my group can agree where and when to meet, and I can find people to go with when my friends can&#x27;t.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Anyone who marked &#x27;Going&#x27; can join the event group chat.</li><li>The event board allows meetup threads such as &#x27;Meet at Gate 2&#x27;.</li><li>Block and report are available in both.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-messaging">MS-04</a>, <a href="../prd/tezera-prd.html#m-community">CM-01</a></span><span class="ev"><b>Evidence:</b> WhatsApp groups are the main way attendees coordinate (14 of 26); one asked for a way to find people to go with.</span></div>
+</article>
+<article class="story" id="US-C11" data-role="consumer" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-C11</span><h4>Find toilets, entrances and parking at the venue</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to open the venue map from the event page and find facilities by their pins, <b>so that</b> I don&#x27;t wander a large venue looking for the toilets or the right entrance.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The map opens from the event page and supports zoom and pan.</li><li>Standard pins cover stages, stalls, entrances and exits, toilets and first aid.</li><li>Standard pins also cover parking, registration or ticket counter, seating, food and drink, and water (proposed).</li><li>Tapping a pin shows its label; the map always shows the latest version.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-maps">VM-02</a>, <a href="../prd/tezera-prd.html#m-maps">VM-04</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R7">R7 · PRD change</a></span><span class="ev"><b>Evidence:</b> 18 of 26 have struggled to find something: toilets (13), entrances (10), seating (8), parking (8), registration (6).</span></div>
+</article>
+<article class="story" id="US-C12" data-role="consumer" data-pri="could" data-change="1">
+  <div class="shead"><span class="sid">US-C12</span><h4>Use the map when there is no signal</h4><span class="pri could">Could</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> the venue map, times and latest announcements to stay available offline once I have opened them, <b>so that</b> I can still find my way when the crowd takes out mobile data.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Opening an event page online saves its map, schedule and announcements on the phone.</li><li>Offline, the saved copy opens with a &quot;last updated&quot; time.</li><li>The saved copy refreshes when the phone is back online.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-maps">VM-04</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R8">R8 · PRD change</a></span><span class="ev"><b>Evidence:</b> &quot;Mobile reception is often very poor … not a single app is loading because of the lack of network&quot; (attendee).</span></div>
+</article>
+<article class="story" id="US-C13" data-role="consumer" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-C13</span><h4>See which stalls will be there</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to see the list of stall vendors, what they sell and where their stall is, <b>so that</b> I know what food and drink to expect and can find the stall I want.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Once stalls are confirmed, the event page lists each vendor with its stall number and category.</li><li>Each stall vendor links to its profile and to its pin on the map.</li><li>Vendors can show a price range (proposed).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-01</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-12</a>, <a href="../prd/tezera-prd.html#m-maps">VM-02</a></span><span class="ev"><b>Evidence:</b> Attendees asked about food prices (2) and described stalls running out (3).</span></div>
+</article>
+<article class="story" id="US-C14" data-role="consumer" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-C14</span><h4>Review an event I went to</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to rate the organiser and the event after attending, <b>so that</b> other people can judge the organiser by how past events went.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Unlocked by a &#x27;Going&#x27; mark made before the event started; opens when it ends and closes 14 days later (proposed).</li><li>Categories: organisation, value for money and overall experience (proposed).</li><li>An added category for facilities: toilets, queues and food availability (proposed).</li><li>One review per person per event.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-reviews">RV-01</a>, <a href="../prd/tezera-prd.html#m-reviews">RV-02</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R11">R11 · PRD change</a></span><span class="ev"><b>Evidence:</b> 6 of 26 trust reviews from previous attendees; washrooms, queues and stalls running out were common complaints.</span></div>
+</article>
+<article class="story" id="US-C15" data-role="consumer" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-C15</span><h4>Share an event with my friends</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to share an event to an Instagram story or a WhatsApp group with a link that shows a preview, <b>so that</b> my friends see the details without installing anything first.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>A Share button on every event page and post.</li><li>The link shows the cover image, title, date and venue as a preview.</li><li>The link opens the event in the app, or on the web portal without logging in.</li><li>A &quot;share to story&quot; image sized for Instagram stories.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-04</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R9">R9 · PRD change</a></span><span class="ev"><b>Evidence:</b> 25 of 26 attendees find events on Instagram and 22 through friends; WhatsApp groups are where plans are made.</span></div>
+</article>
+<article class="story" id="US-C16" data-role="consumer" data-pri="later" data-change="0">
+  <div class="shead"><span class="sid">US-C16</span><h4>Get my money back when an event is cancelled</h4><span class="pri later">Later</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> a full refund when an event I bought a ticket for is cancelled, <b>so that</b> I&#x27;m not left out of pocket by an organiser who disappears.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Arrives with ticketing, after the ATP.</li><li>A full refund on cancellation or admin unpublishing (TK-11).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-ticketing">TK-11</a></span><span class="ev"><b>Evidence:</b> Two cancelled events with &quot;no update regarding a reschedule or refund&quot; (attendee).</span></div>
+</article>
+<article class="story" id="US-C17" data-role="consumer" data-pri="later" data-change="0">
+  <div class="shead"><span class="sid">US-C17</span><h4>Get in quickly, with the ticket I want</h4><span class="pri later">Later</span></div>
+  <p class="as"><b>As a</b> consumer, <b>I want</b> to choose a ticket tier and get in with a QR code, <b>so that</b> I don&#x27;t queue at a ticket counter and can pay for the experience I want.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Arrives with ticketing, after the ATP (TK-01, TK-06, TK-07).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-ticketing">TK-01</a>, <a href="../prd/tezera-prd.html#m-ticketing">TK-07</a></span><span class="ev"><b>Evidence:</b> Attendees named ticket-counter queues, slow check-in and &quot;proper ticket tiers&quot;.</span></div>
+</article>
+</section>
+
+<section data-section="organiser">
+<h2 id="organisers">Organisers</h2>
+<p>People and companies who run events. They want to hire providers they can trust, run stalls without spreadsheets, and keep attendees informed.</p>
+<article class="story" id="US-O01" data-role="organiser" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-O01</span><h4>Find providers outside my network</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to search for vendors and freelancers by category, district, rating and verified status, <b>so that</b> I&#x27;m not limited to the few people I already know when they&#x27;re busy or not right for the job.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Filters for category, district, rating, rank and Verified can be combined.</li><li>Results are ordered by rank score.</li><li>Each result shows category, districts, indicative prices, rating and badges.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-01</a></span><span class="ev"><b>Evidence:</b> All 7 organisers rely on personal contacts and past vendors; finding someone suitable is their top difficulty (6 of 7).</span></div>
+</article>
+<article class="story" id="US-O02" data-role="organiser" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-O02</span><h4>Judge a provider before hiring them</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to see a provider&#x27;s portfolio, completed jobs and reviews from other organisers, <b>so that</b> I can trust someone new as much as a personal recommendation.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The profile shows the portfolio, the number of completed jobs and the tier badge.</li><li>The review page shows the average rating, the average for each category (quality, punctuality, communication, value for money) and every review.</li><li>Every review comes from a completed booking.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-reviews">RV-03</a>, <a href="../prd/tezera-prd.html#m-accounts">AC-04</a>, <a href="../prd/tezera-prd.html#m-reviews">RV-05</a></span><span class="ev"><b>Evidence:</b> 6 of 7 rate feedback from other organisers 5 out of 5 for usefulness; they judge by recommendations (6), portfolio (5) and experience (5).</span></div>
+</article>
+<article class="story" id="US-O03" data-role="organiser" data-pri="could" data-change="1">
+  <div class="shead"><span class="sid">US-O03</span><h4>See reviews for the kind of job I need</h4><span class="pri could">Could</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to filter a provider&#x27;s reviews by the service and type of event, <b>so that</b> I know how they handled a job like mine, not just jobs in general.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Each review is tagged with the service and the event type from its booking.</li><li>The review page can be filtered by service and event type.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-reviews">RV-03</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R10">R10 · PRD change</a></span><span class="ev"><b>Evidence:</b> &quot;If we can filter out for what kind of work he got feedback for, i think thats enough of a &#x27;testimonial&#x27;&quot; (organiser).</span></div>
+</article>
+<article class="story" id="US-O04" data-role="organiser" data-pri="should" data-change="0">
+  <div class="shead"><span class="sid">US-O04</span><h4>Only ask providers who are free</h4><span class="pri should">Should</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to filter providers by the date of my event, <b>so that</b> I don&#x27;t waste time contacting people who are already booked.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Providers mark dates as booked or unavailable on a calendar.</li><li>Search can filter by an available date.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-02</a></span><span class="ev"><b>Evidence:</b> Availability is a deciding factor for 5 of 7 organisers; 3 struggle to find someone available.</span></div>
+</article>
+<article class="story" id="US-O05" data-role="organiser" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-O05</span><h4>Send a complete brief</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> a booking request and job post form that asks for everything a provider needs to quote, <b>so that</b> I get accurate quotes the first time and fewer surprises on the day.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Required: event, date, start and end times, location, service and budget.</li><li>Optional: expected audience, list of deliverables, run-of-show timings, equipment provided, and rules (proposed).</li><li>Files such as a brief or mood board can be attached.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-03</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-05</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R1">R1 · PRD change</a></span><span class="ev"><b>Evidence:</b> Missing details are providers&#x27; most common complaint; 3 of 7 organisers find getting and comparing quotes hard.</span></div>
+</article>
+<article class="story" id="US-O06" data-role="organiser" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-O06</span><h4>Compare quotes side by side</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to see every quote on a job post next to the provider&#x27;s rating and message, <b>so that</b> I can choose on price and quality together.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Quotes are listed with price, rating, tier badge and message.</li><li>I can accept one or more quotes; each acceptance creates a booking.</li><li>Providers who were not chosen are notified.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-06</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-07</a></span><span class="ev"><b>Evidence:</b> Comparing prices (3 of 7) and unclear pricing (3 of 7) are hiring difficulties.</span></div>
+</article>
+<article class="story" id="US-O07" data-role="organiser" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-O07</span><h4>Agree payment terms in writing</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to set the deposit, instalments, due dates and cancellation terms on each booking, <b>so that</b> both sides know what was agreed, and I can keep track of many small payments.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>A booking records service, date, price, deposit, each instalment with its amount and due date, and cancellation terms.</li><li>The provider sees these terms before accepting.</li><li>Changing the terms after confirmation needs both sides to accept (proposed).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-04</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-08</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R2">R2 · PRD change</a></span><span class="ev"><b>Evidence:</b> &quot;Most payments are made as fractions and keeping up with the deadlines … is hard and time consuming&quot; (organiser).</span></div>
+</article>
+<article class="story" id="US-O08" data-role="organiser" data-pri="should" data-change="1">
+  <div class="shead"><span class="sid">US-O08</span><h4>Replace a provider who cancels</h4><span class="pri should">Should</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to reopen a cancelled booking as a job post in one step, <b>so that</b> I can find a replacement before it is too late.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>When a provider cancels, I am notified with their reason.</li><li>One action turns the cancelled booking into a job post with the brief already filled in.</li><li>A cancellation within 7 days of the event (proposed) shows on the provider&#x27;s profile.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-08</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-05</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R4">R4 · PRD change</a></span><span class="ev"><b>Evidence:</b> &quot;When we realise this, it&#x27;s too late to switch to another person&quot; (organiser).</span></div>
+</article>
+<article class="story" id="US-O09" data-role="organiser" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-O09</span><h4>Run stall applications in one place</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to open stall slots, review applications, invite vendors and give out stall numbers in the app, <b>so that</b> I stop managing stalls through phone calls and spreadsheets.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Stall slots have a type, fee and application deadline.</li><li>Applications can be approved or rejected; vendors can also be invited directly.</li><li>Each approved vendor gets a stall number, which appears on the event page and the map.</li><li>The stall fee is shown in the app and paid outside it.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-10</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-11</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-12</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-13</a></span><span class="ev"><b>Evidence:</b> 6 of 7 organisers manage stalls by contacting vendors directly; 2 use spreadsheets.</span></div>
+</article>
+<article class="story" id="US-O10" data-role="organiser" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-O10</span><h4>Share the venue layout before the event</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to upload my floor plan and pin the stages, stalls, entrances and facilities, <b>so that</b> attendees can find their way without relying only on signs and staff.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Upload a PNG or JPG layout per event.</li><li>Add, move, relabel and remove pins, then republish.</li><li>Attendees always see the latest version.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-maps">VM-01</a>, <a href="../prd/tezera-prd.html#m-maps">VM-02</a>, <a href="../prd/tezera-prd.html#m-maps">VM-03</a></span><span class="ev"><b>Evidence:</b> All 7 organisers coordinate the venue layout, but only 1 shares a digital map.</span></div>
+</article>
+<article class="story" id="US-O11" data-role="organiser" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-O11</span><h4>Promote an event and get it shared</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to post images and reels linked to my event, and have them easy to share outside the app, <b>so that</b> my promotion reaches people on Instagram and WhatsApp, not only inside Tezera.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Posts and reels can link to an event page.</li><li>Posts and event pages have share links with previews (see US-C15).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-events">EV-03</a>, <a href="../prd/tezera-prd.html#m-events">EV-04</a></span><span class="ev"><b>Evidence:</b> Instagram is the main channel for 6 of 7 organisers; getting people to engage and share is their most common promotion difficulty (3).</span></div>
+</article>
+<article class="story" id="US-O12" data-role="organiser" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-O12</span><h4>Update everyone at once</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to send an announcement and set the event&#x27;s live status from my phone, <b>so that</b> attendees hear about changes from me, not from rumours in group chats.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Announcements reach everyone who marked &#x27;Going&#x27; or &#x27;Interested&#x27; and my followers.</li><li>Announcements appear on the event page as well as in notifications.</li><li>Live status (US-C07) can be set from the same screen.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-messaging">MS-05</a>, <a href="../prd/tezera-prd.html#m-events">EV-02</a></span><span class="ev"><b>Evidence:</b> 2 of 7 organisers struggle to keep information up to date; attendees want live updates.</span></div>
+</article>
+<article class="story" id="US-O13" data-role="organiser" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-O13</span><h4>See how much interest an event has</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> to see &#x27;Going&#x27; and &#x27;Interested&#x27; counts, page views and post engagement, <b>so that</b> I can tell whether promotion is working before the day.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>&#x27;Going&#x27; and &#x27;Interested&#x27; counts update as they change.</li><li>Analytics show page views, post and reel engagement, and &#x27;Going&#x27; marks over time.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-dashboard">OD-01</a>, <a href="../prd/tezera-prd.html#m-dashboard">OD-04</a></span><span class="ev"><b>Evidence:</b> Organisers struggle with reaching enough people (2 of 7) and measuring results (1).</span></div>
+</article>
+<article class="story" id="US-O14" data-role="organiser" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-O14</span><h4>Track each event&#x27;s hiring and payments</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> organiser, <b>I want</b> one view of requests sent, quotes received, confirmed bookings, stall approvals and payments due, <b>so that</b> nothing slips through when I&#x27;m coordinating many vendors at once.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The dashboard lists every request, quote, booking and stall for an event, with its status.</li><li>Bookings show the next payment due and whether the provider has confirmed receiving earlier ones (proposed).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-dashboard">OD-03</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R3">R3 · PRD change</a></span><span class="ev"><b>Evidence:</b> Talking to vendors is the most time-consuming task for 5 of 7 organisers.</span></div>
+</article>
+</section>
+
+<section data-section="provider">
+<h2 id="providers">Vendors and freelancers</h2>
+<p>Businesses and individuals hired for events: photographers, DJs, caterers, decorators and others. They want new work, complete briefs, and fewer jobs that are cancelled late or paid late.</p>
+<article class="story" id="US-P01" data-role="provider" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-P01</span><h4>Be found by organisers I don&#x27;t know</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> a profile that organisers find when they search my category and district, <b>so that</b> my work stops depending only on referrals.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The profile shows category, services, indicative prices in LKR and districts served.</li><li>Verified providers show a badge after admin approval.</li><li>Top providers appear on category and district leaderboards.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-accounts">AC-03</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-01</a>, <a href="../prd/tezera-prd.html#m-reviews">RV-06</a></span><span class="ev"><b>Evidence:</b> 11 of 13 get work through referrals and 11 through past clients; several want to reach a wider audience.</span></div>
+</article>
+<article class="story" id="US-P02" data-role="provider" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-P02</span><h4>Show my work</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> a portfolio of photos and videos from past events on my profile, <b>so that</b> organisers can judge my quality before they contact me.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Upload photos and videos within size limits.</li><li>Each item can name the event or type of event.</li><li>Completed jobs on Tezera are counted on the profile automatically.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-accounts">AC-04</a></span><span class="ev"><b>Evidence:</b> Providers show their work through social media (9 of 13) and portfolios (6); one has no portfolio yet.</span></div>
+</article>
+<article class="story" id="US-P03" data-role="provider" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-P03</span><h4>Get the full brief before I quote</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> every booking request and job post to state the deliverables, duration, audience, timings and equipment provided, <b>so that</b> I can quote accurately and avoid unpaid extra work on the day.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Requests show the required fields from US-O05 and any optional ones the organiser filled in.</li><li>I can ask questions in the booking chat before quoting.</li><li>The brief is kept on the confirmed booking.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-03</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-05</a>, <a href="../prd/tezera-prd.html#m-messaging">MS-02</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R1">R1 · PRD change</a></span><span class="ev"><b>Evidence:</b> All 13 need date and location; deliverables, run-of-show and audience details are the most often missing.</span></div>
+</article>
+<article class="story" id="US-P04" data-role="provider" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-P04</span><h4>Check an organiser before accepting</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> to see an organiser&#x27;s verification, past events and reviews from other providers, <b>so that</b> I don&#x27;t work for someone who has a history of not paying.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>The organiser profile shows the Verified badge, past events and reviews from providers (payment, communication, planning).</li><li>It shows the share of bookings the organiser paid on time (proposed, from US-P07).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-accounts">AC-02</a>, <a href="../prd/tezera-prd.html#m-accounts">AC-08</a>, <a href="../prd/tezera-prd.html#m-reviews">RV-03</a></span><span class="ev"><b>Evidence:</b> Providers want to know an organiser&#x27;s previous events (8 of 13) and reviews (6) before accepting.</span></div>
+</article>
+<article class="story" id="US-P05" data-role="provider" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-P05</span><h4>See payment and cancellation terms before I accept</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> the deposit, instalments, due dates and cancellation terms on every request, <b>so that</b> I can decide whether the job is worth the risk.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Terms set by the organiser (US-O07) are shown before I accept, decline or quote.</li><li>I can propose different terms with my quote.</li><li>The agreed terms are stored on the booking.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-04</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-08</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R2">R2 · PRD change</a></span><span class="ev"><b>Evidence:</b> Payment terms are the first thing 11 of 13 providers want to know; 4 want the cancellation policy.</span></div>
+</article>
+<article class="story" id="US-P06" data-role="provider" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-P06</span><h4>Reply with my own quote</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> to answer a booking request with a different price, <b>so that</b> I can negotiate in the app with a record of what was offered.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>I can accept, decline or reply with a quote.</li><li>The organiser accepts or declines the quote; acceptance creates the booking.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-04</a></span><span class="ev"><b>Evidence:</b> Negotiating prices is a difficulty for 6 of 13.</span></div>
+</article>
+<article class="story" id="US-P07" data-role="provider" data-pri="should" data-change="1">
+  <div class="shead"><span class="sid">US-P07</span><h4>Record payments received</h4><span class="pri should">Should</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> to mark each instalment as received, and have late ones flagged, <b>so that</b> organisers who pay late or not at all build a visible record.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Each instalment on a booking has a due date and status: due, received or overdue.</li><li>I mark an instalment as received; the organiser is reminded on its due date (proposed).</li><li>The organiser&#x27;s profile shows the share of bookings paid on time, counting only bookings with terms.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-08</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R3">R3 · PRD change</a></span><span class="ev"><b>Evidence:</b> 7 of 13 face unpaid or late payment; one waited 3 months and paid costs from personal funds.</span></div>
+</article>
+<article class="story" id="US-P08" data-role="provider" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-P08</span><h4>Find job posts that fit me</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> to browse job posts that match my category and district, and apply with a quote, <b>so that</b> I can find work beyond the people I already know.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Job posts are filtered to my category and district by default.</li><li>I apply with a quote and a message before the deadline.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-06</a></span><span class="ev"><b>Evidence:</b> Finding clients and suitable jobs is hard for some (2 each); one wants &quot;a simpler way to find reliable event opportunities&quot;.</span></div>
+</article>
+<article class="story" id="US-P09" data-role="provider" data-pri="should" data-change="0">
+  <div class="shead"><span class="sid">US-P09</span><h4>Keep track of my bookings</h4><span class="pri should">Should</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> a calendar of my bookings with reminders for events and payment due dates, <b>so that</b> I don&#x27;t double-book or forget a deadline.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Confirmed bookings appear on my availability calendar automatically.</li><li>Reminders before each event and each payment due date; each type can be switched off.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-02</a>, <a href="../prd/tezera-prd.html#m-messaging">MS-08</a></span><span class="ev"><b>Evidence:</b> &quot;Have a better planning and managing system. To track when things are due and to give reminders of deadlines&quot; (provider).</span></div>
+</article>
+<article class="story" id="US-P10" data-role="provider" data-pri="should" data-change="1">
+  <div class="shead"><span class="sid">US-P10</span><h4>Be protected from last-minute cancellations</h4><span class="pri should">Should</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> cancellations to need a reason and late ones to show on the organiser&#x27;s record, <b>so that</b> organisers think twice before cancelling a confirmed job.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Cancelling a confirmed booking requires a reason.</li><li>A cancellation within 7 days of the event (proposed) shows on the profile of whoever cancelled.</li><li>A cancelled booking unlocks a review of the organiser (proposed).</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-08</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R4">R4 · PRD change</a></span><span class="ev"><b>Evidence:</b> Last-minute cancellation is the top difficulty for providers (9 of 13).</span></div>
+</article>
+<article class="story" id="US-P11" data-role="provider" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-P11</span><h4>Review the organiser</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> to rate an organiser on payment, communication and planning after a job, <b>so that</b> other providers know who pays and who plans well.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Unlocked by a completed booking or a stall at an event that has ended.</li><li>Categories: payment, communication, planning.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-reviews">RV-01</a>, <a href="../prd/tezera-prd.html#m-reviews">RV-02</a></span><span class="ev"><b>Evidence:</b> &quot;The organizer of the concert fled the venue, without paying the artists, the vendors or any other event expense&quot; (provider).</span></div>
+</article>
+<article class="story" id="US-P12" data-role="provider" data-pri="must" data-change="1">
+  <div class="shead"><span class="sid">US-P12</span><h4>Be reviewed fairly</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> reviews of me to come only from real jobs, with a right to reply and a way to dispute them, <b>so that</b> one unfair review doesn&#x27;t damage my business.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Only organisers with a completed booking can review me.</li><li>I can post one public reply to each review (proposed).</li><li>I can report a review; admins can hide reviews that break the rules, and disputes use the booking record.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-reviews">RV-01</a>, <a href="../prd/tezera-prd.html#m-reviews">RV-07</a>, <a href="../prd/tezera-prd.html#m-admin">AD-04</a> <a class="tag new" href="tezera-survey-analysis.html#recommendations" title="Needs a PRD change: recommendation R10">R10 · PRD change</a></span><span class="ev"><b>Evidence:</b> Providers asked for two-way reviews tied to completed jobs, a range of good and bad reviews, and dispute resolution.</span></div>
+</article>
+<article class="story" id="US-P13" data-role="provider" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-P13</span><h4>Apply for a stall</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As a</b> provider, <b>I want</b> as a vendor, to see open stall slots with their fees and apply, <b>so that</b> I can get stalls at events without knowing the organiser personally.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Open stall slots show the stall type, fee and deadline.</li><li>I can apply, and accept or decline invitations; approval gives me a stall number.</li><li>Vendors only; freelancers do not take stalls.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-hiring">HR-10</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-11</a>, <a href="../prd/tezera-prd.html#m-hiring">HR-13</a></span><span class="ev"><b>Evidence:</b> Organisers fill stalls by contacting vendors directly (6 of 7); 7 of 13 providers ask about the payment or stall fee before accepting.</span></div>
+</article>
+</section>
+
+<section data-section="admin">
+<h2 id="admins">Admins</h2>
+<p>Platform staff. They verify accounts, remove fake events, settle disputes and moderate reviews.</p>
+<article class="story" id="US-A01" data-role="admin" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-A01</span><h4>Verify organisers and providers</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> admin, <b>I want</b> to check verification documents and approve or reject accounts with a reason, <b>so that</b> users can trust the Verified badge.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Documents are visible to admins only.</li><li>Organisers must be verified before they open stalls, post jobs or send booking requests.</li><li>Every decision is logged.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-accounts">AC-08</a>, <a href="../prd/tezera-prd.html#m-accounts">AC-09</a>, <a href="../prd/tezera-prd.html#m-admin">AD-01</a></span><span class="ev"><b>Evidence:</b> Trust in the organiser was the top concern for attendees (24 of 26) and providers alike.</span></div>
+</article>
+<article class="story" id="US-A02" data-role="admin" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-A02</span><h4>Take down fake events</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> admin, <b>I want</b> to unpublish an event reported as fake, <b>so that</b> no one pays a stall fee or travels to an event that isn&#x27;t real.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Unpublishing closes the event&#x27;s stall applications and job posts.</li><li>People who marked &#x27;Going&#x27; or &#x27;Interested&#x27; are told the event was removed.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-admin">AD-03</a></span><span class="ev"><b>Evidence:</b> Attendees described duplicate ticket sellers; a provider asked for &quot;a system to show the credibility of an event&quot;.</span></div>
+</article>
+<article class="story" id="US-A03" data-role="admin" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-A03</span><h4>Settle disputes using the booking record</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> admin, <b>I want</b> the agreed terms, payments recorded and chat history attached to each dispute, <b>so that</b> I can judge non-payment and no-show cases on evidence.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>A dispute shows the booking, its payment terms and status, and the chat.</li><li>Outcomes: keep or hide related reviews, warn, suspend or ban.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-admin">AD-04</a></span><span class="ev"><b>Evidence:</b> Providers described late payment, verbal confirmations followed by cancellation, and an organiser who left without paying.</span></div>
+</article>
+<article class="story" id="US-A04" data-role="admin" data-pri="must" data-change="0">
+  <div class="shead"><span class="sid">US-A04</span><h4>Keep reviews honest</h4><span class="pri must">Must</span></div>
+  <p class="as"><b>As an</b> admin, <b>I want</b> to hide reviews that break the rules and leave fake accounts out of ratings, <b>so that</b> rankings reflect real work.</p>
+  <p class="lab">Acceptance criteria</p><ul class="ac"><li>Reported reviews enter the report queue.</li><li>Hidden reviews and fake accounts are left out of ratings and rank scores.</li></ul>
+  <div class="sfoot"><span class="refs">PRD <a href="../prd/tezera-prd.html#m-reviews">RV-07</a>, <a href="../prd/tezera-prd.html#m-admin">AD-02</a></span><span class="ev"><b>Evidence:</b> Providers asked for &quot;unbiased reviews&quot; and &quot;honest and fair feedback from both&quot;.</span></div>
+</article>
+</section>
+
+<h2 id="trace">Traceability</h2>
+<p>Every PRD requirement these stories rely on, and the stories that rely on it. PRD requirements that don't appear here (for example AC-01 sign-up, AC-10 languages, the 3D view VM-05 to VM-07, and most of community) still stand. The surveys didn't ask about them, so they have no story here yet.</p>
+<div class="tbl"><table><thead><tr><th>PRD requirement</th><th>User stories</th></tr></thead><tbody><tr><td class="id"><a href="../prd/tezera-prd.html#m-accounts">AC-02</a></td><td><a href="#US-P04">US-P04</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-accounts">AC-03</a></td><td><a href="#US-P01">US-P01</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-accounts">AC-04</a></td><td><a href="#US-O02">US-O02</a>, <a href="#US-P02">US-P02</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-accounts">AC-08</a></td><td><a href="#US-C05">US-C05</a>, <a href="#US-P04">US-P04</a>, <a href="#US-A01">US-A01</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-accounts">AC-09</a></td><td><a href="#US-A01">US-A01</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-events">EV-01</a></td><td><a href="#US-C03">US-C03</a>, <a href="#US-C04">US-C04</a>, <a href="#US-C13">US-C13</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-events">EV-02</a></td><td><a href="#US-C06">US-C06</a>, <a href="#US-C07">US-C07</a>, <a href="#US-O12">US-O12</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-events">EV-03</a></td><td><a href="#US-O11">US-O11</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-events">EV-04</a></td><td><a href="#US-C02">US-C02</a>, <a href="#US-C15">US-C15</a>, <a href="#US-O11">US-O11</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-events">EV-05</a></td><td><a href="#US-C01">US-C01</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-events">EV-06</a></td><td><a href="#US-C09">US-C09</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-ticketing">TK-01</a></td><td><a href="#US-C17">US-C17</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-ticketing">TK-07</a></td><td><a href="#US-C17">US-C17</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-ticketing">TK-11</a></td><td><a href="#US-C16">US-C16</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-01</a></td><td><a href="#US-O01">US-O01</a>, <a href="#US-P01">US-P01</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-02</a></td><td><a href="#US-O04">US-O04</a>, <a href="#US-P09">US-P09</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-03</a></td><td><a href="#US-O05">US-O05</a>, <a href="#US-P03">US-P03</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-04</a></td><td><a href="#US-O07">US-O07</a>, <a href="#US-P05">US-P05</a>, <a href="#US-P06">US-P06</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-05</a></td><td><a href="#US-O05">US-O05</a>, <a href="#US-O08">US-O08</a>, <a href="#US-P03">US-P03</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-06</a></td><td><a href="#US-O06">US-O06</a>, <a href="#US-P08">US-P08</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-07</a></td><td><a href="#US-O06">US-O06</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-08</a></td><td><a href="#US-O07">US-O07</a>, <a href="#US-O08">US-O08</a>, <a href="#US-P05">US-P05</a>, <a href="#US-P07">US-P07</a>, <a href="#US-P10">US-P10</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-10</a></td><td><a href="#US-O09">US-O09</a>, <a href="#US-P13">US-P13</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-11</a></td><td><a href="#US-O09">US-O09</a>, <a href="#US-P13">US-P13</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-12</a></td><td><a href="#US-C13">US-C13</a>, <a href="#US-O09">US-O09</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-hiring">HR-13</a></td><td><a href="#US-O09">US-O09</a>, <a href="#US-P13">US-P13</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-reviews">RV-01</a></td><td><a href="#US-C14">US-C14</a>, <a href="#US-P11">US-P11</a>, <a href="#US-P12">US-P12</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-reviews">RV-02</a></td><td><a href="#US-C14">US-C14</a>, <a href="#US-P11">US-P11</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-reviews">RV-03</a></td><td><a href="#US-O02">US-O02</a>, <a href="#US-O03">US-O03</a>, <a href="#US-P04">US-P04</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-reviews">RV-05</a></td><td><a href="#US-O02">US-O02</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-reviews">RV-06</a></td><td><a href="#US-P01">US-P01</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-reviews">RV-07</a></td><td><a href="#US-P12">US-P12</a>, <a href="#US-A04">US-A04</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-maps">VM-01</a></td><td><a href="#US-O10">US-O10</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-maps">VM-02</a></td><td><a href="#US-C11">US-C11</a>, <a href="#US-C13">US-C13</a>, <a href="#US-O10">US-O10</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-maps">VM-03</a></td><td><a href="#US-O10">US-O10</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-maps">VM-04</a></td><td><a href="#US-C11">US-C11</a>, <a href="#US-C12">US-C12</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-community">CM-01</a></td><td><a href="#US-C10">US-C10</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-community">CM-04</a></td><td><a href="#US-C05">US-C05</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-community">CM-05</a></td><td><a href="#US-C09">US-C09</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-community">CM-06</a></td><td><a href="#US-C09">US-C09</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-messaging">MS-01</a></td><td><a href="#US-C08">US-C08</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-messaging">MS-02</a></td><td><a href="#US-P03">US-P03</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-messaging">MS-04</a></td><td><a href="#US-C10">US-C10</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-messaging">MS-05</a></td><td><a href="#US-C06">US-C06</a>, <a href="#US-C07">US-C07</a>, <a href="#US-O12">US-O12</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-messaging">MS-06</a></td><td><a href="#US-C08">US-C08</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-messaging">MS-08</a></td><td><a href="#US-C02">US-C02</a>, <a href="#US-P09">US-P09</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-dashboard">OD-01</a></td><td><a href="#US-O13">US-O13</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-dashboard">OD-03</a></td><td><a href="#US-O14">US-O14</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-dashboard">OD-04</a></td><td><a href="#US-O13">US-O13</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-admin">AD-01</a></td><td><a href="#US-A01">US-A01</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-admin">AD-02</a></td><td><a href="#US-A04">US-A04</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-admin">AD-03</a></td><td><a href="#US-C05">US-C05</a>, <a href="#US-A02">US-A02</a></td></tr><tr><td class="id"><a href="../prd/tezera-prd.html#m-admin">AD-04</a></td><td><a href="#US-P12">US-P12</a>, <a href="#US-A03">US-A03</a></td></tr></tbody></table></div>
+
+<h3>Stories that need a PRD change</h3>
+<p>16 stories depend on recommendations in the survey analysis: R1 (<a href="#US-O05">US-O05</a>, <a href="#US-P03">US-P03</a>), R2 (<a href="#US-O07">US-O07</a>, <a href="#US-P05">US-P05</a>), R3 (<a href="#US-O14">US-O14</a>, <a href="#US-P07">US-P07</a>), R4 (<a href="#US-O08">US-O08</a>, <a href="#US-P10">US-P10</a>), R5 (<a href="#US-C04">US-C04</a>), R6 (<a href="#US-C07">US-C07</a>), R7 (<a href="#US-C11">US-C11</a>), R8 (<a href="#US-C12">US-C12</a>), R9 (<a href="#US-C15">US-C15</a>), R10 (<a href="#US-O03">US-O03</a>, <a href="#US-P12">US-P12</a>), R11 (<a href="#US-C14">US-C14</a>). If the group rejects a recommendation, drop the matching criteria from these stories or set them to Later.</p>
+
+<p class="note" style="margin-top:48px">Sources: Tezera PRD version 3 (<code>prd/tezera-prd.html</code>) and the discovery surveys of 4–8 October 2026 (<code>research/tezera-survey-analysis.html</code>). Values marked "proposed" are starting points for the group to confirm.</p>
+
+</main>
+<script>
+(function () {
+  var state = { role: 'all', pri: 'all' };
+  var stories = Array.prototype.slice.call(document.querySelectorAll('.story'));
+  var sections = document.querySelectorAll('section[data-section]');
+  var shown = document.querySelector('.filters .shown');
+  var only = document.getElementById('onlyChange');
+  function apply() {
+    var n = 0;
+    stories.forEach(function (s) {
+      var ok = (state.role === 'all' || s.dataset.role === state.role) &&
+               (state.pri === 'all' || s.dataset.pri === state.pri) &&
+               (!only.checked || s.dataset.change === '1');
+      s.hidden = !ok; if (ok) n++;
+    });
+    sections.forEach(function (sec) { sec.hidden = !sec.querySelector('.story:not([hidden])'); });
+    shown.textContent = n + ' of ' + stories.length + ' stories';
+  }
+  document.querySelectorAll('.filters button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      state[b.dataset.f] = b.dataset.v;
+      document.querySelectorAll('.filters button[data-f="' + b.dataset.f + '"]').forEach(function (o) {
+        o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+      });
+      apply();
+    });
+  });
+  only.addEventListener('change', apply);
+  apply();
+})();
+</script>
+</body>
+</html>

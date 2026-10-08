@@ -2,9 +2,9 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "REVAMP Platform Architecture (ATP release, no ticketing)",
-    "subtitle": "Retail Engagement, Vendor Activation & Marketing Platform · Transform + Amplify",
-    "output": ".archify/architecture-revamp-3d-20261006-115638/revamp-architecture.html",
+    "title": "tezera Platform Architecture (ATP release, no ticketing)",
+    "subtitle": "Event platform for organisers, providers and consumers · ATP release",
+    "output": ".archify/architecture-revamp-3d-20261006-115638/tezera-architecture.html",
     "quality_profile": "showcase",
     "locale": "en"
   },
@@ -18,7 +18,7 @@
     { "id": "web", "type": "frontend", "label": "Web portal", "sublabel": "Next.js on Vercel", "tag": "+ admin panel", "pos": [330, 410], "size": [170, 80] },
 
     { "id": "media", "type": "cloud", "label": "Cloudinary", "sublabel": "images, reels, maps, docs", "tag": "CDN", "pos": [620, 60], "size": [190, 80] },
-    { "id": "api", "type": "backend", "label": "REVAMP API", "sublabel": "NestJS · REST + Socket.IO", "tag": "JWT + RBAC", "pos": [620, 260], "size": [190, 90] },
+    { "id": "api", "type": "backend", "label": "Tezera API", "sublabel": "NestJS · REST + Socket.IO", "tag": "JWT + RBAC", "pos": [620, 260], "size": [190, 90] },
     { "id": "db", "type": "database", "label": "PostgreSQL", "sublabel": "Neon · Prisma ORM", "pos": [940, 265], "size": [180, 80] },
     { "id": "redis", "type": "messagebus", "label": "Redis", "sublabel": "Upstash · queue, pub/sub", "pos": [620, 480], "size": [190, 80] },
     { "id": "worker", "type": "backend", "label": "Job worker", "sublabel": "BullMQ · notify, reviews", "pos": [940, 480], "size": [180, 80] },

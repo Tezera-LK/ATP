@@ -1,0 +1,784 @@
+<!doctype html>
+<!--
+  tezera: Survey analysis (editable source)
+
+  Built on 8 October 2026 from the three Google Forms response sheets (attendees, organisers,
+  vendors and freelancers). The raw CSVs are NOT in the repo because they contain email addresses.
+  Charts are plain HTML: each bar is <li style="--v:COUNT"> inside <ol class="bars" style="--n:TOTAL">,
+  so a count can be corrected by editing --v, the visible number and the data-tip text.
+  Recommendations in section 7 are proposals for the group; the PRD has not been changed to match them.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tezera Survey Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F7F4;
+    --card: #FFFFFF;
+    --surface: #E9EEEB;
+    --rule: #D2DAD7;
+    --ink: #0E2A30;
+    --ink-2: #3D5459;
+    --muted: #6E8185;
+    --marigold: #E3A21A;
+    --marigold-soft: #F7E7BF;
+    --marigold-ink: #7A5300;
+    --teal: #1F6F78;
+    --teal-soft: #DCEBEA;
+    --bar: #1F6F78;
+    --s1: #86C0C0; --s2: #56A3A7; --s3: #2D838A; --s4: #1B6168; --s5: #0D3F45;
+    --on-s-light: #0E2A30; --on-s-dark: #FFFFFF;
+    --display: "Bricolage Grotesque", Georgia, serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0F1B1D; --card: #162528; --surface: #1D3034; --rule: #2C4246;
+      --ink: #E6EEEE; --ink-2: #B3C4C5; --muted: #8DA0A2;
+      --marigold: #F0B73E; --marigold-soft: #3B2F12; --marigold-ink: #F3CF7F;
+      --teal: #6CC0C6; --teal-soft: #183B3E; --bar: #5AA4A9;
+      --s1: #30696E; --s2: #3F868C; --s3: #5AA4A9; --s4: #84C4C7; --s5: #BCE5E6;
+      --on-s-light: #FFFFFF; --on-s-dark: #0E2A30;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0F1B1D; --card: #162528; --surface: #1D3034; --rule: #2C4246;
+    --ink: #E6EEEE; --ink-2: #B3C4C5; --muted: #8DA0A2;
+    --marigold: #F0B73E; --marigold-soft: #3B2F12; --marigold-ink: #F3CF7F;
+    --teal: #6CC0C6; --teal-soft: #183B3E; --bar: #5AA4A9;
+    --s1: #30696E; --s2: #3F868C; --s3: #5AA4A9; --s4: #84C4C7; --s5: #BCE5E6;
+    --on-s-light: #FFFFFF; --on-s-dark: #0E2A30;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+  .doc { max-width: 920px; margin: 0 auto; padding: 40px 16px 96px; }
+
+  /* Header */
+  .brandbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  .wordmark { font-family: var(--display); font-weight: 600; font-size: 26px; letter-spacing: -.02em; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .wordmark .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--marigold); box-shadow: 14px 0 0 var(--teal); margin-right: 18px; }
+  .doclinks { display: flex; gap: 6px; flex-wrap: wrap; font-size: 14px; }
+  .doclinks a { padding: 5px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); text-decoration: none; background: var(--card); }
+  .doclinks a[aria-current] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0 0 8px; }
+  h1 { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 6vw, 54px); line-height: 1.04; margin: 0; letter-spacing: -.015em; max-width: 18ch; }
+  .byline { color: var(--muted); font-size: 14px; margin: 18px 0 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .lead { font-size: 19px; margin: 24px 0; color: var(--ink); }
+
+  /* Headings & text */
+  h2 { font-family: var(--display); font-weight: 600; font-size: 28px; margin: 60px 0 12px; padding-top: 10px; border-top: 2px solid var(--ink); scroll-margin-top: 16px; }
+  h2 .num { color: var(--muted); font-weight: 500; margin-right: 6px; }
+  h3 { font-family: var(--display); font-weight: 600; font-size: 20px; margin: 36px 0 8px; scroll-margin-top: 16px; }
+  h4 { font-size: 14px; font-weight: 600; margin: 24px 0 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+  p { margin: 10px 0; }
+  ul, ol { padding-left: 22px; margin: 10px 0; }
+  li { margin: 4px 0; }
+  a { color: var(--teal); }
+  .muted { color: var(--muted); }
+  .note { font-size: 14px; color: var(--ink-2); }
+  b, strong { font-weight: 600; }
+
+  /* Contents */
+  nav.toc { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 20px; margin: 24px 0; }
+  nav.toc p { margin: 0 0 8px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  nav.toc ol { columns: 2; column-gap: 32px; margin: 0; padding-left: 22px; font-size: 15px; }
+  nav.toc li { break-inside: avoid; }
+  @media (max-width: 640px) { nav.toc ol { columns: 1; } }
+
+  /* Stat tiles */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 20px 0; }
+  .stat { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+  .stat .k { font-size: 13px; color: var(--ink-2); }
+  .stat .v { font-family: var(--body); font-weight: 600; font-size: 32px; line-height: 1.1; margin-top: 4px; }
+  .stat .d { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .stat.hl { border-top: 3px solid var(--marigold); }
+
+  /* Callouts */
+  .callout { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--marigold); border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 15px; }
+  .callout.teal { border-left-color: var(--teal); }
+  .callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+
+  /* Key findings */
+  ol.findings { list-style: none; padding: 0; counter-reset: f; display: grid; gap: 10px; }
+  ol.findings > li { counter-increment: f; position: relative; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px 14px 56px; margin: 0; }
+  ol.findings > li::before { content: counter(f); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--marigold-soft); color: var(--marigold-ink); font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+  ol.findings b.h { display: block; font-size: 16.5px; margin-bottom: 2px; }
+
+  /* Charts: horizontal bars (single series) */
+  .chart { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 16px 12px; margin: 16px 0; }
+  .chart .title { font-weight: 600; margin: 0; font-size: 15.5px; }
+  .chart .sub { font-size: 13.5px; color: var(--muted); margin: 2px 0 12px; }
+  .chart .foot { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .grid2 > .chart { margin: 8px 0; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  ol.bars { list-style: none; padding: 0; margin: 0; display: grid; gap: 3px; }
+  ol.bars li { display: grid; grid-template-columns: minmax(110px, 38%) 1fr auto; align-items: center; gap: 10px; margin: 0; padding: 3px 4px; border-radius: 6px; position: relative; font-size: 14px; }
+  ol.bars li:hover { background: var(--surface); }
+  ol.bars .lbl { color: var(--ink-2); line-height: 1.25; }
+  ol.bars .track { height: 14px; position: relative; }
+  ol.bars .fill { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) / var(--n) * 100%); background: var(--bar); border-radius: 0 4px 4px 0; min-width: 2px; }
+  ol.bars .val { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 64px; text-align: right; color: var(--ink); }
+  ol.bars .pc { font-weight: 400; color: var(--muted); display: inline-block; min-width: 4.4ch; }
+
+  /* Charts: 100% stacked (ordinal scale) */
+  .stack { display: flex; gap: 2px; height: 30px; border-radius: 4px; overflow: visible; margin: 4px 0 10px; }
+  .stack .seg { flex: var(--v) 1 0; display: grid; place-items: center; font-size: 13px; font-weight: 600; position: relative; min-width: 4px; }
+  .stack .seg:first-child { border-radius: 4px 0 0 4px; } .stack .seg:last-child { border-radius: 0 4px 4px 0; }
+  .stack .seg:only-child { border-radius: 4px; }
+  .stack .seg:hover { outline: 2px solid var(--ink); outline-offset: 1px; z-index: 1; }
+  .s1 { background: var(--s1); color: var(--on-s-light); } .s2 { background: var(--s2); color: var(--on-s-light); }
+  .s3 { background: var(--s3); color: var(--on-s-dark); } .s4 { background: var(--s4); color: var(--on-s-dark); } .s5 { background: var(--s5); color: var(--on-s-dark); }
+  ul.key { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+  ul.key li { margin: 0; display: inline-flex; align-items: center; gap: 6px; }
+  ul.key b { color: var(--ink); }
+  ul.key .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+  /* Tooltip (hover / keyboard focus) */
+  [data-tip]:hover::after { content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%); background: var(--ink); color: var(--paper); font-size: 12.5px; font-weight: 500; padding: 5px 9px; border-radius: 6px; white-space: nowrap; pointer-events: none; z-index: 5; }
+
+  /* Quotes */
+  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 14px 0; }
+  blockquote { margin: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; font-size: 15px; position: relative; }
+  blockquote p { margin: 0; }
+  blockquote p::before { content: "\201C"; font-family: var(--display); font-size: 34px; line-height: 0; vertical-align: -12px; color: var(--marigold); margin-right: 3px; }
+  blockquote footer { margin-top: 8px; font-size: 13px; color: var(--muted); }
+
+  /* Tables */
+  .tbl { overflow-x: auto; margin: 14px 0; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+  th { background: var(--surface); font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  td.id { white-space: nowrap; font-weight: 600; font-variant-numeric: tabular-nums; }
+  td.p { white-space: nowrap; }
+  td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* Pills */
+  .pri { display: inline-block; min-width: 58px; text-align: center; padding: 2px 8px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+  .pri.must { background: var(--ink); color: var(--paper); }
+  .pri.should { background: var(--marigold); color: #0E2A30; }
+  .pri.could { background: var(--teal-soft); color: var(--teal); border: 1px solid var(--teal); }
+  .pri.later { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+  .verdict { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+  .verdict.yes { background: var(--teal-soft); color: var(--teal); }
+  .verdict.part { background: var(--marigold-soft); color: var(--marigold-ink); }
+  .verdict.no { background: var(--surface); color: var(--ink-2); }
+  .tag { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 4px; background: var(--marigold-soft); color: var(--marigold-ink); font-size: 11.5px; font-weight: 600; vertical-align: 1px; white-space: nowrap; }
+  .tag.new { background: var(--marigold); color: #0E2A30; }
+  .tag.gap { background: var(--surface); color: var(--ink-2); }
+  code { font-size: .9em; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
+
+
+  /* User stories */
+  .filters { position: sticky; top: 0; z-index: 4; background: var(--paper); padding: 10px 0; margin: 8px 0 4px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 14px; }
+  .filters .grp { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .filters .grp > span { color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; margin-right: 4px; }
+  .filters button { font: inherit; font-size: 13.5px; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--rule); background: var(--card); color: var(--ink-2); cursor: pointer; }
+  .filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .filters label { display: inline-flex; gap: 6px; align-items: center; color: var(--ink-2); cursor: pointer; }
+  .filters .shown { margin-left: auto; color: var(--muted); font-size: 13px; }
+  .story { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; margin: 12px 0; scroll-margin-top: 70px; }
+  .story:target { border-color: var(--marigold); box-shadow: 0 0 0 2px var(--marigold-soft); }
+  .story[hidden] { display: none; }
+  .shead { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .shead h4 { margin: 0; flex: 1 1 260px; font-family: var(--display); font-size: 18px; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--ink); }
+  .sid { font-weight: 600; font-size: 13px; color: var(--teal); font-variant-numeric: tabular-nums; }
+  .story p.as { margin: 8px 0 6px; font-size: 15.5px; }
+  .story p.as b { color: var(--teal); font-weight: 600; }
+  .story p.lab { margin: 10px 0 2px; font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  ul.ac { margin: 4px 0 8px; padding-left: 0; list-style: none; font-size: 14.5px; }
+  ul.ac li { position: relative; padding-left: 24px; margin: 3px 0; }
+  ul.ac li::before { content: ""; position: absolute; left: 2px; top: 5px; width: 12px; height: 12px; border: 1.5px solid var(--ink-2); border-radius: 3px; }
+  .sfoot { display: grid; gap: 4px; border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 8px; font-size: 13.5px; color: var(--ink-2); }
+  .sfoot .refs a { font-weight: 600; }
+  a.tag { text-decoration: none; }
+  .rolehead { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .rolehead .cnt { font-size: 14px; color: var(--muted); }
+
+  @media print {
+    @page { size: A4; margin: 15mm 13mm; }
+    :root { --paper: #fff; }
+    body { font-size: 10.5pt; }
+    .doc { max-width: none; padding: 0; }
+    .doclinks, .filters { display: none !important; }
+    h2 { break-after: avoid; } h3, h4 { break-after: avoid; }
+    .chart, .tbl, tr, .callout, blockquote, .story, ol.findings > li { break-inside: avoid; }
+    a { color: var(--ink); text-decoration: none; }
+    [data-tip]:hover::after { display: none; }
+  }
+
+</style>
+</head>
+<body>
+<main class="doc">
+
+<div class="brandbar">
+  <a class="wordmark" href="../prd/tezera-prd.html"><span class="dot" aria-hidden="true"></span>tezera</a>
+  <nav class="doclinks" aria-label="Tezera documents">
+    <a href="../prd/tezera-prd.html">PRD</a>
+    <a href="tezera-survey-analysis.html" aria-current="page">Survey analysis</a>
+    <a href="tezera-user-stories.html">User stories</a>
+  </nav>
+</div>
+
+<header>
+  <p class="eyebrow">Market research · Discovery surveys</p>
+  <h1>What organisers, providers and attendees told us</h1>
+  <p class="byline">Analysis of three online surveys run 4–8 October 2026 · written 8 October 2026 · SDGP Agile Team Project</p>
+</header>
+
+<p class="lead">We surveyed the three groups Tezera serves: people who attend events, people who organise them, and the vendors and freelancers they hire. The answers back most of the problems the PRD assumed. They also show that providers worry most about late payment and cancelled jobs, which the PRD only partly covers.</p>
+
+<div class="stats">
+  <div class="stat hl"><div class="k">Responses</div><div class="v">46</div><div class="d">from 39 different people</div></div>
+  <div class="stat"><div class="k">Attendees</div><div class="v">26</div><div class="d">attendee survey</div></div>
+  <div class="stat"><div class="k">Organisers</div><div class="v">7</div><div class="d">organiser survey</div></div>
+  <div class="stat"><div class="k">Vendors and freelancers</div><div class="v">13</div><div class="d">provider survey</div></div>
+</div>
+
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#findings">Key findings</a></li>
+    <li><a href="#method">How we ran the surveys</a></li>
+    <li><a href="#hypotheses">The PRD's assumptions, checked</a></li>
+    <li><a href="#attendees">Attendees</a></li>
+    <li><a href="#organisers">Organisers</a></li>
+    <li><a href="#providers">Vendors and freelancers</a></li>
+    <li><a href="#themes">Themes across all three groups</a></li>
+    <li><a href="#recommendations">What this means for Tezera</a></li>
+    <li><a href="#parked">Raised, but outside the ATP release</a></li>
+    <li><a href="#next">Next research steps</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ Key findings -->
+<h2 id="findings">Key findings</h2>
+<ol class="findings">
+  <li><b class="h">People find events on Instagram, and Tezera has to work alongside it.</b> 25 of 26 attendees discover events on Instagram and 22 through friends. Organisers promote there too (6 of 7). Tezera won't replace Instagram, so event pages need to be easy to share into it and into WhatsApp.</li>
+  <li><b class="h">Attendees miss events and hunt for details.</b> 17 of 26 have missed an event at least sometimes because they heard too late or lacked information. Their most common complaint is that details are spread across posts, group chats and websites.</li>
+  <li><b class="h">Trust comes from an official, verified organiser.</b> 24 of 26 attendees trust event information when it comes from the official organiser account. One described duplicate ticket sellers; another lost money on two cancelled events with no update and no refund.</li>
+  <li><b class="h">Finding things at a venue is a common problem, and few organisers share a map.</b> 18 of 26 attendees have had trouble finding something at an event, toilets and entrances most of all. Only 1 of 7 organisers shares a digital map; most rely on signs and staff.</li>
+  <li><b class="h">Hiring runs on personal networks, and the risk is quality.</b> All 7 organisers find providers through personal contacts and vendors they've used before. Their main problems are finding someone suitable (6) and work that doesn't meet expectations (5).</li>
+  <li><b class="h">Providers' biggest problems are cancellations and late payment.</b> 9 of 13 vendors and freelancers name last-minute cancellations and 7 name unpaid or late payments. 11 of 13 want to know an organiser's payment terms before taking a job.</li>
+  <li><b class="h">Both sides want reviews, as long as they are fair.</b> 18 of the 20 organisers and providers rated feedback from past jobs 4 or 5 out of 5 for usefulness. Providers want reviews in both directions, tied to real jobs, with a way to dispute them.</li>
+</ol>
+
+<!-- ============================================================ 1 Method -->
+<h2 id="method"><span class="num">1</span>How we ran the surveys</h2>
+<p>We ran three Google Forms, one per group, from 4 to 8 October 2026. The forms still used the earlier product name, Eventline. Each mixed multiple-choice questions with open questions about recent problems. The responses appear to come from the team's own networks, such as friends, university contacts, and organisers and providers we know. The team should confirm how the forms were shared.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Survey</th><th>Responses</th><th>Who answered</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Attendees</td><td class="num">26</td><td>Mostly students and young adults (18 of 26 go to university or school events). Half go to an event at least once a month.</td></tr>
+    <tr><td class="id">Organisers</td><td class="num">7</td><td>Experienced: 6 of 7 have organised events for 4 years or more, and 3 run more than 10 events a year. Weddings, corporate, music, conferences and exhibitions. All but one work mainly in Colombo; two also work in Kandy.</td></tr>
+    <tr><td class="id">Vendors and freelancers</td><td class="num">13</td><td>Mostly photographers and videographers (9 of 13), plus DJs, sound and lighting, design, decoration, MCs and two caterers. 9 of 13 work events several times a month. Mostly Colombo; one in Kandy, two islandwide.</td></tr>
+  </tbody>
+</table></div>
+
+<div class="grid2">
+  <div class="chart"><p class="title">How often attendees go to events</p><p class="sub">26 attendees</p><div class="stack" style="--n:26" role="img" aria-label="Rarely: 2, A few times a year: 3, Every 2–3 months: 8, About once a month: 5, Several times a month: 8"><span class="seg s1" style="--v:2" data-tip="Rarely: 2 of 26 attendees (8%)"></span><span class="seg s2" style="--v:3" data-tip="A few times a year: 3 of 26 attendees (12%)"><span>3</span></span><span class="seg s3" style="--v:8" data-tip="Every 2–3 months: 8 of 26 attendees (31%)"><span>8</span></span><span class="seg s4" style="--v:5" data-tip="About once a month: 5 of 26 attendees (19%)"><span>5</span></span><span class="seg s5" style="--v:8" data-tip="Several times a month: 8 of 26 attendees (31%)"><span>8</span></span></div>
+<ul class="key"><li><i class="sw s1"></i>Rarely <b>2</b></li><li><i class="sw s2"></i>A few times a year <b>3</b></li><li><i class="sw s3"></i>Every 2–3 months <b>8</b></li><li><i class="sw s4"></i>About once a month <b>5</b></li><li><i class="sw s5"></i>Several times a month <b>8</b></li></ul></div>
+  <div class="chart"><p class="title">How often providers work events</p><p class="sub">13 vendors and freelancers</p><div class="stack" style="--n:13" role="img" aria-label="Every few months: 2, About once a month: 2, Several times a month: 9"><span class="seg s1" style="--v:2" data-tip="Every few months: 2 of 13 providers (15%)"><span>2</span></span><span class="seg s3" style="--v:2" data-tip="About once a month: 2 of 13 providers (15%)"><span>2</span></span><span class="seg s5" style="--v:9" data-tip="Several times a month: 9 of 13 providers (69%)"><span>9</span></span></div>
+<ul class="key"><li><i class="sw s1"></i>Every few months <b>2</b></li><li><i class="sw s3"></i>About once a month <b>2</b></li><li><i class="sw s5"></i>Several times a month <b>9</b></li></ul></div>
+</div>
+
+<div class="callout">
+  <p><b>Limits of this data</b></p>
+  <ul>
+    <li><b>Small, friendly samples.</b> Responses came from people the team knows, not a random sample. Treat percentages as signals, not measurements of the Sri Lankan market. Seven organisers is enough to spot shared problems but too few to rank them.</li>
+    <li><b>Some people answered twice.</b> Six people answered both the attendee and provider surveys, and one person answered all three. That is why 46 responses come from 39 people. Each survey is analysed on its own.</li>
+    <li><b>Colombo-heavy.</b> Nearly every organiser and provider works mainly in Colombo, so we know little about other districts.</li>
+    <li><b>Multiple choice.</b> Most questions allowed several answers, so the bars in each chart add up to more than the number of people.</li>
+    <li><b>Open answers were coded by hand.</b> Counts of themes from open answers (for example "6 attendees mentioned delays") are our own grouping of what people wrote, and could be grouped differently.</li>
+    <li><b>Privacy.</b> The raw responses include email addresses, so they are kept out of the repository. Quotes here are anonymous, trimmed where marked with "…", and otherwise as written.</li>
+  </ul>
+</div>
+
+<!-- ============================================================ 2 Hypotheses -->
+<h2 id="hypotheses"><span class="num">2</span>The PRD's assumptions, checked</h2>
+<p>Section 1 of the PRD lists the problems we believed each group faced, and says they would be tested in discovery. This is how they held up.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Group</th><th>What the PRD assumed</th><th>Result</th><th>Evidence</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Organisers</td><td>Vendors and freelancers are found through word of mouth and social media.</td><td><span class="verdict yes">Supported</span></td><td>All 7 use personal contacts and past vendors. Social media matters less than we thought; only 2 use Instagram to find providers.</td></tr>
+    <tr><td class="id">Organisers</td><td>There is little trustworthy reputation data.</td><td><span class="verdict yes">Supported</span></td><td>6 of 7 rate feedback from other organisers 5 out of 5 for usefulness; 4 can't tell whether a new provider is reliable.</td></tr>
+    <tr><td class="id">Organisers</td><td>Ticketing, promotion and attendee updates each need a different tool.</td><td><span class="verdict part">Partly</span></td><td>Promotion and updates are spread over Instagram, Facebook, TikTok, invitations and websites. We didn't ask about ticketing tools.</td></tr>
+    <tr><td class="id">Vendors, freelancers</td><td>Hearing about work depends on personal contacts.</td><td><span class="verdict yes">Supported</span></td><td>11 of 13 get work through referrals and 11 through past clients. One uses an online marketplace.</td></tr>
+    <tr><td class="id">Vendors, freelancers</td><td>Good work does not build a visible track record.</td><td><span class="verdict yes">Supported</span></td><td>They prove themselves through recommendations (10) and social media (9). 12 of 13 rate organiser feedback 4 or 5 out of 5.</td></tr>
+    <tr><td class="id">Freelancers</td><td>Individuals struggle to compete with agencies without portfolios and reviews.</td><td><span class="verdict no">Not tested</span></td><td>No question compared freelancers with agencies. 3 of 13 name competition as a difficulty, and one freelancer has no portfolio yet.</td></tr>
+    <tr><td class="id">Consumers</td><td>Event details are spread across organisers' social pages.</td><td><span class="verdict yes">Supported</span></td><td>17 of 26 have missed events; scattered information is the most common complaint in open answers.</td></tr>
+    <tr><td class="id">Consumers</td><td>Venue layouts are rarely shared ahead of time.</td><td><span class="verdict yes">Supported</span></td><td>1 of 7 organisers shares a digital map; 18 of 26 attendees have struggled to find something at a venue.</td></tr>
+    <tr><td class="id">Consumers</td><td>There is no easy way to find others who are going.</td><td><span class="verdict part">Partly</span></td><td>20 of 26 want to know who else is attending, but mostly their own friends. 7 don't interact with other attendees at all, and only one asked for a way to meet new people.</td></tr>
+  </tbody>
+</table></div>
+
+<!-- ============================================================ 3 Attendees -->
+<h2 id="attendees"><span class="num">3</span>Attendees</h2>
+<p>Most attendees go to music and entertainment events (22 of 26) and university or school events (18).</p>
+
+<h3>Discovering events</h3>
+<div class="chart"><p class="title">How attendees discover events</p><p class="sub">26 attendees, several answers allowed</p><ol class="bars" style="--n:26" aria-label="Bar chart, out of 26 attendees">
+  <li style="--v:25" data-tip="Instagram: 25 of 26 attendees (96%)"><span class="lbl">Instagram</span><span class="track"><span class="fill"></span></span><span class="val">25 <span class="pc">96%</span></span></li>
+  <li style="--v:22" data-tip="Friends / word of mouth: 22 of 26 attendees (85%)"><span class="lbl">Friends / word of mouth</span><span class="track"><span class="fill"></span></span><span class="val">22 <span class="pc">85%</span></span></li>
+  <li style="--v:12" data-tip="University / school groups: 12 of 26 attendees (46%)"><span class="lbl">University / school groups</span><span class="track"><span class="fill"></span></span><span class="val">12 <span class="pc">46%</span></span></li>
+  <li style="--v:11" data-tip="WhatsApp: 11 of 26 attendees (42%)"><span class="lbl">WhatsApp</span><span class="track"><span class="fill"></span></span><span class="val">11 <span class="pc">42%</span></span></li>
+  <li style="--v:7" data-tip="Posters: 7 of 26 attendees (27%)"><span class="lbl">Posters</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">27%</span></span></li>
+  <li style="--v:6" data-tip="TikTok: 6 of 26 attendees (23%)"><span class="lbl">TikTok</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">23%</span></span></li>
+  <li style="--v:4" data-tip="Event websites: 4 of 26 attendees (15%)"><span class="lbl">Event websites</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">15%</span></span></li>
+  <li style="--v:4" data-tip="Organiser pages: 4 of 26 attendees (15%)"><span class="lbl">Organiser pages</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">15%</span></span></li>
+</ol></div>
+<div class="chart"><p class="title">Missed an event because they found out too late or lacked information</p><p class="sub">26 attendees</p><div class="stack" style="--n:26" role="img" aria-label="Never: 4, Rarely: 5, Sometimes: 14, Frequently: 3"><span class="seg s1" style="--v:4" data-tip="Never: 4 of 26 attendees (15%)"><span>4</span></span><span class="seg s3" style="--v:5" data-tip="Rarely: 5 of 26 attendees (19%)"><span>5</span></span><span class="seg s4" style="--v:14" data-tip="Sometimes: 14 of 26 attendees (54%)"><span>14</span></span><span class="seg s5" style="--v:3" data-tip="Frequently: 3 of 26 attendees (12%)"><span>3</span></span></div>
+<ul class="key"><li><i class="sw s1"></i>Never <b>4</b></li><li><i class="sw s3"></i>Rarely <b>5</b></li><li><i class="sw s4"></i>Sometimes <b>14</b></li><li><i class="sw s5"></i>Frequently <b>3</b></li></ul></div>
+<p>Almost everyone finds events through Instagram (25) or friends (22); only 4 use event websites or organiser pages. People miss events because they weren't following the right page, saw a poster too late, or found out on the day. Several also found that details were released piecemeal or were hard to find again.</p>
+<div class="quotes">
+  <blockquote><p>Finding all the details in one place—usually you have to hunt across a bunch of different sites or group chats just to get clear info.</p><footer>Attendee, every 2–3 months</footer></blockquote>
+  <blockquote><p>I prefer the details to be released at once because I can't be looking into and waiting until they release poster by poster for all the info.</p><footer>Attendee, about once a month</footer></blockquote>
+  <blockquote><p>Sometimes it's difficult to find posts I saw in the past and didn't save, to get the relevant information.</p><footer>Attendee, rarely attends</footer></blockquote>
+</div>
+
+<h3>Deciding whether to go</h3>
+<div class="grid2">
+  <div class="chart"><p class="title">Information that matters most</p><p class="sub">26 attendees, several answers allowed</p><ol class="bars" style="--n:26" aria-label="Bar chart, out of 26 attendees">
+  <li style="--v:24" data-tip="Date / time: 24 of 26 attendees (92%)"><span class="lbl">Date / time</span><span class="track"><span class="fill"></span></span><span class="val">24 <span class="pc">92%</span></span></li>
+  <li style="--v:23" data-tip="Ticket price: 23 of 26 attendees (88%)"><span class="lbl">Ticket price</span><span class="track"><span class="fill"></span></span><span class="val">23 <span class="pc">88%</span></span></li>
+  <li style="--v:21" data-tip="Venue: 21 of 26 attendees (81%)"><span class="lbl">Venue</span><span class="track"><span class="fill"></span></span><span class="val">21 <span class="pc">81%</span></span></li>
+  <li style="--v:20" data-tip="Who else is attending: 20 of 26 attendees (77%)"><span class="lbl">Who else is attending</span><span class="track"><span class="fill"></span></span><span class="val">20 <span class="pc">77%</span></span></li>
+  <li style="--v:18" data-tip="Line-up: 18 of 26 attendees (69%)"><span class="lbl">Line-up</span><span class="track"><span class="fill"></span></span><span class="val">18 <span class="pc">69%</span></span></li>
+  <li style="--v:14" data-tip="Location / transport: 14 of 26 attendees (54%)"><span class="lbl">Location / transport</span><span class="track"><span class="fill"></span></span><span class="val">14 <span class="pc">54%</span></span></li>
+  <li style="--v:12" data-tip="Event type: 12 of 26 attendees (46%)"><span class="lbl">Event type</span><span class="track"><span class="fill"></span></span><span class="val">12 <span class="pc">46%</span></span></li>
+  <li style="--v:9" data-tip="Organiser: 9 of 26 attendees (35%)"><span class="lbl">Organiser</span><span class="track"><span class="fill"></span></span><span class="val">9 <span class="pc">35%</span></span></li>
+  <li style="--v:4" data-tip="Reviews / reputation: 4 of 26 attendees (15%)"><span class="lbl">Reviews / reputation</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">15%</span></span></li>
+  <li style="--v:4" data-tip="Schedule: 4 of 26 attendees (15%)"><span class="lbl">Schedule</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">15%</span></span></li>
+</ol></div>
+  <div class="chart"><p class="title">What makes online event information trustworthy</p><p class="sub">26 attendees, several answers allowed</p><ol class="bars" style="--n:26" aria-label="Bar chart, out of 26 attendees">
+  <li style="--v:24" data-tip="Official organiser account: 24 of 26 attendees (92%)"><span class="lbl">Official organiser account</span><span class="track"><span class="fill"></span></span><span class="val">24 <span class="pc">92%</span></span></li>
+  <li style="--v:13" data-tip="Clear venue/contact information: 13 of 26 attendees (50%)"><span class="lbl">Clear venue/contact information</span><span class="track"><span class="fill"></span></span><span class="val">13 <span class="pc">50%</span></span></li>
+  <li style="--v:8" data-tip="Information from someone I know: 8 of 26 attendees (31%)"><span class="lbl">Information from someone I know</span><span class="track"><span class="fill"></span></span><span class="val">8 <span class="pc">31%</span></span></li>
+  <li style="--v:7" data-tip="Links to official pages: 7 of 26 attendees (27%)"><span class="lbl">Links to official pages</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">27%</span></span></li>
+  <li style="--v:7" data-tip="Recently updated information: 7 of 26 attendees (27%)"><span class="lbl">Recently updated information</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">27%</span></span></li>
+  <li style="--v:6" data-tip="Clear cancellation/update announcements: 6 of 26 attendees (23%)"><span class="lbl">Clear cancellation/update announcements</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">23%</span></span></li>
+  <li style="--v:6" data-tip="Reviews from previous attendees: 6 of 26 attendees (23%)"><span class="lbl">Reviews from previous attendees</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">23%</span></span></li>
+</ol></div>
+</div>
+<p>Date, price and venue are the basics. "Who else is attending" ranks fourth, ahead of the line-up, which supports showing friends who are going (CM-05). Only 4 of 26 weigh reviews, perhaps because there are few to read.</p>
+<p>Trust rests almost entirely on the official organiser account. Two attendees described what happens without it:</p>
+<div class="quotes">
+  <blockquote><p>Sometimes authenticity is a problem specially in terms of purchasing tickets, because I'm sometimes skeptical whether I'm paying for the right agency or not, because some duplicates do exist (scams).</p><footer>Attendee, several times a month</footer></blockquote>
+  <blockquote><p>There were two events to which I've bought tickets to which got cancelled last moment and then from there onwards there was no update regarding a reschedule or refund or anything of that sort.</p><footer>Attendee, several times a month</footer></blockquote>
+</div>
+<p>Before an event, people's questions go well beyond the event page as it is defined today. In open answers, 5 asked about dress code and 3 about transport or parking. Others asked about food and drink prices, rules such as re-entry, exact start times, and whether to bring an umbrella.</p>
+
+<h3>At the event</h3>
+<div class="chart"><p class="title">Had difficulty finding something at an event</p><p class="sub">26 attendees (no one answered "never")</p><div class="stack" style="--n:26" role="img" aria-label="Rarely: 8, Sometimes: 16, Frequently: 2"><span class="seg s1" style="--v:8" data-tip="Rarely: 8 of 26 attendees (31%)"><span>8</span></span><span class="seg s3" style="--v:16" data-tip="Sometimes: 16 of 26 attendees (62%)"><span>16</span></span><span class="seg s5" style="--v:2" data-tip="Frequently: 2 of 26 attendees (8%)"></span></div>
+<ul class="key"><li><i class="sw s1"></i>Rarely <b>8</b></li><li><i class="sw s3"></i>Sometimes <b>16</b></li><li><i class="sw s5"></i>Frequently <b>2</b></li></ul></div>
+<div class="chart"><p class="title">What they were trying to find</p><p class="sub">26 attendees, several answers allowed</p><ol class="bars" style="--n:26" aria-label="Bar chart, out of 26 attendees">
+  <li style="--v:13" data-tip="Toilet: 13 of 26 attendees (50%)"><span class="lbl">Toilet</span><span class="track"><span class="fill"></span></span><span class="val">13 <span class="pc">50%</span></span></li>
+  <li style="--v:10" data-tip="Entrance / exit: 10 of 26 attendees (38%)"><span class="lbl">Entrance / exit</span><span class="track"><span class="fill"></span></span><span class="val">10 <span class="pc">38%</span></span></li>
+  <li style="--v:8" data-tip="Parking: 8 of 26 attendees (31%)"><span class="lbl">Parking</span><span class="track"><span class="fill"></span></span><span class="val">8 <span class="pc">31%</span></span></li>
+  <li style="--v:8" data-tip="Seating: 8 of 26 attendees (31%)"><span class="lbl">Seating</span><span class="track"><span class="fill"></span></span><span class="val">8 <span class="pc">31%</span></span></li>
+  <li style="--v:6" data-tip="Registration: 6 of 26 attendees (23%)"><span class="lbl">Registration</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">23%</span></span></li>
+  <li style="--v:6" data-tip="Stall: 6 of 26 attendees (23%)"><span class="lbl">Stall</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">23%</span></span></li>
+  <li style="--v:3" data-tip="Food: 3 of 26 attendees (12%)"><span class="lbl">Food</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">12%</span></span></li>
+  <li style="--v:2" data-tip="First aid: 2 of 26 attendees (8%)"><span class="lbl">First aid</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">8%</span></span></li>
+  <li style="--v:2" data-tip="Stage: 2 of 26 attendees (8%)"><span class="lbl">Stage</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">8%</span></span></li>
+  <li style="--v:1" data-tip="Friends in a crowd (written in): 1 of 26 attendees (4%)"><span class="lbl">Friends in a crowd (written in)</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">4%</span></span></li>
+</ol></div>
+<p>Toilets, entrances and exits, seating and parking top the list. All are pin types the venue map (VM-02) could carry, though parking, seating and registration are not in the PRD's standard list yet.</p>
+<p>The other problems at events, from open answers:</p>
+<ul>
+  <li><b>Delays and last-minute changes</b> (6 attendees): events starting late with no estimate, cancellations without updates.</li>
+  <li><b>Queues and crowding</b> (4): long entrance queues, ticket-counter lines, stalls overwhelmed.</li>
+  <li><b>Stalls running out</b> (3): food and water selling out halfway through, after a ticket that promised them.</li>
+  <li><b>Losing friends in the crowd</b> (1), made worse by poor mobile signal at large venues.</li>
+  <li><b>Organisers who can't be reached</b> (2): helpline numbers that don't answer, or joining the WhatsApp group too late to see earlier messages.</li>
+</ul>
+<div class="quotes">
+  <blockquote><p>… events never starting on time (not knowing the actual start time when the events are delayed, an estimated delay of starting time would be helpful with like live updates).</p><footer>Attendee, several times a month</footer></blockquote>
+  <blockquote><p>At large scale events, mobile reception is often very poor … I couldn't contact my friends and had to walk around the venue looking for them, not a single app is loading because of the lack of network.</p><footer>Attendee, several times a month</footer></blockquote>
+  <blockquote><p>Struggled to find the actual entrance at a massive venue and almost missed the start. Ended up having to call a friend who was already inside to guide me.</p><footer>Attendee, every 2–3 months</footer></blockquote>
+</div>
+
+<h3>Other attendees</h3>
+<div class="chart"><p class="title">How attendees interact with others going to an event</p><p class="sub">26 attendees, several answers allowed</p><ol class="bars" style="--n:26" aria-label="Bar chart, out of 26 attendees">
+  <li style="--v:14" data-tip="WhatsApp groups: 14 of 26 attendees (54%)"><span class="lbl">WhatsApp groups</span><span class="track"><span class="fill"></span></span><span class="val">14 <span class="pc">54%</span></span></li>
+  <li style="--v:9" data-tip="In-person only: 9 of 26 attendees (35%)"><span class="lbl">In-person only</span><span class="track"><span class="fill"></span></span><span class="val">9 <span class="pc">35%</span></span></li>
+  <li style="--v:8" data-tip="Instagram: 8 of 26 attendees (31%)"><span class="lbl">Instagram</span><span class="track"><span class="fill"></span></span><span class="val">8 <span class="pc">31%</span></span></li>
+  <li style="--v:7" data-tip="I generally don&#x27;t interact with other attendees: 7 of 26 attendees (27%)"><span class="lbl">I generally don&#x27;t interact with other attendees</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">27%</span></span></li>
+  <li style="--v:1" data-tip="Facebook groups: 1 of 26 attendees (4%)"><span class="lbl">Facebook groups</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">4%</span></span></li>
+</ol></div>
+<p>WhatsApp groups are the main channel. A quarter don't interact with other attendees at all, and the rest mostly coordinate with friends: where to meet, when to leave, what to wear. One respondent asked outright for a way to find people to go with. That supports the event boards and meetups (CM-01), but suggests friends-going (CM-05) and the event group chat (MS-04) will be used more than meeting strangers.</p>
+<div class="quotes">
+  <blockquote><p>I really wish there was platform where we get to find ppl who we go along with for events when our friends are not available or when the interests are different.</p><footer>Attendee, every 2–3 months</footer></blockquote>
+</div>
+
+<!-- ============================================================ 4 Organisers -->
+<h2 id="organisers"><span class="num">4</span>Organisers</h2>
+<p>Seven experienced organisers answered. Between them they cover corporate events (5), weddings (4), music (4), conferences (3) and exhibitions (2). Seven is too few for percentages, so this section gives counts and quotes.</p>
+
+<h3>What takes the effort</h3>
+<div class="grid2">
+  <div class="chart"><p class="title">What they coordinated for their last event</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:7" data-tip="Venue layout / logistics: 7 of 7 organisers (100%)"><span class="lbl">Venue layout / logistics</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">100%</span></span></li>
+  <li style="--v:6" data-tip="People / staff: 6 of 7 organisers (86%)"><span class="lbl">People / staff</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:6" data-tip="Vendors / freelancers: 6 of 7 organisers (86%)"><span class="lbl">Vendors / freelancers</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:6" data-tip="Venue: 6 of 7 organisers (86%)"><span class="lbl">Venue</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:5" data-tip="Budget / payments: 5 of 7 organisers (71%)"><span class="lbl">Budget / payments</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:5" data-tip="Schedule / programme: 5 of 7 organisers (71%)"><span class="lbl">Schedule / programme</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:4" data-tip="Attendee communication: 4 of 7 organisers (57%)"><span class="lbl">Attendee communication</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:4" data-tip="Equipment: 4 of 7 organisers (57%)"><span class="lbl">Equipment</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:4" data-tip="Sponsorships: 4 of 7 organisers (57%)"><span class="lbl">Sponsorships</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:4" data-tip="Tickets / registrations: 4 of 7 organisers (57%)"><span class="lbl">Tickets / registrations</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:3" data-tip="Promotion: 3 of 7 organisers (43%)"><span class="lbl">Promotion</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+</ol></div>
+  <div class="chart"><p class="title">What takes the most time and effort</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:5" data-tip="Communicating with vendors/freelancers: 5 of 7 organisers (71%)"><span class="lbl">Communicating with vendors/freelancers</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:5" data-tip="Promoting the event: 5 of 7 organisers (71%)"><span class="lbl">Promoting the event</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:4" data-tip="Venue/logistics: 4 of 7 organisers (57%)"><span class="lbl">Venue/logistics</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:3" data-tip="Communicating event information: 3 of 7 organisers (43%)"><span class="lbl">Communicating event information</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:3" data-tip="Comparing prices/quotations: 3 of 7 organisers (43%)"><span class="lbl">Comparing prices/quotations</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:3" data-tip="Coordinating people: 3 of 7 organisers (43%)"><span class="lbl">Coordinating people</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:3" data-tip="Scheduling: 3 of 7 organisers (43%)"><span class="lbl">Scheduling</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Finding suitable vendors/freelancers: 2 of 7 organisers (29%)"><span class="lbl">Finding suitable vendors/freelancers</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Managing payments: 2 of 7 organisers (29%)"><span class="lbl">Managing payments</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:1" data-tip="Managing attendees: 1 of 7 organisers (14%)"><span class="lbl">Managing attendees</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+</div>
+<p>Every organiser handled the venue layout, and six handled vendors and freelancers. Talking to vendors and promotion take the most effort. Two problems come up that the PRD doesn't cover: payments made in instalments, and sponsorships (4 of 7 coordinate sponsors).</p>
+<div class="quotes">
+  <blockquote><p>Managing payments and vendors is equally hard as most payments are made as fractions and keeping up with the deadlines for many payments especially the small ones is hard and time consuming.</p><footer>Organiser, 4–6 years</footer></blockquote>
+</div>
+
+<h3>Hiring vendors and freelancers</h3>
+<div class="grid2">
+  <div class="chart"><p class="title">Where they find providers</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:7" data-tip="Personal contacts / recommendations: 7 of 7 organisers (100%)"><span class="lbl">Personal contacts / recommendations</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">100%</span></span></li>
+  <li style="--v:7" data-tip="Previous vendors: 7 of 7 organisers (100%)"><span class="lbl">Previous vendors</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">100%</span></span></li>
+  <li style="--v:3" data-tip="Event-specific groups/communities: 3 of 7 organisers (43%)"><span class="lbl">Event-specific groups/communities</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Instagram: 2 of 7 organisers (29%)"><span class="lbl">Instagram</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:1" data-tip="Facebook: 1 of 7 organisers (14%)"><span class="lbl">Facebook</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="WhatsApp groups: 1 of 7 organisers (14%)"><span class="lbl">WhatsApp groups</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+  <div class="chart"><p class="title">What they compare</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:6" data-tip="Experience: 6 of 7 organisers (86%)"><span class="lbl">Experience</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:6" data-tip="Previous work / portfolio: 6 of 7 organisers (86%)"><span class="lbl">Previous work / portfolio</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:6" data-tip="Price: 6 of 7 organisers (86%)"><span class="lbl">Price</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:5" data-tip="Availability: 5 of 7 organisers (71%)"><span class="lbl">Availability</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:5" data-tip="Recommendations: 5 of 7 organisers (71%)"><span class="lbl">Recommendations</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:5" data-tip="Reputation: 5 of 7 organisers (71%)"><span class="lbl">Reputation</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:3" data-tip="Communication: 3 of 7 organisers (43%)"><span class="lbl">Communication</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Location: 2 of 7 organisers (29%)"><span class="lbl">Location</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Reviews: 2 of 7 organisers (29%)"><span class="lbl">Reviews</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+</ol></div>
+</div>
+<div class="grid2">
+  <div class="chart"><p class="title">Biggest difficulties when hiring</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:6" data-tip="Finding someone suitable: 6 of 7 organisers (86%)"><span class="lbl">Finding someone suitable</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:5" data-tip="Quality not matching expectations: 5 of 7 organisers (71%)"><span class="lbl">Quality not matching expectations</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:4" data-tip="Knowing whether they are reliable: 4 of 7 organisers (57%)"><span class="lbl">Knowing whether they are reliable</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:3" data-tip="Communication: 3 of 7 organisers (43%)"><span class="lbl">Communication</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:3" data-tip="Finding someone available: 3 of 7 organisers (43%)"><span class="lbl">Finding someone available</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:3" data-tip="Getting quotations: 3 of 7 organisers (43%)"><span class="lbl">Getting quotations</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:3" data-tip="Unclear pricing: 3 of 7 organisers (43%)"><span class="lbl">Unclear pricing</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Comparing different options: 2 of 7 organisers (29%)"><span class="lbl">Comparing different options</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Finding people outside my existing network: 2 of 7 organisers (29%)"><span class="lbl">Finding people outside my existing network</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Last-minute cancellations: 2 of 7 organisers (29%)"><span class="lbl">Last-minute cancellations</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:1" data-tip="Payment issues: 1 of 7 organisers (14%)"><span class="lbl">Payment issues</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+  <div class="chart"><p class="title">What gives confidence in someone new</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:6" data-tip="Recommendations: 6 of 7 organisers (86%)"><span class="lbl">Recommendations</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:5" data-tip="Personal meeting / conversation: 5 of 7 organisers (71%)"><span class="lbl">Personal meeting / conversation</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:5" data-tip="Previous event experience: 5 of 7 organisers (71%)"><span class="lbl">Previous event experience</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:5" data-tip="Previous work / portfolio: 5 of 7 organisers (71%)"><span class="lbl">Previous work / portfolio</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:4" data-tip="Reviews: 4 of 7 organisers (57%)"><span class="lbl">Reviews</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:3" data-tip="Professional profile: 3 of 7 organisers (43%)"><span class="lbl">Professional profile</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Number of completed jobs: 2 of 7 organisers (29%)"><span class="lbl">Number of completed jobs</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="References: 2 of 7 organisers (29%)"><span class="lbl">References</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Social media presence: 2 of 7 organisers (29%)"><span class="lbl">Social media presence</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:1" data-tip="Qualifications: 1 of 7 organisers (14%)"><span class="lbl">Qualifications</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+</div>
+<div class="chart"><p class="title">How useful would feedback from other organisers be?</p><p class="sub">7 organisers, 1 = not useful, 5 = very useful</p><div class="stack" style="--n:7" role="img" aria-label="1: 0, 2: 0, 3: 1, 4: 0, 5: 6"><span class="seg s3" style="--v:1" data-tip="3 / 5: 1 of 7 organisers (14%)"><span>1</span></span><span class="seg s5" style="--v:6" data-tip="5 / 5: 6 of 7 organisers (86%)"><span>6</span></span></div>
+<ul class="key"><li><i class="sw s1"></i>1 / 5 <b>0</b></li><li><i class="sw s2"></i>2 / 5 <b>0</b></li><li><i class="sw s3"></i>3 / 5 <b>1</b></li><li><i class="sw s4"></i>4 / 5 <b>0</b></li><li><i class="sw s5"></i>5 / 5 <b>6</b></li></ul></div>
+<p>Hiring stays inside personal networks. When a provider's work falls short, organisers often find out too late to switch. Organisers judge new providers by recommendations, portfolios, past event experience and a personal meeting. Reviews and portfolios on a profile (RV-03, AC-04) cover the first three; the in-app chat (MS-02) is the closest substitute for the meeting.</p>
+<p>Asked what feedback should tell them, organisers named quality of work (3), meeting deadlines and time management (2), reliability (2), communication and attitude (1) and price (1). These match the PRD's review categories: quality, punctuality, communication and value for money. One organiser wanted to filter feedback by the type of work.</p>
+<div class="quotes">
+  <blockquote><p>Sometimes people don't deliver according to our expectations and when we realise this, it's too late to switch to another person mostly because of budget and time constraints.</p><footer>Organiser, 4–6 years</footer></blockquote>
+  <blockquote><p>If we can filter out for what kind of work he got feedback for, i think thats enough of a "testimonial" to hire them.</p><footer>Organiser, 4–6 years</footer></blockquote>
+  <blockquote><p>Vendors didn't complete on time and we had to step in [with] extra staff to sort out matters.</p><footer>Organiser, more than 6 years</footer></blockquote>
+</div>
+
+<h3>Promotion and attendee information</h3>
+<div class="grid2">
+  <div class="chart"><p class="title">How they promote events</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:6" data-tip="Instagram: 6 of 7 organisers (86%)"><span class="lbl">Instagram</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:5" data-tip="Facebook: 5 of 7 organisers (71%)"><span class="lbl">Facebook</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:5" data-tip="Personal networks: 5 of 7 organisers (71%)"><span class="lbl">Personal networks</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:3" data-tip="TikTok: 3 of 7 organisers (43%)"><span class="lbl">TikTok</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Event listing websites/platforms: 2 of 7 organisers (29%)"><span class="lbl">Event listing websites/platforms</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Paid advertising: 2 of 7 organisers (29%)"><span class="lbl">Paid advertising</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Posters / physical promotion: 2 of 7 organisers (29%)"><span class="lbl">Posters / physical promotion</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="WhatsApp: 2 of 7 organisers (29%)"><span class="lbl">WhatsApp</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:1" data-tip="University/school communities: 1 of 7 organisers (14%)"><span class="lbl">University/school communities</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Word of mouth: 1 of 7 organisers (14%)"><span class="lbl">Word of mouth</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+  <div class="chart"><p class="title">Biggest difficulties promoting</p><p class="sub">7 organisers (2 said this doesn't apply to them)</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:3" data-tip="Getting people to engage/share: 3 of 7 organisers (43%)"><span class="lbl">Getting people to engage/share</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Keeping information updated: 2 of 7 organisers (29%)"><span class="lbl">Keeping information updated</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Limited budget: 2 of 7 organisers (29%)"><span class="lbl">Limited budget</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Reaching enough people: 2 of 7 organisers (29%)"><span class="lbl">Reaching enough people</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:2" data-tip="Standing out among other events: 2 of 7 organisers (29%)"><span class="lbl">Standing out among other events</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:1" data-tip="Creating promotional content: 1 of 7 organisers (14%)"><span class="lbl">Creating promotional content</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Limited time: 1 of 7 organisers (14%)"><span class="lbl">Limited time</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Measuring results: 1 of 7 organisers (14%)"><span class="lbl">Measuring results</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Reaching the right audience: 1 of 7 organisers (14%)"><span class="lbl">Reaching the right audience</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Turning promotion into leads: 1 of 7 organisers (14%)"><span class="lbl">Turning promotion into leads</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+</div>
+<div class="chart"><p class="title">What attendees most often ask organisers for</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:7" data-tip="Date / time: 7 of 7 organisers (100%)"><span class="lbl">Date / time</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">100%</span></span></li>
+  <li style="--v:7" data-tip="Venue: 7 of 7 organisers (100%)"><span class="lbl">Venue</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">100%</span></span></li>
+  <li style="--v:5" data-tip="Line-up: 5 of 7 organisers (71%)"><span class="lbl">Line-up</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:5" data-tip="Tickets / registration: 5 of 7 organisers (71%)"><span class="lbl">Tickets / registration</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:4" data-tip="Venue layout: 4 of 7 organisers (57%)"><span class="lbl">Venue layout</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:3" data-tip="Parking: 3 of 7 organisers (43%)"><span class="lbl">Parking</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:3" data-tip="Schedule: 3 of 7 organisers (43%)"><span class="lbl">Schedule</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:3" data-tip="Stalls / vendors: 3 of 7 organisers (43%)"><span class="lbl">Stalls / vendors</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Directions: 2 of 7 organisers (29%)"><span class="lbl">Directions</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:1" data-tip="Last-minute announcements: 1 of 7 organisers (14%)"><span class="lbl">Last-minute announcements</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Rules / requirements: 1 of 7 organisers (14%)"><span class="lbl">Rules / requirements</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+<p>Organisers promote mostly through Instagram, Facebook and personal networks. Getting people to engage and share is the most common difficulty. Wedding and corporate organisers rarely promote at all, since their guests are invited. What attendees ask organisers for matches what attendees said they need: date, venue, line-up and tickets first, then layout, parking and stalls.</p>
+
+<h3>Venue layout and stalls</h3>
+<div class="grid2">
+  <div class="chart"><p class="title">How they show attendees where things are</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:5" data-tip="Signs / physical directions: 5 of 7 organisers (71%)"><span class="lbl">Signs / physical directions</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">71%</span></span></li>
+  <li style="--v:4" data-tip="Social media posts: 4 of 7 organisers (57%)"><span class="lbl">Social media posts</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:4" data-tip="Staff / volunteers: 4 of 7 organisers (57%)"><span class="lbl">Staff / volunteers</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">57%</span></span></li>
+  <li style="--v:1" data-tip="Digital maps: 1 of 7 organisers (14%)"><span class="lbl">Digital maps</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Printed maps: 1 of 7 organisers (14%)"><span class="lbl">Printed maps</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Table plans and seating charts: 1 of 7 organisers (14%)"><span class="lbl">Table plans and seating charts</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Venue-provided information: 1 of 7 organisers (14%)"><span class="lbl">Venue-provided information</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+  <div class="chart"><p class="title">How they manage stall applications</p><p class="sub">7 organisers</p><ol class="bars" style="--n:7" aria-label="Bar chart, out of 7 organisers">
+  <li style="--v:6" data-tip="Directly contact vendors: 6 of 7 organisers (86%)"><span class="lbl">Directly contact vendors</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">86%</span></span></li>
+  <li style="--v:3" data-tip="Social media: 3 of 7 organisers (43%)"><span class="lbl">Social media</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">43%</span></span></li>
+  <li style="--v:2" data-tip="Spreadsheet: 2 of 7 organisers (29%)"><span class="lbl">Spreadsheet</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">29%</span></span></li>
+  <li style="--v:1" data-tip="Invitations to selected vendors: 1 of 7 organisers (14%)"><span class="lbl">Invitations to selected vendors</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Manual lists: 1 of 7 organisers (14%)"><span class="lbl">Manual lists</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Online application form: 1 of 7 organisers (14%)"><span class="lbl">Online application form</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+  <li style="--v:1" data-tip="Vendors contact us: 1 of 7 organisers (14%)"><span class="lbl">Vendors contact us</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">14%</span></span></li>
+</ol></div>
+</div>
+<div class="chart"><p class="title">Events that involve stalls or exhibitors</p><p class="sub">7 organisers</p><div class="stack" style="--n:7" role="img" aria-label="Rarely: 1, Sometimes: 5, Frequently: 1"><span class="seg s1" style="--v:1" data-tip="Rarely: 1 of 7 organisers (14%)"><span>1</span></span><span class="seg s3" style="--v:5" data-tip="Sometimes: 5 of 7 organisers (71%)"><span>5</span></span><span class="seg s5" style="--v:1" data-tip="Frequently: 1 of 7 organisers (14%)"><span>1</span></span></div>
+<ul class="key"><li><i class="sw s1"></i>Rarely <b>1</b></li><li><i class="sw s3"></i>Sometimes <b>5</b></li><li><i class="sw s5"></i>Frequently <b>1</b></li></ul></div>
+<p>Only one organiser uses a digital map. Most rely on signs, staff and social media posts, which fits the attendee side of the story. Every organiser has stalls at least some of the time, and six manage them by contacting vendors directly, with spreadsheets and manual lists. One uses an online form. That supports HR-10 to HR-12 as a real improvement on current practice.</p>
+<div class="quotes">
+  <blockquote><p>… that would be convenient to have everything in one place like places to find stalls people who are looking to sponsor and promote themselves, kinda like uber x social media for event organisers.</p><footer>Organiser, 4–6 years</footer></blockquote>
+</div>
+
+<!-- ============================================================ 5 Providers -->
+<h2 id="providers"><span class="num">5</span>Vendors and freelancers</h2>
+<div class="chart"><p class="title">Services they provide</p><p class="sub">13 vendors and freelancers, several answers allowed</p><ol class="bars" style="--n:13" aria-label="Bar chart, out of 13 providers">
+  <li style="--v:9" data-tip="Photography: 9 of 13 providers (69%)"><span class="lbl">Photography</span><span class="track"><span class="fill"></span></span><span class="val">9 <span class="pc">69%</span></span></li>
+  <li style="--v:7" data-tip="Videography: 7 of 13 providers (54%)"><span class="lbl">Videography</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:4" data-tip="Graphic/design: 4 of 13 providers (31%)"><span class="lbl">Graphic/design</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:4" data-tip="Music / DJ: 4 of 13 providers (31%)"><span class="lbl">Music / DJ</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:4" data-tip="Sound / lighting: 4 of 13 providers (31%)"><span class="lbl">Sound / lighting</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:3" data-tip="Decoration: 3 of 13 providers (23%)"><span class="lbl">Decoration</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">23%</span></span></li>
+  <li style="--v:2" data-tip="Catering: 2 of 13 providers (15%)"><span class="lbl">Catering</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">15%</span></span></li>
+  <li style="--v:2" data-tip="MC / compering: 2 of 13 providers (15%)"><span class="lbl">MC / compering</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">15%</span></span></li>
+  <li style="--v:2" data-tip="Performance: 2 of 13 providers (15%)"><span class="lbl">Performance</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">15%</span></span></li>
+  <li style="--v:2" data-tip="Technical services: 2 of 13 providers (15%)"><span class="lbl">Technical services</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">15%</span></span></li>
+  <li style="--v:1" data-tip="Event management: 1 of 13 providers (8%)"><span class="lbl">Event management</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">8%</span></span></li>
+  <li style="--v:1" data-tip="Organising: 1 of 13 providers (8%)"><span class="lbl">Organising</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">8%</span></span></li>
+</ol></div>
+
+<h3>Finding work</h3>
+<div class="chart"><p class="title">How they find event work</p><p class="sub">13 vendors and freelancers</p><ol class="bars" style="--n:13" aria-label="Bar chart, out of 13 providers">
+  <li style="--v:11" data-tip="Previous clients: 11 of 13 providers (85%)"><span class="lbl">Previous clients</span><span class="track"><span class="fill"></span></span><span class="val">11 <span class="pc">85%</span></span></li>
+  <li style="--v:11" data-tip="Referrals / recommendations: 11 of 13 providers (85%)"><span class="lbl">Referrals / recommendations</span><span class="track"><span class="fill"></span></span><span class="val">11 <span class="pc">85%</span></span></li>
+  <li style="--v:7" data-tip="Instagram: 7 of 13 providers (54%)"><span class="lbl">Instagram</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:7" data-tip="Personal network: 7 of 13 providers (54%)"><span class="lbl">Personal network</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:4" data-tip="Direct outreach: 4 of 13 providers (31%)"><span class="lbl">Direct outreach</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:3" data-tip="WhatsApp: 3 of 13 providers (23%)"><span class="lbl">WhatsApp</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">23%</span></span></li>
+  <li style="--v:1" data-tip="Agencies: 1 of 13 providers (8%)"><span class="lbl">Agencies</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">8%</span></span></li>
+  <li style="--v:1" data-tip="Facebook: 1 of 13 providers (8%)"><span class="lbl">Facebook</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">8%</span></span></li>
+  <li style="--v:1" data-tip="Online marketplaces: 1 of 13 providers (8%)"><span class="lbl">Online marketplaces</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">8%</span></span></li>
+</ol></div>
+<p>Referrals and repeat clients bring in nearly all work. Instagram helps about half. Asked what they'd improve, providers wanted to reach a wider audience, find reliable opportunities more easily, and build a brand.</p>
+
+<h3>Deciding whether to take a job</h3>
+<div class="grid2">
+  <div class="chart"><p class="title">Information they need before quoting</p><p class="sub">13 vendors and freelancers</p><ol class="bars" style="--n:13" aria-label="Bar chart, out of 13 providers">
+  <li style="--v:13" data-tip="Event date: 13 of 13 providers (100%)"><span class="lbl">Event date</span><span class="track"><span class="fill"></span></span><span class="val">13 <span class="pc">100%</span></span></li>
+  <li style="--v:13" data-tip="Location: 13 of 13 providers (100%)"><span class="lbl">Location</span><span class="track"><span class="fill"></span></span><span class="val">13 <span class="pc">100%</span></span></li>
+  <li style="--v:10" data-tip="Type of event: 10 of 13 providers (77%)"><span class="lbl">Type of event</span><span class="track"><span class="fill"></span></span><span class="val">10 <span class="pc">77%</span></span></li>
+  <li style="--v:9" data-tip="Budget: 9 of 13 providers (69%)"><span class="lbl">Budget</span><span class="track"><span class="fill"></span></span><span class="val">9 <span class="pc">69%</span></span></li>
+  <li style="--v:9" data-tip="Required service: 9 of 13 providers (69%)"><span class="lbl">Required service</span><span class="track"><span class="fill"></span></span><span class="val">9 <span class="pc">69%</span></span></li>
+  <li style="--v:8" data-tip="Duration: 8 of 13 providers (62%)"><span class="lbl">Duration</span><span class="track"><span class="fill"></span></span><span class="val">8 <span class="pc">62%</span></span></li>
+  <li style="--v:7" data-tip="Number of attendees: 7 of 13 providers (54%)"><span class="lbl">Number of attendees</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:7" data-tip="Payment / stall fee: 7 of 13 providers (54%)"><span class="lbl">Payment / stall fee</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:6" data-tip="Deliverables: 6 of 13 providers (46%)"><span class="lbl">Deliverables</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">46%</span></span></li>
+  <li style="--v:6" data-tip="Specific requirements: 6 of 13 providers (46%)"><span class="lbl">Specific requirements</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">46%</span></span></li>
+  <li style="--v:5" data-tip="Event requirements/rules: 5 of 13 providers (38%)"><span class="lbl">Event requirements/rules</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">38%</span></span></li>
+  <li style="--v:4" data-tip="Expected audience size: 4 of 13 providers (31%)"><span class="lbl">Expected audience size</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:3" data-tip="Equipment/facilities provided: 3 of 13 providers (23%)"><span class="lbl">Equipment/facilities provided</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">23%</span></span></li>
+  <li style="--v:2" data-tip="Application deadline: 2 of 13 providers (15%)"><span class="lbl">Application deadline</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">15%</span></span></li>
+</ol></div>
+  <div class="chart"><p class="title">What they want to know about a new organiser</p><p class="sub">13 vendors and freelancers</p><ol class="bars" style="--n:13" aria-label="Bar chart, out of 13 providers">
+  <li style="--v:11" data-tip="Payment terms: 11 of 13 providers (85%)"><span class="lbl">Payment terms</span><span class="track"><span class="fill"></span></span><span class="val">11 <span class="pc">85%</span></span></li>
+  <li style="--v:8" data-tip="Organiser&#x27;s previous events: 8 of 13 providers (62%)"><span class="lbl">Organiser&#x27;s previous events</span><span class="track"><span class="fill"></span></span><span class="val">8 <span class="pc">62%</span></span></li>
+  <li style="--v:7" data-tip="Clear event details: 7 of 13 providers (54%)"><span class="lbl">Clear event details</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:7" data-tip="Contact/communication details: 7 of 13 providers (54%)"><span class="lbl">Contact/communication details</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:7" data-tip="Venue/location: 7 of 13 providers (54%)"><span class="lbl">Venue/location</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:6" data-tip="Reviews/reputation: 6 of 13 providers (46%)"><span class="lbl">Reviews/reputation</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">46%</span></span></li>
+  <li style="--v:4" data-tip="Cancellation policy: 4 of 13 providers (31%)"><span class="lbl">Cancellation policy</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:4" data-tip="Expected audience size: 4 of 13 providers (31%)"><span class="lbl">Expected audience size</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:4" data-tip="Previous vendors/freelancers they&#x27;ve worked with: 4 of 13 providers (31%)"><span class="lbl">Previous vendors/freelancers they&#x27;ve worked with</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+</ol></div>
+</div>
+<p>Every provider needs the date and location, and most need the event type, service, budget and duration. When asked what is usually <i>missing</i>, they named the list of deliverables, the run-of-show timings, audience details and on-site technical requirements. The PRD's booking request (HR-03) asks only for the event, date, times, brief and budget.</p>
+<p>With a new organiser, payment terms come first by a wide margin (11 of 13), ahead of the organiser's past events (8).</p>
+<div class="quotes">
+  <blockquote><p>One of the main pieces of information that is unclear is the job list that they expect. Because when you consider both content and visuals, the price is usually quoted based on their specific requirement.</p><footer>Media and design freelancer</footer></blockquote>
+  <blockquote><p>Organisers often share overall event concepts but omit on-site technical or logistical details until the event day.</p><footer>Photographer, videographer and designer</footer></blockquote>
+</div>
+
+<h3>What goes wrong</h3>
+<div class="chart"><p class="title">Biggest difficulties getting and completing jobs</p><p class="sub">13 vendors and freelancers (1 answered "none")</p><ol class="bars" style="--n:13" aria-label="Bar chart, out of 13 providers">
+  <li style="--v:9" data-tip="Last-minute cancellations: 9 of 13 providers (69%)"><span class="lbl">Last-minute cancellations</span><span class="track"><span class="fill"></span></span><span class="val">9 <span class="pc">69%</span></span></li>
+  <li style="--v:7" data-tip="Unpaid / delayed payments: 7 of 13 providers (54%)"><span class="lbl">Unpaid / delayed payments</span><span class="track"><span class="fill"></span></span><span class="val">7 <span class="pc">54%</span></span></li>
+  <li style="--v:6" data-tip="Negotiating prices: 6 of 13 providers (46%)"><span class="lbl">Negotiating prices</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">46%</span></span></li>
+  <li style="--v:4" data-tip="Communication: 4 of 13 providers (31%)"><span class="lbl">Communication</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:4" data-tip="Difficult organisers: 4 of 13 providers (31%)"><span class="lbl">Difficult organisers</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:4" data-tip="Unclear requirements: 4 of 13 providers (31%)"><span class="lbl">Unclear requirements</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:3" data-tip="Competition: 3 of 13 providers (23%)"><span class="lbl">Competition</span><span class="track"><span class="fill"></span></span><span class="val">3 <span class="pc">23%</span></span></li>
+  <li style="--v:2" data-tip="Finding clients: 2 of 13 providers (15%)"><span class="lbl">Finding clients</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">15%</span></span></li>
+  <li style="--v:2" data-tip="Finding suitable jobs: 2 of 13 providers (15%)"><span class="lbl">Finding suitable jobs</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">15%</span></span></li>
+  <li style="--v:2" data-tip="Managing multiple bookings: 2 of 13 providers (15%)"><span class="lbl">Managing multiple bookings</span><span class="track"><span class="fill"></span></span><span class="val">2 <span class="pc">15%</span></span></li>
+</ol></div>
+<p>Last-minute cancellations and late or missing payment are the two biggest problems. Four providers described cases in their open answers.</p>
+<div class="quotes">
+  <blockquote><p>The organizer wanting about 3 months to settle the payments. Settled the renting cost with personal funds and waited for the payment to come through.</p><footer>Photographer and videographer</footer></blockquote>
+  <blockquote><p>… while the concert was happening, the organizer of the concert fled the venue, without paying the artists, the vendors or any other event expense.</p><footer>Media and design freelancer</footer></blockquote>
+  <blockquote><p>Asking for quotations and confirming the event verbally and cancelling the event.</p><footer>Photographer and decorator</footer></blockquote>
+  <blockquote><p>Absence of formal written contracts, unbudgeted scope creep during the event, and delayed post-event payment processing due to unclear approval chains.</p><footer>Photographer, videographer and designer</footer></blockquote>
+</div>
+<p>Tezera takes no payments during the ATP, so it can't hold deposits. It can still do three things: make terms explicit before a booking is confirmed, keep a record of what was agreed, and let providers rate organisers on payment. The PRD already includes the last of these: "Payment" is a review category for organisers.</p>
+
+<h3>Proving reliability, and fair reviews</h3>
+<div class="chart"><p class="title">How they show reliability to a new organiser</p><p class="sub">13 vendors and freelancers</p><ol class="bars" style="--n:13" aria-label="Bar chart, out of 13 providers">
+  <li style="--v:10" data-tip="Previous clients: 10 of 13 providers (77%)"><span class="lbl">Previous clients</span><span class="track"><span class="fill"></span></span><span class="val">10 <span class="pc">77%</span></span></li>
+  <li style="--v:10" data-tip="Recommendations: 10 of 13 providers (77%)"><span class="lbl">Recommendations</span><span class="track"><span class="fill"></span></span><span class="val">10 <span class="pc">77%</span></span></li>
+  <li style="--v:9" data-tip="Social media: 9 of 13 providers (69%)"><span class="lbl">Social media</span><span class="track"><span class="fill"></span></span><span class="val">9 <span class="pc">69%</span></span></li>
+  <li style="--v:6" data-tip="Portfolio: 6 of 13 providers (46%)"><span class="lbl">Portfolio</span><span class="track"><span class="fill"></span></span><span class="val">6 <span class="pc">46%</span></span></li>
+  <li style="--v:5" data-tip="Personal references: 5 of 13 providers (38%)"><span class="lbl">Personal references</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">38%</span></span></li>
+  <li style="--v:5" data-tip="Reviews: 5 of 13 providers (38%)"><span class="lbl">Reviews</span><span class="track"><span class="fill"></span></span><span class="val">5 <span class="pc">38%</span></span></li>
+  <li style="--v:4" data-tip="Number of completed jobs: 4 of 13 providers (31%)"><span class="lbl">Number of completed jobs</span><span class="track"><span class="fill"></span></span><span class="val">4 <span class="pc">31%</span></span></li>
+  <li style="--v:1" data-tip="Awards: 1 of 13 providers (8%)"><span class="lbl">Awards</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">8%</span></span></li>
+  <li style="--v:1" data-tip="Qualifications: 1 of 13 providers (8%)"><span class="lbl">Qualifications</span><span class="track"><span class="fill"></span></span><span class="val">1 <span class="pc">8%</span></span></li>
+</ol></div>
+<div class="chart"><p class="title">How useful would feedback from previous organisers be?</p><p class="sub">13 vendors and freelancers, 1 = not useful, 5 = very useful</p><div class="stack" style="--n:13" role="img" aria-label="1: 0, 2: 0, 3: 1, 4: 3, 5: 9"><span class="seg s3" style="--v:1" data-tip="3 / 5: 1 of 13 providers (8%)"></span><span class="seg s4" style="--v:3" data-tip="4 / 5: 3 of 13 providers (23%)"><span>3</span></span><span class="seg s5" style="--v:9" data-tip="5 / 5: 9 of 13 providers (69%)"><span>9</span></span></div>
+<ul class="key"><li><i class="sw s1"></i>1 / 5 <b>0</b></li><li><i class="sw s2"></i>2 / 5 <b>0</b></li><li><i class="sw s3"></i>3 / 5 <b>1</b></li><li><i class="sw s4"></i>4 / 5 <b>3</b></li><li><i class="sw s5"></i>5 / 5 <b>9</b></li></ul></div>
+<p>Asked what would make a review system fair, providers said:</p>
+<ul>
+  <li>reviews go both ways, and only from real, completed jobs (2 answers);</li>
+  <li>a range of reviews, good and bad, not just praise (2);</li>
+  <li>a dispute step before a review is final, and objective categories such as punctuality, communication, quality of deliverables and payment speed (1);</li>
+  <li>anonymous reviews (1). This conflicts with tying reviews to bookings, because the other side can usually guess who wrote one.</li>
+</ul>
+<div class="quotes">
+  <blockquote><p>Two-way verified reviews linked directly to completed jobs, clear dispute resolution before feedback is finalized, and objective evaluation metrics (punctuality, communication, deliverable quality, and payment speed).</p><footer>Photographer, videographer and designer</footer></blockquote>
+  <blockquote><p>There should be a system to show the credibility of an event.</p><footer>Media and design freelancer</footer></blockquote>
+</div>
+
+<!-- ============================================================ 6 Themes -->
+<h2 id="themes"><span class="num">6</span>Themes across all three groups</h2>
+<div class="tbl"><table>
+  <thead><tr><th>Theme</th><th>Attendees</th><th>Organisers</th><th>Vendors and freelancers</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Trust and credibility</td><td>Official organiser account is the top trust signal (24 of 26); fake ticket sellers</td><td>Can't tell if a new provider is reliable (4 of 7)</td><td>Want organiser track record and payment terms; organisers who disappear without paying</td></tr>
+    <tr><td class="id">Information in one place</td><td>Scattered posts, details released piecemeal, hard to find again</td><td>Keeping information updated is a struggle (2 of 7)</td><td>Briefs are missing deliverables, timings and audience details</td></tr>
+    <tr><td class="id">Last-minute changes</td><td>Delays and cancellations with no update</td><td>Last-minute changes, partners not delivering on time</td><td>Last-minute cancellations (9 of 13); timelines changed on site</td></tr>
+    <tr><td class="id">Reputation that travels</td><td>Reviews from past attendees build trust for some (6 of 26)</td><td>Feedback rated 5 out of 5 by 6 of 7</td><td>Feedback rated 4 or 5 out of 5 by 12 of 13</td></tr>
+    <tr><td class="id">Instagram and WhatsApp</td><td>Where events are found (25) and plans are made (14)</td><td>Main promotion channel (6)</td><td>Where half of them show their work (7)</td></tr>
+  </tbody>
+</table></div>
+<p>Several people asked, in their own words, for one place with everything about an event, kept up to date. Their complaints add two conditions: changes have to reach people as soon as they happen, and the organisers and providers have to be verified.</p>
+
+<!-- ============================================================ 7 Recommendations -->
+<h2 id="recommendations"><span class="num">7</span>What this means for Tezera</h2>
+<p>Most of the PRD stands. The research backs the hiring marketplace, two-way reviews, verified badges, stall applications, venue maps, announcements and event Q&amp;A. The changes below are proposals for the group to review. The PRD has not been changed yet. Each change has a matching user story in the <a href="tezera-user-stories.html">user story document</a>.</p>
+
+<h3>Proposed changes to the PRD</h3>
+<div class="tbl"><table>
+  <thead><tr><th>#</th><th>Change (proposed)</th><th>PRD</th><th>Priority</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td class="id">R1</td><td><b>Structured brief.</b> Booking requests and job posts ask for the service, duration, expected audience, a list of deliverables, run-of-show timings and the equipment provided, as well as date, place and budget.</td><td>HR-03, HR-05</td><td class="p"><span class="pri must">Must</span></td><td>All 13 providers need date and location; 6 need deliverables; missing details are their most common complaint.</td></tr>
+    <tr><td class="id">R2</td><td><b>Payment and cancellation terms on every booking.</b> Deposit, amounts and due dates for each instalment, and the cancellation terms, shown before the provider accepts and kept on the confirmed booking.</td><td>HR-04, HR-08</td><td class="p"><span class="pri must">Must</span></td><td>11 of 13 providers want payment terms first; 4 want the cancellation policy. Organisers pay in instalments and lose track of them.</td></tr>
+    <tr><td class="id">R3</td><td><b>Payment tracking without payments.</b> The provider marks each instalment as received. Organiser profiles show the share of bookings paid on time.</td><td>New (HR-15)</td><td class="p"><span class="pri should">Should</span></td><td>7 of 13 providers face late or missing payment. This builds a payment record without handling money.</td></tr>
+    <tr><td class="id">R4</td><td><b>Late cancellations on the record.</b> Cancelling a booking within 7 days of the event (proposed) shows on the profile of whoever cancelled. The organiser can reopen the job as a job post in one step.</td><td>HR-08, HR-05</td><td class="p"><span class="pri should">Should</span></td><td>Last-minute cancellation is providers' top problem (9 of 13). One organiser said it is often too late to switch.</td></tr>
+    <tr><td class="id">R5</td><td><b>"Know before you go" on the event page:</b> dress code, parking and transport, what to bring, rules (age limit, re-entry, banned items), food and drink with a price range, and cover if it rains.</td><td>EV-01</td><td class="p"><span class="pri should">Should</span></td><td>These were attendees' most common questions in open answers. Organisers are asked about parking (3 of 7).</td></tr>
+    <tr><td class="id">R6</td><td><b>Live event status.</b> On time, running late (with a new start time), postponed or cancelled, shown on the event page and pushed to people who marked 'Going' or 'Interested'.</td><td>EV-02, MS-05</td><td class="p"><span class="pri should">Should</span></td><td>Delays and unannounced changes were the most common on-the-day complaint (6 attendees).</td></tr>
+    <tr><td class="id">R7</td><td><b>Wider set of standard map pins.</b> Add parking, registration or ticket counter, seating, food and drink, and water to the standard labels.</td><td>VM-02</td><td class="p"><span class="pri must">Must</span></td><td>Parking (8), seating (8) and registration (6) are among the things attendees couldn't find.</td></tr>
+    <tr><td class="id">R8</td><td><b>Map and essentials offline.</b> Once opened, an event's map, times and announcements stay viewable without signal.</td><td>VM-04</td><td class="p"><span class="pri could">Could</span></td><td>Large venues lose mobile signal; organisers rely on signs because nothing else works there.</td></tr>
+    <tr><td class="id">R9</td><td><b>Easy sharing to Instagram and WhatsApp.</b> Every event page has a short link with a preview image, and a "share to story" option.</td><td>EV-04</td><td class="p"><span class="pri must">Must</span></td><td>25 of 26 attendees find events on Instagram; WhatsApp groups are where plans are made.</td></tr>
+    <tr><td class="id">R10</td><td><b>Reviews by type of work, and replies.</b> Each review shows the service and event type, and can be filtered by them. The reviewed person can post one public reply.</td><td>RV-01, RV-03</td><td class="p"><span class="pri could">Could</span></td><td>Organisers want feedback for the kind of job they're hiring for; providers want fairness and a right of reply.</td></tr>
+    <tr><td class="id">R11</td><td><b>Facilities in attendee reviews.</b> Add a category for toilets, queues and food availability to attendee reviews of events.</td><td>6.5</td><td class="p"><span class="pri could">Could</span></td><td>Washrooms, queues and stalls running out were common complaints, and organisers get no structured feedback on them.</td></tr>
+    <tr><td class="id">R12</td><td><b>Settle the age-limit question.</b> Decide how 18+ events are labelled and enforced (PRD section 14).</td><td>Section 14</td><td class="p"><span class="pri should">Should</span></td><td>An attendee described drunk 16-year-olds spoiling a ticketed event with an alcohol stall.</td></tr>
+  </tbody>
+</table></div>
+<p class="note">Priorities are proposed. R1, R2, R7 and R9 extend existing Must requirements rather than adding new features.</p>
+
+<h3>What the research confirms</h3>
+<ul>
+  <li><b>Verification</b> (AC-08, AC-09) is how Tezera earns trust: attendees trust official accounts, and providers want to know who they are working for.</li>
+  <li><b>Two-way reviews tied to completed jobs</b> (6.5) are what providers asked for, almost word for word, including a "Payment" category for organisers.</li>
+  <li><b>Stall applications in the app</b> (HR-10 to HR-12) replace phone calls and spreadsheets.</li>
+  <li><b>Venue maps</b> (VM-01 to VM-04) fill a gap: only one organiser shares a map today.</li>
+  <li><b>Friends going</b> (CM-05) and the <b>event group chat</b> (MS-04) fit how attendees already plan, with friends and in WhatsApp groups.</li>
+  <li><b>Public Q&amp;A</b> (MS-06) keeps answers visible to people who join late, unlike a WhatsApp group.</li>
+</ul>
+
+<!-- ============================================================ 8 Parked -->
+<h2 id="parked"><span class="num">8</span>Raised, but outside the ATP release</h2>
+<div class="tbl"><table>
+  <thead><tr><th>Request</th><th>Who raised it</th><th>Where it belongs</th></tr></thead>
+  <tbody>
+    <tr><td class="id">Refunds when events are cancelled</td><td>Attendees</td><td>Ticketing phase (TK-11). This supports making TK-11 a Must when ticketing arrives, as the PRD already proposes.</td></tr>
+    <tr><td class="id">Ticket tiers, faster check-in, shorter queues</td><td>Attendees</td><td>Ticketing phase (TK-01, TK-07).</td></tr>
+    <tr><td class="id">Deposits held by the platform, contracts</td><td>Providers</td><td>Payments in the app (HR-14), after the ATP. R2 and R3 are the ATP-sized version.</td></tr>
+    <tr><td class="id">Finding sponsors</td><td>Organisers (4 of 7 coordinate sponsors)</td><td>Not in the PRD. Worth an open question for a later phase.</td></tr>
+    <tr><td class="id">Budget and payment tracking for the whole event</td><td>Organisers</td><td>Not in the PRD. Outside Tezera's core; R3 covers provider payments only.</td></tr>
+    <tr><td class="id">Simpler licences and permits</td><td>Organisers</td><td>Government process; outside Tezera.</td></tr>
+    <tr><td class="id">Better washrooms, shelter, enough food</td><td>Attendees</td><td>Operational, for organisers. Tezera can surface it through reviews (R11).</td></tr>
+  </tbody>
+</table></div>
+
+<!-- ============================================================ 9 Next -->
+<h2 id="next"><span class="num">9</span>Next research steps</h2>
+<ol>
+  <li><b>Interview two or three of the organisers</b> who answered. The PRD planned interviews, and seven survey answers can't show how organisers would use the hiring flow.</li>
+  <li><b>Test R1 to R4 with providers</b>: show five or six of them a mock booking request with structured brief and payment terms, and ask what's missing.</li>
+  <li><b>Reach beyond Colombo and beyond students</b>: attendees outside university age, and providers in other districts.</li>
+  <li><b>Ask about ticketing directly</b> before the ticketing phase: what organisers use now and what they pay for it.</li>
+  <li><b>Usability-test the prototype</b> against the PRD's success metric: publish an event, post a job, upload a venue map.</li>
+</ol>
+
+<p class="note" style="margin-top:48px">Data: Eventline attendee, organiser, and vendor and freelancer surveys (Google Forms), 4–8 October 2026. Raw responses are held by the team, outside this repository, because they contain email addresses. Counts were computed directly from the response sheets; the theme counts from open answers were coded by hand.</p>
+
+</main>
+</body>
+</html>
