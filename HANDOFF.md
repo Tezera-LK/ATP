@@ -42,7 +42,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 ## Next steps
 
 1. Group reviews the survey analysis and decides on R1–R12; update the PRD (v4) and the user stories to match.
-2. Review and merge PR #2.
+2. Review and merge PR #2, then PR #3 (Given/When/Then stories, shared navbar).
 3. Follow-up research (analysis section 9): interview 2–3 organisers, test R1–R4 with providers, reach beyond Colombo and students.
 4. Confirm the recommended stack against the team's skills (PRD section 8).
 
@@ -60,6 +60,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - Added the shared navbar (wordmark + PRD, Architecture, Survey analysis, User stories) to `prd/tezera-prd.html` (hidden in print), and an Architecture link to both research docs.
 - New `.archify/inject-nav.py` adds the same navbar to the generated `prd/tezera-architecture.html` (idempotent; hidden in embed, present and print modes). `CLAUDE.md` and `README.md` updated.
 - Decisions (user, via Damian): drop the story sentence, stacked Given/When/Then layout, link + inject nav into the architecture page.
+- Committed on `docs/gwt-stories-navbar` and opened PR #3 (https://github.com/NDR-debugs/ATP/pull/3).
 - Checked by headless Chrome screenshots at desktop, tablet and phone widths. Not verified: the architecture page already scrolled sideways on phones before this change; the navbar pills follow that.
 
 ### 8 October 2026: rename to Tezera, survey analysis, user stories
