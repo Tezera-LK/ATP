@@ -2,3 +2,4 @@
 .archify/**/*
 !.archify/**/
 !.archify/**/candidate.json
+!.archify/inject-nav.py

@@ -44,9 +44,15 @@
     font-size: 16px;
     line-height: 1.55;
   }
-  .doc { max-width: 880px; margin: 0 auto; padding: 48px 16px 96px; }
+  .doc { max-width: 880px; margin: 0 auto; padding: 40px 16px 96px; }
 
   /* Header */
+  .brandbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  .wordmark { font-family: var(--display); font-weight: 600; font-size: 26px; letter-spacing: -.02em; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .wordmark .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--marigold); box-shadow: 14px 0 0 var(--teal); margin-right: 18px; }
+  .doclinks { display: flex; gap: 6px; flex-wrap: wrap; font-size: 14px; }
+  .doclinks a { padding: 5px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); text-decoration: none; background: var(--card); }
+  .doclinks a[aria-current] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0 0 8px; }
   h1 { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 6vw, 52px); line-height: 1.05; margin: 0; letter-spacing: -.01em; }
   .byline { color: var(--muted); font-size: 14px; margin: 18px 0 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
@@ -132,6 +138,7 @@
     @page { size: A4; margin: 16mm 14mm; }
     body { background: #fff; font-size: 10.5pt; }
     .doc { max-width: none; padding: 0; }
+    .brandbar { display: none; }
     h2 { break-before: auto; break-after: avoid; }
     h3, h4 { break-after: avoid; }
     figure, .tbl, tr, .callout { break-inside: avoid; }
@@ -143,6 +150,16 @@
 </head>
 <body>
 <main class="doc">
+
+<div class="brandbar">
+  <a class="wordmark" href="tezera-prd.html"><span class="dot" aria-hidden="true"></span>tezera</a>
+  <nav class="doclinks" aria-label="Tezera documents">
+    <a href="tezera-prd.html" aria-current="page">PRD</a>
+    <a href="tezera-architecture.html">Architecture</a>
+    <a href="../research/tezera-survey-analysis.html">Survey analysis</a>
+    <a href="../research/tezera-user-stories.html">User stories</a>
+  </nav>
+</div>
 
 <header>
   <p class="eyebrow">Product Requirements Document · SDGP Agile Team Project</p>
