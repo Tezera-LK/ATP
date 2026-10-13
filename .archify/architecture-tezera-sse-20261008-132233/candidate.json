@@ -130,7 +130,7 @@
       "id": "db",
       "type": "database",
       "label": "PostgreSQL",
-      "sublabel": "Neon · Prisma ORM",
+      "sublabel": "Neon · Prisma + raw SQL",
       "pos": [
         1160,
         262
@@ -144,7 +144,7 @@
       "id": "redis",
       "type": "messagebus",
       "label": "Redis",
-      "sublabel": "Upstash · queue, pub/sub",
+      "sublabel": "Upstash · jobs, pub/sub, rankings",
       "pos": [
         840,
         480
@@ -320,7 +320,7 @@
       "id": "api-redis",
       "from": "api",
       "to": "redis",
-      "label": "enqueue, pub/sub",
+      "label": "jobs, top-N, counters",
       "fromSide": "bottom",
       "toSide": "top"
     },
@@ -335,7 +335,7 @@
       "id": "worker-db",
       "from": "worker",
       "to": "db",
-      "label": "close reviews, rerank",
+      "label": "rerank, refresh boards",
       "fromSide": "top",
       "toSide": "bottom"
     },
@@ -410,10 +410,23 @@
         "Accounts, profiles and verification",
         "Events and promotion feed (posts, reels)",
         "Hiring marketplace: direct bookings, job posts, quotes, stalls",
-        "Reviews and ranking (weighted rank score, badges, leaderboards)",
+        "Reviews and ranking (weighted rank score, badges, leaderboards); search via PostgreSQL text search + pg_trgm",
         "Venue maps: layout image, pins and 3D footprints",
         "Community boards, meetups, messaging, announcements",
         "Admin: verification, report queue, disputes, audit log"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Data design: ranking and feed (PRD v4)",
+      "items": [
+        "PostgreSQL is the only database; Redis is a cache that can be rebuilt from it",
+        "Rank score: a column on each profile, recalculated by the worker after every review; index on (category, district, rank_score DESC)",
+        "Leaderboards: materialized view ranked per category and district, refreshed concurrently by the worker; top-N copied to Redis sorted sets",
+        "Feed: built on read from followed organisers, keyset pagination; trending posts in a Redis sorted set (score proposed)",
+        "Likes and views counted in Redis, written to PostgreSQL in batches; the like itself goes straight to PostgreSQL",
+        "Tools: Prisma schema and migrations own every table; DBeaver for queries only; dbdiagram.io for the ER diagram",
+        "Later if needed: Meilisearch or Typesense for search, pgvector for recommendations"
       ]
     },
     {

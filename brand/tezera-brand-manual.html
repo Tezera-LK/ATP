@@ -19,20 +19,13 @@ h1,h2,h3,.d{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacin
 .pg>*{position:relative;z-index:1}
 .num{font:800 clamp(120px,22vw,300px)/.8 'Bricolage Grotesque';color:var(--p);opacity:.9;letter-spacing:-.05em}
 h2{font-size:clamp(40px,7vw,96px);font-weight:800;margin:.2em 0 .3em}
-/* shrink-wrap so full-width blocks don't sit over the corner tile grids and swallow hover */
-.num,h2{width:fit-content}
 h3{font-size:24px;font-weight:700;margin-bottom:8px}
 p{max-width:60ch;margin-bottom:1em}
 .q{font:700 clamp(26px,4vw,48px)/1.08 'Bricolage Grotesque';max-width:20ch;color:var(--p);letter-spacing:-.02em}
 .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;align-items:start}
 .g{display:grid;position:absolute!important;z-index:0!important;gap:5px;align-content:start}
-.g>i{display:block;aspect-ratio:1/.92;border-radius:24%;grid-column:span 2;transition:transform .4s var(--ease-out)}
+.g>i{display:block;aspect-ratio:1/.92;border-radius:24%;grid-column:span 2}
 .g>i.gh{background:var(--t)!important;opacity:.13}
-/* hover a scattered grid and its tiles settle into place, one after another */
-@media(hover:hover) and (pointer:fine){.g:hover>i{transform:none!important;transition:transform .7s var(--ease-io) calc(var(--d,0)*30ms)}}
-/* the attendee grid keeps moving; translate composes with each tile's inline transform */
-@keyframes bob{from{translate:0 -2px}to{translate:0 2px}}
-.att.sys .g>i{animation:bob 2.4s ease-in-out infinite alternate;animation-delay:calc(var(--ph,0)*-2.4s)}
 .cut{right:-6%;top:-4%;width:min(46vw,520px);aspect-ratio:1}
 .cutb{left:-8%;bottom:-8%;width:min(40vw,440px);aspect-ratio:1}
 /* cover */
@@ -68,20 +61,13 @@ p{max-width:60ch;margin-bottom:1em}
 .icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:14px}
 .ic{text-align:center;font-size:13px;font-weight:500}
 .ic svg{width:64px;height:64px;display:block;margin:0 auto 6px}
-.frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
-.fr{aspect-ratio:1;position:relative;border-radius:18px;background:var(--b);border:1.5px solid var(--p);overflow:hidden}
-.fr svg{position:absolute;width:34%;height:34%}
-.fr span{position:absolute;left:12px;bottom:8px;font-weight:600;font-size:13px}
 .cap{font-weight:600;font-size:14px;margin-top:8px}
-/* live frame: each tile makes one 900 ms ease-in-out move, 300 ms after the one before, then the loop fades and resets */
-@keyframes fit{
- 0%,12%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:1;animation-timing-function:var(--ease-io)}
- 30%,86%{transform:none;opacity:1}
- 94%{transform:none;opacity:0}
- 94.1%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}
- 100%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:1}}
-.live svg{animation:fit 5s linear infinite both}
-.motion{grid-template-columns:minmax(220px,1fr) 2fr;align-items:center}
+/* phones: when one scrolls into view, its pieces drift up and settle one after another (700 ms ease-in-out, 150 ms apart); plays once.
+   .wait is only added by the script, so without it the screens show complete */
+.phone.wait>*{opacity:0;translate:0 14px}
+.phone.wait .bar{scale:0 1}
+.phone .bar{transform-origin:left}
+.phone.in>*{transition:opacity .7s var(--ease-io),translate .7s var(--ease-io),scale .9s var(--ease-io);transition-delay:calc(var(--i,0)*150ms)}
 .sq{aspect-ratio:1;position:relative;overflow:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;background:var(--b);color:var(--t)}
 .sq .d{font-size:clamp(22px,3vw,34px);font-weight:800;position:relative;z-index:1}
 .poster{aspect-ratio:3/4;border-radius:10px;position:relative;overflow:hidden;padding:20px;display:flex;flex-direction:column;justify-content:space-between;background:var(--p);color:var(--b)}
@@ -92,8 +78,8 @@ p{max-width:60ch;margin-bottom:1em}
 li{margin:0 0 .5em 1.1em}
 a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3px}
 @media(max-width:640px){.pg{min-height:0}.phone{width:100%;max-width:290px}.row:not(.keep){grid-template-columns:1fr!important}.cover{min-height:100vh;padding-top:120px}}
-/* reduced motion: tiles appear in their final place, no movement */
-@media(prefers-reduced-motion:reduce){.g>i,.live svg{transition:none!important;animation:none!important}.live svg{transform:none!important}}
+/* reduced motion: everything appears in its final place, no movement */
+@media(prefers-reduced-motion:reduce){.g>i,.phone>*{transition:none!important;animation:none!important}.phone>*{opacity:1!important;translate:none!important;scale:none!important}}
 </style></head><body>
 
 <!-- 01 COVER -->
@@ -151,11 +137,11 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3
 <div class="num" style="color:#d77e70">03</div>
 <h2>Three experiences.<br>One Tezera.</h2>
 <div class="row" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:30px">
-<div class="org sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" data-pos="static" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Organiser</h3><span class="tag">Ordered grid</span> <span class="tag">Calm</span></div>
-<div class="ven sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" data-rot="1" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Vendor</h3><span class="tag">Loose and open</span> <span class="tag">Fresh</span></div>
-<div class="att sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" data-rot="1" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Attendee</h3><span class="tag">Shifting tiles</span> <span class="tag">Warm</span></div>
+<div class="org sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" data-pos="static" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Organiser</h3><span class="tag">Calm</span> <span class="tag">Dependable</span></div>
+<div class="ven sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Vendor</h3><span class="tag">Fresh</span> <span class="tag">Collaborative</span></div>
+<div class="att sys"><div class="g" data-c="4" data-r="2" data-k="p,s,a" data-o="1" style="position:relative!important;grid-template-columns:repeat(4,1fr);aspect-ratio:2/1;border-radius:12px;overflow:hidden"></div><h3 style="margin-top:14px">Attendee</h3><span class="tag">Warm</span> <span class="tag">Social</span></div>
 </div>
-<p style="margin-top:30px;color:#d6d6d7">All three use the same rounded tile, offset rows and type. Only colour and arrangement change. The organiser grid is orderly, the vendor grid is loose and open, and the attendee grid never quite sits still.</p>
+<p style="margin-top:30px;color:#d6d6d7">All three use the same rounded tile, offset rows and type. Only the palette changes, so the three accounts read as one family and each still has its own mood.</p>
 </section>
 
 <!-- 05 COLOUR -->
@@ -169,7 +155,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3
 
 <!-- 06 TYPOGRAPHY -->
 <section class="pg ven">
-<div class="g cut" data-c="4" data-r="4" data-k="p,s,a" data-o=".9" data-rot="1" style="grid-template-columns:repeat(4,1fr)"></div>
+<div class="g cut" data-c="4" data-r="4" data-k="p,s,a" data-o=".9" style="grid-template-columns:repeat(4,1fr)"></div>
 <div class="num">05</div>
 <h2>Type that fits</h2>
 <div class="row" style="grid-template-columns:2fr 1fr">
@@ -201,25 +187,20 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3
 <section class="pg ven">
 <div class="num">07</div>
 <h2>The tile system</h2>
-<p>One soft, rounded tile. Laid in offset rows, the tiles fit together like bricks, and the gaps between them stay small and even. Leave a tile empty and it reads as a piece still to be connected. Four moves build every composition: repeat, layer, connect, crop.</p>
-<div class="row" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin:30px 0"><div class="org"><div class="g" data-c="4" data-r="4"  style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Repeat: one tile, many times, with a few left open.</p></div><div class="ven"><div class="g" data-c="4" data-r="4" data-rot="1" style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Layer: tiles stacked in staggered rows.</p></div><div class="att"><div class="g" data-c="4" data-r="4"  style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Connect: rows lock together edge to edge.</p></div><div class="orgd"><div class="g" data-c="4" data-r="4" data-rot="1" data-gap="1" style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Crop: the pattern runs off the page.</p></div></div>
-<div class="row" style="grid-template-columns:1fr 1fr">
-<div><div class="g" data-c="8" data-r="4" data-k="p,s,a" data-o="1" style="position:relative!important;grid-template-columns:repeat(8,1fr);aspect-ratio:2/1;border-radius:16px;overflow:hidden"></div><p class="cap">Assembled: a complete pattern.</p></div>
-<div><div class="g" data-c="8" data-r="4" data-k="p,s,a" data-o="1" data-rot="1" data-gap="1" style="position:relative!important;grid-template-columns:repeat(8,1fr);aspect-ratio:2/1;border-radius:16px;overflow:hidden"></div><p class="cap">Scattered: pieces about to find their places.</p></div>
+<p>One soft, rounded tile. Laid in offset rows, the tiles fit together like bricks, and the gaps between them stay small and even. Leave a tile empty and it reads as a piece still to be connected. Repeat the tile, connect the rows, and let the pattern crop off the page.</p>
+<div class="row" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));margin:30px 0"><div class="org"><div class="g" data-c="4" data-r="4"  style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Repeat: one tile, many times, with a few left open.</p></div><div class="att"><div class="g" data-c="4" data-r="4"  style="position:relative!important;grid-template-columns:repeat(9,1fr);overflow:hidden"></div><p class="cap">Connect: rows lock together edge to edge.</p></div></div>
+<div style="max-width:640px">
+<div class="g" data-c="8" data-r="4" data-k="p,s,a" data-o="1" style="position:relative!important;grid-template-columns:repeat(8,1fr);aspect-ratio:2/1;border-radius:16px;overflow:hidden"></div><p class="cap">Assembled: a complete pattern.</p>
 </div>
 <p style="margin-top:20px">Rules: keep one anchor tile per composition, let at least one edge crop off the page, and use negative space to show what has not yet connected.</p>
 </section>
 
 <!-- 09 MOTION -->
-<section class="pg org">
+<section class="pg org" style="min-height:60vh">
 <div class="num">08</div>
 <h2>Pieces finding where they belong</h2>
-<p>Motion moves tiles toward alignment: drift, rotate, snap, settle. Use a 600 to 900 millisecond ease-in-out curve and move one tile at a time. With reduced motion turned on, tiles appear in their final place without moving.</p>
-<p>Hover any scattered grid in this manual to watch its tiles settle.</p>
-<div class="row motion" style="margin-top:30px">
-<div><div class="fr live" id="live"></div><p class="cap">Live: each tile moves for 900 ms, 300 ms after the one before.</p></div>
-<div class="frames" id="frames"></div>
-</div>
+<p>Motion moves pieces toward alignment: drift, snap, settle. Use a 600 to 900 millisecond ease-in-out curve and move one piece at a time. With reduced motion turned on, pieces appear in their final place without moving.</p>
+<p>Screens follow the same rule. As a screen comes into view, its cards drift up and settle one after another, and progress fills in once. The phones in the next section show it.</p>
 </section>
 
 <!-- 10 UI -->
@@ -240,8 +221,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3
 <div class="mini"><b></b>2 messages waiting</div>
 <div class="nav"><i></i><i></i><i></i><i></i></div></div><p class="cap" style="text-align:center">Vendor: opportunities, portfolio, bookings.</p></div>
 <div><div class="phone att"><h4>Tonight near you</h4>
-<div style="height:150px;border-radius:20px 20px 4px 20px;position:relative;overflow:hidden;margin-bottom:10px"><div class="g" data-c="4" data-r="3" data-k="p,s,a" data-o="1" data-rot="1" style="grid-template-columns:repeat(4,1fr);inset:0"></div></div>
-<b>Rooftop sunset set</b><br>112 going, 6 friends<br><br><span class="btn">I'm in</span> <span class="tag">Music</span>
+<div style="height:150px;border-radius:20px 20px 4px 20px;background:var(--s);margin-bottom:10px"></div>
+<p><b>Rooftop sunset set</b><br>112 going, 6 friends</p>
+<div><span class="btn">I'm in</span> <span class="tag">Music</span></div>
 <div class="nav"><i></i><i></i><i></i><i></i></div></div><p class="cap" style="text-align:center">Attendee: discover, join, share.</p></div>
 </div>
 </section>
@@ -267,7 +249,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3
 <div class="row keep" style="grid-template-columns:repeat(3,1fr);gap:6px;margin-top:30px">
 <div class="sq att"><div class="g" data-c="2" data-r="2" data-k="p,s,a" data-o="1" style="grid-template-columns:repeat(2,1fr);inset:0;width:100%"></div></div>
 <div class="sq ven" style="background:var(--p);color:var(--b)"><div class="d">Pieces find each other.</div></div>
-<div class="sq org"><div class="g" data-c="2" data-r="2" data-k="p,s,a" data-o="1" data-rot="1" style="grid-template-columns:repeat(2,1fr);inset:0;width:100%"></div></div>
+<div class="sq org" style="background:var(--p);color:var(--b)"><div class="d">Find the fit.</div></div>
 <div class="sq att" style="background:var(--p)"><div class="d">Tonight, near you.</div></div>
 <div class="sq org"><div class="g" data-c="3" data-r="3" data-k="p,s,a" data-o="1" style="grid-template-columns:repeat(3,1fr);inset:0;width:100%"></div></div>
 <div class="sq ven"><span class="tag" style="align-self:flex-start;margin-bottom:auto">New</span><div class="d">Vendor profiles, now with portfolios.</div></div>
@@ -280,7 +262,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3
 <div class="num">12</div>
 <h2>Out in the world</h2>
 <div class="row" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:20px">
-<div><div class="poster att" style="background:var(--p)"><div class="g" data-c="3" data-r="2" data-k="s,a,b" data-o="1" data-rot="1" style="grid-template-columns:repeat(3,1fr);right:-15%;top:-5%;width:80%;height:40%"></div><span class="tag" style="align-self:flex-start">12 Dec</span><div class="d">Open air, open doors.</div></div><p class="cap">Poster</p></div>
+<div><div class="poster att" style="background:var(--p)"><span class="tag" style="align-self:flex-start">12 Dec</span><div class="d">Open air, open doors.</div></div><p class="cap">Poster</p></div>
 <div><div class="poster org" style="aspect-ratio:16/9;margin-bottom:14px"><div class="d" style="font-size:26px">Colombo Food Fair<br>Hall B</div></div><p class="cap">Event signage</p>
 <div class="card" style="margin-top:14px"><b>Dilani Perera</b><br>Partnerships<br><small>hello@tezera.lk</small></div><p class="cap">Business card</p></div>
 <div><div class="poster ven" style="aspect-ratio:1;border-radius:50% 50% 8px 8px"><div class="d" style="font-size:40px;text-align:center">Fit in.</div></div><p class="cap">Tote bag and merchandise</p>
@@ -303,7 +285,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3
 </section>
 
 <script>
-const P={sq:'M0 0h40v40H0z',qc:'M0 40V0a40 40 0 0 1 40 40z',sm:'M0 40a20 20 0 0 1 40 0z',tr:'M0 40L40 0v40z',di:'M20 0L40 20L20 40L0 20z'};
 const fill={p:'var(--p)',s:'var(--s)',a:'var(--a)',b:'var(--b)'};
 let n=7;const rnd=()=>(n=(n*9301+49297)%233280)/233280;
 document.querySelectorAll('.g').forEach(g=>{
@@ -312,9 +293,8 @@ document.querySelectorAll('.g').forEach(g=>{
  let h='';
  for(let y=0;y<r;y++)for(let x=0;x<c;x++){
   const gh=!cv&&rnd()<.22,col=cv?(rnd()<.2?'rgba(255,255,255,.1)':'rgba(255,255,255,.28)'):fill[ks[Math.floor(rnd()*ks.length)]];
-  const sc=g.dataset.rot?`transform:translate(${(rnd()-.5)*(g.dataset.gap?16:8)}px,${(rnd()-.5)*10}px) rotate(${(rnd()-.5)*(g.dataset.gap?44:14)}deg);`:'';
-  // --d: stagger step (diagonal wave), --ph: idle-motion phase; both deterministic so the seeded layout stays the same
-  h+=`<i class="${gh?'gh':''}" style="--d:${x+y};--ph:${((x*7+y*3)%10)/10};background:${col};${y%2==0&&x==0?'grid-column:2/span 2;':''}${sc}"></i>`}
+  // --d: stagger step for the cover's load-in (diagonal wave)
+  h+=`<i class="${gh?'gh':''}" style="--d:${x+y};background:${col};${y%2==0&&x==0?'grid-column:2/span 2;':''}"></i>`}
  g.innerHTML=h});
 const pal={Organiser:['org','orgd',{org:['#282829','#d7dfea','#526c80','#70a98d','#6f908b'],orgd:['#d6d6d7','#151d28','#7f9aad','#568f76','#6f908b']}],Vendor:['ven','vend',{ven:['#050316','#e9e7e2','#70a992','#658095','#b6c3a7'],vend:['#dcdbe4','#1d1b16','#5a9179','#7d97ab','#4b583c']}],Attendee:['att','attd',{att:['#392f3d','#f7f0ed','#d77e70','#f09eb4','#e5c76c'],attd:['#ccc2d0','#120b08','#8f3628','#610f25','#93751a']}]};
 const nm=['Text','Background','Primary','Secondary','Accent'];
@@ -324,14 +304,9 @@ for(const[name,[l,d,v]]of Object.entries(pal)){for(const m of[l,d]){
 document.getElementById('colours').innerHTML=ch;
 const I={Search:'<circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/>',Calendar:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18"/>',Vendors:'<rect x="3" y="3" width="8" height="8" rx="2"/><path d="M13 3h8v8a8 8 0 0 1-8-8z" class="f"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',Chat:'<path d="M4 5h16v11H10l-5 4v-4H4z"/>',Book:'<path d="M5 12l5 5L20 6"/>',Discover:'<circle cx="12" cy="12" r="9"/><path d="M12 12l4-4v0" /><path d="M9 15l3-3" />',Profile:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',Connect:'<circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 11l6-4M9 13l6 4"/>'};
 document.getElementById('icons').innerHTML=Object.entries(I).map(([k,v])=>`<div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${v.replace('class="f"','fill="var(--s)"')}</svg>${k}</div>`).join('');
-P.qc=P.sm=P.sq='M10 0h20a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H10A10 10 0 0 1 0 30V10A10 10 0 0 1 10 0z';
-const tiles=['qc','sq','sm'],at=j=>`left:${10+j*28}%;top:${20+(j%2)*28}%`;
-// storyboard: four still frames of the same move
-// offsets are % of the tile, so they scale with the frame
-const st=[['Scattered','90%','-70%','60deg'],['Drift','55%','-35%','30deg'],['Align','22%','-12%','10deg'],['Connected','0%','0%','0deg']];
-document.getElementById('frames').innerHTML=st.map(([t,x,y,r],i)=>`<div class="fr">${tiles.map((k,j)=>`<svg viewBox="0 0 40 40" style="${at(j)};transform:translate(${x},${y}) rotate(${r})"><path fill="var(--${['p','s','a'][j]})" d="${P[k]}"/></svg>`).join('')}<span>${i+1}. ${t}</span></div>`).join('');
-// live frame: each tile starts from its own scattered spot and settles in turn
-const sc=[['32%','-40%','45deg'],['-36%','28%','-30deg'],['24%','32%','20deg']];
-document.getElementById('live').innerHTML=tiles.map((k,j)=>`<svg viewBox="0 0 40 40" style="${at(j)};--x:${sc[j][0]};--y:${sc[j][1]};--r:${sc[j][2]};animation-delay:${j*300}ms"><path fill="var(--${['p','s','a'][j]})" d="${P[k]}"/></svg>`).join('')+'<span>Live</span>';
+// phones: hide each screen's pieces, then let them settle in once the phone is in view
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver'in window){
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.classList.remove('wait');io.unobserve(e.target)}}),{threshold:.35});
+ document.querySelectorAll('.phone').forEach(ph=>{[...ph.children].forEach((c,i)=>c.style.setProperty('--i',i));ph.classList.add('wait');io.observe(ph)})}
 </script>
 </body></html>

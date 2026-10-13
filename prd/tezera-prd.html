@@ -165,10 +165,18 @@
 <header>
   <p class="eyebrow">Product Requirements Document · SDGP Agile Team Project</p>
   <h1>tezera</h1>
-  <p class="byline">Version 3 · updated 8 October 2026 · first written 30 September 2026 by Navindu Ranwatte</p>
+  <p class="byline">Version 4 · updated 13 October 2026 · first written 30 September 2026 by Navindu Ranwatte</p>
 </header>
 
 <p class="lead">Tezera is a mobile app and web portal that brings Sri Lanka's event organisers, vendors, freelancers and consumers onto one platform. Organisers promote events, hire vendors and freelancers, fill stalls and share venue maps; consumers discover events, mark that they're going and meet up through forums. The ATP release covers all four core modules: events and promotion, the hiring marketplace, community and venue maps. Ticketing and entry come first after the ATP, followed by payments in the app; premium accounts come in a later version.</p>
+
+<details class="changes">
+  <summary>What changed in version 4 (13 October 2026)</summary>
+  <ul>
+    <li><b>Data design</b> (section 8): how the database holds the rank score, leaderboards, the promotion feed and search; Redis sorted sets for live leaderboards, trending posts and counters; Prisma for the schema with raw SQL for ranking queries; database tools for the team; and upgrade paths for search, recommendations and analytics. No requirements change.</li>
+  </ul>
+  <p class="note">Rows changed in this version carry a <span class="tag">v4</span> tag.</p>
+</details>
 
 <details class="changes">
   <summary>What changed in version 3 (8 October 2026)</summary>
@@ -612,13 +620,31 @@
     <tr><td class="id">Mobile app</td><td>React Native with Expo</td><td>One app for all four roles, with screens chosen by role. Expo handles builds and push notifications for Android and iOS.</td></tr>
     <tr><td class="id">Web portal <span class="tag">v3</span></td><td>Next.js (React), hosted on Vercel</td><td>The portal for every role, consumers included. Media loads from the Cloudinary CDN, as in the app. The admin panel is part of the same app, behind admin-only routes.</td></tr>
     <tr><td class="id">Backend</td><td>NestJS, one deployable service split into modules (accounts, events, hiring, reviews, maps, community, messaging, admin); REST for the apps and Server-Sent Events (SSE) for live updates such as new chat messages, event status and 'Going' counts; sending a message is a REST call; JWT logins with role checks <span class="tag">v3</span></td><td>One service to deploy and test now, with clear module boundaries if parts need to split later.</td></tr>
-    <tr><td class="id">Database</td><td>PostgreSQL (Neon) through the Prisma ORM</td><td>Bookings, stalls, reviews and rank scores are relational. PostgreSQL's built-in text search covers event and provider search at launch.</td></tr>
-    <tr><td class="id">Background jobs</td><td>Redis (Upstash) with a BullMQ worker</td><td>Sends notifications, opens and closes review windows (RV-02), and recalculates rank scores (RV-04).</td></tr>
+    <tr><td class="id">Database <span class="tag">v4</span></td><td>PostgreSQL (Neon) through the Prisma ORM. Prisma's schema file and migrations define every table; ranking, leaderboard and search queries are written as raw SQL (<code>$queryRaw</code> or TypedSQL)</td><td>Bookings, stalls, reviews, follows, likes and rank scores are relational, and the rank score needs joins and averages across them. PostgreSQL's built-in text search covers event and provider search at launch. Prisma does not handle materialized views, window functions or text search well, hence raw SQL for those. A document database such as MongoDB would make these joins harder. Neon's database branches give each pull request its own copy to test against. Alternative ORM: Drizzle, closer to SQL; not worth switching now.</td></tr>
+    <tr><td class="id">Background jobs and cache <span class="tag">v4</span></td><td>Redis (Upstash) with a BullMQ worker; Redis sorted sets for leaderboards and trending posts, and counters for likes and views</td><td>The worker sends notifications, opens and closes review windows (RV-02), recalculates rank scores (RV-04) and refreshes leaderboards (RV-06). Redis is a cache only: PostgreSQL holds the real data, and everything in Redis can be rebuilt from it. Check usage against Upstash's free monthly command limit, since BullMQ also polls Redis.</td></tr>
     <tr><td class="id">Media</td><td>Cloudinary</td><td>Images, reels (compressed for mobile data), portfolios and venue layouts. Verification documents are stored as private files that only admins can open, through short-lived signed links (PDPA).</td></tr>
     <tr><td class="id">Notifications <span class="tag">v3</span></td><td>Expo Push (FCM and APNs), Resend for email, Dialog e-SMS for sign-up codes and urgent alerts</td><td>Covers MS-07 and AC-01. Dialog e-SMS needs a Dialog Enterprise account, and its API documentation is thin, so test it early.</td></tr>
     <tr><td class="id">Shared code</td><td>One repository (monorepo, e.g., Turborepo) with shared types and validation (Zod)</td><td>The app, the portal and the API agree on the same data shapes.</td></tr>
+    <tr><td class="id">Database tools <span class="tag">v4</span></td><td>DBeaver Community for queries and inspection; Prisma Studio for editing data during development; dbdiagram.io (DBML) for the shareable ER diagram</td><td>DBeaver is a database client, not a database: it connects to Neon over SSL to browse data, run queries, read <code>EXPLAIN ANALYZE</code> plans and draw ER diagrams. Tables are never created or changed in DBeaver, only through Prisma migrations, or the database drifts from the schema and the next migration fails. Alternatives: pgAdmin, TablePlus, Neon's SQL editor.</td></tr>
   </tbody>
 </table></div>
+<h4>Ranking, the feed and search <span class="tag">v4</span></h4>
+<ul>
+  <li><b>Rank score (RV-04, HR-01).</b> Stored as a <code>rank_score</code> column on provider and organiser profiles. The worker recalculates it after each review, and after moderation removes one (RV-07). An index on <code>(category, district, rank_score DESC)</code> keeps search results sorted by rank fast.</li>
+  <li><b>Leaderboards (RV-06).</b> A materialized view (a saved query result) ranks profiles within each category and district with <code>RANK() OVER (PARTITION BY category, district ORDER BY rank_score DESC)</code>. The worker refreshes it with <code>REFRESH MATERIALIZED VIEW CONCURRENTLY</code>, so reads never wait. The top of each board is also kept in a Redis sorted set (<code>lb:{category}:{district}</code>) for fast top-N reads.</li>
+  <li><b>Tier badges (RV-05).</b> Worked out by the worker from the rank score and completed jobs or events when it recalculates, and stored with the profile.</li>
+  <li><b>Promotion feed (EV-03, EV-04).</b> Built when the user opens it: posts from the organisers they follow, newest first, read with an index on <code>(author_id, created_at DESC)</code>. Only organisers post, so there are few authors, and copying each post into every follower's feed in advance is not needed. Pages load with keyset pagination (<code>WHERE created_at &lt; cursor</code>), not <code>OFFSET</code>, so later pages stay fast.</li>
+  <li><b>Trending posts.</b> A Redis sorted set (<code>trending:posts</code>) scored by engagement that fades with age: <code>(likes + 2·comments + 3·shares) / (age in hours + 2)^1.5</code> (proposed; tune with real data).</li>
+  <li><b>Likes and view counts.</b> Counted in Redis and written to PostgreSQL in batches by the worker, so a popular post does not lock its database row. The like itself (who liked what) is written straight to PostgreSQL, which stops double likes. These counts also feed the organiser analytics (OD-04).</li>
+  <li><b>Search (EV-05, HR-01).</b> PostgreSQL text search (<code>tsvector</code> with a GIN index) for keywords, plus the <code>pg_trgm</code> extension so slightly misspelt names still match.</li>
+</ul>
+<h4>Upgrade paths, if the pilot needs them <span class="tag">v4</span></h4>
+<ul>
+  <li><b>Search:</b> Meilisearch or Typesense if PostgreSQL search is not good enough. Both tolerate typos and can use <code>rank_score</code> as a ranking rule.</li>
+  <li><b>Recommendations (EV-07, Could):</b> the <code>pgvector</code> extension matches people to events by similarity inside PostgreSQL, with no new database.</li>
+  <li><b>Analytics (OD-04):</b> an activity log table in PostgreSQL, summed into daily totals by the worker. PostHog or ClickHouse only if the volume outgrows it.</li>
+  <li><b>Not recommended at this scale:</b> a graph database (Neo4j) for follows, MongoDB or Cassandra. Each adds a service to run and learn without solving a problem PostgreSQL and Redis leave open.</li>
+</ul>
 <h4>The 3D venue view (VM-05 to VM-07)</h4>
 <ul>
   <li><b>Built from the map data, not from models.</b> The uploaded floor plan is laid flat as the floor of a 3D scene, and each pin with a footprint (VM-05) becomes a simple block: stage, stall, entrance, toilet and so on. One map record, stored as JSON in PostgreSQL, drives both the 2D map and the 3D view, so organisers need no 3D modelling skills. Ready-made glTF/GLB models (VM-07) can come later and would be stored in Cloudinary.</li>
@@ -840,7 +866,7 @@
   <li><span class="tag">v2</span> Is the 3D venue view (VM-05, VM-06) built during the ATP if time allows, or after it?</li>
   <li>Who creates communities: admins only, or users too?</li>
   <li>Which verification documents each role must submit.</li>
-  <li>Rank score weights, tier badge thresholds and the review window length.</li>
+  <li>Rank score weights, tier badge thresholds and the review window length. <span class="tag">v4</span> Also the trending score weights (section 8).</li>
   <li>A target for each success metric.</li>
   <li>Can organisers use the hiring marketplace for private events with no public event page, such as weddings?</li>
   <li><span class="tag">v2</span> Does the group confirm the recommended stack (section 8)?</li>

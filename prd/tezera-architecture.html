@@ -4868,7 +4868,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   </style>
-        <style id="tezera-docnav-style">
+  <style id="tezera-docnav-style">
     #tezera-docnav { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; min-height: 2.75rem; margin: 0 0 1.25rem; padding-right: 26rem; }
     #tezera-docnav .wordmark { font-family: "Bricolage Grotesque", Georgia, serif; font-weight: 600; font-size: 24px; letter-spacing: -.02em; color: var(--text); text-decoration: none; display: inline-flex; align-items: center; }
     #tezera-docnav .wordmark .dot { width: 11px; height: 11px; border-radius: 50%; background: #E3A21A; box-shadow: 13px 0 0 #1F6F78; margin-right: 24px; }
@@ -4893,7 +4893,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       <a href="../brand/tezera-brand-manual.html">Brand manual</a>
     </div>
   </nav>
-        <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
+  <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
        Motion appears only for trace-enabled artifacts and has no shortcut;
        Keyboard: T toggles theme, S cycles style, F toggles the stage, E opens export. -->
   <div class="toolbar" role="toolbar" aria-label="Diagram actions">
@@ -5073,8 +5073,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <path data-edge-from="mobile" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="7" data-edge-id="mobile-api" data-composition-points="500,153;935,153;935,255" data-composition-crossover="halo" data-composition-independent="true" d="M 500 153 L 927 153 Q 935 153 935 161 L 935 255" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:8">
-          <path data-graph-role="automatic-crossover-underlay" d="M 500 443 L 808 443 Q 816 443 816 435 L 816 315 Q 816 307 824 307 L 840 307" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="8" data-edge-id="web-api" data-composition-points="500,443;816,443;816,307;840,307" data-composition-crossover="halo" data-composition-independent="true" d="M 500 443 L 808 443 Q 816 443 816 435 L 816 315 Q 816 307 824 307 L 840 307" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 500 443 L 794 443 Q 802 443 802 435 L 802 315 Q 802 307 810 307 L 840 307" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="8" data-edge-id="web-api" data-composition-points="500,443;802,443;802,307;840,307" data-composition-crossover="halo" data-composition-independent="true" d="M 500 443 L 794 443 Q 802 443 802 435 L 802 315 Q 802 307 810 307 L 840 307" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:9">
           <path data-graph-role="automatic-crossover-underlay" d="M 500 168.05 L 527 168.05 Q 535 168.05 535 176.05 L 535 287 Q 535 295 543 295 L 570 295" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
@@ -5094,7 +5094,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </g>
         <g data-graph-role="automatic-crossover" style="--step:13">
           <path data-graph-role="automatic-crossover-underlay" d="M 935 345 L 935 480" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="api" data-edge-to="redis" data-edge-label="enqueue, pub/sub" data-edge-key="13" data-edge-id="api-redis" data-composition-points="935,345;935,480" data-composition-crossover="halo" data-composition-independent="true" d="M 935 345 L 935 480" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-edge-from="api" data-edge-to="redis" data-edge-label="jobs, top-N, counters" data-edge-key="13" data-edge-id="api-redis" data-composition-points="935,345;935,480" data-composition-crossover="halo" data-composition-independent="true" d="M 935 345 L 935 480" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:14">
           <path data-graph-role="automatic-crossover-underlay" d="M 1030 520 L 1160 520" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
@@ -5102,7 +5102,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </g>
         <g data-graph-role="automatic-crossover" style="--step:15">
           <path data-graph-role="automatic-crossover-underlay" d="M 1250 480 L 1250 342" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="db" data-edge-label="close reviews, rerank" data-edge-key="15" data-edge-id="worker-db" data-composition-points="1250,480;1250,342" data-composition-crossover="halo" data-composition-independent="true" d="M 1250 480 L 1250 342" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-edge-from="worker" data-edge-to="db" data-edge-label="rerank, refresh boards" data-edge-key="15" data-edge-id="worker-db" data-composition-points="1250,480;1250,342" data-composition-crossover="halo" data-composition-independent="true" d="M 1250 480 L 1250 342" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:16">
           <path data-graph-role="automatic-crossover-underlay" d="M 1340 506 L 1356 506 Q 1364 506 1364 498 L 1364 418 Q 1364 410 1372 410 L 1470 410" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
@@ -5223,8 +5223,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="935" y="337" class="t-backend" font-size="7" text-anchor="middle">JWT + RBAC</text>
         </g>
 
-        <g id="node-db" data-node-id="db" data-node-label="PostgreSQL" tabindex="0" role="button" aria-label="Focus PostgreSQL, Neon · Prisma ORM, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="database" data-node-sublabel="Neon · Prisma ORM" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <title>PostgreSQL · Neon · Prisma ORM · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
+        <g id="node-db" data-node-id="db" data-node-label="PostgreSQL" tabindex="0" role="button" aria-label="Focus PostgreSQL, Neon · Prisma + raw SQL, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="database" data-node-sublabel="Neon · Prisma + raw SQL" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
+          <title>PostgreSQL · Neon · Prisma + raw SQL · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
           <rect x="1160" y="262" width="180" height="80" rx="6" class="c-mask"/>
           <rect x="1160" y="262" width="180" height="80" rx="6" class="c-database" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(1166 268) scale(0.6875)">
@@ -5232,11 +5232,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="1250" y="300" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">PostgreSQL</text>
-        <text data-detail="context" x="1250" y="316" class="t-muted" font-size="9" text-anchor="middle">Neon · Prisma ORM</text>
+        <text data-detail="context" x="1250" y="316" class="t-muted" font-size="9" text-anchor="middle">Neon · Prisma + raw SQL</text>
         </g>
 
-        <g id="node-redis" data-node-id="redis" data-node-label="Redis" tabindex="0" role="button" aria-label="Focus Redis, Upstash · queue, pub/sub, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="Upstash · queue, pub/sub" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <title>Redis · Upstash · queue, pub/sub · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
+        <g id="node-redis" data-node-id="redis" data-node-label="Redis" tabindex="0" role="button" aria-label="Focus Redis, Upstash · jobs, pub/sub, rankings, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="Upstash · jobs, pub/sub, rankings" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
+          <title>Redis · Upstash · jobs, pub/sub, rankings · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
           <rect x="840" y="480" width="190" height="80" rx="6" class="c-mask"/>
           <rect x="840" y="480" width="190" height="80" rx="6" class="c-messagebus" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(846 486) scale(0.6875)">
@@ -5246,7 +5246,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="935" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Redis</text>
-        <text data-detail="context" x="935" y="534" class="t-muted" font-size="9" text-anchor="middle">Upstash · queue, pub/sub</text>
+        <text data-detail="context" x="935" y="534" class="t-muted" font-size="9" text-anchor="middle">Upstash · jobs, pub/sub, rankings</text>
         </g>
 
         <g id="node-worker" data-node-id="worker" data-node-label="Job worker" tabindex="0" role="button" aria-label="Focus Job worker, BullMQ · notify, reviews, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="BullMQ · notify, reviews" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
@@ -5330,8 +5330,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <text x="935" y="194" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + SSE</text>
         </g>
         <g data-detail="context" data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="8" data-edge-id="web-api">
-          <rect x="784.6" y="355" width="62.8" height="14" rx="3" class="c-mask"/>
-          <text x="816" y="365" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + SSE</text>
+          <rect x="770.6" y="355" width="62.8" height="14" rx="3" class="c-mask"/>
+          <text x="802" y="365" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + SSE</text>
         </g>
         <g data-detail="context" data-edge-from="mobile" data-edge-to="media" data-edge-label="media CDN" data-edge-key="9" data-edge-id="mobile-media">
           <rect x="508.4" y="211.525" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
@@ -5349,17 +5349,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="1056.4" y="280" width="77.2" height="14" rx="3" class="c-mask"/>
           <text x="1095" y="290" class="t-edge-default" font-size="8" text-anchor="middle">SQL via Prisma</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="redis" data-edge-label="enqueue, pub/sub" data-edge-key="13" data-edge-id="api-redis">
-          <rect x="842.2" y="405.5" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="885.6" y="415.5" class="t-edge-default" font-size="8" text-anchor="middle">enqueue, pub/sub</text>
+        <g data-detail="context" data-edge-from="api" data-edge-to="redis" data-edge-label="jobs, top-N, counters" data-edge-key="13" data-edge-id="api-redis">
+          <rect x="818.2" y="405.5" width="110.8" height="14" rx="3" class="c-mask"/>
+          <text x="873.6" y="415.5" class="t-edge-default" font-size="8" text-anchor="middle">jobs, top-N, counters</text>
         </g>
         <g data-detail="context" data-edge-from="redis" data-edge-to="worker" data-edge-label="BullMQ jobs" data-edge-key="14" data-edge-id="redis-worker">
           <rect x="1063.6" y="500" width="62.8" height="14" rx="3" class="c-mask"/>
           <text x="1095" y="510" class="t-edge-dashed" font-size="8" text-anchor="middle">BullMQ jobs</text>
         </g>
-        <g data-detail="context" data-edge-from="worker" data-edge-to="db" data-edge-label="close reviews, rerank" data-edge-key="15" data-edge-id="worker-db">
-          <rect x="1194.6" y="460" width="110.8" height="14" rx="3" class="c-mask"/>
-          <text x="1250" y="470" class="t-edge-default" font-size="8" text-anchor="middle">close reviews, rerank</text>
+        <g data-detail="context" data-edge-from="worker" data-edge-to="db" data-edge-label="rerank, refresh boards" data-edge-key="15" data-edge-id="worker-db">
+          <rect x="1192.2" y="460" width="115.6" height="14" rx="3" class="c-mask"/>
+          <text x="1250" y="470" class="t-edge-default" font-size="8" text-anchor="middle">rerank, refresh boards</text>
         </g>
         <g data-detail="context" data-edge-from="worker" data-edge-to="push" data-edge-label="push" data-edge-key="16" data-edge-id="worker-push">
           <rect x="1349" y="438" width="30" height="14" rx="3" class="c-mask"/>
@@ -5649,10 +5649,26 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <li>Accounts, profiles and verification</li>
           <li>Events and promotion feed (posts, reels)</li>
           <li>Hiring marketplace: direct bookings, job posts, quotes, stalls</li>
-          <li>Reviews and ranking (weighted rank score, badges, leaderboards)</li>
+          <li>Reviews and ranking (weighted rank score, badges, leaderboards); search via PostgreSQL text search + pg_trgm</li>
           <li>Venue maps: layout image, pins and 3D footprints</li>
           <li>Community boards, meetups, messaging, announcements</li>
           <li>Admin: verification, report queue, disputes, audit log</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot cyan"></div>
+          <h3>Data design: ranking and feed (PRD v4)</h3>
+        </div>
+        <ul>
+          <li>PostgreSQL is the only database; Redis is a cache that can be rebuilt from it</li>
+          <li>Rank score: a column on each profile, recalculated by the worker after every review; index on (category, district, rank_score DESC)</li>
+          <li>Leaderboards: materialized view ranked per category and district, refreshed concurrently by the worker; top-N copied to Redis sorted sets</li>
+          <li>Feed: built on read from followed organisers, keyset pagination; trending posts in a Redis sorted set (score proposed)</li>
+          <li>Likes and views counted in Redis, written to PostgreSQL in batches; the like itself goes straight to PostgreSQL</li>
+          <li>Tools: Prisma schema and migrations own every table; DBeaver for queries only; dbdiagram.io for the ER diagram</li>
+          <li>Later if needed: Meilisearch or Typesense for search, pgvector for recommendations</li>
         </ul>
       </div>
 
