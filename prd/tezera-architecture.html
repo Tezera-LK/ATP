@@ -5154,8 +5154,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="context" x="405" y="644" class="t-muted" font-size="9" text-anchor="middle">platform staff</text>
         </g>
 
-        <g id="node-mobile" data-node-id="mobile" data-node-label="Mobile app" tabindex="0" role="button" aria-label="Focus Mobile app, React Native · Expo, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="React Native · Expo" data-node-tag="Android + iOS" data-node-context="Architecture component">
-          <title>Mobile app · React Native · Expo · Architecture component · Android + iOS</title>
+        <g id="node-mobile" data-node-id="mobile" data-node-label="Mobile app" tabindex="0" role="button" aria-label="Focus Mobile app, Flutter · Dart, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Flutter · Dart" data-node-tag="Android + iOS" data-node-context="Architecture component">
+          <title>Mobile app · Flutter · Dart · Architecture component · Android + iOS</title>
           <rect x="330" y="120" width="170" height="80" rx="6" class="c-mask"/>
           <rect x="330" y="120" width="170" height="80" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(336 126) scale(0.6875)">
@@ -5165,7 +5165,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="415" y="158" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Mobile app</text>
-        <text data-detail="context" x="415" y="174" class="t-muted" font-size="9" text-anchor="middle">React Native · Expo</text>
+        <text data-detail="context" x="415" y="174" class="t-muted" font-size="9" text-anchor="middle">Flutter · Dart</text>
         <text data-detail="fine" x="415" y="192" class="t-frontend" font-size="7" text-anchor="middle">Android + iOS</text>
         </g>
 
@@ -5260,8 +5260,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="context" x="1250" y="534" class="t-muted" font-size="9" text-anchor="middle">BullMQ · notify, reviews</text>
         </g>
 
-        <g id="node-push" data-node-id="push" data-node-label="Push service" tabindex="0" role="button" aria-label="Focus Push service, Expo Push · FCM/APNs, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Expo Push · FCM/APNs" data-node-context="Architecture component">
-          <title>Push service · Expo Push · FCM/APNs · Architecture component</title>
+        <g id="node-push" data-node-id="push" data-node-label="Push service" tabindex="0" role="button" aria-label="Focus Push service, Firebase Cloud Messaging, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Firebase Cloud Messaging" data-node-context="Architecture component">
+          <title>Push service · Firebase Cloud Messaging · Architecture component</title>
           <rect x="1470" y="380" width="170" height="60" rx="6" class="c-mask"/>
           <rect x="1470" y="380" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1476 386) scale(0.6875)">
@@ -5269,7 +5269,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="1555" y="408" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Push service</text>
-        <text data-detail="context" x="1555" y="424" class="t-muted" font-size="9" text-anchor="middle">Expo Push · FCM/APNs</text>
+        <text data-detail="context" x="1555" y="424" class="t-muted" font-size="9" text-anchor="middle">Firebase Cloud Messaging</text>
         </g>
 
         <g id="node-email" data-node-id="email" data-node-label="Email service" tabindex="0" role="button" aria-label="Focus Email service, Resend, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Resend" data-node-context="Architecture component">
@@ -5604,8 +5604,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>Services and protocols: why, and alternatives</h3>
         </div>
         <ul>
-          <li>SSE instead of WebSockets. Why: one-way server-to-client updates over plain HTTPS, with automatic reconnect, that pass through proxies easily; sending a message stays a REST call. The mobile app needs a small SSE library (for example react-native-sse). Alternatives: Socket.IO or raw WebSockets, polling, Ably or Pusher.</li>
-          <li>Expo (EAS Build and Expo Push). Why: one React Native codebase for Android and iOS, cloud builds without a Mac, one push API over FCM and APNs. Alternatives: bare React Native with Firebase Cloud Messaging, OneSignal.</li>
+          <li>SSE instead of WebSockets. Why: one-way server-to-client updates over plain HTTPS, with automatic reconnect, that pass through proxies easily; sending a message stays a REST call. The Flutter app needs a small SSE client package, or the http package&#39;s streamed responses. Alternatives: Socket.IO or raw WebSockets, polling, Ably or Pusher.</li>
+          <li>Flutter (Dart) with Firebase Cloud Messaging. Why: one codebase for Android and iOS that draws its own widgets, so screens match on every phone and stay smooth on low-end Android; FCM reaches iPhones through APNs; builds on Codemagic or GitHub Actions, which provide macOS for iOS. Watch: the team knows JS/TS, so Dart is new, and the app cannot share TypeScript code. Alternatives: React Native with Expo, OneSignal for push.</li>
           <li>Resend (email). Why: simple API, free tier, email templates written in React. Alternatives: Amazon SES, Brevo, Postmark.</li>
           <li>Dialog e-SMS (OTP and urgent alerts). Why: a Sri Lankan operator&#39;s own gateway, with sender ID masking, delivery reports and billing in LKR. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Notify.lk, Twilio, other local bulk-SMS gateways.</li>
         </ul>
@@ -5617,8 +5617,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>Recommended stack</h3>
         </div>
         <ul>
-          <li>One TypeScript monorepo (Turborepo) with shared types and Zod validation</li>
-          <li>Mobile: React Native + Expo, one app for all four roles with role-based navigation</li>
+          <li>One monorepo (Turborepo): TypeScript with shared types and Zod for the portal and API; a Dart client generated from the API&#39;s OpenAPI description for the app</li>
+          <li>Mobile: Flutter (Dart), one app for all four roles with role-based navigation</li>
           <li>Web: Next.js portal for every role, consumers included, plus a role-gated admin panel</li>
           <li>Backend: NestJS modular monolith on Prisma and PostgreSQL; REST for requests, Server-Sent Events (SSE) for live updates</li>
           <li>Live updates: each client keeps one SSE stream open; Redis pub/sub passes events between API instances</li>
@@ -5634,7 +5634,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <li>Built from map data: the floor plan lies flat and each pin with a footprint becomes a block</li>
           <li>One map record (layout, pins, footprints) stored as JSON in PostgreSQL drives the 2D and 3D views</li>
           <li>venue-viewer package: React Three Fiber + drei, loaded in the browser only, on &#39;View in 3D&#39;</li>
-          <li>Mobile shows the same viewer in a WebView; pin taps go back to native screens</li>
+          <li>Flutter app shows the same viewer in a WebView (webview_flutter); pin taps go back to Flutter screens</li>
           <li>2D map stays the default and the accessible view; instancing keeps scenes light</li>
           <li>Later: ready-made glTF/GLB models in Cloudinary, compressed with Draco or meshopt</li>
         </ul>

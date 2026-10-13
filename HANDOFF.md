@@ -2,7 +2,7 @@
 
 Where the work stands, what was decided, and what comes next. **Update this file at the end of every session or section of work** (see `CLAUDE.md` for the steps).
 
-**Last updated:** 13 October 2026, Claude Code session on macOS (git user Samali Peiris), data design added to PRD section 8 (v4) and the architecture diagram
+**Last updated:** 13 October 2026, Claude Code session on macOS (git user Samali Peiris), data design added, mobile app switched to Flutter (PRD v4 + diagram)
 
 ## Current state
 
@@ -16,12 +16,13 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | `Tezera Proposal.pdf` + `proposal/tezera-proposal.html` | Renamed; acronym and tagline removed; PDF regenerated on the Mac, 8 pages |
 | `README.md`, `PRD Research.md`, `SDG Alignment.md`, `CLAUDE.md` | Renamed throughout; README lists the research docs; CLAUDE.md has a macOS PDF command |
 
-**Committed and pushed** on branch `docs/tezera-research-stack`; PR #2 (https://github.com/NDR-debugs/ATP/pull/2) is open into `main`. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
+PRs #1–#4 are merged into `main` (#4: data design, 13 Oct). The Flutter switch is committed and pushed on `docs/tezera-research-stack` and needs a new PR into `main`. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
 
 ## Decisions
 
 | Date | Decision | Made by |
 | --- | --- | --- |
+| 13 Oct 2026 | Mobile app in **Flutter (Dart)** instead of React Native + Expo. Follow-ons: Firebase Cloud Messaging replaces Expo Push; Codemagic or GitHub Actions replace EAS Build; a Dart client generated from the NestJS OpenAPI description replaces shared TS types for the app; 3D viewer stays a WebView (`webview_flutter`). Web portal and API stay TypeScript | User (Flutter); follow-ons are Claude's recommendation |
 | 13 Oct 2026 | Data design in PRD section 8: PostgreSQL stays the only database (rank score column, materialized-view leaderboards, feed built on read with keyset pagination, text search + `pg_trgm`); Prisma for schema, raw SQL for ranking queries; Redis sorted sets for leaderboards and trending, Redis counters for likes and views; DBeaver for inspection only, never schema changes | User asked for it in the PRD; the design is Claude's recommendation |
 | 8 Oct 2026 | Product name: **Tezera**. Written "tezera" as a wordmark (logo, h1, diagram title), "Tezera" in prose. No acronym, no tagline | User (this session) |
 | 8 Oct 2026 | Brand manual is informational: no scattered/rotated tiles, no tile hover, no idle motion. Cover load-in, corner tile clusters and cover blobs stay. The three accounts differ by palette only. Phones in section 09 animate in on scroll (pieces drift up and settle, once) | User (this session) |
@@ -40,6 +41,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - **Given / When / Then scenarios (8 Oct):** written from the old acceptance criteria. A few add small details the criteria did not state: a file over the size limit is rejected with a message (US-P02), admin decisions are logged with name and time (US-A01), a declined quote notifies the provider (US-P06), applications close at the deadline (US-P08), and unchosen providers are told when the job post closes (US-O06). Check these, and the example values (dates, districts, band name), are acceptable.
 - **Survey recommendations R1–R12** (analysis section 7). Biggest: structured briefs (R1) and payment and cancellation terms on bookings (R2), both extending Musts; payment tracking without payments (R3, new HR-15); late cancellations on the record (R4); "Know before you go" (R5); live event status (R6). If accepted, edit the PRD rows, tag them v5 (v4 is the data design), and drop the "PRD change" tags in the user stories.
 - **Stack changes (8 Oct):** PRD section 8, MS-07, Platforms and the SMS dependency are tagged v3. Dialog e-SMS needs a Dialog Enterprise account and sender ID; its API docs are thin (only community clients found), so test it early.
+- **Flutter (13 Oct, PRD v4):** the team's main language is JS/TS, so Dart is new and the app no longer shares TypeScript code with the portal (new risk in PRD section 13). Confirm the group agrees, and who builds the app. Firebase project and APNs key needed for push.
 - **Data design (13 Oct, PRD section 8, v4):** confirm the approach, and tune the trending score `(likes + 2·comments + 3·shares) / (age in hours + 2)^1.5` (proposed; added to the section 14 rank-weights question).
 - **Survey method:** the analysis assumes responses came from the team's own networks. Confirm how the forms were shared.
 - **Brand manual (8 Oct):** vendor dark mode is derived and marked (proposed): #dcdbe4 / #1d1b16 / #5a9179 / #7d97ab / #4b583c. Confirm or replace. "Tezera comes from tessera" is now in the name section; check that's the story the team wants. The tile-system section lost its Layer and Crop samples (they were rotated); its copy now names repeat, connect and crop only, so check the team is fine dropping 'layer' as a move. Button text on the vendor primary (#e9e7e2 on #70a992) is 2.2:1 contrast, below the 4.5:1 for normal text; the old attendee primary was worse (1.6:1). The logo is still a placeholder.
@@ -48,7 +50,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 ## Next steps
 
 1. Group reviews the survey analysis and decides on R1–R12; update the PRD (v4) and the user stories to match.
-2. Review and merge PR #2, then PR #3 (Given/When/Then stories, shared navbar).
+2. Open and merge a PR for the Flutter commit on `docs/tezera-research-stack`.
 3. Follow-up research (analysis section 9): interview 2–3 organisers, test R1–R4 with providers, reach beyond Colombo and students.
 4. Confirm the recommended stack and the v4 data design against the team's skills (PRD section 8).
 
@@ -60,6 +62,13 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - The research docs were generated once from the CSVs by a script that was not kept; edit the HTML by hand. Each chart bar is `<li style="--v:COUNT">` inside `<ol class="bars" style="--n:TOTAL">`.
 
 ## Session log
+
+### 13 October 2026: mobile app switched to Flutter
+- `prd/tezera-prd.html` (v4): change-log line; section 8 intro, Mobile app, Notifications and Shared code rows, the 3D view's mobile bullet and `venue-viewer` bullet; Push notification services dependency; new section 13 risk (team new to Dart, Medium). All tagged v4.
+- Diagram: `candidate.json` mobile node "Flutter · Dart", push node "Firebase Cloud Messaging", SSE and Expo items in the services card, Recommended stack and 3D cards. `finalize` passed (evidence in `review-v4-flutter/`); copied to `prd/`, `inject-nav.py` re-run, screenshot checked. Same 2 pre-existing route crossings.
+- `CLAUDE.md` locked stack line and `PRD Research.md` (new "Added in PRD version 4" notes) updated. Proposal and README do not name the mobile framework, so no change; PDF not regenerated.
+- Git identity: commits under `~/Documents/ATP/` now use the personal account (`Yevan-0 <yevand2006@gmail.com>`) through `includeIf` in `~/.gitconfig`; work email everywhere else. `711ba65` went out under the old Samali Peiris identity. Committed and pushed the Flutter switch on `docs/tezera-research-stack`.
+- Decision: user chose Flutter; follow-on tools are Claude's, from general knowledge. Not verified: Flutter SSE package names, Codemagic free tier, maturity of Flutter 3D packages (marked not researched in the PRD).
 
 ### 13 October 2026: data design in PRD section 8
 - Answered which database to use for the rank score and the promotion feed: PostgreSQL (already chosen); DBeaver is a client, not a database.

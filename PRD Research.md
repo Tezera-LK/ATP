@@ -408,6 +408,11 @@ So the group does not present any of these as researched facts:
 - Group decision: the product is renamed Tezera (written "tezera" as a wordmark). The REVAMP acronym and the "Transform + Amplify" tagline are dropped.
 - Discovery surveys ran from 4 to 8 October 2026: 26 attendees, 7 organisers, and 13 vendors and freelancers. The analysis is in [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) and the user stories in [research/tezera-user-stories.html](research/tezera-user-stories.html). The raw responses are not kept in the repository because they contain email addresses.
 
+**Added in PRD version 4 (13 October 2026), not from research:**
+
+- Claude's recommendation from general engineering knowledge (not looked up): the data design in PRD section 8 (rank score column, leaderboards as a materialized view, feed built on read, Redis sorted sets and counters, PostgreSQL text search, database tools, upgrade paths).
+- User decision: the mobile app is built in Flutter (Dart) instead of React Native with Expo. The follow-on choices (Firebase Cloud Messaging for push, Codemagic or GitHub Actions for builds, a Dart client generated from the API's OpenAPI description, `webview_flutter` for the 3D viewer) are Claude's, from general knowledge, not looked up.
+
 **Hypotheses, not findings:** the problem statement in PRD section 1. It needs validating with interviews and surveys of organisers, vendors, freelancers and consumers.
 
 **Not part of this work:** `SDG Alignment.md` was not written or researched in this chat. Check its SDG targets against the official UN SDG targets before you submit it.

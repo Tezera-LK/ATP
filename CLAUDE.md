@@ -43,7 +43,7 @@ Check pages: `pdftotext "Tezera Proposal.pdf" - | grep -c $'\f'` → 8. No pdfto
 - No in-app payments during ATP; hiring + stall fees paid outside app.
 - Attendee reviews unlock from 'Going' mark made before event start.
 - 3D venue view = Could (VM-05/06), VM-07 GLB upload = Later. Client-side (Three.js/R3F), 2D map default.
-- Stack (recommended, team confirm): TypeScript monorepo; React Native + Expo; Next.js (+ admin panel) on Vercel; NestJS modular monolith REST + SSE (no WebSockets); PostgreSQL (Neon) + Prisma; Redis (Upstash) + BullMQ worker; Cloudinary; Expo Push, Resend, Dialog e-SMS (OTP + urgent alerts). Web portal for all roles incl. consumers. Free tiers.
+- Stack (recommended, team confirm): TypeScript monorepo (web + API); Flutter (Dart) mobile app, Dart client generated from API OpenAPI; Next.js (+ admin panel) on Vercel; NestJS modular monolith REST + SSE (no WebSockets); PostgreSQL (Neon) + Prisma; Redis (Upstash) + BullMQ worker; Cloudinary; FCM push, Resend, Dialog e-SMS (OTP + urgent alerts). Web portal for all roles incl. consumers. Free tiers.
 
 ## Writing rules
 - British spelling (organiser, colour, licence). LKR prices.
