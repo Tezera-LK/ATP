@@ -15,6 +15,7 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 | [research/tezera-personas.html](research/tezera-personas.html) | Eight user personas (two consumers, two organisers, three vendors and freelancers, one admin) built from the survey segments, each with evidence, quotes and the user stories written for them | You are designing a flow and need to know who it is for |
 | [research/tezera-user-stories.html](research/tezera-user-stories.html) | User stories for each role as Given / When / Then scenarios, drawn from the survey evidence and mapped to PRD requirement IDs | You are planning the backlog or a sprint |
 | [research/tezera-work-items.html](research/tezera-work-items.html) | The backlog as epics, stories and tasks with proposed story points, PRD coverage, and a Jira CSV export ([snapshot](research/tezera-work-items-jira.csv)). Includes the work for the accepted survey changes and the interactive venue map | You are planning sprints or importing into Jira |
+| [research/tezera-research-briefs.html](research/tezera-research-briefs.html) | Desk-research briefs with sources: whether in-app payments to vendors and freelancers are legal in Sri Lanka (Central Bank rules, gateways, tax, PDPA), and what the map builder takes from the team's ai-studio repository | You need the reasoning behind the payments model or the map builder |
 | [brand/tezera-brand-manual.html](brand/tezera-brand-manual.html) | The brand manual: name story, the three account personalities, light and dark palettes for organiser, vendor and attendee, type, icons, the tile system, motion rules, voice and applications | You are designing a screen, a post or a poster |
 | [HANDOFF.md](HANDOFF.md) | Where the work stands, what was decided, and what comes next. Updated after every session | You're picking up the work |
 
@@ -46,9 +47,9 @@ Supporting files:
 3. Users and roles
 4. How the platform fits together
 5. Competitive landscape
-6. Functional requirements, in ten modules: accounts, events, ticketing (after the ATP), hiring, reviews, venue maps (an interactive 2D map with zones and stall listings), community, messaging, organiser dashboard, administration
+6. Functional requirements, in ten modules: accounts, events, ticketing (after the ATP), hiring, reviews, venue maps (an interactive 2D map with zones and stall listings, made in a map builder), community, messaging, organiser dashboard, administration
 7. Non-functional requirements, including Sri Lanka's Personal Data Protection Act
-8. Technical approach: the recommended stack (serverless on AWS Amplify), the data design on DynamoDB, and how the interactive venue map is built
+8. Technical approach: the recommended stack (serverless on AWS Amplify), the data design on DynamoDB, how the interactive venue map and its builder are built, and how sandboxed payments work
 9. MVP scope and priorities
 10. Business model
 11. Success metrics
@@ -66,10 +67,10 @@ The PRD also lists what changed in each version (2 to 6) and ends with a Sources
 2. **ATP release,** a mobile app and web portal with:
     - accounts and verification
     - events and promotion feed
-    - hiring marketplace and stalls
+    - hiring marketplace and stalls, with deposits, instalments and stall fees paid through a payment gateway's sandbox (PayHere test mode; no real money)
     - reviews and ranking
     - community and chat
-    - interactive venue maps (zones, stalls and what they sell)
+    - interactive venue maps (zones, stalls and what they sell), made in a map builder that saves every map in one standard format
     - admin and moderation
     - Sinhala and Tamil, if time allows
 3. **Live pilot:** one or two partner organisers and the vendors they already use run a real event through Tezera, producing the first reviews and SDG measures.
@@ -79,7 +80,7 @@ The PRD also lists what changed in each version (2 to 6) and ends with a Sources
 **Beyond the ATP**
 
 1. **First — ticketing and entry:** ticket tiers and reserved seats, free RSVP events, QR tickets and gate scanning, refunds and cancellations, and attendee reviews of events.
-2. **After that — payments in the app:** hiring payments and deposits, stall fees, ticket and hiring commission, and Google Maps directions to venues.
+2. **After that — real-money payments:** hiring and stall payments go live once the legal and tax questions are settled (PRD section 14), with ticket and hiring commission and Google Maps directions to venues.
 3. **After that — hiring for private events:** weddings, birthdays and other private events.
 4. **Later version — premium accounts:** VIP and fast-sale ticket access.
 
@@ -87,6 +88,7 @@ The PRD also lists what changed in each version (2 to 6) and ends with a Sources
 
 - **Private events:** both plan hiring for private events after the ATP, but whether to do it is still an open question in the PRD.
 - **Survey changes:** the PRD (version 5) turns the twelve accepted survey recommendations into requirements, such as structured briefs, payment and cancellation terms on bookings, and live event status. The proposal stays at summary level.
+- **Payments and the map builder (PRD version 6):** both documents now put sandboxed hiring and stall payments and the map builder in the ATP. Only the PRD has the detail: the requirement IDs (HR-14, HR-17 to HR-20, VM-16 to VM-22), the direct-to-provider model and why it was chosen, PayHere behind an interface, Bedrock for the AI draft, and the questions to settle before real money. Proposal page numbers are unchanged.
 - **Technical approach:** only the PRD records the recommended stack.
 - **Wording:** the proposal calls consumers "attendees".
 
@@ -120,6 +122,7 @@ The name, ticketing, revenue, discovery and the pilot now match.
 │   ├── tezera-personas.html
 │   ├── tezera-user-stories.html
 │   ├── tezera-work-items.html
+│   ├── tezera-research-briefs.html
 │   └── tezera-work-items-jira.csv   (generated from the work items page)
 ├── PRD Research.md
 ├── SDG Alignment.md

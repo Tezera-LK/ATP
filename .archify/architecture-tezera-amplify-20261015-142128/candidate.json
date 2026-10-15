@@ -16,7 +16,7 @@
       "sublabel": "attendees",
       "pos": [
         40,
-        130
+        235
       ],
       "size": [
         150,
@@ -30,7 +30,7 @@
       "sublabel": "vendors, freelancers",
       "pos": [
         40,
-        420
+        610
       ],
       "size": [
         150,
@@ -43,8 +43,8 @@
       "label": "Admins",
       "sublabel": "platform staff",
       "pos": [
-        330,
-        600
+        310,
+        780
       ],
       "size": [
         150,
@@ -58,12 +58,27 @@
       "sublabel": "React Native · Expo",
       "tag": "Android + iOS",
       "pos": [
-        330,
-        120
+        300,
+        225
       ],
       "size": [
         170,
         80
+      ]
+    },
+    {
+      "id": "payhere",
+      "type": "external",
+      "label": "PayHere (sandbox)",
+      "sublabel": "payee's own merchant account",
+      "tag": "test mode only",
+      "pos": [
+        300,
+        430
+      ],
+      "size": [
+        170,
+        64
       ]
     },
     {
@@ -73,8 +88,8 @@
       "sublabel": "Next.js · Amplify Hosting",
       "tag": "all roles + admin",
       "pos": [
-        330,
-        410
+        300,
+        600
       ],
       "size": [
         170,
@@ -88,11 +103,11 @@
       "sublabel": "S3 + CloudFront · media, docs",
       "tag": "CDN",
       "pos": [
-        600,
-        262
+        590,
+        280
       ],
       "size": [
-        190,
+        200,
         80
       ]
     },
@@ -102,8 +117,8 @@
       "label": "Amplify Auth",
       "sublabel": "Cognito · roles as groups",
       "pos": [
-        890,
-        60
+        940,
+        40
       ],
       "size": [
         190,
@@ -117,12 +132,27 @@
       "sublabel": "AppSync GraphQL + subscriptions",
       "tag": "auth rules",
       "pos": [
-        890,
-        255
+        940,
+        200
       ],
       "size": [
         190,
         90
+      ]
+    },
+    {
+      "id": "paylambda",
+      "type": "backend",
+      "label": "Payments Lambda",
+      "sublabel": "function URL · checks signature",
+      "tag": "only non-GraphQL endpoint",
+      "pos": [
+        590,
+        422
+      ],
+      "size": [
+        200,
+        80
       ]
     },
     {
@@ -131,11 +161,11 @@
       "label": "DynamoDB",
       "sublabel": "tables + GSIs · Streams",
       "pos": [
-        1200,
-        262
+        940,
+        412
       ],
       "size": [
-        180,
+        190,
         80
       ]
     },
@@ -145,8 +175,8 @@
       "label": "SQS queue",
       "sublabel": "notification jobs",
       "pos": [
-        890,
-        470
+        1255,
+        205
       ],
       "size": [
         190,
@@ -157,15 +187,16 @@
       "id": "worker",
       "type": "backend",
       "label": "Lambda functions",
-      "sublabel": "Node.js · jobs, ranking",
+      "sublabel": "jobs, ranking, PDF plan → image",
       "pos": [
-        1200,
-        470
+        1255,
+        412
       ],
       "size": [
         180,
         80
-      ]
+      ],
+      "tag": "Node.js"
     },
     {
       "id": "scheduler",
@@ -173,12 +204,27 @@
       "label": "EventBridge Scheduler",
       "sublabel": "timed jobs",
       "pos": [
-        1200,
-        650
+        940,
+        605
+      ],
+      "size": [
+        190,
+        70
+      ]
+    },
+    {
+      "id": "bedrock",
+      "type": "cloud",
+      "label": "Amazon Bedrock",
+      "sublabel": "Claude · AI map draft (Could)",
+      "tag": "region not verified",
+      "pos": [
+        1255,
+        600
       ],
       "size": [
         180,
-        70
+        80
       ]
     },
     {
@@ -187,8 +233,8 @@
       "label": "SMS gateway",
       "sublabel": "Dialog e-SMS · OTP, alerts",
       "pos": [
-        1510,
-        290
+        1555,
+        50
       ],
       "size": [
         170,
@@ -201,8 +247,8 @@
       "label": "Push service",
       "sublabel": "Expo Push · FCM/APNs",
       "pos": [
-        1510,
-        480
+        1555,
+        422
       ],
       "size": [
         170,
@@ -215,8 +261,8 @@
       "label": "Email service",
       "sublabel": "Amazon SES",
       "pos": [
-        1510,
-        620
+        1555,
+        600
       ],
       "size": [
         170,
@@ -232,10 +278,12 @@
         "media",
         "auth",
         "api",
+        "paylambda",
         "db",
         "queue",
         "worker",
-        "scheduler"
+        "scheduler",
+        "bedrock"
       ]
     }
   ],
@@ -278,8 +326,7 @@
       "from": "mobile",
       "to": "api",
       "label": "GraphQL + live updates",
-      "variant": "emphasis",
-      "toSide": "top"
+      "variant": "emphasis"
     },
     {
       "id": "web-api",
@@ -301,6 +348,32 @@
       "to": "media",
       "label": "upload, CDN",
       "variant": "dashed"
+    },
+    {
+      "id": "mobile-payhere",
+      "from": "mobile",
+      "to": "payhere",
+      "label": "SDK checkout"
+    },
+    {
+      "id": "web-payhere",
+      "from": "web",
+      "to": "payhere",
+      "label": "hosted checkout"
+    },
+    {
+      "id": "payhere-paylambda",
+      "from": "payhere",
+      "to": "paylambda",
+      "label": "payment notify",
+      "variant": "security"
+    },
+    {
+      "id": "paylambda-db",
+      "from": "paylambda",
+      "to": "db",
+      "label": "instalment received",
+      "labelDx": -14
     },
     {
       "id": "api-auth",
@@ -349,6 +422,13 @@
       "variant": "dashed"
     },
     {
+      "id": "worker-bedrock",
+      "from": "worker",
+      "to": "bedrock",
+      "label": "plan image → draft zones",
+      "variant": "dashed"
+    },
+    {
       "id": "worker-push",
       "from": "worker",
       "to": "push",
@@ -382,11 +462,12 @@
       "dot": "rose",
       "title": "Services and protocols: why, and alternatives",
       "items": [
-        "GraphQL with AppSync subscriptions instead of REST + SSE. Why: Amplify Data generates a typed client for the app and the portal from one schema, applies per-role auth rules, and pushes live updates (chat, event status, 'Going' counts) over WebSockets that AWS manages. Alternatives: REST on API Gateway + Lambda with API Gateway WebSockets.",
+        "GraphQL with AppSync subscriptions instead of REST + SSE. Why: Amplify Data generates a typed client for the app and the portal from one schema, applies per-role auth rules, and pushes live updates (chat, event status, 'Going' counts) over WebSockets that AWS manages. One deliberate exception: a Lambda function URL that only receives PayHere payment notifications. Alternatives: REST on API Gateway + Lambda with API Gateway WebSockets.",
         "Amazon Cognito (Amplify Auth). Why: sign-up with email or phone, one Cognito group per role (organiser, vendor, freelancer, consumer, admin) that the auth rules check. A custom SMS sender Lambda sends sign-in codes through Dialog e-SMS instead of Amazon SNS.",
         "Expo Push. Why: one push API over FCM and APNs for the React Native app, called from Lambda. Amazon Pinpoint push is not used: AWS ends its support on 30 October 2026. Alternatives: Amazon SNS mobile push, OneSignal.",
         "Amazon SES (email). Why: inside AWS and cheap per message. Watch: new accounts start in the SES sandbox; request production access before the pilot. Alternatives: Resend, Brevo.",
-        "Dialog e-SMS (OTP and urgent alerts). Why: a Sri Lankan operator's gateway with sender ID masking and billing in LKR. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Amazon SNS SMS, Notify.lk."
+        "Dialog e-SMS (OTP and urgent alerts). Why: a Sri Lankan operator's gateway with sender ID masking and billing in LKR. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Amazon SNS SMS, Notify.lk.",
+        "Amazon Bedrock with Claude (AI map draft, Could). Why: stays inside AWS, uses IAM, no separate API key. Watch: Claude on Bedrock in ap-south-1 is not verified; it may need cross-region inference. Alternatives: the Anthropic API directly."
       ]
     },
     {
@@ -397,20 +478,35 @@
         "Mobile: React Native + Expo with the Amplify JavaScript libraries; one app for all four roles",
         "Web: Next.js portal on Amplify Hosting for every role, consumers included, plus a role-gated admin panel",
         "Data: Amplify Data schema in TypeScript, served by AppSync and stored in DynamoDB; custom logic in Lambda functions",
-        "Jobs: SQS queue and EventBridge Scheduler trigger Lambda functions; DynamoDB Streams trigger reranking"
+        "Jobs: SQS queue and EventBridge Scheduler trigger Lambda functions; DynamoDB Streams trigger reranking; a Lambda function URL takes PayHere payment notifications"
       ]
     },
     {
       "dot": "orange",
-      "title": "Interactive 2D venue map",
+      "title": "Venue map builder and interactive 2D map",
       "items": [
-        "Organisers upload a layout image, drop pins and draw named zones as boxes, e.g. 'Food court'",
+        "Map builder on the web portal: organisers draw, move, resize, label and delete zones, stalls and pins over a background, with grid snapping, undo and a scale set from two marked points; the mobile app does quick on-the-day edits (move, rename, hide)",
+        "Three ways to start: a PNG/JPG or PDF floor plan (a Lambda turns the PDF's first page into the background image), a blank grid of a set size, or a saved venue map",
+        "Every map, however it starts, is saved in one standard, versioned map JSON: background, scale, and zones, stalls and pins as boxes or points in 0–1 coordinates with stable IDs; each publish is a new version and an earlier one can be restored",
+        "AI draft (Could): a Lambda sends the floor plan image to Claude on Amazon Bedrock and gets draft zones and stalls back; it opens as an editable draft, nothing publishes until the organiser checks it, and text in the image is treated as data. Claude in ap-south-1 not verified (may need cross-region inference)",
+        "Concept and code reused from Damian's own ai-studio repo (image to editable draft, click to edit, a new revision per save), adapted to Amplify rather than lifted whole",
         "Consumers tap a zone to see its stalls; each stall shows the vendor, items and prices in LKR",
         "Search by item (e.g. 'kottu') highlights matching stalls; 'Find on map' jumps to a stall",
-        "One map record (pins, zones) per event as a DynamoDB item; zones kept as fractions of the layout so they scale (proposed); layout image in S3",
-        "Drawn as an SVG overlay on the layout: react-native-svg in the app, SVG in Next.js",
-        "Stall listings are their own items; search by item runs over one event's listings, so it needs no search service",
+        "Map JSON versions in DynamoDB, background images in S3 (split proposed); drawn as an SVG overlay: react-native-svg in the app, SVG in Next.js",
         "Mobile app only: keeps an opened event's map, times and announcements offline, with a 'last updated' time (Could)"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Sandboxed payments (Should)",
+      "items": [
+        "Sandbox only in the ATP: PayHere test mode, no real money moves; every payment screen and receipt says 'Test payment, no real money'",
+        "Direct to the payee: each provider (and each organiser, for stall fees) connects their own PayHere merchant account; the web portal opens its hosted checkout and the app uses the PayHere mobile SDK",
+        "Tezera never holds, splits or pays out funds. Holding or splitting money would most likely need CBSL registration as a money or value transfer service (LKR 15m capital), so this design also works for a real launch (not legal advice)",
+        "Covers booking deposits and instalments, stall fees, and cancellation fees and refunds per the booking's terms; Tezera's commission is a separate receipt line (rate proposed, not charged in the ATP)",
+        "PayHere sits behind a small payment-provider adapter, so Genie Business or WEBXPAY can be added later",
+        "The Payments Lambda behind a function URL checks PayHere's signature, ignores repeats of an order ID, and writes the payment to DynamoDB, which marks the instalment received; merchant secrets stay server-side (Secrets Manager or encrypted, proposed)",
+        "Card details are entered only on PayHere's page (PCI DSS SAQ A scope); a payee with no connected account is paid outside the app and the instalment is marked received by hand"
       ]
     },
     {
@@ -420,8 +516,9 @@
         "Accounts, profiles and verification",
         "Events and promotion feed (posts, reels)",
         "Hiring marketplace: direct bookings, job posts, quotes, payment terms, stalls",
+        "Payments (sandbox): connected accounts, payments, refunds, receipts",
         "Reviews and ranking (weighted rank score, badges, leaderboards)",
-        "Venue maps: layout, pins, zones, stall items and prices",
+        "Venue maps: versioned map JSON, saved venue maps, stall items and prices",
         "Community boards, meetups, messaging, announcements",
         "Admin: verification, report queue, disputes, audit log"
       ]
@@ -453,8 +550,8 @@
       "dot": "slate",
       "title": "Out of scope",
       "items": [
-        "Ticketing: tiers, seats, RSVP tickets, QR entry, refunds",
-        "Payment gateway: hiring and stall fees are paid outside the app",
+        "Ticketing: tiers, seats, RSVP tickets, QR entry, ticket refunds",
+        "Real money: the ATP uses the PayHere sandbox only",
         "Google Maps directions to the venue: still under discussion"
       ]
     }

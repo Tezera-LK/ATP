@@ -160,6 +160,7 @@
     <a href="../research/tezera-personas.html">Personas</a>
     <a href="../research/tezera-user-stories.html">User stories</a>
     <a href="../research/tezera-work-items.html">Work items</a>
+    <a href="../research/tezera-research-briefs.html">Research briefs</a>
     <a href="../brand/tezera-brand-manual.html">Brand manual</a>
   </nav>
 </div>
@@ -170,16 +171,19 @@
   <p class="byline">Version 6 · updated 15 October 2026 · first written 30 September 2026 by Navindu Ranwatte</p>
 </header>
 
-<p class="lead">Tezera is a mobile app and web portal that brings Sri Lanka's event organisers, vendors, freelancers and consumers onto one platform. Organisers promote events, hire vendors and freelancers, fill stalls and share venue maps; consumers discover events, mark that they're going and meet up through forums. The ATP release covers all four core modules: events and promotion, the hiring marketplace, community and venue maps. Ticketing and entry come first after the ATP, followed by payments in the app; premium accounts come in a later version.</p>
+<p class="lead">Tezera is a mobile app and web portal that brings Sri Lanka's event organisers, vendors, freelancers and consumers onto one platform. Organisers promote events, hire vendors and freelancers, fill stalls and share venue maps; consumers discover events, mark that they're going and meet up through forums. The ATP release covers all four core modules: events and promotion, the hiring marketplace, community and venue maps. Ticketing and entry come first after the ATP, followed by real-money payments; during the ATP, hiring and stall payments run on a payment gateway's sandbox only. Premium accounts come in a later version.</p>
 
 <details class="changes">
   <summary>What changed in version 6 (15 October 2026)</summary>
   <ul>
     <li><b>Serverless on AWS Amplify</b> (section 8): the backend moves to AWS Amplify Gen 2 in ap-south-1 (Mumbai). Amplify Data (a GraphQL API on AWS AppSync, with subscriptions for live updates) replaces NestJS with REST and SSE; Amazon DynamoDB replaces PostgreSQL; Lambda functions triggered by SQS, DynamoDB Streams and EventBridge Scheduler replace Redis and the BullMQ worker; Amazon Cognito handles sign-in; Amplify Storage (S3 and CloudFront) replaces Cloudinary; Amazon SES replaces Resend; the web portal moves from Vercel to Amplify Hosting. Expo Push, Dialog e-SMS and React Native with Expo stay.</li>
     <li><b>Data design rewritten for DynamoDB</b> (section 8): rank score, leaderboards, feed, trending, likes and search now use indexes and Lambda functions instead of SQL views and Redis. Search loses typo tolerance in the ATP; Algolia or Typesense is the upgrade path.</li>
-    <li><b>Dependencies</b> (section 12): an AWS account is added; email and media rows updated. No requirements change.</li>
+    <li><b>Dependencies</b> (section 12): an AWS account is added; email and media rows updated.</li>
+    <li><b>Sandboxed payments</b> (6.4, Should): organisers pay providers' deposits and instalments (HR-14), vendors pay stall fees (HR-18), and cancellation fees and refunds follow the booking's terms (HR-19), all on the PayHere sandbox, so no real money moves. Each payee connects their own merchant account (HR-17), so Tezera never holds the money; receipts show Tezera's commission without charging it (HR-20). Ticketing stays out of the ATP. The legal research behind this model is in the <a href="../research/tezera-research-briefs.html#payments">research briefs</a>.</li>
+    <li><b>Map builder</b> (6.6): a builder on the web portal with snapping and scale, and one standard, versioned map format (VM-16 to VM-18, Must); start from a PDF, a blank grid or a saved venue map (VM-19 to VM-21, Should); an AI first draft from the floor plan (VM-22, Could). The idea and code come from the team's own ai-studio repository (<a href="../research/tezera-research-briefs.html#map-builder">research briefs</a>).</li>
+    <li><b>Knock-on changes:</b> non-goals, section 8 (payments, the map builder, an AI draft on Amazon Bedrock), section 9, business model, assumptions and dependencies, risks, and new open questions on what real money would need (section 14).</li>
   </ul>
-  <p class="note">Rows changed in this version carry a <span class="tag">v6</span> tag. Decided by Damian on 15 October 2026, after questions on each layer; the group should confirm (section 14).</p>
+  <p class="note">Rows changed in this version carry a <span class="tag">v6</span> tag. Decided by Damian on 15 October 2026, after questions on each layer, on payments and on the map builder; the group should confirm (section 14).</p>
 </details>
 
 <details class="changes">
@@ -267,7 +271,7 @@
 <h4>Goals</h4>
 <ul>
   <li>Organisers publish events and promote them with posts and reels; consumers mark events as 'Going' or 'Interested'. <span class="tag">v2</span></li>
-  <li>Organisers hire vendors and freelancers by direct booking or job posts, and fill stalls by invitation or open application.</li>
+  <li>Organisers hire vendors and freelancers by direct booking or job posts, and fill stalls by invitation or open application. <span class="tag">v6</span> Deposits, instalments and stall fees can be paid through a test payment gateway, to prove the flow before real money.</li>
   <li>Reputation is visible and earned: reviews run in four directions and feed category ratings, a rank score, tier badges and leaderboards.</li>
   <li>Consumers plan their visit with the organiser's venue map and meet others through event boards, communities and meetups.</li>
   <li>Conversations between organisers, consumers, vendors and freelancers happen in the app instead of across separate tools.</li>
@@ -275,7 +279,7 @@
 <h4>Non-goals for the MVP</h4>
 <ul>
   <li><b>Ticketing and entry:</b> ticket tiers, reserved seats, free RSVP tickets, QR tickets and gate scanning, and refunds. This is the first phase after the ATP (6.3). <span class="tag">v2</span></li>
-  <li><b>Payments of any kind in the app.</b> Bookings and stalls are agreed in the app but paid outside it; in-app payments would come in a later phase, if the group takes the idea further. <span class="tag">v2</span></li>
+  <li><b>Real money in the app.</b> <span class="tag">v2</span> <span class="tag">v6</span> Hiring and stall payments run on a payment gateway's sandbox only (HR-14, HR-17 to HR-20), and no real money moves. Going live needs the legal and tax steps in section 14. Ticket payments stay with ticketing.</li>
   <li>Premium accounts for VIP or fast-sale tickets (later version).</li>
   <li>A 3D view of the venue; the interactive 2D map (6.6) covers finding stalls, stages and facilities. Google Maps directions to the venue are still under team discussion (section 14). <span class="tag">v2</span> <span class="tag">v5</span></li>
   <li>Posts or reels from vendors, freelancers or consumers in the main feed. The feed is for organisers; providers show their work in portfolios.</li>
@@ -436,7 +440,7 @@
 </table></div>
 
 <h3 id="m-hiring">6.4 Hiring marketplace</h3>
-<p>Organisers hire providers in two ways: a direct booking request to a chosen provider, or a job post that providers answer with quotes. The price is agreed in the app but paid outside it; in-app payment would come in a later phase, if the group takes the idea further.</p>
+<p>Organisers hire providers in two ways: a direct booking request to a chosen provider, or a job post that providers answer with quotes. The price is agreed in the app. <span class="tag">v6</span> In the ATP it can be paid in the app through the PayHere sandbox (HR-14, HR-17 to HR-20; no real money moves) or outside the app as before, tracked by HR-15. Payments go straight to the payee's own merchant account, so Tezera never holds the money: if the platform collected and paid it on, Sri Lanka's Central Bank would most likely treat that as a money transfer service needing registration (<a href="../research/tezera-research-briefs.html#payments">research briefs</a>).</p>
 <div class="tbl"><table class="req">
   <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
   <tbody>
@@ -447,15 +451,19 @@
     <tr><td class="id">HR-05 <span class="tag">v5</span></td><td class="who">Organiser</td><td>Post a job (e.g., '2 photographers, 12 Dec, Colombo') with requirements, a budget range and a deadline for quotes. Requirements use the same optional structured brief fields as HR-03.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-06</td><td class="who">Provider</td><td>Browse job posts that match their category and district, and apply with a quote and a message.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-07</td><td class="who">Organiser</td><td>Compare the quotes on a job post and accept one or more to create bookings.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">HR-08 <span class="tag">v5</span></td><td class="who">Organiser, Provider</td><td>A confirmed booking records the agreed service, date, price and terms. Payment terms set out the deposit and each instalment's amount and due date; cancellation terms say what happens if either side cancels. Both are shown before the provider accepts and kept on the booking; changing them needs the other side's acceptance. No money moves in the app. Either side can cancel the booking with a reason.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-08 <span class="tag">v5</span></td><td class="who">Organiser, Provider</td><td>A confirmed booking records the agreed service, date, price and terms. Payment terms set out the deposit and each instalment's amount and due date; cancellation terms say what happens if either side cancels. Both are shown before the provider accepts and kept on the booking; changing them needs the other side's acceptance. <span class="tag">v6</span> No real money moves in the app; instalments can be paid through the sandbox (HR-14). Either side can cancel the booking with a reason.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-09</td><td class="who">Organiser, Provider</td><td>The organiser marks a booking as completed after the event (proposed), which unlocks reviews for both sides.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-10</td><td class="who">Organiser</td><td>Open stall slots for an event with the stall type, fee and application deadline. Vendors apply; the organiser approves or rejects.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-11</td><td class="who">Organiser</td><td>Invite a vendor directly to take a stall. The vendor accepts or declines; acceptance counts as approval for HR-12.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-12</td><td class="who">Organiser</td><td>Give each approved vendor a stall number.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">HR-13</td><td class="who">Organiser, Vendor</td><td>Show the stall fee in the app; the vendor pays it outside the app in the MVP.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr class="later"><td class="id">HR-14</td><td class="who">Organiser, Provider</td><td>Pay providers and stall fees inside the app, for example a deposit first and the balance after the event.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr><td class="id">HR-13</td><td class="who">Organiser, Vendor</td><td>Show the stall fee in the app; the vendor pays it outside the app, or in the app's sandbox through HR-18. <span class="tag">v6</span></td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-14 <span class="tag">v6</span></td><td class="who">Organiser, Provider</td><td>Pay a booking's deposit and instalments (HR-08) in the app, through the provider's connected payment account (HR-17) on the PayHere sandbox. A successful payment marks the instalment as received (HR-15) and sends both sides a receipt. Every payment screen and receipt says 'Test payment, no real money' in the ATP. Was Later.</td><td class="p"><span class="pri should">Should</span></td></tr>
     <tr><td class="id">HR-15 <span class="tag">v5</span></td><td class="who">Organiser, Provider</td><td>Payment tracking without payments: each instalment on a booking shows as due, received or overdue. The provider marks an instalment as received, and both sides get due-date reminders. Organiser profiles show the share of bookings paid on time (bookings with payment terms only).</td><td class="p"><span class="pri should">Should</span></td></tr>
     <tr><td class="id">HR-16 <span class="tag">v5</span></td><td class="who">Organiser, Provider</td><td>Late cancellations on the record: a booking cancelled within 7 days of the event (proposed) shows on the profile of whoever cancelled. When a provider cancels, the organiser can reopen the job as a job post, prefilled from the booking, in one step.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">HR-17 <span class="tag">v6</span></td><td class="who">Provider, Organiser</td><td>Connect a payment account: link their own PayHere merchant account (sandbox in the ATP) to their profile, so payments to them settle straight to it. Without one, they are paid outside the app and tracked by HR-15 as before.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">HR-18 <span class="tag">v6</span></td><td class="who">Vendor</td><td>Pay a stall fee (HR-10, HR-13) in the app through the organiser's connected payment account; a successful payment marks the stall as paid and confirmed.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">HR-19 <span class="tag">v6</span></td><td class="who">Organiser, Provider</td><td>When a booking is cancelled, charge the cancellation fee or refund paid instalments as the booking's cancellation terms say (HR-08, HR-16), through the gateway's sandbox. Ticket refunds stay with ticketing (TK-10, TK-11).</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">HR-20 <span class="tag">v6</span></td><td class="who">Organiser, Provider, Admin</td><td>Payment history and receipts for both sides, showing Tezera's commission as a separate line (rate proposed; not charged in the ATP). Admins can see a booking's payment record when handling a dispute (AD-04).</td><td class="p"><span class="pri should">Should</span></td></tr>
   </tbody>
 </table></div>
 
@@ -546,11 +554,11 @@
 <p><i>R</i> is the average star rating and <i>v</i> the number of reviews. <i>C</i> is the average rating across the category, and <i>m</i> is a minimum review count (proposed: 5). Together they stop a single five-star review from topping a leaderboard. <i>V</i> is the review count <i>v</i>, and <i>B</i> the number of completed jobs, each scaled 0-1 against the category leader. <i>S</i> is the share of booking requests answered. For organisers (proposed), <i>B</i> counts completed events and <i>R</i> combines ratings from consumers and providers. <i>C</i> and the scaling use all organisers, and <i>S</i> is the share of consumer chats and Q&amp;A questions answered.</p>
 
 <h3 id="m-maps">6.6 Venue maps</h3>
-<p>In the MVP, organisers upload a floor plan of the venue, drop labelled pins on it and draw zones such as a food court; consumers open it from the event page. <span class="tag">v5</span> The map is interactive: tapping a zone lists its stalls, and each stall shows what it sells and at what price, so consumers can find a stall by what they want. There is no 3D view; section 8 describes how the map is built. Google Maps directions are still under team discussion (section 14).</p>
+<p>In the MVP, organisers upload a floor plan of the venue, drop labelled pins on it and draw zones such as a food court; consumers open it from the event page. <span class="tag">v5</span> The map is interactive: tapping a zone lists its stalls, and each stall shows what it sells and at what price, so consumers can find a stall by what they want. There is no 3D view; section 8 describes how the map is built. Google Maps directions are still under team discussion (section 14). <span class="tag">v6</span> Organisers make maps in a map builder on the web portal. A map can start from a floor plan image or PDF, a blank grid or a saved venue map, and every map is saved in the same standard format. This means the app and the portal draw every map the same way, however rough the original plan was. An AI first draft from the floor plan is a Could.</p>
 <div class="tbl"><table class="req">
   <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
   <tbody>
-    <tr><td class="id">VM-01</td><td class="who">Organiser</td><td>Upload a venue layout image (e.g., PNG or JPG) for each event.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-01</td><td class="who">Organiser</td><td>Upload a venue layout image (e.g., PNG or JPG) for each event. <span class="tag">v6</span> It becomes the background layer in the map builder (VM-16).</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">VM-02 <span class="tag">v5</span></td><td class="who">Organiser</td><td>Place pins on the layout and label each one: stages, stalls, entrances and exits, toilets, first aid, parking, registration or ticket counter, seating, food and drink, water, or a custom label. A stall pin can carry its stall number (HR-12).</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">VM-03</td><td class="who">Organiser</td><td>Move, add or remove pins and republish the map at any time; attendees always see the latest version.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">VM-04 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Open the map from the event page (and, once ticketing arrives, from a ticket), zoom and pan, and tap a pin to read its label.</td><td class="p"><span class="pri must">Must</span></td></tr>
@@ -562,6 +570,13 @@
     <tr><td class="id">VM-13 <span class="tag">v5</span></td><td class="who">Organiser, Consumer</td><td>Link line-up entries (EV-01) to a stage pin; tapping the stage shows who performs there and when.</td><td class="p"><span class="pri should">Should</span></td></tr>
     <tr><td class="id">VM-14 <span class="tag">v5</span></td><td class="who">Consumer</td><td>Filter the map by stall type (food, drinks, merchandise and so on, from HR-10).</td><td class="p"><span class="pri should">Should</span></td></tr>
     <tr><td class="id">VM-15 <span class="tag">v5</span></td><td class="who">Consumer</td><td>In the mobile app, an event's map, times and announcements stay viewable without signal once opened, with a 'last updated' time.</td><td class="p"><span class="pri could">Could</span></td></tr>
+    <tr><td class="id">VM-16 <span class="tag">v6</span></td><td class="who">Organiser</td><td>Map builder on the web portal: draw, move, resize, label and delete zones, stalls and pins over the background, with snapping to a grid, alignment guides, numbering a row of stalls in one step, duplicate and undo. In the mobile app, organisers can make quick edits on the day: move, rename or hide an item.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-17 <span class="tag">v6</span></td><td class="who">Organiser</td><td>Set the map's scale by marking two points on the plan and entering the real distance between them (or from the grid size, VM-20), so stall sizes show in metres.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-18 <span class="tag">v6</span></td><td class="who">Organiser, Consumer</td><td>Every map is stored in one standard, versioned map format, whatever it started from (image, PDF, blank grid or saved venue map). Each publish (VM-03) is a new version, and the organiser can restore an earlier one.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-19 <span class="tag">v6</span></td><td class="who">Organiser</td><td>Upload a PDF floor plan; its first page becomes the background image.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">VM-20 <span class="tag">v6</span></td><td class="who">Organiser</td><td>Start a map from a blank grid of a set size (e.g., 60 m × 40 m) when there is no floor plan.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">VM-21 <span class="tag">v6</span></td><td class="who">Organiser</td><td>Save a map as a venue map and start a later event's map at the same venue from it (e.g., the same grounds every year). Stall assignments and listings are not copied.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">VM-22 <span class="tag">v6</span></td><td class="who">Organiser</td><td>AI first draft: Tezera suggests zones, stalls and pins from the uploaded floor plan. The suggestions open as an editable draft in the builder, and nothing is published until the organiser has checked it and publishes.</td><td class="p"><span class="pri could">Could</span></td></tr>
   </tbody>
 </table></div>
 
@@ -629,7 +644,7 @@
   <tbody>
     <tr><td class="id">Platforms <span class="tag">v3</span></td><td>Android and iOS apps for all roles. A web portal for all roles too: organisers and vendors manage events, bookings and venue maps on a larger screen, and consumers get the same features as in the app. Proposed: freelancers can use the portal too, and admins work from a web admin panel.</td></tr>
     <tr><td class="id">Performance <span class="tag">v2</span></td><td>Feed, event pages and search load within 3 seconds on 4G mobile data (proposed). Reels start quickly on mobile data. The venue map loads its layout image at a size suited to the screen. <span class="tag">v5</span></td></tr>
-    <tr><td class="id">Security</td><td>All traffic over HTTPS, passwords hashed, and role-based access so each role sees only its own tools.</td></tr>
+    <tr><td class="id">Security</td><td>All traffic over HTTPS, passwords hashed, and role-based access so each role sees only its own tools. <span class="tag">v6</span> Card details are entered only on the payment gateway's own checkout, so the platform never sees or stores them (this keeps PCI DSS work to the shortest self-assessment, SAQ A; in-app SDK checkouts not verified). Payment notifications are accepted only with a valid gateway signature, and each payee's merchant secret is kept on the server, never in the apps.</td></tr>
     <tr><td class="id">Privacy</td><td>Collect only the data each feature needs, and ask consent for marketing messages. Users can view, correct and delete their data. NIC and registration documents are visible to admins only. The platform must comply with Sri Lanka's Personal Data Protection Act, No. 9 of 2022 (PDPA).</td></tr>
     <tr><td class="id">Localisation</td><td>All interface text lives in translation files from the start, with Unicode fonts for Sinhala and Tamil. The Sinhala and Tamil screens themselves are a Should (AC-10). Prices in LKR.</td></tr>
     <tr><td class="id">Accessibility <span class="tag">v2</span></td><td>Screen-reader labels, readable text sizes and sufficient colour contrast, targeting WCAG 2.1 AA (proposed). Every zone, stall and pin on the venue map can also be reached as a list, so the map works with a screen reader. <span class="tag">v5</span></td></tr>
@@ -661,8 +676,10 @@
     <tr><td class="id">Sign-in <span class="tag">v6</span></td><td>Amplify Auth (Amazon Cognito), with one user group per role: organiser, vendor, freelancer, consumer and admin</td><td>Email or phone sign-up with one-time codes (AC-01). Auth rules check the user's group. A custom SMS sender Lambda sends the codes through Dialog e-SMS instead of Amazon SNS.</td></tr>
     <tr><td class="id">Database <span class="tag">v4</span> <span class="tag">v6</span></td><td>Amazon DynamoDB, through Amplify Data; global secondary indexes (GSIs) for each access pattern</td><td>Serverless and billed per request. DynamoDB has no joins or ad-hoc queries, so every list the app shows (search results, leaderboards, a feed, a booking's instalments) needs its access pattern planned as a key or index up front. Watch: adding an access pattern later means a new index and a backfill. Replaces PostgreSQL on Neon.</td></tr>
     <tr><td class="id">Background jobs <span class="tag">v4</span> <span class="tag">v6</span></td><td>AWS Lambda functions, started by an Amazon SQS queue (notifications), DynamoDB Streams (rank scores after a review) and Amazon EventBridge Scheduler (timed jobs)</td><td>Sends notifications, opens and closes review windows (RV-02), recalculates rank scores (RV-04) and trending posts, and sends payment reminders (HR-15). SQS retries failed jobs and keeps the ones that keep failing in a dead-letter queue. Replaces Redis with a BullMQ worker.</td></tr>
-    <tr><td class="id">Media <span class="tag">v6</span></td><td>Amplify Storage (Amazon S3, served through Amazon CloudFront)</td><td>Images, reels, portfolios and venue layouts. Reels are compressed on the phone before upload, so no paid video transcoding is needed; images are resized by a Lambda function on upload (proposed). Verification documents sit in a private path that only the admin group can read, through short-lived signed links (PDPA). Replaces Cloudinary.</td></tr>
+    <tr><td class="id">Media <span class="tag">v6</span></td><td>Amplify Storage (Amazon S3, served through Amazon CloudFront)</td><td>Images, reels, portfolios and venue layouts. Reels are compressed on the phone before upload, so no paid video transcoding is needed; images are resized by a Lambda function on upload (proposed). Verification documents sit in a private path that only the admin group can read, through short-lived signed links (PDPA). Replaces Cloudinary. <span class="tag">v6</span> The same upload Lambda turns the first page of a PDF floor plan into an image (VM-19).</td></tr>
     <tr><td class="id">Notifications <span class="tag">v3</span> <span class="tag">v6</span></td><td>Expo Push (FCM and APNs), Amazon SES for email, Dialog e-SMS for sign-up codes and urgent alerts</td><td>Covers MS-07 and AC-01. Amazon Pinpoint is not used, because AWS ends its support on 30 October 2026. New SES accounts start in a sandbox, so request production access before the pilot. Dialog e-SMS needs a Dialog Enterprise account, and its API documentation is thin, so test it early.</td></tr>
+    <tr><td class="id">Payments <span class="tag">v6</span></td><td>PayHere sandbox, behind a small payment-provider interface in the backend; hosted checkout on the web portal and PayHere's mobile SDK in the app; one Lambda function URL for PayHere's payment notifications</td><td>Sandbox only in the ATP (HR-14, HR-17 to HR-20). PayHere has a free sandbox you can sign up for yourself, test cards, and React Native SDKs. The interface lets Genie Business or WEBXPAY be added later. The function URL is the one deliberate exception to 'GraphQL only', because PayHere calls back over plain HTTPS. It is described below.</td></tr>
+    <tr><td class="id">AI map draft <span class="tag">v6</span></td><td>Claude on Amazon Bedrock, called from a Lambda function (VM-22, Could)</td><td>Stays inside AWS with IAM permissions, so there is no separate API key or bill. Whether Claude can be called in ap-south-1 or needs cross-region inference is not verified.</td></tr>
     <tr><td class="id">Shared code <span class="tag">v6</span></td><td>One repository (monorepo) holding the app, the portal and the Amplify backend, with shared validation (Zod)</td><td>Amplify generates the data types for both clients from the schema, so the app, the portal and the API agree on the same data shapes.</td></tr>
     <tr><td class="id">Database tools <span class="tag">v4</span> <span class="tag">v6</span></td><td>NoSQL Workbench for DynamoDB to design tables, indexes and access patterns; the Amplify sandbox and the DynamoDB console for test data</td><td>Tables and indexes change only through the Amplify schema in code, never by hand in the AWS console, or the deployed backend drifts from the code and the next deploy fails.</td></tr>
     <tr><td class="id">Cost and data location <span class="tag">v6</span></td><td>AWS free allowances, with an AWS Budgets alert</td><td>Lambda, DynamoDB, SQS, Cognito and S3 have monthly free allowances. AWS changed its free tier for new accounts in July 2025 (credits for a limited period rather than 12 months free), so check the current terms before the pilot (not verified). Data is stored in Mumbai, outside Sri Lanka: check the PDPA's rules on cross-border transfers (not checked).</td></tr>
@@ -685,14 +702,40 @@
   <li><b>Analytics (OD-04):</b> activity items summed into daily totals by a scheduled Lambda; exported to S3 and queried with Amazon Athena if the volume grows.</li>
   <li><b>Not recommended at this scale:</b> a relational database beside DynamoDB, Amazon ElastiCache (it needs a private network for the Lambdas and costs money from day one) or a graph database.</li>
 </ul>
-<h4>The interactive venue map (VM-01 to VM-15) <span class="tag">v5</span></h4>
+<h4>The interactive venue map (VM-01 to VM-22) <span class="tag">v5</span> <span class="tag">v6</span></h4>
 <ul>
   <li><b>One map record per event.</b> Pins and zones are stored together as one DynamoDB item per event. <span class="tag">v6</span> Positions and zone boxes are saved as fractions (0 to 1) of the layout image's width and height, so they line up at any screen size.</li>
+  <li><b>One standard map format (VM-18).</b> <span class="tag">v6</span> Every map, whatever it started from, is a JSON document with:
+    <ul>
+      <li>a background: an image, the first page of a PDF, or a blank grid, with its real size in metres;</li>
+      <li>the scale (VM-17);</li>
+      <li>a version number;</li>
+      <li>a list of items, each with a stable ID, a kind (zone, stall or pin), a label, and a position and size in 0–1 coordinates; stalls also carry their zone, stall number and vendor.</li>
+    </ul>
+    Publishing writes a new version and keeps the old ones, so an earlier version can be restored. A saved venue map (VM-21) is the same document with the stall assignments taken out. The exact fields are proposed; an example is in the <a href="../research/tezera-research-briefs.html#map-builder">research briefs</a>.</li>
+  <li><b>The builder (VM-16, VM-17).</b> <span class="tag">v6</span> A canvas editor in the Next.js portal, built on SVG or react-konva (decide with a short spike). It snaps to a grid, shows alignment guides, numbers a row of stalls in one step, and supports duplicate and undo. Each item keeps a stable ID, and a save is refused if someone else changed the same item first (a stale-edit check), so two organisers editing at once cannot overwrite each other silently. The stable IDs and stale-edit checks, the version history and the draft-then-check flow are taken from the team's own ai-studio repository, and its code can be reused.</li>
+  <li><b>AI first draft (VM-22, Could).</b> <span class="tag">v6</span> A Lambda function sends the floor plan to Claude on Amazon Bedrock and asks for zones, stalls and pins as JSON in the standard format. The prompt treats any text in the image as data, not instructions. The result opens in the builder as a draft and is never published automatically. This is ported from ai-studio's image-to-template flow, where the editing step is mandatory because AI output can be wrong. How well it reads scanned or hand-drawn Sri Lankan venue plans has not been tested.</li>
   <li><b>Drawn as a layer over the image.</b> The layout image is the background; pins and zone boxes are drawn on top as SVG (react-native-svg with gesture handling in the app, plain SVG in the Next.js portal), so zoom, pan and taps need no map service.</li>
   <li><b>Stall listings as their own items.</b> Each stall's description and items (name and price in LKR) are stored with the stall and the vendor; stalls that use profile prices point to the profile instead. Search by item (VM-11) filters one event's listings, a few hundred at most, so it needs no search service. <span class="tag">v6</span></li>
   <li><b>Editing.</b> The web portal is the main place to draw zones and place pins; the app allows small edits on the day. Republishing (VM-03) sends the new map to everyone viewing it through a GraphQL subscription. <span class="tag">v6</span></li>
   <li><b>Offline in the app (VM-15, Could).</b> The app saves the map record, layout image, times and announcements on the device when an event is opened, and refreshes them when the signal returns.</li>
-  <li><b>No new backend service.</b> The venue maps module stores and serves the map; the stall listings sit in the hiring module next to stalls (HR-10 to HR-12).</li>
+  <li><b>No new backend service.</b> The venue maps module stores and serves the map; the stall listings sit in the hiring module next to stalls (HR-10 to HR-12). <span class="tag">v6</span> The PDF conversion and the AI draft are Lambda functions, not services.</li>
+</ul>
+<h4>Payments in the sandbox (HR-14, HR-17 to HR-20) <span class="tag">v6</span></h4>
+<ul>
+  <li><b>Money goes straight to the payee.</b> Each provider, and each organiser who takes stall fees, connects their own PayHere merchant account (HR-17). Tezera opens that account's checkout, and the money settles to them. Tezera never collects, holds, splits or pays out money. If it did, Sri Lanka's Central Bank would most likely class it as a money or value transfer service, which needs registration and a company with at least LKR 15m in capital. PayHere also lists multi-vendor platforms as unsupported, and Stripe is not available in Sri Lanka. Sources are in the <a href="../research/tezera-research-briefs.html#payments">research briefs</a>.</li>
+  <li><b>Flow.</b>
+    <ol>
+      <li>The app creates a payment item in DynamoDB (status pending) for an instalment, a stall fee or a cancellation fee.</li>
+      <li>It opens the payee's PayHere checkout: the hosted page on the web, the SDK in the app.</li>
+      <li>PayHere posts the result to the payments Lambda's function URL.</li>
+      <li>The Lambda checks PayHere's signature (<code>md5sig</code>) and updates the payment once per order ID, so a repeated notice changes nothing.</li>
+      <li>A DynamoDB Stream then marks the instalment as received (HR-15) or the stall as paid (HR-18), and queues receipts through SQS.</li>
+    </ol></li>
+  <li><b>Secrets.</b> Each payee's PayHere merchant secret is stored on the server, in AWS Secrets Manager or encrypted in DynamoDB (proposed). It is never sent to the apps.</li>
+  <li><b>Provider interface.</b> One TypeScript interface (start checkout, verify notice, refund) with PayHere as the first implementation. Genie Business (sandbox credentials on request) or WEBXPAY can be added behind the same interface.</li>
+  <li><b>Commission.</b> Receipts show Tezera's commission as its own line (HR-20), worked out but not charged. At a real launch it would be invoiced to the payee separately, not deducted from the payment.</li>
+  <li><b>Labelling.</b> Every payment screen and receipt says 'Test payment, no real money' until the group decides to go live.</li>
 </ul>
 
 <!-- ============================================================ 9 -->
@@ -702,7 +745,7 @@
   <thead><tr><th>Add-on</th><th>Proposed priority</th><th>Why</th></tr></thead>
   <tbody>
     <tr><td class="id">Admin and moderation</td><td class="p"><span class="pri must">Must</span></td><td>Needed from day one to verify accounts, act on reports and remove harmful content.</td></tr>
-    <tr><td class="id">Verified badges <span class="tag">v2</span></td><td class="p"><span class="pri must">Must</span></td><td>With stall fees and hiring paid outside the app, verification is the main guard against fake organisers who take fees and never deliver, and later against fake ticketed events.</td></tr>
+    <tr><td class="id">Verified badges <span class="tag">v2</span></td><td class="p"><span class="pri must">Must</span></td><td>With stall fees and hiring paid outside the app, or only in a sandbox, <span class="tag">v6</span> verification is the main guard against fake organisers who take fees and never deliver, and later against fake ticketed events.</td></tr>
     <tr><td class="id">Transactional notifications <span class="tag">v2</span></td><td class="p"><span class="pri must">Must</span></td><td>Booking confirmations, hiring requests, stall decisions and new messages depend on them.</td></tr>
     <tr><td class="id">Engagement notifications</td><td class="p"><span class="pri should">Should</span></td><td>Reminders and follow updates help attendance, but no task depends on them.</td></tr>
     <tr><td class="id">Sinhala and Tamil</td><td class="p"><span class="pri should">Should</span></td><td>Widens reach across Sri Lanka. Build translation-ready from the start and add the languages once screens settle.</td></tr>
@@ -711,14 +754,16 @@
     <tr><td class="id">Recommendations</td><td class="p"><span class="pri could">Could</span></td><td>Only useful once there is usage data; search and filters cover discovery at launch.</td></tr>
     <tr><td class="id">Interactive venue map <span class="tag">v5</span></td><td class="p"><span class="pri must">Must</span></td><td>Zones, stall lists with items and prices, search by item and 'Find on map' (VM-08 to VM-12). Replaces the 3D view: in the survey, attendees most needed to find stalls, parking, seating and toilets. Stage line-ups and the stall-type filter are Should.</td></tr>
     <tr><td class="id">Offline venue map <span class="tag">v5</span></td><td class="p"><span class="pri could">Could</span></td><td>Large venues lose signal (survey), but organisers also put up signs. Mobile app only (VM-15).</td></tr>
-    <tr class="later"><td class="id">Refunds and cancellations <span class="tag">v2</span></td><td class="p"><span class="pri later">Later</span></td><td>Moves with ticketing (6.3). When it arrives, full refunds on cancellation (TK-11) should be a Must and per-event refund policies (TK-10) a Should.</td></tr>
+    <tr><td class="id">Map builder <span class="tag">v6</span></td><td class="p"><span class="pri must">Must</span></td><td>The builder, scale and one standard map format (VM-16 to VM-18) make every map draw the same way. PDF upload, blank grids and saved venue maps (VM-19 to VM-21) are Should; the AI first draft (VM-22) is Could.</td></tr>
+    <tr><td class="id">Sandboxed payments <span class="tag">v6</span></td><td class="p"><span class="pri should">Should</span></td><td>Proves paying providers and stall fees in the app (HR-14, HR-17 to HR-20) without real money. The ATP still works without it, because payment tracking (HR-15) remains the base path.</td></tr>
+    <tr class="later"><td class="id">Ticket refunds <span class="tag">v2</span> <span class="tag">v6</span></td><td class="p"><span class="pri later">Later</span></td><td>Moves with ticketing (6.3). When it arrives, full refunds on cancellation (TK-11) should be a Must and per-event refund policies (TK-10) a Should. Booking cancellation fees and refunds are in the sandbox (HR-19).</td></tr>
   </tbody>
 </table></div>
 <p>Notifications are split into two rows because booking flows cannot work without the transactional ones. The release phases are drawn below; no dates are set yet, so add them once the group knows its SDGP milestones.</p>
 
 <figure>
   <svg viewBox="0 0 760 390" role="img" aria-labelledby="fig3t">
-    <title id="fig3t">Release phases: discovery, the ATP release and a live pilot, then a decision point, then ticketing, payments in the app, hiring for private events and premium accounts.</title>
+    <title id="fig3t">Release phases: discovery, the ATP release and a live pilot, then a decision point, then ticketing, real-money payments, hiring for private events and premium accounts.</title>
     <defs>
       <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3D5459"/></marker>
     </defs>
@@ -736,10 +781,10 @@
     <text class="t" x="214" y="60">2 · ATP release</text>
     <text class="s" x="214" y="80">Accounts and verification</text>
     <text class="s" x="214" y="95">Events and promotion feed</text>
-    <text class="s" x="214" y="110">Hiring marketplace and stalls</text>
+    <text class="s" x="214" y="110">Hiring, stalls, sandbox payments</text>
     <text class="s" x="214" y="125">Reviews and ranking</text>
     <text class="s" x="214" y="140">Community and chat</text>
-    <text class="s" x="214" y="155">Venue maps (interactive 2D)</text>
+    <text class="s" x="214" y="155">Venue map builder (2D)</text>
     <text class="s" x="214" y="170">Admin and moderation</text>
     <text class="s" x="214" y="185">Sinhala and Tamil, if time allows</text>
 
@@ -771,11 +816,11 @@
     <text class="s" x="34" y="351">refunds, event reviews</text>
 
     <rect class="box" x="205" y="260" width="160" height="112" rx="8"/>
-    <text class="t" x="219" y="284">Payments in app</text>
-    <text class="s" x="219" y="306">Hiring deposits,</text>
-    <text class="s" x="219" y="321">stall fees, ticket and</text>
-    <text class="s" x="219" y="336">hiring commission,</text>
-    <text class="s" x="219" y="351">venue map extras</text>
+    <text class="t" x="219" y="284">Real-money payments</text>
+    <text class="s" x="219" y="306">Hiring and stall</text>
+    <text class="s" x="219" y="321">payments go live,</text>
+    <text class="s" x="219" y="336">ticket and hiring</text>
+    <text class="s" x="219" y="351">commission</text>
 
     <rect class="box" x="390" y="260" width="160" height="112" rx="8"/>
     <text class="t" x="404" y="284">Private events</text>
@@ -798,12 +843,12 @@
 
 <!-- ============================================================ 10 -->
 <h2 id="business">10. Business model</h2>
-<p>The ATP release earns no revenue, because it takes no payments in the app. <span class="tag">v2</span> The first revenue stream, a commission on ticket sales, starts once ticketing and payments move into the app after the ATP. A hiring commission would start if hiring payments move into the app, and premium accounts arrive in a later version. Rates are not set yet (section 14).</p>
+<p>The ATP release earns no revenue, because it takes no real payments in the app. <span class="tag">v2</span> <span class="tag">v6</span> Sandbox receipts show what a hiring commission would be (HR-20) without charging it. The first revenue stream, a commission on ticket sales, starts once ticketing and payments move into the app after the ATP. A hiring commission would start if hiring payments move into the app, and premium accounts arrive in a later version. Rates are not set yet (section 14).</p>
 <div class="tbl"><table>
   <thead><tr><th>Revenue stream</th><th>Starts</th><th>How it works</th></tr></thead>
   <tbody>
     <tr><td class="id">Ticket commission <span class="tag">v2</span></td><td>After the ATP, with payments in the app</td><td>A percentage or fixed fee on each paid ticket. Free RSVP events carry no fee (proposed).</td></tr>
-    <tr><td class="id">Hiring commission</td><td>Later phase, if hiring payments move into the app</td><td>A fee on each vendor or freelancer booking paid through the app.</td></tr>
+    <tr><td class="id">Hiring commission <span class="tag">v6</span></td><td>When hiring payments go live with real money, after the ATP; shown but not charged on sandbox receipts in the ATP</td><td>A fee on each vendor or freelancer booking paid through the app, invoiced to the provider separately, because the money goes straight to the provider's own account and Tezera cannot deduct it (rate proposed, section 14).</td></tr>
     <tr><td class="id">Premium accounts</td><td>Later version</td><td>Paid accounts that give access to VIP or fast-sale tickets. Who buys them and what they include is still to be defined.</td></tr>
   </tbody>
 </table></div>
@@ -841,7 +886,8 @@
   <li>Consumers have smartphones with mobile data (and, for ticketing, can pay online).</li>
   <li>Everyone can like, comment on and share organiser posts, even though only organisers publish to the feed.</li>
   <li>Stall vendors are businesses; freelancers do not take stalls.</li>
-  <li>Hiring and stall fees are paid outside the app in the MVP, so disputes about them rely on the booking record as evidence.</li>
+  <li>Hiring and stall fees are paid outside the app in the MVP, so disputes about them rely on the booking record as evidence. <span class="tag">v6</span> Sandbox payments (HR-14, HR-18) only test the flow; no real money moves.</li>
+  <li><span class="tag">v6</span> Providers and organisers can get a PayHere sandbox account themselves; for real money, each would need a live merchant account (a business and a bank account; PayHere also accepts unregistered sellers with other evidence).</li>
   <li><span class="tag">v2</span> Organisers keep selling tickets through their current channels during the ATP, and can link to them from the event page (EV-01).</li>
   <li><span class="tag">v2</span> 'Going' marks are honest enough to unlock reviews, with moderation (RV-07) catching abuse.</li>
   <li><b>For ticketing:</b> organisers will accept the platform's QR and online tickets at the gate. The team notes that some Sri Lankan organisers already accept online and QR tickets.</li>
@@ -857,7 +903,8 @@
     <tr><td class="id">Verification checks</td><td>NIC and business registration</td><td>Manual admin review in the MVP.</td></tr>
     <tr><td class="id">SMS service <span class="tag">v3</span></td><td>One-time codes to verify phone numbers at sign-up (AC-01), and urgent alerts (MS-07)</td><td>Dialog e-SMS (Dialog Enterprise). Needs a business account and sender ID approval (proposed: confirm with Dialog).</td></tr>
     <tr><td class="id">Maps service</td><td>Not needed in the MVP</td><td>Only if Google Maps directions are added later.</td></tr>
-    <tr class="later"><td class="id">Payment gateway supporting LKR <span class="tag">v2</span></td><td>Ticket payments and refunds, after the ATP</td><td>Must offer a sandbox so testing can run without real money. Options that support LKR and have a sandbox: PayHere, Onepay, DirectPay, WEBXPAY and PAYable. PayHere also offers Flutter and React Native SDKs.</td></tr>
+    <tr><td class="id">Payment gateway supporting LKR <span class="tag">v2</span> <span class="tag">v6</span></td><td>Sandboxed hiring and stall payments in the ATP (HR-14, HR-17 to HR-20); ticket payments and refunds after it</td><td>PayHere sandbox (chosen), behind a provider interface (section 8). Other options that support LKR and have a sandbox: Onepay, DirectPay, WEBXPAY and PAYable; Genie Business gives sandbox access on request. PayHere also offers Flutter and React Native SDKs. Whether its SDK runs in Expo without a custom build is not checked.</td></tr>
+    <tr><td class="id">Amazon Bedrock <span class="tag">v6</span></td><td>AI first draft of a venue map (VM-22, Could)</td><td>Model access has to be switched on in the AWS account; billed per use. Claude availability in ap-south-1 not verified.</td></tr>
   </tbody>
 </table></div>
 
@@ -876,7 +923,10 @@
     <tr><td>Fake or revenge reviews. <span class="tag">v2</span></td><td class="p">Medium</td><td>Reviews only from completed bookings, confirmed stalls or 'Going' marks made before the event, a rank score that damps small samples, and admin moderation.</td></tr>
     <tr><td>'Going' is weak proof of attendance, so consumers can review events they never went to. <span class="tag">v2</span></td><td class="p">Medium</td><td>Count only 'Going' marks made before the event starts, allow one review per event, and moderate under RV-07. Checked-in tickets replace 'Going' when ticketing arrives.</td></tr>
     <tr><td>Storage and streaming costs for reels grow quickly.</td><td class="p">Medium</td><td>Upload limits, compression and a managed media service.</td></tr>
-    <tr><td>With hiring paid outside the app, the platform cannot enforce deals or earn hiring commission in the MVP.</td><td class="p">Medium</td><td>Keep the booking record as evidence, and move hiring payments into the app in a later phase if the group goes further.</td></tr>
+    <tr><td>With hiring paid outside the app, the platform cannot enforce deals or earn hiring commission in the MVP.</td><td class="p">Medium</td><td>Keep the booking record as evidence, and move hiring payments into the app in a later phase if the group goes further. <span class="tag">v6</span> The sandbox payments (HR-14, HR-17 to HR-20) prove the flow during the ATP.</td></tr>
+    <tr><td>Real money through the app could break Sri Lankan payment law: a platform that collects and pays on likely needs Central Bank registration as a money transfer service. Tax (5% withholding on freelancer fees over LKR 100,000 a month since June 2026, VAT and SSCL thresholds) and the PDPA also apply. <span class="tag">v6</span></td><td class="p">High</td><td>Sandbox only in the ATP, and every payment is labelled as a test. Money goes straight to each payee's own merchant account, so Tezera never holds it. Before real money, settle the section 14 questions with a lawyer and an accountant, and ask PayHere whether a platform may open checkouts on its users' accounts.</td></tr>
+    <tr><td>The map builder (snapping, scale, versions, PDF, grids, saved maps) is a lot of editor work on top of the interactive map. <span class="tag">v6</span></td><td class="p">Medium</td><td>Only the builder, scale and standard format (VM-16 to VM-18) are Must. Reuse ai-studio's code for stable IDs, stale-edit checks and versions. Spike SVG against react-konva before building.</td></tr>
+    <tr><td>The AI map draft gets zones or stalls wrong, especially on scanned or hand-drawn plans. <span class="tag">v6</span></td><td class="p">Low</td><td>It is a Could, it only ever makes a draft that the organiser must check, and drawing by hand always works.</td></tr>
     <tr><td>The interactive map (zones, stall listings, search by item) adds scope to a Must module, and drawing zones is fiddly on a phone. <span class="tag">v5</span></td><td class="p">Medium</td><td>Zones are plain rectangles; the web portal is the main editor; build VM-01 to VM-04 first, then zones and stall listings; stage line-ups and the filter stay Should.</td></tr>
   </tbody>
 </table></div>
@@ -911,6 +961,20 @@
   <li>Can organisers use the hiring marketplace for private events with no public event page, such as weddings?</li>
   <li><span class="tag">v2</span> Does the group confirm the recommended stack (section 8)? <span class="tag">v6</span> Now serverless on AWS Amplify with DynamoDB.</li>
   <li><span class="tag">v2</span> If the timeline slips, which core features move to Should first? Proposed candidates: reels, leaderboards, tier badges, forum voting and counter-offers.</li>
+  <li class="done"><span class="tag">v6</span> Should hiring and stall payments happen in the app during the ATP, and how? <i>Settled 15 October 2026: yes, on the PayHere sandbox only, with each payee's own merchant account so Tezera never holds money (HR-14, HR-17 to HR-20, Should). Ticketing stays out.</i></li>
+  <li><span class="tag">v6</span> The commission rate shown on sandbox receipts (HR-20).</li>
+  <li><span class="tag">v6</span> Does the group confirm the map builder priorities (VM-16 to VM-22) and the standard map format (section 8)?</li>
+</ul>
+<h4>Before taking real money <span class="tag">v6</span></h4>
+<p class="note">From the payments research in the <a href="../research/tezera-research-briefs.html#payments">research briefs</a>. These need a lawyer or accountant; none blocks the sandbox.</p>
+<ul class="qs">
+  <li>Does opening checkouts on each payee's own merchant account keep Tezera outside the Central Bank's money or value transfer service rules? The regulations list no exemption for agents.</li>
+  <li>Will PayHere, Genie Business or WEBXPAY let a platform open checkouts on its users' own accounts? PayHere lists multi-vendor platforms as unsupported.</li>
+  <li>Who withholds the 5% tax on freelancer fees, and who issues the invoice: the organiser or Tezera?</li>
+  <li>Which VAT registration threshold applies now (sources disagree), and when would Tezera have to register for VAT and SSCL?</li>
+  <li>The PDPA basis for keeping payment records in AWS Mumbai, and the duties that start on 1 January 2027, such as a data protection officer.</li>
+  <li>Do the Consumer Affairs Authority's e-commerce rules apply to bookings between organisers and providers, especially when the organiser is an individual?</li>
+  <li>Does the Central Bank's 2026 payments-law reform add a licence for payment aggregators?</li>
 </ul>
 <h4>For the ticketing phase <span class="tag">v2</span></h4>
 <ul class="qs">
@@ -920,7 +984,7 @@
   <li>Reserved seating: is setting up sections, rows and seats (TK-02) enough, or do some venues need a drawn seating plan?</li>
   <li>Commission rates, and whether the ticket fee is added for the buyer or taken from the organiser's revenue.</li>
   <li>How and when is ticket money paid out to organisers (before or after the event, and to which account), and who covers refunds?</li>
-  <li>Which payment gateway to use.</li>
+  <li>Which payment gateway to use. <span class="tag">v6</span> Hiring payments use PayHere behind an interface (section 8); ticketing can reuse it, with ticket money going straight to the organiser's own merchant account in the same way.</li>
   <li>Will testing run on the payment gateway's sandbox only, or take real payments in a live pilot?</li>
   <li>Can one consumer buy several tickets in one order and send them to friends' accounts, and what is the per-order limit?</li>
   <li>Premium accounts: who buys them, and what do "VIP or fast-sale tickets" include?</li>
@@ -953,13 +1017,27 @@
   <li>The Leveraged Years: PDPA commencement order, 3 August 2026</li>
   <li><a href="https://concentric.ai/sri-lankas-pdpa-takes-effect-january-1-2027-what-global-enterprises-need-to-know/">Concentric: Sri Lanka's PDPA takes effect 1 January 2027</a>, 20 August 2026</li>
 </ul>
-<h4>Payment gateways (for the ticketing phase)</h4>
+<h4>Payment gateways <span class="tag">v6</span></h4>
 <ul class="sources">
   <li><a href="https://support.payhere.lk/sandbox-and-testing">PayHere sandbox and testing</a> and <a href="https://support.payhere.lk/api-&amp;-mobile-sdk/checkout-api">PayHere checkout API and SDKs</a></li>
+  <li><a href="https://support.payhere.lk/application-process">PayHere application process</a> and <a href="https://support.payhere.lk/general-questions">PayHere general questions</a> (unsupported business models, 15 October 2026)</li>
+  <li><a href="https://stripe.com/global">Stripe global availability</a> and <a href="https://docs.stripe.com/connect/cross-border-payouts">Stripe Connect cross-border payouts</a></li>
   <li><a href="https://docs.onepay.lk/api-documentation">Onepay API documentation</a></li>
   <li><a href="https://www.directpay.lk/faq">DirectPay FAQ</a></li>
   <li><a href="https://developers.webxpay.com/Guides/Redirect-Integration/redirect.html">WEBXPAY redirect integration</a></li>
   <li><a href="https://github.com/payable/ipg-merchant-apis">PAYable IPG merchant APIs</a></li>
+</ul>
+<h4>Payments law and tax <span class="tag">v6</span></h4>
+<p class="note">Checked on 15 October 2026 by a research agent. This is not legal advice. The full brief, with every source and what could not be verified, is in the <a href="../research/tezera-research-briefs.html#payments">research briefs</a>.</p>
+<ul class="sources">
+  <li><a href="https://www.cbsl.gov.lk/sites/default/files/cbslweb_documents/laws/cdg/psd_reg_2024__1_e.pdf">CBSL Money or Value Transfer Service Regulations No. 1 of 2024</a> and <a href="https://www.cbsl.gov.lk/sites/default/files/cbslweb_documents/laws/cdg/psd_reg_2025__1_e.pdf">amendment, Regulations No. 1 of 2025</a></li>
+  <li><a href="https://www.cbsl.gov.lk/en/financial-system/financial-infrastructure/payments-and-settlements-systems">CBSL payments and settlements systems</a></li>
+  <li><a href="https://regfollower.com/sri-lanka-unveils-major-tax-law-changes-covering-income-wht-registration/">RegFollower: 2026 withholding tax changes</a> and <a href="https://taxable.lk/blog/sscl-amendment-2026-sri-lanka">Taxable.lk: SSCL amendment 2026</a></li>
+  <li><a href="https://blog.pcisecuritystandards.org/faq-clarifies-new-saq-a-eligibility-criteria-for-e-commerce-merchants">PCI Security Standards Council: SAQ A eligibility</a></li>
+</ul>
+<h4>Map builder <span class="tag">v6</span></h4>
+<ul class="sources">
+  <li><a href="https://github.com/EnderGuardian25/ai-studio">ai-studio</a> (branch <code>v2</code>), the team's own repository. Its code may be reused.</li>
 </ul>
 <h4>Organisers</h4>
 <ul class="sources">

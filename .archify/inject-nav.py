@@ -37,6 +37,7 @@ NAV = """<nav id="tezera-docnav" aria-label="Tezera documents">
       <a href="../research/tezera-personas.html">Personas</a>
       <a href="../research/tezera-user-stories.html">User stories</a>
       <a href="../research/tezera-work-items.html">Work items</a>
+      <a href="../research/tezera-research-briefs.html">Research briefs</a>
       <a href="../brand/tezera-brand-manual.html">Brand manual</a>
     </div>
   </nav>

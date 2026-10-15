@@ -614,7 +614,8 @@
       <p class="who">For organisers, vendors and freelancers</p>
       <ul>
         <li>Booking requests with a structured brief, or job posts answered with quotes</li>
-        <li>Stall slots filled by invitation or open application</li>
+        <li>Stall slots by invitation or application</li>
+        <li>In-app deposits and stall fees, test mode</li>
         <li>Verified-only reviews, rank scores, badges and leaderboards</li>
       </ul>
     </div>
@@ -631,15 +632,15 @@
       <h3>Venue maps</h3>
       <p class="who">For organisers and attendees</p>
       <ul>
-        <li>Organisers pin the floor plan and draw zones, such as ‘Food court’</li>
-        <li>Attendees tap a zone to see its stalls, and a stall to see items and prices</li>
-        <li>Search the map by item, such as ‘kottu’, or jump to a stall from the vendor list</li>
-        <li>Stage pins show who performs when</li>
+        <li>Organisers build the map from a floor plan image or PDF, a blank grid or a saved map</li>
+        <li>Zones and stalls snap into place, to scale, saved in one standard format</li>
+        <li>Optional: an AI-drafted first version</li>
+        <li>Attendees tap a zone or stall for items and prices, or search by item, such as ‘kottu’</li>
       </ul>
     </div>
     <div class="mod later">
       <h3>Ticketing and entry</h3>
-      <p>Ticket tiers, reserved seats, free RSVPs and QR entry at the gate are out of scope for the ATP. They are the first item beyond the ATP (page 8).</p>
+      <p>Ticket tiers, seats, RSVPs and QR entry come first after the ATP (page 8).</p>
     </div>
   </div>
 
@@ -689,7 +690,7 @@
         <text x="490" y="52">Organiser posts a job</text>
         <text x="490" y="124">Providers apply with quotes</text>
         <text x="490" y="206">Organiser accepts a quote</text>
-        <text x="330" y="358">Event happens, paid outside the app</text>
+        <text x="330" y="358">Event happens, paid in test mode</text>
         <text x="330" y="412">Marked complete: reviews unlock</text>
       </g>
       <text x="330" y="287" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="14" font-weight="500" fill="#fff">Confirmed booking</text>
@@ -713,15 +714,19 @@
     </svg>
   </div>
 
-  <div class="block" style="margin-top: 8mm;">
+  <div class="block" style="margin-top: 6mm;">
     <h2>Filling stalls and publishing the venue map</h2>
     <div class="steps" style="grid-template-columns: repeat(5, 1fr);">
       <div class="s"><b>Open stall slots</b><span>Or invite a vendor directly, with the stall type and fee.</span></div>
       <div class="s"><b>Vendor applies</b><span>Or accepts the invitation from the organiser.</span></div>
-      <div class="s"><b>Organiser approves</b><span>And each approved vendor gets a stall number.</span></div>
-      <div class="s"><b>On the map</b><span>The stall goes in its zone, with the vendor’s items and prices.</span></div>
+      <div class="s"><b>Organiser approves</b><span>Vendor pays the stall fee in-app and gets a stall number.</span></div>
+      <div class="s"><b>On the map</b><span>Placed in its zone in the map builder, with items and prices.</span></div>
       <div class="s hl"><b>Attendees find it</b><span>By tapping a zone, searching by item or from the vendor list.</span></div>
     </div>
+  </div>
+
+  <div class="mod" style="margin-top: 5mm; padding: 4mm 6mm;">
+    <p style="font-size: 9pt; color: var(--ink-2);"><b style="color: var(--ink);">Payments in test mode.</b> Organisers pay deposits and instalments, vendors pay stall fees, and cancellation fees and refunds are handled, all in PayHere’s sandbox (no real money). Each payee connects their own merchant account, so Tezera never holds money. Real payments follow the ATP, once the legal steps are done.</p>
   </div>
 
 </section>
@@ -836,9 +841,10 @@
           <li>Accounts and verification</li>
           <li>Events and promotion feed</li>
           <li>Hiring marketplace and stalls</li>
+          <li>Test-mode payments</li>
           <li>Reviews and ranking</li>
           <li>Community and chat</li>
-          <li>Venue maps</li>
+          <li>Venue maps and map builder</li>
           <li>Admin and moderation</li>
           <li>Sinhala and Tamil, if time allows</li>
         </ul>
@@ -866,17 +872,16 @@
         <li>Ticket tiers and reserved seats</li>
         <li>Free RSVP events</li>
         <li>QR tickets and gate scanning</li>
-        <li>Refunds and cancellations</li>
+        <li>Ticket refunds and cancellations</li>
         <li>Attendee reviews of events</li>
       </ul>
     </div>
     <div>
       <p class="when">After that</p>
-      <h3>Payments in the app</h3>
+      <h3>Real-money payments</h3>
       <ul>
-        <li>Hiring payments and deposits</li>
-        <li>Stall fees paid in the app</li>
-        <li>Ticket and hiring commission</li>
+        <li>Live deposits and stall fees, once the legal steps are done</li>
+        <li>Hiring and ticket commission</li>
         <li>Google Maps directions to venues</li>
       </ul>
     </div>
