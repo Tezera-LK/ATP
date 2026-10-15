@@ -17,8 +17,8 @@ Docs diverge → also update README "How the proposal and the PRD differ".
 ## Files
 | File | Edit how |
 |---|---|
-| `prd/tezera-prd.html` | PRD v3, hand-edited HTML. Priority pill `<span class="pri must|should|could|later">`. Changed row → `<span class="tag">vN</span>` + line in "What changed" box. Open question settled → `<li class="done">` + where settled. Section 8 = tech approach; section 14 = open questions. |
-| `prd/tezera-architecture.html` | GENERATED. No hand-edit. Edit `.archify/architecture-tezera-sse-20261008-132233/candidate.json` (older dirs = history), run archify `finalize` (skill `/archify`), copy output HTML to `prd/tezera-architecture.html`, then run `python3 .archify/inject-nav.py` (re-adds doc navbar). |
+| `prd/tezera-prd.html` | PRD v6, hand-edited HTML. Priority pill `<span class="pri must|should|could|later">`. Changed row → `<span class="tag">vN</span>` + line in "What changed" box. Open question settled → `<li class="done">` + where settled. Section 8 = tech approach; section 14 = open questions. |
+| `prd/tezera-architecture.html` | GENERATED. No hand-edit. Edit `.archify/architecture-tezera-amplify-20261015-142128/candidate.json` (older dirs = history), run archify `finalize` (skill `/archify`), copy output HTML to `prd/tezera-architecture.html`, then run `.archify/inject-nav.py` with Python (re-adds doc navbar). |
 | `proposal/tezera-proposal.html` | Proposal source, 8 fixed A4 pages. After edit → regen PDF (below), confirm 8 pages. |
 | `Tezera Proposal.pdf` | GENERATED from proposal HTML. |
 | `research/tezera-survey-analysis.html`, `research/tezera-user-stories.html` | Hand-edited HTML, generated from the 3 survey CSVs (not in repo; contain emails). Stories = title + Given/When/Then scenarios (`<div class="gwt">`), no "As a" line. |
@@ -47,7 +47,7 @@ Check pages: `pdftotext "Tezera Proposal.pdf" - | grep -c $'\f'` → 8. No pdfto
 - Attendee reviews unlock from 'Going' mark made before event start.
 - No 3D venue view (removed 15 Oct 2026, PRD v5; VM-05/06/07 IDs not reused). Interactive 2D map instead: zones as boxes, stall list + items/prices, search by item, find on map = Must (VM-08–12); stage line-up, stall-type filter = Should (VM-13/14); offline mobile = Could (VM-15).
 - Survey recs R1–R12 all accepted 15 Oct 2026 (PRD v5). Accounts 16+ (proposed), parent/guardian tick under 18; events carry age rating, gate checks ID.
-- Stack (recommended, team confirm): TypeScript monorepo; React Native + Expo; Next.js (+ admin panel) on Vercel; NestJS modular monolith REST + SSE (no WebSockets); PostgreSQL (Neon) + Prisma; Redis (Upstash) + BullMQ worker; Cloudinary; Expo Push, Resend, Dialog e-SMS (OTP + urgent alerts). Web portal for all roles incl. consumers. Free tiers.
+- Stack (15 Oct 2026, PRD v6; team confirm): serverless on AWS Amplify Gen 2, ap-south-1 (Mumbai). TypeScript monorepo (app + portal + `amplify/` backend); React Native + Expo + Amplify JS libs; Next.js (+ admin panel) on Amplify Hosting; Amplify Data = AppSync GraphQL + subscriptions (no REST/SSE); DynamoDB + GSIs (no PostgreSQL); Lambda via SQS (+DLQ), DynamoDB Streams, EventBridge Scheduler (no Redis/BullMQ); Cognito, group per role, custom SMS sender Lambda → Dialog e-SMS; Amplify Storage S3 + CloudFront (no Cloudinary); Expo Push, Amazon SES, Dialog e-SMS (OTP + urgent alerts). No Pinpoint (EOL 30 Oct 2026). Web portal for all roles incl. consumers. Search = GSIs + prefix, Algolia/Typesense later.
 
 ## Writing rules
 - British spelling (organiser, colour, licence). LKR prices.
@@ -57,6 +57,6 @@ Check pages: `pdftotext "Tezera Proposal.pdf" - | grep -c $'\f'` → 8. No pdfto
 - Scope/name change → update ALL: PRD, proposal (+PDF), README, diagram, research notes, SDG notes, HANDOFF.
 
 ## Environment gotchas
-- Windows; Git Bash + PowerShell. Python 3.14 (`python3`). Only `pdftotext` from poppler (no pdftoppm) → read PDFs as text; render HTML via headless Chrome screenshots.
+- Windows; Git Bash + PowerShell. Python 3.14: in Git Bash `python3` may hit the Microsoft Store stub; use `"/c/Users/DDC IIT/AppData/Local/Python/bin/python3.14"`. Only `pdftotext` from poppler (no pdftoppm) → read PDFs as text; render HTML via headless Chrome screenshots.
 - Some .md files CRLF → normalise line endings in scripted replacements or matches fail.
 - NEVER commit or push. User does all git (commit, push, branches, PRs). Leave changes uncommitted; list changed files at end.

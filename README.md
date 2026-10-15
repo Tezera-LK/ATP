@@ -9,8 +9,8 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 | Document | What it is | Read it when |
 | --- | --- | --- |
 | [Tezera Proposal.pdf](Tezera%20Proposal.pdf) | The 8-page project proposal: the problem, who is involved, the four modules, key workflows, the competitor comparison, SDG alignment and the roadmap for the Agile Team Project (ATP) | You want the plan at a glance |
-| [prd/tezera-prd.html](prd/tezera-prd.html) | The full product requirements document (version 5): roles, requirement tables with MoSCoW priorities, non-functional requirements, technical approach, business model, success metrics, risks and open questions. Edit this HTML file directly; print it to get a PDF | You need the detail behind a feature or decision |
-| [prd/tezera-architecture.html](prd/tezera-architecture.html) | The system architecture diagram (interactive, works offline), including how the interactive venue map is built | You want to see how the apps, backend and services fit together |
+| [prd/tezera-prd.html](prd/tezera-prd.html) | The full product requirements document (version 6): roles, requirement tables with MoSCoW priorities, non-functional requirements, technical approach, business model, success metrics, risks and open questions. Edit this HTML file directly; print it to get a PDF | You need the detail behind a feature or decision |
+| [prd/tezera-architecture.html](prd/tezera-architecture.html) | The system architecture diagram (interactive, works offline), serverless on AWS Amplify, with the reasons for each service and its alternatives | You want to see how the apps, backend and services fit together |
 | [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) | Analysis of the discovery surveys of attendees, organisers, and vendors and freelancers (4–8 October 2026), with the twelve recommended PRD changes (R1–R12), all accepted on 15 October 2026 | You want to know what the market research found |
 | [research/tezera-personas.html](research/tezera-personas.html) | Eight user personas (two consumers, two organisers, three vendors and freelancers, one admin) built from the survey segments, each with evidence, quotes and the user stories written for them | You are designing a flow and need to know who it is for |
 | [research/tezera-user-stories.html](research/tezera-user-stories.html) | User stories for each role as Given / When / Then scenarios, drawn from the survey evidence and mapped to PRD requirement IDs | You are planning the backlog or a sprint |
@@ -24,7 +24,7 @@ Supporting files:
 - [PRD Research.md](PRD%20Research.md) — the research behind the PRD, the group's answers that shaped it, and 53 sources with how reliable each one is.
 - [SDG Alignment.md](SDG%20Alignment.md) — the notes behind the proposal's SDG page.
 - [CLAUDE.md](CLAUDE.md) — working rules for Claude Code in this repository.
-- `.archify/architecture-revamp-3d-20261006-115638/candidate.json` — the editable source of the architecture diagram.
+- `.archify/architecture-tezera-amplify-20261015-142128/candidate.json` — the editable source of the architecture diagram (older `.archify` folders are history).
 
 ## The proposal, page by page
 
@@ -48,7 +48,7 @@ Supporting files:
 5. Competitive landscape
 6. Functional requirements, in ten modules: accounts, events, ticketing (after the ATP), hiring, reviews, venue maps (an interactive 2D map with zones and stall listings), community, messaging, organiser dashboard, administration
 7. Non-functional requirements, including Sri Lanka's Personal Data Protection Act
-8. Technical approach: the recommended stack, the data design, and how the interactive venue map is built
+8. Technical approach: the recommended stack (serverless on AWS Amplify), the data design on DynamoDB, and how the interactive venue map is built
 9. MVP scope and priorities
 10. Business model
 11. Success metrics
@@ -56,7 +56,7 @@ Supporting files:
 13. Risks and mitigations
 14. Open questions
 
-The PRD also lists what changed in each version (2 to 5) and ends with a Sources list.
+The PRD also lists what changed in each version (2 to 6) and ends with a Sources list.
 
 ## Roadmap
 
@@ -110,6 +110,8 @@ The name, ticketing, revenue, discovery and the pilot now match.
 ├── Tezera Proposal.pdf
 ├── proposal/
 │   └── tezera-proposal.html
+├── brand/
+│   └── tezera-brand-manual.html
 ├── prd/
 │   ├── tezera-prd.html
 │   └── tezera-architecture.html
@@ -122,5 +124,6 @@ The name, ticketing, revenue, discovery and the pilot now match.
 ├── PRD Research.md
 ├── SDG Alignment.md
 └── .archify/
-    └── architecture-revamp-3d-20261006-115638/   (diagram source and check receipts)
+    ├── inject-nav.py   (adds the document navbar to the generated diagram)
+    └── architecture-tezera-amplify-20261015-142128/   (current diagram source; older folders are history)
 ```
