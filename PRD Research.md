@@ -408,6 +408,17 @@ So the group does not present any of these as researched facts:
 - Group decision: the product is renamed Tezera (written "tezera" as a wordmark). The REVAMP acronym and the "Transform + Amplify" tagline are dropped.
 - Discovery surveys ran from 4 to 8 October 2026: 26 attendees, 7 organisers, and 13 vendors and freelancers. The analysis is in [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) and the user stories in [research/tezera-user-stories.html](research/tezera-user-stories.html). The raw responses are not kept in the repository because they contain email addresses.
 
+**Added in PRD version 5 (15 October 2026):**
+
+- Decided by Damian, after questions on each recommendation: all twelve survey recommendations (R1–R12 in [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html), section 7) are accepted, with the priorities in that table's Decision column. Their evidence is the survey; the 7-day late-cancellation window and the minimum age of 16 are proposed, not researched.
+- Decided by Damian, not from research: the 3D venue view is removed, and an interactive 2D venue map replaces it (zones drawn as boxes, stall lists with items and prices, search by item, 'Find on map', stage line-ups, stall-type filter; VM-08 to VM-14). The survey's evidence that attendees could not find parking, seating and registration (R7) supports it, but the design itself was not tested with users.
+- Not checked: whether Sri Lanka's PDPA requires a parent's consent for 16- and 17-year-olds, and in what form. The parent or guardian tick in AC-01 is proposed until someone reads the Act.
+
+**Added in PRD version 6 (15 October 2026):**
+
+- Decided by Damian, not from research: the backend moves to serverless AWS Amplify Gen 2 (AppSync GraphQL, DynamoDB, Lambda with SQS, Streams and EventBridge Scheduler, Cognito, S3 and CloudFront, SES), with Expo Push and Dialog e-SMS kept. The service choices within it are Claude's recommendations from general knowledge, chosen through questions.
+- Not looked up this session: AWS free-tier terms for new accounts (changed in July 2025, from memory), Amazon Pinpoint's end of support on 30 October 2026 (from memory), SES sandbox rules, and whether the PDPA restricts storing Sri Lankan users' data in Mumbai. Check each before the pilot.
+
 **Hypotheses, not findings:** the problem statement in PRD section 1. It needs validating with interviews and surveys of organisers, vendors, freelancers and consumers.
 
 **Not part of this work:** `SDG Alignment.md` was not written or researched in this chat. Check its SDG targets against the official UN SDG targets before you submit it.

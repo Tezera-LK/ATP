@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="archify 3.0.1">
   <meta name="archify-reader-contract" content="declared-wide-v1">
-  <title>tezera Platform Architecture (ATP release, no ticketing) Diagram</title>
+  <title>tezera Platform Architecture (ATP release, serverless on AWS Amplify) Diagram</title>
   <script>
     // Resolve the theme before first paint so light-preference users don't
     // see a dark flash. The toolbar script below re-applies with UI state.
@@ -4868,7 +4868,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   </style>
-    <style id="tezera-docnav-style">
+  <style id="tezera-docnav-style">
     #tezera-docnav { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; min-height: 2.75rem; margin: 0 0 1.25rem; padding-right: 26rem; }
     #tezera-docnav .wordmark { font-family: "Bricolage Grotesque", Georgia, serif; font-weight: 600; font-size: 24px; letter-spacing: -.02em; color: var(--text); text-decoration: none; display: inline-flex; align-items: center; }
     #tezera-docnav .wordmark .dot { width: 11px; height: 11px; border-radius: 50%; background: #E3A21A; box-shadow: 13px 0 0 #1F6F78; margin-right: 24px; }
@@ -4895,7 +4895,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       <a href="../brand/tezera-brand-manual.html">Brand manual</a>
     </div>
   </nav>
-    <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
+  <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
        Motion appears only for trace-enabled artifacts and has no shortcut;
        Keyboard: T toggles theme, S cycles style, F toggles the stage, E opens export. -->
   <div class="toolbar" role="toolbar" aria-label="Diagram actions">
@@ -5003,7 +5003,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
            data-preset-badge-blueprint="BLUEPRINT / REV 01"
            data-preset-badge-editorial="EDITORIAL / FIELD NOTE">
         <div class="pulse-dot"></div>
-        <h1>tezera Platform Architecture (ATP release, no ticketing)</h1>
+        <h1>tezera Platform Architecture (ATP release, serverless on AWS Amplify)</h1>
       </div>
       <p class="subtitle">Mobile app and web portal for organisers, providers and consumers</p>
     </div>
@@ -5013,8 +5013,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / PLATE 04">
-      <svg viewBox="0 0 1680 728" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" data-reader-primary-text="14">
-        <title id="archify-diagram-title">tezera Platform Architecture (ATP release, no ticketing)</title>
+      <svg viewBox="0 0 1720 808" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" data-reader-primary-text="14">
+        <title id="archify-diagram-title">tezera Platform Architecture (ATP release, serverless on AWS Amplify)</title>
         <desc id="archify-diagram-description">Mobile app and web portal for organisers, providers and consumers</desc>
         <!-- Definitions -->
         <defs>
@@ -5039,7 +5039,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         <!-- Boundaries (behind everything) -->
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="Backend · TypeScript on free tiers (Render, Neon, Upstash)" x="810" y="225" width="560" height="355" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless" x="570" y="30" width="840" height="710" rx="12" class="c-region" stroke-width="1"/>
 
         <!-- Connection paths (before components for correct z-order) -->
         <g data-graph-role="automatic-crossover" style="--step:0">
@@ -5051,8 +5051,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <path data-edge-from="attendee" data-edge-to="web" data-edge-label="same features" data-edge-key="1" data-edge-id="attendee-web" data-composition-points="190,167;214,167;214,443;330,443" data-composition-crossover="halo" data-composition-independent="true" d="M 190 167 L 206 167 Q 214 167 214 175 L 214 435 Q 214 443 222 443 L 330 443" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:2">
-          <path data-graph-role="automatic-crossover-underlay" d="M 115 420 L 115 201 Q 115 193 123 193 L 298 193 Q 306 193 306 185 L 306 175 Q 306 167 314 167 L 330 167" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="org-prov" data-edge-to="mobile" data-edge-label="on the go" data-edge-key="2" data-edge-id="orgprov-mobile" data-composition-points="115,420;115,193;306,193;306,167;330,167" data-composition-crossover="halo" data-composition-independent="true" d="M 115 420 L 115 201 Q 115 193 123 193 L 298 193 Q 306 193 306 185 L 306 175 Q 306 167 314 167 L 330 167" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 115 420 L 115 251.525 Q 115 243.525 123 243.525 L 298 243.525 Q 306 243.525 306 235.525 L 306 175 Q 306 167 314 167 L 330 167" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="org-prov" data-edge-to="mobile" data-edge-label="on the go" data-edge-key="2" data-edge-id="orgprov-mobile" data-composition-points="115,420;115,243.525;306,243.525;306,167;330,167" data-composition-crossover="halo" data-composition-independent="true" d="M 115 420 L 115 251.525 Q 115 243.525 123 243.525 L 298 243.525 Q 306 243.525 306 235.525 L 306 175 Q 306 167 314 167 L 330 167" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:3">
           <path data-graph-role="automatic-crossover-underlay" d="M 190 457 L 206 457 Q 214 457 214 465 L 214 466.05 Q 214 474.05 222 474.05 L 298 474.05 Q 306 474.05 306 466.05 L 306 466.05 Q 306 458.05 314 458.05 L 330 458.05" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
@@ -5063,60 +5063,60 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <path data-edge-from="admin" data-edge-to="web" data-edge-label="verify, moderate" data-edge-key="4" data-edge-id="admin-web" data-composition-points="405,600;405,490" data-composition-crossover="halo" data-composition-independent="true" d="M 405 600 L 405 490" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:5">
-          <path data-graph-role="automatic-crossover-underlay" d="M 415 200 L 415 270" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="mobile" data-edge-to="viewer" data-edge-label="WebView" data-edge-key="5" data-edge-id="mobile-viewer" data-composition-points="415,200;415,270" data-composition-crossover="halo" data-composition-independent="true" d="M 415 200 L 415 270" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 500 153 L 872.8499999999999 153 Q 880.8499999999999 153 880.8499999999999 161 L 880.8499999999999 223 Q 880.8499999999999 231 888.8499999999999 231 L 970 231 Q 978 231 978 239 L 978 255" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="mobile" data-edge-to="api" data-edge-label="GraphQL + live updates" data-edge-key="5" data-edge-id="mobile-api" data-composition-points="500,153;880.8499999999999,153;880.8499999999999,231;978,231;978,255" data-composition-crossover="halo" data-composition-independent="true" d="M 500 153 L 872.8499999999999 153 Q 880.8499999999999 153 880.8499999999999 161 L 880.8499999999999 223 Q 880.8499999999999 231 888.8499999999999 231 L 970 231 Q 978 231 978 239 L 978 255" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:6">
-          <path data-graph-role="automatic-crossover-underlay" d="M 415 410 L 415 340" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="web" data-edge-to="viewer" data-edge-label="loads on tap" data-edge-key="6" data-edge-id="web-viewer" data-composition-points="415,410;415,340" data-composition-crossover="halo" data-composition-independent="true" d="M 415 410 L 415 340" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 500 443 L 858 443 Q 866 443 866 435 L 866 308 Q 866 300 874 300 L 890 300" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="web" data-edge-to="api" data-edge-label="GraphQL + live updates" data-edge-key="6" data-edge-id="web-api" data-composition-points="500,443;866,443;866,300;890,300" data-composition-crossover="halo" data-composition-independent="true" d="M 500 443 L 858 443 Q 866 443 866 435 L 866 308 Q 866 300 874 300 L 890 300" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:7">
-          <path data-graph-role="automatic-crossover-underlay" d="M 500 153 L 927 153 Q 935 153 935 161 L 935 255" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="mobile" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="7" data-edge-id="mobile-api" data-composition-points="500,153;935,153;935,255" data-composition-crossover="halo" data-composition-independent="true" d="M 500 153 L 927 153 Q 935 153 935 161 L 935 255" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 500 168.05 L 542 168.05 Q 550 168.05 550 176.05 L 550 287 Q 550 295 558 295 L 600 295" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="mobile" data-edge-to="media" data-edge-label="upload, CDN" data-edge-key="7" data-edge-id="mobile-media" data-composition-points="500,168.05;550,168.05;550,295;600,295" data-composition-crossover="halo" data-composition-independent="true" d="M 500 168.05 L 542 168.05 Q 550 168.05 550 176.05 L 550 287 Q 550 295 558 295 L 600 295" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:8">
-          <path data-graph-role="automatic-crossover-underlay" d="M 500 443 L 794 443 Q 802 443 802 435 L 802 315 Q 802 307 810 307 L 840 307" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="8" data-edge-id="web-api" data-composition-points="500,443;802,443;802,307;840,307" data-composition-crossover="halo" data-composition-independent="true" d="M 500 443 L 794 443 Q 802 443 802 435 L 802 315 Q 802 307 810 307 L 840 307" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 415 410 L 415 394 Q 415 386 423 386 L 568 386 Q 576 386 576 378 L 576 317 Q 576 309 584 309 L 600 309" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="web" data-edge-to="media" data-edge-label="upload, CDN" data-edge-key="8" data-edge-id="web-media" data-composition-points="415,410;415,386;576,386;576,309;600,309" data-composition-crossover="halo" data-composition-independent="true" d="M 415 410 L 415 394 Q 415 386 423 386 L 568 386 Q 576 386 576 378 L 576 317 Q 576 309 584 309 L 600 309" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:9">
-          <path data-graph-role="automatic-crossover-underlay" d="M 500 168.05 L 527 168.05 Q 535 168.05 535 176.05 L 535 287 Q 535 295 543 295 L 570 295" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="mobile" data-edge-to="media" data-edge-label="media CDN" data-edge-key="9" data-edge-id="mobile-media" data-composition-points="500,168.05;535,168.05;535,295;570,295" data-composition-crossover="halo" data-composition-independent="true" d="M 500 168.05 L 527 168.05 Q 535 168.05 535 176.05 L 535 287 Q 535 295 543 295 L 570 295" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 993.05 255 L 993.05 140" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="api" data-edge-to="auth" data-edge-label="check sign-in, role" data-edge-key="9" data-edge-id="api-auth" data-composition-points="993.05,255;993.05,140" data-composition-crossover="halo" data-composition-independent="true" d="M 993.05 255 L 993.05 140" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:10">
-          <path data-graph-role="automatic-crossover-underlay" d="M 500 458.05 L 527 458.05 Q 535 458.05 535 450.05 L 535 317 Q 535 309 543 309 L 570 309" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="web" data-edge-to="media" data-edge-label="media CDN" data-edge-key="10" data-edge-id="web-media" data-composition-points="500,458.05;535,458.05;535,309;570,309" data-composition-crossover="halo" data-composition-independent="true" d="M 500 458.05 L 527 458.05 Q 535 458.05 535 450.05 L 535 317 Q 535 309 543 309 L 570 309" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1080 100 L 1478 100 Q 1486 100 1486 108 L 1486 305 Q 1486 313 1494 313 L 1510 313" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="auth" data-edge-to="sms" data-edge-label="OTP (custom sender)" data-edge-key="10" data-edge-id="auth-sms" data-composition-points="1080,100;1486,100;1486,313;1510,313" data-composition-crossover="halo" data-composition-independent="true" d="M 1080 100 L 1478 100 Q 1486 100 1486 108 L 1486 305 Q 1486 313 1494 313 L 1510 313" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:11">
-          <path data-graph-role="automatic-crossover-underlay" d="M 840 291.95 L 760 291.95" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="api" data-edge-to="media" data-edge-label="signed uploads" data-edge-key="11" data-edge-id="api-media" data-composition-points="840,291.95;760,291.95" data-composition-crossover="halo" data-composition-independent="true" d="M 840 291.95 L 760 291.95" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1080 300 L 1200 300" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="api" data-edge-to="db" data-edge-label="resolvers" data-edge-key="11" data-edge-id="api-db" data-composition-points="1080,300;1200,300" data-composition-crossover="halo" data-composition-independent="true" d="M 1080 300 L 1200 300" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:12">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1030 300 L 1160 300" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="api" data-edge-to="db" data-edge-label="SQL via Prisma" data-edge-key="12" data-edge-id="api-db" data-composition-points="1030,300;1160,300" data-composition-crossover="halo" data-composition-independent="true" d="M 1030 300 L 1160 300" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 985 345 L 985 470" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="api" data-edge-to="queue" data-edge-label="enqueue jobs" data-edge-key="12" data-edge-id="api-queue" data-composition-points="985,345;985,470" data-composition-crossover="halo" data-composition-independent="true" d="M 985 345 L 985 470" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:13">
-          <path data-graph-role="automatic-crossover-underlay" d="M 935 345 L 935 480" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="api" data-edge-to="redis" data-edge-label="jobs, top-N, counters" data-edge-key="13" data-edge-id="api-redis" data-composition-points="935,345;935,480" data-composition-crossover="halo" data-composition-independent="true" d="M 935 345 L 935 480" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1080 510 L 1200 510" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="queue" data-edge-to="worker" data-edge-label="triggers" data-edge-key="13" data-edge-id="queue-worker" data-composition-points="1080,510;1200,510" data-composition-crossover="halo" data-composition-independent="true" d="M 1080 510 L 1200 510" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:14">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1030 520 L 1160 520" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="redis" data-edge-to="worker" data-edge-label="BullMQ jobs" data-edge-key="14" data-edge-id="redis-worker" data-composition-points="1030,520;1160,520" data-composition-crossover="halo" data-composition-independent="true" d="M 1030 520 L 1160 520" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1290 342 L 1290 470" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="db" data-edge-to="worker" data-edge-label="Streams: rerank" data-edge-key="14" data-edge-id="db-worker" data-composition-points="1290,342;1290,470" data-composition-crossover="halo" data-composition-independent="true" d="M 1290 342 L 1290 470" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:15">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1250 480 L 1250 342" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="db" data-edge-label="rerank, refresh boards" data-edge-key="15" data-edge-id="worker-db" data-composition-points="1250,480;1250,342" data-composition-crossover="halo" data-composition-independent="true" d="M 1250 480 L 1250 342" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1290 650 L 1290 550" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="scheduler" data-edge-to="worker" data-edge-label="review windows, boards" data-edge-key="15" data-edge-id="scheduler-worker" data-composition-points="1290,650;1290,550" data-composition-crossover="halo" data-composition-independent="true" d="M 1290 650 L 1290 550" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:16">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1340 506 L 1356 506 Q 1364 506 1364 498 L 1364 418 Q 1364 410 1372 410 L 1470 410" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="push" data-edge-label="push" data-edge-key="16" data-edge-id="worker-push" data-composition-points="1340,506;1364,506;1364,410;1470,410" data-composition-crossover="halo" data-composition-independent="true" d="M 1340 506 L 1356 506 Q 1364 506 1364 498 L 1364 418 Q 1364 410 1372 410 L 1470 410" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1380 510 L 1510 510" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="worker" data-edge-to="push" data-edge-label="push" data-edge-key="16" data-edge-id="worker-push" data-composition-points="1380,510;1510,510" data-composition-crossover="halo" data-composition-independent="true" d="M 1380 510 L 1510 510" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:17">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1340 520 L 1470 520" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="email" data-edge-label="email" data-edge-key="17" data-edge-id="worker-email" data-composition-points="1340,520;1470,520" data-composition-crossover="halo" data-composition-independent="true" d="M 1340 520 L 1470 520" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1380 524 L 1437 524 Q 1445 524 1445 532 L 1445 642 Q 1445 650 1453 650 L 1510 650" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="worker" data-edge-to="email" data-edge-label="email" data-edge-key="17" data-edge-id="worker-email" data-composition-points="1380,524;1445,524;1445,650;1510,650" data-composition-crossover="halo" data-composition-independent="true" d="M 1380 524 L 1437 524 Q 1445 524 1445 532 L 1445 642 Q 1445 650 1453 650 L 1510 650" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:18">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1340 534 L 1397 534 Q 1405 534 1405 542 L 1405 622 Q 1405 630 1413 630 L 1470 630" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="worker" data-edge-to="sms" data-edge-label="OTP, urgent alerts" data-edge-key="18" data-edge-id="worker-sms" data-composition-points="1340,534;1405,534;1405,630;1470,630" data-composition-crossover="halo" data-composition-independent="true" d="M 1340 534 L 1397 534 Q 1405 534 1405 542 L 1405 622 Q 1405 630 1413 630 L 1470 630" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1380 496 L 1396 496 Q 1404 496 1404 488 L 1404 335 Q 1404 327 1412 327 L 1510 327" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="worker" data-edge-to="sms" data-edge-label="urgent alerts" data-edge-key="18" data-edge-id="worker-sms" data-composition-points="1380,496;1404,496;1404,327;1510,327" data-composition-crossover="halo" data-composition-independent="true" d="M 1380 496 L 1396 496 Q 1404 496 1404 488 L 1404 335 Q 1404 327 1412 327 L 1510 327" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
 
         <!-- Components -->
@@ -5171,23 +5171,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="415" y="192" class="t-frontend" font-size="7" text-anchor="middle">Android + iOS</text>
         </g>
 
-        <g id="node-viewer" data-node-id="viewer" data-node-label="3D venue viewer" tabindex="0" role="button" aria-label="Focus 3D venue viewer, Three.js · React Three Fiber, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Three.js · React Three Fiber" data-node-tag="shared package" data-node-context="Architecture component">
-          <title>3D venue viewer · Three.js · React Three Fiber · Architecture component · shared package</title>
-          <rect x="320" y="270" width="190" height="70" rx="6" class="c-mask"/>
-          <rect x="320" y="270" width="190" height="70" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(326 276) scale(0.6875)">
-            <rect x="2" y="3" width="12" height="10" rx="2"/>
-            <path d="M2 6.5h12"/>
-            <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
-            <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="415" y="303" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">3D venue viewer</text>
-        <text data-detail="context" x="415" y="319" class="t-muted" font-size="9" text-anchor="middle">Three.js · React Three Fiber</text>
-        <text data-detail="fine" x="415" y="332" class="t-frontend" font-size="7" text-anchor="middle">shared package</text>
-        </g>
-
-        <g id="node-web" data-node-id="web" data-node-label="Web portal" tabindex="0" role="button" aria-label="Focus Web portal, Next.js on Vercel, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Next.js on Vercel" data-node-tag="all roles + admin" data-node-context="Architecture component">
-          <title>Web portal · Next.js on Vercel · Architecture component · all roles + admin</title>
+        <g id="node-web" data-node-id="web" data-node-label="Web portal" tabindex="0" role="button" aria-label="Focus Web portal, Next.js · Amplify Hosting, Architecture component" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Next.js · Amplify Hosting" data-node-tag="all roles + admin" data-node-context="Architecture component">
+          <title>Web portal · Next.js · Amplify Hosting · Architecture component · all roles + admin</title>
           <rect x="330" y="410" width="170" height="80" rx="6" class="c-mask"/>
           <rect x="330" y="410" width="170" height="80" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(336 416) scale(0.6875)">
@@ -5197,105 +5182,131 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="415" y="448" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Web portal</text>
-        <text data-detail="context" x="415" y="464" class="t-muted" font-size="9" text-anchor="middle">Next.js on Vercel</text>
+        <text data-detail="context" x="415" y="464" class="t-muted" font-size="9" text-anchor="middle">Next.js · Amplify Hosting</text>
         <text data-detail="fine" x="415" y="482" class="t-frontend" font-size="7" text-anchor="middle">all roles + admin</text>
         </g>
 
-        <g id="node-media" data-node-id="media" data-node-label="Cloudinary" tabindex="0" role="button" aria-label="Focus Cloudinary, images, reels, maps, docs, Architecture component" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="images, reels, maps, docs" data-node-tag="CDN" data-node-context="Architecture component">
-          <title>Cloudinary · images, reels, maps, docs · Architecture component · CDN</title>
-          <rect x="570" y="262" width="190" height="80" rx="6" class="c-mask"/>
-          <rect x="570" y="262" width="190" height="80" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(576 268) scale(0.6875)">
+        <g id="node-media" data-node-id="media" data-node-label="Amplify Storage" tabindex="0" role="button" aria-label="Focus Amplify Storage, S3 + CloudFront · media, docs, AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="S3 + CloudFront · media, docs" data-node-tag="CDN" data-node-context="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless">
+          <title>Amplify Storage · S3 + CloudFront · media, docs · AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless · CDN</title>
+          <rect x="600" y="262" width="190" height="80" rx="6" class="c-mask"/>
+          <rect x="600" y="262" width="190" height="80" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(606 268) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="665" y="300" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Cloudinary</text>
-        <text data-detail="context" x="665" y="316" class="t-muted" font-size="9" text-anchor="middle">images, reels, maps, docs</text>
-        <text data-detail="fine" x="665" y="334" class="t-cloud" font-size="7" text-anchor="middle">CDN</text>
+          <text data-node-label="" data-detail-anchor="" x="695" y="300" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Amplify Storage</text>
+        <text data-detail="context" x="695" y="316" class="t-muted" font-size="9" text-anchor="middle">S3 + CloudFront · media, docs</text>
+        <text data-detail="fine" x="695" y="334" class="t-cloud" font-size="7" text-anchor="middle">CDN</text>
         </g>
 
-        <g id="node-api" data-node-id="api" data-node-label="Tezera API" tabindex="0" role="button" aria-label="Focus Tezera API, NestJS · REST + SSE, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="NestJS · REST + SSE" data-node-tag="JWT + RBAC" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <title>Tezera API · NestJS · REST + SSE · Backend · TypeScript on free tiers (Render, Neon, Upstash) · JWT + RBAC</title>
-          <rect x="840" y="255" width="190" height="90" rx="6" class="c-mask"/>
-          <rect x="840" y="255" width="190" height="90" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(846 261) scale(0.6875)">
+        <g id="node-auth" data-node-id="auth" data-node-label="Amplify Auth" tabindex="0" role="button" aria-label="Focus Amplify Auth, Cognito · roles as groups, AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless" aria-pressed="false" data-node-kind="security" data-node-sublabel="Cognito · roles as groups" data-node-context="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless">
+          <title>Amplify Auth · Cognito · roles as groups · AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless</title>
+          <rect x="890" y="60" width="190" height="80" rx="6" class="c-mask"/>
+          <rect x="890" y="60" width="190" height="80" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(896 66) scale(0.6875)">
+            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
+            <path d="m5.8 8 1.5 1.5 3-3"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="985" y="98" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Amplify Auth</text>
+        <text data-detail="context" x="985" y="114" class="t-muted" font-size="9" text-anchor="middle">Cognito · roles as groups</text>
+        </g>
+
+        <g id="node-api" data-node-id="api" data-node-label="Amplify Data" tabindex="0" role="button" aria-label="Focus Amplify Data, AppSync GraphQL + subscriptions, AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless" aria-pressed="false" data-node-kind="backend" data-node-sublabel="AppSync GraphQL + subscriptions" data-node-tag="auth rules" data-node-context="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless">
+          <title>Amplify Data · AppSync GraphQL + subscriptions · AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless · auth rules</title>
+          <rect x="890" y="255" width="190" height="90" rx="6" class="c-mask"/>
+          <rect x="890" y="255" width="190" height="90" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(896 261) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="935" y="298" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Tezera API</text>
-        <text data-detail="context" x="935" y="314" class="t-muted" font-size="9" text-anchor="middle">NestJS · REST + SSE</text>
-        <text data-detail="fine" x="935" y="337" class="t-backend" font-size="7" text-anchor="middle">JWT + RBAC</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="298" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Amplify Data</text>
+        <text data-detail="context" x="985" y="314" class="t-muted" font-size="9" text-anchor="middle">AppSync GraphQL + subscriptions</text>
+        <text data-detail="fine" x="985" y="337" class="t-backend" font-size="7" text-anchor="middle">auth rules</text>
         </g>
 
-        <g id="node-db" data-node-id="db" data-node-label="PostgreSQL" tabindex="0" role="button" aria-label="Focus PostgreSQL, Neon · Prisma + raw SQL, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="database" data-node-sublabel="Neon · Prisma + raw SQL" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <title>PostgreSQL · Neon · Prisma + raw SQL · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
-          <rect x="1160" y="262" width="180" height="80" rx="6" class="c-mask"/>
-          <rect x="1160" y="262" width="180" height="80" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(1166 268) scale(0.6875)">
+        <g id="node-db" data-node-id="db" data-node-label="DynamoDB" tabindex="0" role="button" aria-label="Focus DynamoDB, tables + GSIs · Streams, AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless" aria-pressed="false" data-node-kind="database" data-node-sublabel="tables + GSIs · Streams" data-node-context="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless">
+          <title>DynamoDB · tables + GSIs · Streams · AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless</title>
+          <rect x="1200" y="262" width="180" height="80" rx="6" class="c-mask"/>
+          <rect x="1200" y="262" width="180" height="80" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(1206 268) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1250" y="300" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">PostgreSQL</text>
-        <text data-detail="context" x="1250" y="316" class="t-muted" font-size="9" text-anchor="middle">Neon · Prisma + raw SQL</text>
+          <text data-node-label="" data-detail-anchor="" x="1290" y="300" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">DynamoDB</text>
+        <text data-detail="context" x="1290" y="316" class="t-muted" font-size="9" text-anchor="middle">tables + GSIs · Streams</text>
         </g>
 
-        <g id="node-redis" data-node-id="redis" data-node-label="Redis" tabindex="0" role="button" aria-label="Focus Redis, Upstash · jobs, pub/sub, rankings, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="Upstash · jobs, pub/sub, rankings" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <title>Redis · Upstash · jobs, pub/sub, rankings · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
-          <rect x="840" y="480" width="190" height="80" rx="6" class="c-mask"/>
-          <rect x="840" y="480" width="190" height="80" rx="6" class="c-messagebus" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(846 486) scale(0.6875)">
+        <g id="node-queue" data-node-id="queue" data-node-label="SQS queue" tabindex="0" role="button" aria-label="Focus SQS queue, notification jobs, AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="notification jobs" data-node-context="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless">
+          <title>SQS queue · notification jobs · AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless</title>
+          <rect x="890" y="470" width="190" height="80" rx="6" class="c-mask"/>
+          <rect x="890" y="470" width="190" height="80" rx="6" class="c-messagebus" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(896 476) scale(0.6875)">
             <path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/>
             <circle cx="5" cy="4.5" r="1" class="sigil-fill"/>
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="935" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Redis</text>
-        <text data-detail="context" x="935" y="534" class="t-muted" font-size="9" text-anchor="middle">Upstash · jobs, pub/sub, rankings</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="508" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SQS queue</text>
+        <text data-detail="context" x="985" y="524" class="t-muted" font-size="9" text-anchor="middle">notification jobs</text>
         </g>
 
-        <g id="node-worker" data-node-id="worker" data-node-label="Job worker" tabindex="0" role="button" aria-label="Focus Job worker, BullMQ · notify, reviews, Backend · TypeScript on free tiers (Render, Neon, Upstash)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="BullMQ · notify, reviews" data-node-context="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <title>Job worker · BullMQ · notify, reviews · Backend · TypeScript on free tiers (Render, Neon, Upstash)</title>
-          <rect x="1160" y="480" width="180" height="80" rx="6" class="c-mask"/>
-          <rect x="1160" y="480" width="180" height="80" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1166 486) scale(0.6875)">
+        <g id="node-worker" data-node-id="worker" data-node-label="Lambda functions" tabindex="0" role="button" aria-label="Focus Lambda functions, Node.js · jobs, ranking, AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Node.js · jobs, ranking" data-node-context="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless">
+          <title>Lambda functions · Node.js · jobs, ranking · AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless</title>
+          <rect x="1200" y="470" width="180" height="80" rx="6" class="c-mask"/>
+          <rect x="1200" y="470" width="180" height="80" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1206 476) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1250" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Job worker</text>
-        <text data-detail="context" x="1250" y="534" class="t-muted" font-size="9" text-anchor="middle">BullMQ · notify, reviews</text>
+          <text data-node-label="" data-detail-anchor="" x="1290" y="508" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Lambda functions</text>
+        <text data-detail="context" x="1290" y="524" class="t-muted" font-size="9" text-anchor="middle">Node.js · jobs, ranking</text>
         </g>
 
-        <g id="node-push" data-node-id="push" data-node-label="Push service" tabindex="0" role="button" aria-label="Focus Push service, Expo Push · FCM/APNs, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Expo Push · FCM/APNs" data-node-context="Architecture component">
-          <title>Push service · Expo Push · FCM/APNs · Architecture component</title>
-          <rect x="1470" y="380" width="170" height="60" rx="6" class="c-mask"/>
-          <rect x="1470" y="380" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1476 386) scale(0.6875)">
-            <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
-            <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
+        <g id="node-scheduler" data-node-id="scheduler" data-node-label="EventBridge Scheduler" tabindex="0" role="button" aria-label="Focus EventBridge Scheduler, timed jobs, AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="timed jobs" data-node-context="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless">
+          <title>EventBridge Scheduler · timed jobs · AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless</title>
+          <rect x="1200" y="650" width="180" height="70" rx="6" class="c-mask"/>
+          <rect x="1200" y="650" width="180" height="70" rx="6" class="c-messagebus" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(1206 656) scale(0.6875)">
+            <path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/>
+            <circle cx="5" cy="4.5" r="1" class="sigil-fill"/>
+            <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
+            <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1555" y="408" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Push service</text>
-        <text data-detail="context" x="1555" y="424" class="t-muted" font-size="9" text-anchor="middle">Expo Push · FCM/APNs</text>
-        </g>
-
-        <g id="node-email" data-node-id="email" data-node-label="Email service" tabindex="0" role="button" aria-label="Focus Email service, Resend, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Resend" data-node-context="Architecture component">
-          <title>Email service · Resend · Architecture component</title>
-          <rect x="1470" y="490" width="170" height="60" rx="6" class="c-mask"/>
-          <rect x="1470" y="490" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1476 496) scale(0.6875)">
-            <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
-            <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="1555" y="518" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Email service</text>
-        <text data-detail="context" x="1555" y="534" class="t-muted" font-size="9" text-anchor="middle">Resend</text>
+          <text data-node-label="" data-detail-anchor="" x="1290" y="683" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">EventBridge Scheduler</text>
+        <text data-detail="context" x="1290" y="699" class="t-muted" font-size="9" text-anchor="middle">timed jobs</text>
         </g>
 
         <g id="node-sms" data-node-id="sms" data-node-label="SMS gateway" tabindex="0" role="button" aria-label="Focus SMS gateway, Dialog e-SMS · OTP, alerts, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Dialog e-SMS · OTP, alerts" data-node-context="Architecture component">
           <title>SMS gateway · Dialog e-SMS · OTP, alerts · Architecture component</title>
-          <rect x="1470" y="600" width="170" height="60" rx="6" class="c-mask"/>
-          <rect x="1470" y="600" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1476 606) scale(0.6875)">
+          <rect x="1510" y="290" width="170" height="60" rx="6" class="c-mask"/>
+          <rect x="1510" y="290" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1516 296) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1555" y="628" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SMS gateway</text>
-        <text data-detail="context" x="1555" y="644" class="t-muted" font-size="9" text-anchor="middle">Dialog e-SMS · OTP, alerts</text>
+          <text data-node-label="" data-detail-anchor="" x="1595" y="318" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SMS gateway</text>
+        <text data-detail="context" x="1595" y="334" class="t-muted" font-size="9" text-anchor="middle">Dialog e-SMS · OTP, alerts</text>
+        </g>
+
+        <g id="node-push" data-node-id="push" data-node-label="Push service" tabindex="0" role="button" aria-label="Focus Push service, Expo Push · FCM/APNs, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Expo Push · FCM/APNs" data-node-context="Architecture component">
+          <title>Push service · Expo Push · FCM/APNs · Architecture component</title>
+          <rect x="1510" y="480" width="170" height="60" rx="6" class="c-mask"/>
+          <rect x="1510" y="480" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1516 486) scale(0.6875)">
+            <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
+            <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="1595" y="508" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Push service</text>
+        <text data-detail="context" x="1595" y="524" class="t-muted" font-size="9" text-anchor="middle">Expo Push · FCM/APNs</text>
+        </g>
+
+        <g id="node-email" data-node-id="email" data-node-label="Email service" tabindex="0" role="button" aria-label="Focus Email service, Amazon SES, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Amazon SES" data-node-context="Architecture component">
+          <title>Email service · Amazon SES · Architecture component</title>
+          <rect x="1510" y="620" width="170" height="60" rx="6" class="c-mask"/>
+          <rect x="1510" y="620" width="170" height="60" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1516 626) scale(0.6875)">
+            <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
+            <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="1595" y="648" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Email service</text>
+        <text data-detail="context" x="1595" y="664" class="t-muted" font-size="9" text-anchor="middle">Amazon SES</text>
         </g>
 
         <!-- Connection labels -->
@@ -5308,8 +5319,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <text x="214" y="295" class="t-edge-emphasis" font-size="8" text-anchor="middle">same features</text>
         </g>
         <g data-detail="context" data-edge-from="org-prov" data-edge-to="mobile" data-edge-label="on the go" data-edge-key="2" data-edge-id="orgprov-mobile">
-          <rect x="55.80000000000001" y="299.5" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
-          <text x="82.4" y="309.5" class="t-edge-default" font-size="8" text-anchor="middle">on the go</text>
+          <rect x="55.80000000000001" y="324.7625" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
+          <text x="82.4" y="334.7625" class="t-edge-default" font-size="8" text-anchor="middle">on the go</text>
         </g>
         <g data-detail="context" data-edge-from="org-prov" data-edge-to="web" data-edge-label="manage events" data-edge-key="3" data-edge-id="orgprov-web">
           <rect x="223.8" y="454.05" width="72.4" height="14" rx="3" class="c-mask"/>
@@ -5319,95 +5330,99 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="361.6" y="580" width="86.8" height="14" rx="3" class="c-mask"/>
           <text x="405" y="590" class="t-edge-security" font-size="8" text-anchor="middle">verify, moderate</text>
         </g>
-        <g data-detail="context" data-edge-from="mobile" data-edge-to="viewer" data-edge-label="WebView" data-edge-key="5" data-edge-id="mobile-viewer">
-          <rect x="365.4" y="228" width="43.6" height="14" rx="3" class="c-mask"/>
-          <text x="387.2" y="238" class="t-edge-dashed" font-size="8" text-anchor="middle">WebView</text>
+        <g data-detail="context" data-edge-from="mobile" data-edge-to="api" data-edge-label="GraphQL + live updates" data-edge-key="5" data-edge-id="mobile-api">
+          <rect x="823.05" y="172" width="115.6" height="14" rx="3" class="c-mask"/>
+          <text x="880.8499999999999" y="182" class="t-edge-emphasis" font-size="8" text-anchor="middle">GraphQL + live updates</text>
         </g>
-        <g data-detail="context" data-edge-from="web" data-edge-to="viewer" data-edge-label="loads on tap" data-edge-key="6" data-edge-id="web-viewer">
-          <rect x="381.2" y="390" width="67.6" height="14" rx="3" class="c-mask"/>
-          <text x="415" y="400" class="t-edge-dashed" font-size="8" text-anchor="middle">loads on tap</text>
+        <g data-detail="context" data-edge-from="web" data-edge-to="api" data-edge-label="GraphQL + live updates" data-edge-key="6" data-edge-id="web-api">
+          <rect x="808.2" y="351.5" width="115.6" height="14" rx="3" class="c-mask"/>
+          <text x="866" y="361.5" class="t-edge-emphasis" font-size="8" text-anchor="middle">GraphQL + live updates</text>
         </g>
-        <g data-detail="context" data-edge-from="mobile" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="7" data-edge-id="mobile-api">
-          <rect x="903.6" y="184" width="62.8" height="14" rx="3" class="c-mask"/>
-          <text x="935" y="194" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + SSE</text>
+        <g data-detail="context" data-edge-from="mobile" data-edge-to="media" data-edge-label="upload, CDN" data-edge-key="7" data-edge-id="mobile-media">
+          <rect x="518.6" y="211.525" width="62.8" height="14" rx="3" class="c-mask"/>
+          <text x="550" y="221.525" class="t-edge-dashed" font-size="8" text-anchor="middle">upload, CDN</text>
         </g>
-        <g data-detail="context" data-edge-from="web" data-edge-to="api" data-edge-label="HTTPS + SSE" data-edge-key="8" data-edge-id="web-api">
-          <rect x="770.6" y="355" width="62.8" height="14" rx="3" class="c-mask"/>
-          <text x="802" y="365" class="t-edge-emphasis" font-size="8" text-anchor="middle">HTTPS + SSE</text>
+        <g data-detail="context" data-edge-from="web" data-edge-to="media" data-edge-label="upload, CDN" data-edge-key="8" data-edge-id="web-media">
+          <rect x="464.1" y="366" width="62.8" height="14" rx="3" class="c-mask"/>
+          <text x="495.5" y="376" class="t-edge-dashed" font-size="8" text-anchor="middle">upload, CDN</text>
         </g>
-        <g data-detail="context" data-edge-from="mobile" data-edge-to="media" data-edge-label="media CDN" data-edge-key="9" data-edge-id="mobile-media">
-          <rect x="508.4" y="211.525" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
-          <text x="535" y="221.525" class="t-edge-dashed" font-size="8" text-anchor="middle">media CDN</text>
+        <g data-detail="context" data-edge-from="api" data-edge-to="auth" data-edge-label="check sign-in, role" data-edge-key="9" data-edge-id="api-auth">
+          <rect x="885.8499999999999" y="190.5" width="101.2" height="14" rx="3" class="c-mask"/>
+          <text x="936.4499999999999" y="200.5" class="t-edge-security" font-size="8" text-anchor="middle">check sign-in, role</text>
         </g>
-        <g data-detail="context" data-edge-from="web" data-edge-to="media" data-edge-label="media CDN" data-edge-key="10" data-edge-id="web-media">
-          <rect x="508.4" y="363.525" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
-          <text x="535" y="373.525" class="t-edge-dashed" font-size="8" text-anchor="middle">media CDN</text>
+        <g data-detail="context" data-edge-from="auth" data-edge-to="sms" data-edge-label="OTP (custom sender)" data-edge-key="10" data-edge-id="auth-sms">
+          <rect x="1435.4" y="186.5" width="101.2" height="14" rx="3" class="c-mask"/>
+          <text x="1486" y="196.5" class="t-edge-default" font-size="8" text-anchor="middle">OTP (custom sender)</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="media" data-edge-label="signed uploads" data-edge-key="11" data-edge-id="api-media">
-          <rect x="761.4" y="271.95" width="77.2" height="14" rx="3" class="c-mask"/>
-          <text x="800" y="281.95" class="t-edge-default" font-size="8" text-anchor="middle">signed uploads</text>
+        <g data-detail="context" data-edge-from="api" data-edge-to="db" data-edge-label="resolvers" data-edge-key="11" data-edge-id="api-db">
+          <rect x="1113.4" y="280" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
+          <text x="1140" y="290" class="t-edge-default" font-size="8" text-anchor="middle">resolvers</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="db" data-edge-label="SQL via Prisma" data-edge-key="12" data-edge-id="api-db">
-          <rect x="1056.4" y="280" width="77.2" height="14" rx="3" class="c-mask"/>
-          <text x="1095" y="290" class="t-edge-default" font-size="8" text-anchor="middle">SQL via Prisma</text>
+        <g data-detail="context" data-edge-from="api" data-edge-to="queue" data-edge-label="enqueue jobs" data-edge-key="12" data-edge-id="api-queue">
+          <rect x="911.4000000000001" y="400.5" width="67.6" height="14" rx="3" class="c-mask"/>
+          <text x="945.2" y="410.5" class="t-edge-default" font-size="8" text-anchor="middle">enqueue jobs</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="redis" data-edge-label="jobs, top-N, counters" data-edge-key="13" data-edge-id="api-redis">
-          <rect x="818.2" y="405.5" width="110.8" height="14" rx="3" class="c-mask"/>
-          <text x="873.6" y="415.5" class="t-edge-default" font-size="8" text-anchor="middle">jobs, top-N, counters</text>
+        <g data-detail="context" data-edge-from="queue" data-edge-to="worker" data-edge-label="triggers" data-edge-key="13" data-edge-id="queue-worker">
+          <rect x="1115.8" y="490" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="1140" y="500" class="t-edge-dashed" font-size="8" text-anchor="middle">triggers</text>
         </g>
-        <g data-detail="context" data-edge-from="redis" data-edge-to="worker" data-edge-label="BullMQ jobs" data-edge-key="14" data-edge-id="redis-worker">
-          <rect x="1063.6" y="500" width="62.8" height="14" rx="3" class="c-mask"/>
-          <text x="1095" y="510" class="t-edge-dashed" font-size="8" text-anchor="middle">BullMQ jobs</text>
+        <g data-detail="context" data-edge-from="db" data-edge-to="worker" data-edge-label="Streams: rerank" data-edge-key="14" data-edge-id="db-worker">
+          <rect x="1202" y="399" width="82" height="14" rx="3" class="c-mask"/>
+          <text x="1243" y="409" class="t-edge-dashed" font-size="8" text-anchor="middle">Streams: rerank</text>
         </g>
-        <g data-detail="context" data-edge-from="worker" data-edge-to="db" data-edge-label="rerank, refresh boards" data-edge-key="15" data-edge-id="worker-db">
-          <rect x="1192.2" y="460" width="115.6" height="14" rx="3" class="c-mask"/>
-          <text x="1250" y="470" class="t-edge-default" font-size="8" text-anchor="middle">rerank, refresh boards</text>
+        <g data-detail="context" data-edge-from="scheduler" data-edge-to="worker" data-edge-label="review windows, boards" data-edge-key="15" data-edge-id="scheduler-worker">
+          <rect x="1232.2" y="630" width="115.6" height="14" rx="3" class="c-mask"/>
+          <text x="1290" y="640" class="t-edge-dashed" font-size="8" text-anchor="middle">review windows, boards</text>
         </g>
         <g data-detail="context" data-edge-from="worker" data-edge-to="push" data-edge-label="push" data-edge-key="16" data-edge-id="worker-push">
-          <rect x="1349" y="438" width="30" height="14" rx="3" class="c-mask"/>
-          <text x="1364" y="448" class="t-edge-default" font-size="8" text-anchor="middle">push</text>
+          <rect x="1430" y="490" width="30" height="14" rx="3" class="c-mask"/>
+          <text x="1445" y="500" class="t-edge-default" font-size="8" text-anchor="middle">push</text>
         </g>
         <g data-detail="context" data-edge-from="worker" data-edge-to="email" data-edge-label="email" data-edge-key="17" data-edge-id="worker-email">
-          <rect x="1388" y="500" width="34" height="14" rx="3" class="c-mask"/>
-          <text x="1405" y="510" class="t-edge-default" font-size="8" text-anchor="middle">email</text>
+          <rect x="1428" y="567" width="34" height="14" rx="3" class="c-mask"/>
+          <text x="1445" y="577" class="t-edge-default" font-size="8" text-anchor="middle">email</text>
         </g>
-        <g data-detail="context" data-edge-from="worker" data-edge-to="sms" data-edge-label="OTP, urgent alerts" data-edge-key="18" data-edge-id="worker-sms">
-          <rect x="1356.8" y="562" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="1405" y="572" class="t-edge-default" font-size="8" text-anchor="middle">OTP, urgent alerts</text>
+        <g data-detail="context" data-edge-from="worker" data-edge-to="sms" data-edge-label="urgent alerts" data-edge-key="18" data-edge-id="worker-sms">
+          <rect x="1367.8" y="391.5" width="72.4" height="14" rx="3" class="c-mask"/>
+          <text x="1404" y="401.5" class="t-edge-default" font-size="8" text-anchor="middle">urgent alerts</text>
         </g>
 
         <!-- Boundary labels (foreground masks keep routes out of titles) -->
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="0" data-composition-frame-kind="region" data-composition-frame-label="Backend · TypeScript on free tiers (Render, Neon, Upstash)">
-          <rect data-graph-role="structural-frame-label-mask" x="814" y="233" width="387.18713157419353" height="18" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="818" y="247.83871067741936" class="t-cloud" font-size="10.838710677419353" font-weight="600">Backend · TypeScript on free tiers (Render, Neon, Upstash)</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="0" data-composition-frame-kind="region" data-composition-frame-label="AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless">
+          <rect data-graph-role="structural-frame-label-mask" x="574" y="37" width="416.141972083871" height="19" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="578" y="52.09677519354839" class="t-cloud" font-size="11.096775193548387" font-weight="600">AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless</text>
         </g>
 
         <!-- Legend -->
         <g data-legend="" data-legend-bridge="">
-          <text x="40" y="692" class="t-primary" font-size="12" font-weight="650">Legend</text>
-          <g data-legend-semantic-kind="frontend" data-legend-kind="frontend" data-legend-label="Frontend" data-legend-x="40" data-legend-baseline="712" data-legend-width="83">
-            <rect x="40" y="703" width="16" height="10" rx="2.5" class="c-frontend" stroke-width="1"/>
-            <text x="62" y="712" class="t-muted" font-size="10" font-weight="500">Frontend</text>
+          <text x="40" y="772" class="t-primary" font-size="12" font-weight="650">Legend</text>
+          <g data-legend-semantic-kind="frontend" data-legend-kind="frontend" data-legend-label="Frontend" data-legend-x="40" data-legend-baseline="792" data-legend-width="83">
+            <rect x="40" y="783" width="16" height="10" rx="2.5" class="c-frontend" stroke-width="1"/>
+            <text x="62" y="792" class="t-muted" font-size="10" font-weight="500">Frontend</text>
           </g>
-          <g data-legend-semantic-kind="backend" data-legend-kind="backend" data-legend-label="Backend" data-legend-x="145" data-legend-baseline="712" data-legend-width="78">
-            <rect x="145" y="703" width="16" height="10" rx="2.5" class="c-backend" stroke-width="1"/>
-            <text x="167" y="712" class="t-muted" font-size="10" font-weight="500">Backend</text>
+          <g data-legend-semantic-kind="backend" data-legend-kind="backend" data-legend-label="Backend" data-legend-x="145" data-legend-baseline="792" data-legend-width="78">
+            <rect x="145" y="783" width="16" height="10" rx="2.5" class="c-backend" stroke-width="1"/>
+            <text x="167" y="792" class="t-muted" font-size="10" font-weight="500">Backend</text>
           </g>
-          <g data-legend-semantic-kind="database" data-legend-kind="database" data-legend-label="Database" data-legend-x="245" data-legend-baseline="712" data-legend-width="83">
-            <rect x="245" y="703" width="16" height="10" rx="2.5" class="c-database" stroke-width="1"/>
-            <text x="267" y="712" class="t-muted" font-size="10" font-weight="500">Database</text>
+          <g data-legend-semantic-kind="database" data-legend-kind="database" data-legend-label="Database" data-legend-x="245" data-legend-baseline="792" data-legend-width="83">
+            <rect x="245" y="783" width="16" height="10" rx="2.5" class="c-database" stroke-width="1"/>
+            <text x="267" y="792" class="t-muted" font-size="10" font-weight="500">Database</text>
           </g>
-          <g data-legend-semantic-kind="cloud" data-legend-kind="cloud" data-legend-label="Cloud" data-legend-x="350" data-legend-baseline="712" data-legend-width="68">
-            <rect x="350" y="703" width="16" height="10" rx="2.5" class="c-cloud" stroke-width="1"/>
-            <text x="372" y="712" class="t-muted" font-size="10" font-weight="500">Cloud</text>
+          <g data-legend-semantic-kind="cloud" data-legend-kind="cloud" data-legend-label="Cloud" data-legend-x="350" data-legend-baseline="792" data-legend-width="68">
+            <rect x="350" y="783" width="16" height="10" rx="2.5" class="c-cloud" stroke-width="1"/>
+            <text x="372" y="792" class="t-muted" font-size="10" font-weight="500">Cloud</text>
           </g>
-          <g data-legend-semantic-kind="messagebus" data-legend-kind="messagebus" data-legend-label="Message bus" data-legend-x="440" data-legend-baseline="712" data-legend-width="98">
-            <rect x="440" y="703" width="16" height="10" rx="2.5" class="c-messagebus" stroke-width="1"/>
-            <text x="462" y="712" class="t-muted" font-size="10" font-weight="500">Message bus</text>
+          <g data-legend-semantic-kind="security" data-legend-kind="security" data-legend-label="Security" data-legend-x="440" data-legend-baseline="792" data-legend-width="83">
+            <rect x="440" y="783" width="16" height="10" rx="2.5" class="c-security" stroke-width="1"/>
+            <text x="462" y="792" class="t-muted" font-size="10" font-weight="500">Security</text>
           </g>
-          <g data-legend-semantic-kind="external" data-legend-kind="external" data-legend-label="External" data-legend-x="560" data-legend-baseline="712" data-legend-width="83">
-            <rect x="560" y="703" width="16" height="10" rx="2.5" class="c-external" stroke-width="1"/>
-            <text x="582" y="712" class="t-muted" font-size="10" font-weight="500">External</text>
+          <g data-legend-semantic-kind="messagebus" data-legend-kind="messagebus" data-legend-label="Message bus" data-legend-x="545" data-legend-baseline="792" data-legend-width="98">
+            <rect x="545" y="783" width="16" height="10" rx="2.5" class="c-messagebus" stroke-width="1"/>
+            <text x="567" y="792" class="t-muted" font-size="10" font-weight="500">Message bus</text>
+          </g>
+          <g data-legend-semantic-kind="external" data-legend-kind="external" data-legend-label="External" data-legend-x="665" data-legend-baseline="792" data-legend-width="83">
+            <rect x="665" y="783" width="16" height="10" rx="2.5" class="c-external" stroke-width="1"/>
+            <text x="687" y="792" class="t-muted" font-size="10" font-weight="500">External</text>
           </g>
         </g>
       </svg>
@@ -5592,11 +5607,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>Where it runs: why, and alternatives</h3>
         </div>
         <ul>
-          <li>Vercel (web portal). Why: made by the Next.js team, so deploys need no setup; a preview link for every pull request; pages served from its edge network; free Hobby tier. Alternatives: Netlify, Cloudflare Pages.</li>
-          <li>Render (API and job worker). Why: runs long-lived Node processes, which SSE streams and BullMQ workers need (serverless functions time out); deploys from GitHub; free tier. Watch: free instances sleep when idle, so the first request after a pause is slow. Alternatives: Railway, Fly.io, Koyeb.</li>
-          <li>Neon (PostgreSQL). Why: managed Postgres with a free tier and database branches for testing; works with Prisma. Alternatives: Supabase, Render Postgres, Aiven.</li>
-          <li>Upstash (Redis). Why: managed Redis billed per request, with a free tier; carries BullMQ jobs and the SSE pub/sub. Watch: BullMQ polls Redis often, so check usage against the free limit. Alternatives: Redis Cloud, Render Key Value.</li>
-          <li>Cloudinary (media CDN). Why: stores images, reels, layouts and private verification documents, resizes and compresses on request, and serves the app and the web portal from one CDN; free tier. Alternatives: Cloudflare R2 with Cloudflare Images, AWS S3 with CloudFront, Bunny.net.</li>
+          <li>AWS Amplify Gen 2 (backend). Why: the whole backend (auth, data, storage, functions) is defined in TypeScript in the repository and deployed by Amplify through AWS CDK; each developer gets a personal cloud sandbox, and each Git branch can get its own backend. Everything is serverless, so nothing sleeps or needs a server kept running. Alternatives: Firebase, Supabase, or the earlier design (NestJS on Render with Neon and Upstash).</li>
+          <li>Amplify Hosting (web portal). Why: builds and serves the Next.js portal, including server-rendered pages, from the same Git repository as the backend, with a preview link per pull request. Alternatives: Vercel, Netlify.</li>
+          <li>Region ap-south-1 (Mumbai). Why: the nearest AWS region to Sri Lanka. Watch: personal data is stored outside Sri Lanka, so check the PDPA&#39;s rules on cross-border transfers before launch (not checked).</li>
+          <li>Cost. Lambda, DynamoDB, SQS, Cognito and S3 have free monthly allowances, and AWS changed its free tier for new accounts in July 2025 (credits instead of 12 months free). Check the current terms and set an AWS Budgets alert before the pilot (limits not verified).</li>
         </ul>
       </div>
 
@@ -5606,10 +5620,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>Services and protocols: why, and alternatives</h3>
         </div>
         <ul>
-          <li>SSE instead of WebSockets. Why: one-way server-to-client updates over plain HTTPS, with automatic reconnect, that pass through proxies easily; sending a message stays a REST call. The mobile app needs a small SSE library (for example react-native-sse). Alternatives: Socket.IO or raw WebSockets, polling, Ably or Pusher.</li>
-          <li>Expo (EAS Build and Expo Push). Why: one React Native codebase for Android and iOS, cloud builds without a Mac, one push API over FCM and APNs. Alternatives: bare React Native with Firebase Cloud Messaging, OneSignal.</li>
-          <li>Resend (email). Why: simple API, free tier, email templates written in React. Alternatives: Amazon SES, Brevo, Postmark.</li>
-          <li>Dialog e-SMS (OTP and urgent alerts). Why: a Sri Lankan operator&#39;s own gateway, with sender ID masking, delivery reports and billing in LKR. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Notify.lk, Twilio, other local bulk-SMS gateways.</li>
+          <li>GraphQL with AppSync subscriptions instead of REST + SSE. Why: Amplify Data generates a typed client for the app and the portal from one schema, applies per-role auth rules, and pushes live updates (chat, event status, &#39;Going&#39; counts) over WebSockets that AWS manages. Alternatives: REST on API Gateway + Lambda with API Gateway WebSockets.</li>
+          <li>Amazon Cognito (Amplify Auth). Why: sign-up with email or phone, one Cognito group per role (organiser, vendor, freelancer, consumer, admin) that the auth rules check. A custom SMS sender Lambda sends sign-in codes through Dialog e-SMS instead of Amazon SNS.</li>
+          <li>Expo Push. Why: one push API over FCM and APNs for the React Native app, called from Lambda. Amazon Pinpoint push is not used: AWS ends its support on 30 October 2026. Alternatives: Amazon SNS mobile push, OneSignal.</li>
+          <li>Amazon SES (email). Why: inside AWS and cheap per message. Watch: new accounts start in the SES sandbox; request production access before the pilot. Alternatives: Resend, Brevo.</li>
+          <li>Dialog e-SMS (OTP and urgent alerts). Why: a Sri Lankan operator&#39;s gateway with sender ID masking and billing in LKR. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Amazon SNS SMS, Notify.lk.</li>
         </ul>
       </div>
 
@@ -5619,40 +5634,41 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>Recommended stack</h3>
         </div>
         <ul>
-          <li>One TypeScript monorepo (Turborepo) with shared types and Zod validation</li>
-          <li>Mobile: React Native + Expo, one app for all four roles with role-based navigation</li>
-          <li>Web: Next.js portal for every role, consumers included, plus a role-gated admin panel</li>
-          <li>Backend: NestJS modular monolith on Prisma and PostgreSQL; REST for requests, Server-Sent Events (SSE) for live updates</li>
-          <li>Live updates: each client keeps one SSE stream open; Redis pub/sub passes events between API instances</li>
+          <li>One TypeScript monorepo with the Amplify Gen 2 backend (amplify/ folder) beside the app and the portal</li>
+          <li>Mobile: React Native + Expo with the Amplify JavaScript libraries; one app for all four roles</li>
+          <li>Web: Next.js portal on Amplify Hosting for every role, consumers included, plus a role-gated admin panel</li>
+          <li>Data: Amplify Data schema in TypeScript, served by AppSync and stored in DynamoDB; custom logic in Lambda functions</li>
+          <li>Jobs: SQS queue and EventBridge Scheduler trigger Lambda functions; DynamoDB Streams trigger reranking</li>
         </ul>
       </div>
 
       <div class="card">
         <div class="card-header">
           <div class="card-dot orange"></div>
-          <h3>3D venue view (Could)</h3>
+          <h3>Interactive 2D venue map</h3>
         </div>
         <ul>
-          <li>Built from map data: the floor plan lies flat and each pin with a footprint becomes a block</li>
-          <li>One map record (layout, pins, footprints) stored as JSON in PostgreSQL drives the 2D and 3D views</li>
-          <li>venue-viewer package: React Three Fiber + drei, loaded in the browser only, on &#39;View in 3D&#39;</li>
-          <li>Mobile shows the same viewer in a WebView; pin taps go back to native screens</li>
-          <li>2D map stays the default and the accessible view; instancing keeps scenes light</li>
-          <li>Later: ready-made glTF/GLB models in Cloudinary, compressed with Draco or meshopt</li>
+          <li>Organisers upload a layout image, drop pins and draw named zones as boxes, e.g. &#39;Food court&#39;</li>
+          <li>Consumers tap a zone to see its stalls; each stall shows the vendor, items and prices in LKR</li>
+          <li>Search by item (e.g. &#39;kottu&#39;) highlights matching stalls; &#39;Find on map&#39; jumps to a stall</li>
+          <li>One map record (pins, zones) per event as a DynamoDB item; zones kept as fractions of the layout so they scale (proposed); layout image in S3</li>
+          <li>Drawn as an SVG overlay on the layout: react-native-svg in the app, SVG in Next.js</li>
+          <li>Stall listings are their own items; search by item runs over one event&#39;s listings, so it needs no search service</li>
+          <li>Mobile app only: keeps an opened event&#39;s map, times and announcements offline, with a &#39;last updated&#39; time (Could)</li>
         </ul>
       </div>
 
       <div class="card">
         <div class="card-header">
           <div class="card-dot violet"></div>
-          <h3>API modules</h3>
+          <h3>Data models (Amplify Data)</h3>
         </div>
         <ul>
           <li>Accounts, profiles and verification</li>
           <li>Events and promotion feed (posts, reels)</li>
-          <li>Hiring marketplace: direct bookings, job posts, quotes, stalls</li>
-          <li>Reviews and ranking (weighted rank score, badges, leaderboards); search via PostgreSQL text search + pg_trgm</li>
-          <li>Venue maps: layout image, pins and 3D footprints</li>
+          <li>Hiring marketplace: direct bookings, job posts, quotes, payment terms, stalls</li>
+          <li>Reviews and ranking (weighted rank score, badges, leaderboards)</li>
+          <li>Venue maps: layout, pins, zones, stall items and prices</li>
           <li>Community boards, meetups, messaging, announcements</li>
           <li>Admin: verification, report queue, disputes, audit log</li>
         </ul>
@@ -5661,16 +5677,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       <div class="card">
         <div class="card-header">
           <div class="card-dot cyan"></div>
-          <h3>Data design: ranking and feed (PRD v4)</h3>
+          <h3>Data design on DynamoDB (replaces the PostgreSQL design)</h3>
         </div>
         <ul>
-          <li>PostgreSQL is the only database; Redis is a cache that can be rebuilt from it</li>
-          <li>Rank score: a column on each profile, recalculated by the worker after every review; index on (category, district, rank_score DESC)</li>
-          <li>Leaderboards: materialized view ranked per category and district, refreshed concurrently by the worker; top-N copied to Redis sorted sets</li>
-          <li>Feed: built on read from followed organisers, keyset pagination; trending posts in a Redis sorted set (score proposed)</li>
-          <li>Likes and views counted in Redis, written to PostgreSQL in batches; the like itself goes straight to PostgreSQL</li>
-          <li>Tools: Prisma schema and migrations own every table; DBeaver for queries only; dbdiagram.io for the ER diagram</li>
-          <li>Later if needed: Meilisearch or Typesense for search, pgvector for recommendations</li>
+          <li>Rank score: an attribute on each profile, recalculated by a Lambda when a review is written or hidden (DynamoDB Streams)</li>
+          <li>Leaderboards: a GSI keyed by category#district and sorted by rank score; top N is one query</li>
+          <li>Feed: built on read from each followed organiser&#39;s posts (GSI by author and date), merged, with cursor pagination; organisers are few</li>
+          <li>Trending: a scheduled Lambda scores recent posts and stores the top list (score proposed)</li>
+          <li>Likes as their own items (post + user), so no double likes; like and view counts kept with atomic counters</li>
+          <li>Search: GSIs for category, district and date plus name prefix match; Algolia or Typesense later if the pilot needs typo-tolerant search</li>
+          <li>Tools: NoSQL Workbench to model tables and access patterns; Amplify sandbox for test data</li>
         </ul>
       </div>
 
@@ -5682,8 +5698,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <ul>
           <li>Organiser and provider reviews unlock on a completed booking or a confirmed stall</li>
           <li>Attendee reviews unlock from a &#39;Going&#39; mark made before the event, once it ends</li>
-          <li>Worker closes review windows after 14 days and recomputes rank scores</li>
-          <li>Verification documents are private Cloudinary files, opened by admins only through signed links (PDPA)</li>
+          <li>EventBridge Scheduler closes review windows after 14 days; a Lambda recomputes rank scores</li>
+          <li>Verification documents sit in a private S3 path that only the admin group can read, through short-lived links (PDPA)</li>
         </ul>
       </div>
 
@@ -5695,7 +5711,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <ul>
           <li>Ticketing: tiers, seats, RSVP tickets, QR entry, refunds</li>
           <li>Payment gateway: hiring and stall fees are paid outside the app</li>
-          <li>In-app map builder (2D or 3D editor): still under discussion</li>
+          <li>Google Maps directions to the venue: still under discussion</li>
         </ul>
       </div>
     </div>

@@ -1,0 +1,462 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "tezera Platform Architecture (ATP release, serverless on AWS Amplify)",
+    "subtitle": "Mobile app and web portal for organisers, providers and consumers",
+    "output": ".archify/architecture-tezera-amplify-20261015-142128/tezera-architecture.html",
+    "quality_profile": "showcase",
+    "locale": "en"
+  },
+  "components": [
+    {
+      "id": "attendee",
+      "type": "external",
+      "label": "Consumers",
+      "sublabel": "attendees",
+      "pos": [
+        40,
+        130
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "org-prov",
+      "type": "external",
+      "label": "Organisers & providers",
+      "sublabel": "vendors, freelancers",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "admin",
+      "type": "external",
+      "label": "Admins",
+      "sublabel": "platform staff",
+      "pos": [
+        330,
+        600
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "mobile",
+      "type": "frontend",
+      "label": "Mobile app",
+      "sublabel": "React Native · Expo",
+      "tag": "Android + iOS",
+      "pos": [
+        330,
+        120
+      ],
+      "size": [
+        170,
+        80
+      ]
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Web portal",
+      "sublabel": "Next.js · Amplify Hosting",
+      "tag": "all roles + admin",
+      "pos": [
+        330,
+        410
+      ],
+      "size": [
+        170,
+        80
+      ]
+    },
+    {
+      "id": "media",
+      "type": "cloud",
+      "label": "Amplify Storage",
+      "sublabel": "S3 + CloudFront · media, docs",
+      "tag": "CDN",
+      "pos": [
+        600,
+        262
+      ],
+      "size": [
+        190,
+        80
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Amplify Auth",
+      "sublabel": "Cognito · roles as groups",
+      "pos": [
+        890,
+        60
+      ],
+      "size": [
+        190,
+        80
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "Amplify Data",
+      "sublabel": "AppSync GraphQL + subscriptions",
+      "tag": "auth rules",
+      "pos": [
+        890,
+        255
+      ],
+      "size": [
+        190,
+        90
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "DynamoDB",
+      "sublabel": "tables + GSIs · Streams",
+      "pos": [
+        1200,
+        262
+      ],
+      "size": [
+        180,
+        80
+      ]
+    },
+    {
+      "id": "queue",
+      "type": "messagebus",
+      "label": "SQS queue",
+      "sublabel": "notification jobs",
+      "pos": [
+        890,
+        470
+      ],
+      "size": [
+        190,
+        80
+      ]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "Lambda functions",
+      "sublabel": "Node.js · jobs, ranking",
+      "pos": [
+        1200,
+        470
+      ],
+      "size": [
+        180,
+        80
+      ]
+    },
+    {
+      "id": "scheduler",
+      "type": "messagebus",
+      "label": "EventBridge Scheduler",
+      "sublabel": "timed jobs",
+      "pos": [
+        1200,
+        650
+      ],
+      "size": [
+        180,
+        70
+      ]
+    },
+    {
+      "id": "sms",
+      "type": "external",
+      "label": "SMS gateway",
+      "sublabel": "Dialog e-SMS · OTP, alerts",
+      "pos": [
+        1510,
+        290
+      ],
+      "size": [
+        170,
+        60
+      ]
+    },
+    {
+      "id": "push",
+      "type": "external",
+      "label": "Push service",
+      "sublabel": "Expo Push · FCM/APNs",
+      "pos": [
+        1510,
+        480
+      ],
+      "size": [
+        170,
+        60
+      ]
+    },
+    {
+      "id": "email",
+      "type": "external",
+      "label": "Email service",
+      "sublabel": "Amazon SES",
+      "pos": [
+        1510,
+        620
+      ],
+      "size": [
+        170,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "AWS · ap-south-1 (Mumbai) · Amplify Gen 2 backend, serverless",
+      "wraps": [
+        "media",
+        "auth",
+        "api",
+        "db",
+        "queue",
+        "worker",
+        "scheduler"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "attendee-mobile",
+      "from": "attendee",
+      "to": "mobile",
+      "label": "browse, chat",
+      "variant": "emphasis"
+    },
+    {
+      "id": "attendee-web",
+      "from": "attendee",
+      "to": "web",
+      "label": "same features",
+      "variant": "emphasis"
+    },
+    {
+      "id": "orgprov-mobile",
+      "from": "org-prov",
+      "to": "mobile",
+      "label": "on the go"
+    },
+    {
+      "id": "orgprov-web",
+      "from": "org-prov",
+      "to": "web",
+      "label": "manage events"
+    },
+    {
+      "id": "admin-web",
+      "from": "admin",
+      "to": "web",
+      "label": "verify, moderate",
+      "variant": "security"
+    },
+    {
+      "id": "mobile-api",
+      "from": "mobile",
+      "to": "api",
+      "label": "GraphQL + live updates",
+      "variant": "emphasis",
+      "toSide": "top"
+    },
+    {
+      "id": "web-api",
+      "from": "web",
+      "to": "api",
+      "label": "GraphQL + live updates",
+      "variant": "emphasis"
+    },
+    {
+      "id": "mobile-media",
+      "from": "mobile",
+      "to": "media",
+      "label": "upload, CDN",
+      "variant": "dashed"
+    },
+    {
+      "id": "web-media",
+      "from": "web",
+      "to": "media",
+      "label": "upload, CDN",
+      "variant": "dashed"
+    },
+    {
+      "id": "api-auth",
+      "from": "api",
+      "to": "auth",
+      "label": "check sign-in, role",
+      "variant": "security"
+    },
+    {
+      "id": "auth-sms",
+      "from": "auth",
+      "to": "sms",
+      "label": "OTP (custom sender)"
+    },
+    {
+      "id": "api-db",
+      "from": "api",
+      "to": "db",
+      "label": "resolvers"
+    },
+    {
+      "id": "api-queue",
+      "from": "api",
+      "to": "queue",
+      "label": "enqueue jobs"
+    },
+    {
+      "id": "queue-worker",
+      "from": "queue",
+      "to": "worker",
+      "label": "triggers",
+      "variant": "dashed"
+    },
+    {
+      "id": "db-worker",
+      "from": "db",
+      "to": "worker",
+      "label": "Streams: rerank",
+      "variant": "dashed"
+    },
+    {
+      "id": "scheduler-worker",
+      "from": "scheduler",
+      "to": "worker",
+      "label": "review windows, boards",
+      "variant": "dashed"
+    },
+    {
+      "id": "worker-push",
+      "from": "worker",
+      "to": "push",
+      "label": "push"
+    },
+    {
+      "id": "worker-email",
+      "from": "worker",
+      "to": "email",
+      "label": "email"
+    },
+    {
+      "id": "worker-sms",
+      "from": "worker",
+      "to": "sms",
+      "label": "urgent alerts"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Where it runs: why, and alternatives",
+      "items": [
+        "AWS Amplify Gen 2 (backend). Why: the whole backend (auth, data, storage, functions) is defined in TypeScript in the repository and deployed by Amplify through AWS CDK; each developer gets a personal cloud sandbox, and each Git branch can get its own backend. Everything is serverless, so nothing sleeps or needs a server kept running. Alternatives: Firebase, Supabase, or the earlier design (NestJS on Render with Neon and Upstash).",
+        "Amplify Hosting (web portal). Why: builds and serves the Next.js portal, including server-rendered pages, from the same Git repository as the backend, with a preview link per pull request. Alternatives: Vercel, Netlify.",
+        "Region ap-south-1 (Mumbai). Why: the nearest AWS region to Sri Lanka. Watch: personal data is stored outside Sri Lanka, so check the PDPA's rules on cross-border transfers before launch (not checked).",
+        "Cost. Lambda, DynamoDB, SQS, Cognito and S3 have free monthly allowances, and AWS changed its free tier for new accounts in July 2025 (credits instead of 12 months free). Check the current terms and set an AWS Budgets alert before the pilot (limits not verified)."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Services and protocols: why, and alternatives",
+      "items": [
+        "GraphQL with AppSync subscriptions instead of REST + SSE. Why: Amplify Data generates a typed client for the app and the portal from one schema, applies per-role auth rules, and pushes live updates (chat, event status, 'Going' counts) over WebSockets that AWS manages. Alternatives: REST on API Gateway + Lambda with API Gateway WebSockets.",
+        "Amazon Cognito (Amplify Auth). Why: sign-up with email or phone, one Cognito group per role (organiser, vendor, freelancer, consumer, admin) that the auth rules check. A custom SMS sender Lambda sends sign-in codes through Dialog e-SMS instead of Amazon SNS.",
+        "Expo Push. Why: one push API over FCM and APNs for the React Native app, called from Lambda. Amazon Pinpoint push is not used: AWS ends its support on 30 October 2026. Alternatives: Amazon SNS mobile push, OneSignal.",
+        "Amazon SES (email). Why: inside AWS and cheap per message. Watch: new accounts start in the SES sandbox; request production access before the pilot. Alternatives: Resend, Brevo.",
+        "Dialog e-SMS (OTP and urgent alerts). Why: a Sri Lankan operator's gateway with sender ID masking and billing in LKR. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Amazon SNS SMS, Notify.lk."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Recommended stack",
+      "items": [
+        "One TypeScript monorepo with the Amplify Gen 2 backend (amplify/ folder) beside the app and the portal",
+        "Mobile: React Native + Expo with the Amplify JavaScript libraries; one app for all four roles",
+        "Web: Next.js portal on Amplify Hosting for every role, consumers included, plus a role-gated admin panel",
+        "Data: Amplify Data schema in TypeScript, served by AppSync and stored in DynamoDB; custom logic in Lambda functions",
+        "Jobs: SQS queue and EventBridge Scheduler trigger Lambda functions; DynamoDB Streams trigger reranking"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "Interactive 2D venue map",
+      "items": [
+        "Organisers upload a layout image, drop pins and draw named zones as boxes, e.g. 'Food court'",
+        "Consumers tap a zone to see its stalls; each stall shows the vendor, items and prices in LKR",
+        "Search by item (e.g. 'kottu') highlights matching stalls; 'Find on map' jumps to a stall",
+        "One map record (pins, zones) per event as a DynamoDB item; zones kept as fractions of the layout so they scale (proposed); layout image in S3",
+        "Drawn as an SVG overlay on the layout: react-native-svg in the app, SVG in Next.js",
+        "Stall listings are their own items; search by item runs over one event's listings, so it needs no search service",
+        "Mobile app only: keeps an opened event's map, times and announcements offline, with a 'last updated' time (Could)"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Data models (Amplify Data)",
+      "items": [
+        "Accounts, profiles and verification",
+        "Events and promotion feed (posts, reels)",
+        "Hiring marketplace: direct bookings, job posts, quotes, payment terms, stalls",
+        "Reviews and ranking (weighted rank score, badges, leaderboards)",
+        "Venue maps: layout, pins, zones, stall items and prices",
+        "Community boards, meetups, messaging, announcements",
+        "Admin: verification, report queue, disputes, audit log"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Data design on DynamoDB (replaces the PostgreSQL design)",
+      "items": [
+        "Rank score: an attribute on each profile, recalculated by a Lambda when a review is written or hidden (DynamoDB Streams)",
+        "Leaderboards: a GSI keyed by category#district and sorted by rank score; top N is one query",
+        "Feed: built on read from each followed organiser's posts (GSI by author and date), merged, with cursor pagination; organisers are few",
+        "Trending: a scheduled Lambda scores recent posts and stores the top list (score proposed)",
+        "Likes as their own items (post + user), so no double likes; like and view counts kept with atomic counters",
+        "Search: GSIs for category, district and date plus name prefix match; Algolia or Typesense later if the pilot needs typo-tolerant search",
+        "Tools: NoSQL Workbench to model tables and access patterns; Amplify sandbox for test data"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Reviews and trust",
+      "items": [
+        "Organiser and provider reviews unlock on a completed booking or a confirmed stall",
+        "Attendee reviews unlock from a 'Going' mark made before the event, once it ends",
+        "EventBridge Scheduler closes review windows after 14 days; a Lambda recomputes rank scores",
+        "Verification documents sit in a private S3 path that only the admin group can read, through short-lived links (PDPA)"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Out of scope",
+      "items": [
+        "Ticketing: tiers, seats, RSVP tickets, QR entry, refunds",
+        "Payment gateway: hiring and stall fees are paid outside the app",
+        "Google Maps directions to the venue: still under discussion"
+      ]
+    }
+  ]
+}
