@@ -167,10 +167,22 @@
 <header>
   <p class="eyebrow">Product Requirements Document · SDGP Agile Team Project</p>
   <h1>tezera</h1>
-  <p class="byline">Version 4 · updated 13 October 2026 · first written 30 September 2026 by Navindu Ranwatte</p>
+  <p class="byline">Version 5 · updated 15 October 2026 · first written 30 September 2026 by Navindu Ranwatte</p>
 </header>
 
 <p class="lead">Tezera is a mobile app and web portal that brings Sri Lanka's event organisers, vendors, freelancers and consumers onto one platform. Organisers promote events, hire vendors and freelancers, fill stalls and share venue maps; consumers discover events, mark that they're going and meet up through forums. The ATP release covers all four core modules: events and promotion, the hiring marketplace, community and venue maps. Ticketing and entry come first after the ATP, followed by payments in the app; premium accounts come in a later version.</p>
+
+<details class="changes">
+  <summary>What changed in version 5 (15 October 2026)</summary>
+  <ul>
+    <li><b>Survey recommendations accepted:</b> all twelve proposed changes (R1 to R12) in the <a href="../research/tezera-survey-analysis.html#recommendations">survey analysis</a>. Structured briefs (HR-03, HR-05) and payment and cancellation terms on bookings (HR-04, HR-08) extend Musts; new payment tracking without payments (HR-15) and late cancellations on the record (HR-16) are Should. 'Know before you go' (EV-08), live event status (EV-09) and an event age rating (EV-10) are Should. Sharing with link previews and a 'share to story' image extends EV-04 (Must). More standard map pins (VM-02, Must); the map kept offline in the mobile app (VM-15, Could); review tags and filters, replies and a facilities rating (RV-08 to RV-10, Could).</li>
+    <li><b>Minimum age:</b> accounts are for people aged 16 or over (proposed); under-18s confirm that a parent or guardian agreed (AC-01). 18+ events are labelled, and organisers check ID at the gate (EV-10).</li>
+    <li><b>3D venue view removed.</b> VM-05 to VM-07, the 3D part of section 8 and the Three.js dependency are gone; the IDs are not reused.</li>
+    <li><b>Interactive 2D venue map</b> (6.6, new VM-08 to VM-14): organisers draw zones on the layout, consumers tap a zone to see its stalls and what each one sells, search the map by item, and jump to a stall from the event's vendor list (Must). Stage line-ups on stage pins and a stall-type filter are Should. Section 8 says how it is built.</li>
+    <li><b>Open questions</b> (section 14): the age question, the 3D question and most of the venue map extras are settled; Google Maps directions stays open, and a later-phase question on sponsors is added.</li>
+  </ul>
+  <p class="note">Rows changed in this version carry a <span class="tag">v5</span> tag. Decided by Damian on 15 October 2026, after questions on each recommendation.</p>
+</details>
 
 <details class="changes">
   <summary>What changed in version 4 (13 October 2026)</summary>
@@ -236,7 +248,7 @@
     <tr><td class="id">Consumers</td><td>Event details are spread across organisers' social pages, venue layouts are rarely shared ahead of time, and there is no easy way to find others who are going.</td><td>Consumer survey</td></tr>
   </tbody>
 </table></div>
-<div class="callout teal"><span class="tag">v3</span> <b>Survey results are in.</b> Surveys of 26 attendees, 7 organisers and 13 vendors and freelancers ran from 4 to 8 October 2026. The findings, and the PRD changes they suggest, are in the <a href="../research/tezera-survey-analysis.html">survey analysis</a> for the group to review. The requirements below have not been changed yet.</div>
+<div class="callout teal"><span class="tag">v3</span> <b>Survey results are in.</b> Surveys of 26 attendees, 7 organisers and 13 vendors and freelancers ran from 4 to 8 October 2026. The findings, and the PRD changes they suggest, are in the <a href="../research/tezera-survey-analysis.html">survey analysis</a> for the group to review.<br><span class="tag">v5</span> All twelve recommended changes were accepted on 15 October 2026 and are now in the requirements below (see "What changed in version 5").</div>
 <p><b>The opportunity:</b> one platform where each party's activity feeds the others. Events create demand for vendors and freelancers. Completed jobs and attended events create reviews. Forum activity builds an audience for the organiser's next event.</p>
 
 <!-- ============================================================ 2 -->
@@ -255,7 +267,7 @@
   <li><b>Ticketing and entry:</b> ticket tiers, reserved seats, free RSVP tickets, QR tickets and gate scanning, and refunds. This is the first phase after the ATP (6.3). <span class="tag">v2</span></li>
   <li><b>Payments of any kind in the app.</b> Bookings and stalls are agreed in the app but paid outside it; in-app payments would come in a later phase, if the group takes the idea further. <span class="tag">v2</span></li>
   <li>Premium accounts for VIP or fast-sale tickets (later version).</li>
-  <li>An in-app map builder (2D or 3D), stalls linked to vendor profiles on the map, and Google Maps directions. These are still under team discussion. A 3D view generated from the uploaded layout and pins is a Could (VM-05, VM-06). <span class="tag">v2</span></li>
+  <li>A 3D view of the venue; the interactive 2D map (6.6) covers finding stalls, stages and facilities. Google Maps directions to the venue are still under team discussion (section 14). <span class="tag">v2</span> <span class="tag">v5</span></li>
   <li>Posts or reels from vendors, freelancers or consumers in the main feed. The feed is for organisers; providers show their work in portfolios.</li>
   <li>More than one role on a single account.</li>
 </ul>
@@ -363,7 +375,7 @@
 <div class="tbl"><table class="req">
   <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
   <tbody>
-    <tr><td class="id">AC-01</td><td class="who">All</td><td>Sign up with an email address or phone number, verify it, and pick one role: organiser, vendor, freelancer or consumer.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">AC-01 <span class="tag">v5</span></td><td class="who">All</td><td>Sign up with an email address or phone number, verify it, and pick one role: organiser, vendor, freelancer or consumer. Users must be 16 or older (proposed); under-18s confirm that a parent or guardian agreed.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">AC-02</td><td class="who">Organiser</td><td>Profile with name, logo, description, contact details, upcoming and past events, rating, rank, tier badge and reviews.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">AC-03</td><td class="who">Provider</td><td>Profile with category (e.g., photographer, F&amp;B stall), services and indicative prices, districts served, rating, rank, badges and reviews.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">AC-04</td><td class="who">Provider</td><td>Portfolio gallery of photos and videos of past work, such as event shots or a stall's menu.</td><td class="p"><span class="pri must">Must</span></td></tr>
@@ -384,10 +396,13 @@
     <tr><td class="id">EV-01 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Create an event page: title, category (concert, exhibition, festival and so on), date and time, venue name and address, description, cover image, line-up or schedule, and entry price or "free" for information. Until ticketing arrives, the page can link to where tickets are sold (proposed). Once stalls are confirmed, the page lists the stall vendors and their stall numbers (proposed), so attendees can find and review them.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">EV-02 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Save an event as a draft, publish it, edit it, postpone it or cancel it. Consumers who marked it 'Going' or 'Interested' are notified when the date, time or venue changes, or the event is postponed or cancelled.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">EV-03</td><td class="who">Organiser</td><td>Publish image posts and reels (short videos) to the main feed, which can be linked to an event. Posters and other marketing material go up as posts.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">EV-04</td><td class="who">All</td><td>Like, comment on and share feed posts, and follow organisers to get their posts in the feed.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">EV-04 <span class="tag">v5</span></td><td class="who">All</td><td>Like, comment on and share feed posts, and follow organisers to get their posts in the feed. Every event page and post has a short link that shows a preview image when shared on WhatsApp or Instagram, and a 'share to story' option that makes an image sized for Instagram stories.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">EV-05</td><td class="who">Consumer</td><td>Browse and search events by keyword, category, date, district and price, including free events.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">EV-06 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Mark an event as 'Going' or 'Interested'. A 'Going' mark made before the event starts also unlocks the consumer's reviews after it (6.5).</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">EV-07</td><td class="who">Consumer</td><td>Get event recommendations based on interests, followed organisers, past events and district.</td><td class="p"><span class="pri could">Could</span></td></tr>
+    <tr><td class="id">EV-08 <span class="tag">v5</span></td><td class="who">Organiser, Consumer</td><td>'Know before you go' on the event page: dress code, parking and transport, what to bring, rules (age limit, re-entry, banned items), food and drink with a price range, and cover if it rains. Empty fields are hidden. Consumers who marked the event 'Going' are notified when this section changes.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">EV-09 <span class="tag">v5</span></td><td class="who">Organiser, Consumer</td><td>Live event status: on time, running late (with a new start time), postponed or cancelled. The organiser sets it in two taps; it shows on the event page and is pushed to consumers who marked the event 'Going' or 'Interested'.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">EV-10 <span class="tag">v5</span></td><td class="who">Organiser, Consumer</td><td>Give each event an age rating (All ages, 18+ or 21+), shown on the event page and usable as a search filter. The organiser checks ID at the gate; the app does not enforce it.</td><td class="p"><span class="pri should">Should</span></td></tr>
   </tbody>
 </table></div>
 
@@ -417,18 +432,20 @@
   <tbody>
     <tr><td class="id">HR-01</td><td class="who">Organiser</td><td>Search and filter providers by category, district, rating, rank and verified status.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-02</td><td class="who">Provider</td><td>Keep an availability calendar by marking dates as booked or unavailable; organisers can then filter by available date.</td><td class="p"><span class="pri should">Should</span></td></tr>
-    <tr><td class="id">HR-03</td><td class="who">Organiser</td><td>Send a direct booking request with the event, date, times, brief and budget.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">HR-04</td><td class="who">Provider</td><td>Accept or decline a booking request, or reply with a different quote (proposed). The organiser accepts or declines that quote, and acceptance creates the booking.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">HR-05</td><td class="who">Organiser</td><td>Post a job (e.g., '2 photographers, 12 Dec, Colombo') with requirements, a budget range and a deadline for quotes.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-03 <span class="tag">v5</span></td><td class="who">Organiser</td><td>Send a direct booking request with the event, date, times, brief and budget. The brief has optional structured fields: service, duration, expected audience, deliverables, run-of-show timings and equipment provided. Only filled fields are shown to the provider.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-04 <span class="tag">v5</span></td><td class="who">Provider</td><td>Accept or decline a booking request, or reply with a different quote (proposed). A quote can propose its own payment and cancellation terms (HR-08). The organiser accepts or declines that quote, and acceptance creates the booking.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-05 <span class="tag">v5</span></td><td class="who">Organiser</td><td>Post a job (e.g., '2 photographers, 12 Dec, Colombo') with requirements, a budget range and a deadline for quotes. Requirements use the same optional structured brief fields as HR-03.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-06</td><td class="who">Provider</td><td>Browse job posts that match their category and district, and apply with a quote and a message.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-07</td><td class="who">Organiser</td><td>Compare the quotes on a job post and accept one or more to create bookings.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">HR-08</td><td class="who">Organiser, Provider</td><td>A confirmed booking records the agreed service, date, price and terms. Either side can cancel it with a reason.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">HR-08 <span class="tag">v5</span></td><td class="who">Organiser, Provider</td><td>A confirmed booking records the agreed service, date, price and terms. Payment terms set out the deposit and each instalment's amount and due date; cancellation terms say what happens if either side cancels. Both are shown before the provider accepts and kept on the booking; changing them needs the other side's acceptance. No money moves in the app. Either side can cancel the booking with a reason.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-09</td><td class="who">Organiser, Provider</td><td>The organiser marks a booking as completed after the event (proposed), which unlocks reviews for both sides.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-10</td><td class="who">Organiser</td><td>Open stall slots for an event with the stall type, fee and application deadline. Vendors apply; the organiser approves or rejects.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-11</td><td class="who">Organiser</td><td>Invite a vendor directly to take a stall. The vendor accepts or declines; acceptance counts as approval for HR-12.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-12</td><td class="who">Organiser</td><td>Give each approved vendor a stall number.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">HR-13</td><td class="who">Organiser, Vendor</td><td>Show the stall fee in the app; the vendor pays it outside the app in the MVP.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr class="later"><td class="id">HR-14</td><td class="who">Organiser, Provider</td><td>Pay providers and stall fees inside the app, for example a deposit first and the balance after the event.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr><td class="id">HR-15 <span class="tag">v5</span></td><td class="who">Organiser, Provider</td><td>Payment tracking without payments: each instalment on a booking shows as due, received or overdue. The provider marks an instalment as received, and both sides get due-date reminders. Organiser profiles show the share of bookings paid on time (bookings with payment terms only).</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">HR-16 <span class="tag">v5</span></td><td class="who">Organiser, Provider</td><td>Late cancellations on the record: a booking cancelled within 7 days of the event (proposed) shows on the profile of whoever cancelled. When a provider cancels, the organiser can reopen the job as a job post, prefilled from the booking, in one step.</td><td class="p"><span class="pri should">Should</span></td></tr>
   </tbody>
 </table></div>
 
@@ -492,7 +509,7 @@
   <tbody>
     <tr><td class="id">Organiser</td><td>Vendor or freelancer</td><td>A completed booking, or a confirmed stall at an event that has ended</td><td>Quality, punctuality, communication, value for money</td></tr>
     <tr><td class="id">Vendor or freelancer</td><td>Organiser</td><td>A completed booking, or a confirmed stall at an event that has ended</td><td>Payment, communication, planning</td></tr>
-    <tr><td class="id">Consumer <span class="tag">v2</span></td><td>Organiser and event</td><td>A 'Going' mark made before the event started, once the event has ended (proposed)</td><td>Organisation, value for money, overall experience (proposed)</td></tr>
+    <tr><td class="id">Consumer <span class="tag">v2</span></td><td>Organiser and event</td><td>A 'Going' mark made before the event started, once the event has ended (proposed)</td><td>Organisation, value for money, overall experience (proposed); facilities: toilets, queues, food and drink (RV-10) <span class="tag">v5</span></td></tr>
     <tr><td class="id">Consumer <span class="tag">v2</span></td><td>Stall vendor</td><td>A 'Going' mark, made before the event started, on the event where the stall was (proposed)</td><td>Quality, value for money, service (proposed)</td></tr>
   </tbody>
 </table></div>
@@ -506,6 +523,9 @@
     <tr><td class="id">RV-05</td><td class="who">System</td><td>Award tier badges from the rank score and completed jobs or events: New, Rising and Top Rated.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">RV-06</td><td class="who">All</td><td>Show leaderboards of top providers by category and district, and of top organisers.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">RV-07</td><td class="who">Admin</td><td>Hide reviews that break the rules after a report, and leave reviews from fake accounts out of ratings and the rank score.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">RV-08 <span class="tag">v5</span></td><td class="who">All</td><td>Each review of a booking shows the service and event type it was for (e.g., wedding photography), taken from the booking. Review pages can be filtered by them.</td><td class="p"><span class="pri could">Could</span></td></tr>
+    <tr><td class="id">RV-09 <span class="tag">v5</span></td><td class="who">Organiser, Provider</td><td>The person reviewed can post one public reply to each review.</td><td class="p"><span class="pri could">Could</span></td></tr>
+    <tr><td class="id">RV-10 <span class="tag">v5</span></td><td class="who">Consumer</td><td>Consumer reviews of an event include a facilities rating: toilets, queues, and food and drink running out.</td><td class="p"><span class="pri could">Could</span></td></tr>
   </tbody>
 </table></div>
 <p>Proposed rank score (a starting point to tune with real data):</p>
@@ -516,17 +536,22 @@
 <p><i>R</i> is the average star rating and <i>v</i> the number of reviews. <i>C</i> is the average rating across the category, and <i>m</i> is a minimum review count (proposed: 5). Together they stop a single five-star review from topping a leaderboard. <i>V</i> is the review count <i>v</i>, and <i>B</i> the number of completed jobs, each scaled 0-1 against the category leader. <i>S</i> is the share of booking requests answered. For organisers (proposed), <i>B</i> counts completed events and <i>R</i> combines ratings from consumers and providers. <i>C</i> and the scaling use all organisers, and <i>S</i> is the share of consumer chats and Q&amp;A questions answered.</p>
 
 <h3 id="m-maps">6.6 Venue maps</h3>
-<p>In the MVP, organisers upload a floor plan of the venue and drop labelled pins on it; consumers open it from the event page. <span class="tag">v2</span> A 3D view built from the same layout and pins is a Could (VM-05, VM-06); section 8 describes how it would work. An in-app map builder, stalls linked to vendor profiles and Google Maps directions are still under team discussion (section 14).</p>
+<p>In the MVP, organisers upload a floor plan of the venue, drop labelled pins on it and draw zones such as a food court; consumers open it from the event page. <span class="tag">v5</span> The map is interactive: tapping a zone lists its stalls, and each stall shows what it sells and at what price, so consumers can find a stall by what they want. There is no 3D view; section 8 describes how the map is built. Google Maps directions are still under team discussion (section 14).</p>
 <div class="tbl"><table class="req">
   <thead><tr><th>ID</th><th>Who</th><th>Requirement</th><th>Priority</th></tr></thead>
   <tbody>
     <tr><td class="id">VM-01</td><td class="who">Organiser</td><td>Upload a venue layout image (e.g., PNG or JPG) for each event.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">VM-02</td><td class="who">Organiser</td><td>Place pins on the layout and label each one: stages, stalls, entrances and exits, toilets, first aid, or a custom label. A stall pin can carry its stall number (HR-12).</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-02 <span class="tag">v5</span></td><td class="who">Organiser</td><td>Place pins on the layout and label each one: stages, stalls, entrances and exits, toilets, first aid, parking, registration or ticket counter, seating, food and drink, water, or a custom label. A stall pin can carry its stall number (HR-12).</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">VM-03</td><td class="who">Organiser</td><td>Move, add or remove pins and republish the map at any time; attendees always see the latest version.</td><td class="p"><span class="pri must">Must</span></td></tr>
     <tr><td class="id">VM-04 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Open the map from the event page (and, once ticketing arrives, from a ticket), zoom and pan, and tap a pin to read its label.</td><td class="p"><span class="pri must">Must</span></td></tr>
-    <tr><td class="id">VM-05 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Give a pin an optional footprint (width, depth, height and rotation), so stages, stalls and other areas can be shown as blocks in the 3D view. Pins without a footprint appear as markers.</td><td class="p"><span class="pri could">Could</span></td></tr>
-    <tr><td class="id">VM-06 <span class="tag">v2</span></td><td class="who">Consumer</td><td>Switch from the 2D map to a 3D view of the venue, generated from the layout image and pins: rotate, zoom, and tap a block to read its label. The 2D map stays the default, and the only view on devices that cannot show 3D.</td><td class="p"><span class="pri could">Could</span></td></tr>
-    <tr class="later"><td class="id">VM-07 <span class="tag">v2</span></td><td class="who">Organiser</td><td>Upload a ready-made 3D model of the venue (glTF or GLB) instead of the generated view, within size limits.</td><td class="p"><span class="pri later">Later</span></td></tr>
+    <tr><td class="id">VM-08 <span class="tag">v5</span></td><td class="who">Organiser</td><td>Draw zones on the layout as named boxes (e.g., 'Food court', 'Main stage area') and assign stalls to a zone.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-09 <span class="tag">v5</span></td><td class="who">Consumer</td><td>Tap a zone to see its list of stalls. Open a stall to see the vendor's name and photo, the stall number, a short description, items and prices, and a link to the vendor's profile.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-10 <span class="tag">v5</span></td><td class="who">Vendor</td><td>For each approved stall, add a short description and either a list of items with prices in LKR for this event or the prices already on the vendor's profile (AC-03). The organiser can hide an entry that breaks the event's rules.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-11 <span class="tag">v5</span></td><td class="who">Consumer</td><td>Search the map by item (e.g., 'kottu', 'water'); stalls that sell it are highlighted.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-12 <span class="tag">v5</span></td><td class="who">Consumer</td><td>Tap 'Find on map' beside a vendor in the event page's vendor list (EV-01) to jump to their stall on the map.</td><td class="p"><span class="pri must">Must</span></td></tr>
+    <tr><td class="id">VM-13 <span class="tag">v5</span></td><td class="who">Organiser, Consumer</td><td>Link line-up entries (EV-01) to a stage pin; tapping the stage shows who performs there and when.</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">VM-14 <span class="tag">v5</span></td><td class="who">Consumer</td><td>Filter the map by stall type (food, drinks, merchandise and so on, from HR-10).</td><td class="p"><span class="pri should">Should</span></td></tr>
+    <tr><td class="id">VM-15 <span class="tag">v5</span></td><td class="who">Consumer</td><td>In the mobile app, an event's map, times and announcements stay viewable without signal once opened, with a 'last updated' time.</td><td class="p"><span class="pri could">Could</span></td></tr>
   </tbody>
 </table></div>
 
@@ -593,12 +618,12 @@
   <thead><tr><th>Area</th><th>Requirement</th></tr></thead>
   <tbody>
     <tr><td class="id">Platforms <span class="tag">v3</span></td><td>Android and iOS apps for all roles. A web portal for all roles too: organisers and vendors manage events, bookings and venue maps on a larger screen, and consumers get the same features as in the app. Proposed: freelancers can use the portal too, and admins work from a web admin panel.</td></tr>
-    <tr><td class="id">Performance <span class="tag">v2</span></td><td>Feed, event pages and search load within 3 seconds on 4G mobile data (proposed). Reels start quickly on mobile data. The 3D venue view (VM-06), if built, downloads only when a consumer opens it, so it never slows the 2D map or the event page.</td></tr>
+    <tr><td class="id">Performance <span class="tag">v2</span></td><td>Feed, event pages and search load within 3 seconds on 4G mobile data (proposed). Reels start quickly on mobile data. The venue map loads its layout image at a size suited to the screen. <span class="tag">v5</span></td></tr>
     <tr><td class="id">Security</td><td>All traffic over HTTPS, passwords hashed, and role-based access so each role sees only its own tools.</td></tr>
     <tr><td class="id">Privacy</td><td>Collect only the data each feature needs, and ask consent for marketing messages. Users can view, correct and delete their data. NIC and registration documents are visible to admins only. The platform must comply with Sri Lanka's Personal Data Protection Act, No. 9 of 2022 (PDPA).</td></tr>
     <tr><td class="id">Localisation</td><td>All interface text lives in translation files from the start, with Unicode fonts for Sinhala and Tamil. The Sinhala and Tamil screens themselves are a Should (AC-10). Prices in LKR.</td></tr>
-    <tr><td class="id">Accessibility <span class="tag">v2</span></td><td>Screen-reader labels, readable text sizes and sufficient colour contrast, targeting WCAG 2.1 AA (proposed). The 2D venue map with labelled pins is the accessible version of the 3D view.</td></tr>
-    <tr><td class="id">Media <span class="tag">v2</span></td><td>Upload size and length limits on images and reels, and on 3D models (VM-07), to keep storage and streaming costs under control.</td></tr>
+    <tr><td class="id">Accessibility <span class="tag">v2</span></td><td>Screen-reader labels, readable text sizes and sufficient colour contrast, targeting WCAG 2.1 AA (proposed). Every zone, stall and pin on the venue map can also be reached as a list, so the map works with a screen reader. <span class="tag">v5</span></td></tr>
+    <tr><td class="id">Media <span class="tag">v2</span></td><td>Upload size and length limits on images and reels, to keep storage and streaming costs under control. <span class="tag">v5</span></td></tr>
   </tbody>
 </table></div>
 <h4>Added with ticketing, after the ATP <span class="tag">v2</span></h4>
@@ -647,16 +672,14 @@
   <li><b>Analytics (OD-04):</b> an activity log table in PostgreSQL, summed into daily totals by the worker. PostHog or ClickHouse only if the volume outgrows it.</li>
   <li><b>Not recommended at this scale:</b> a graph database (Neo4j) for follows, MongoDB or Cassandra. Each adds a service to run and learn without solving a problem PostgreSQL and Redis leave open.</li>
 </ul>
-<h4>The 3D venue view (VM-05 to VM-07)</h4>
+<h4>The interactive venue map (VM-01 to VM-15) <span class="tag">v5</span></h4>
 <ul>
-  <li><b>Built from the map data, not from models.</b> The uploaded floor plan is laid flat as the floor of a 3D scene, and each pin with a footprint (VM-05) becomes a simple block: stage, stall, entrance, toilet and so on. One map record, stored as JSON in PostgreSQL, drives both the 2D map and the 3D view, so organisers need no 3D modelling skills. Ready-made glTF/GLB models (VM-07) can come later and would be stored in Cloudinary.</li>
-  <li><b>Web portal:</b> Three.js, through React Three Fiber and its helper library drei. The viewer loads only in the browser (not during server rendering) and only when someone opens it.</li>
-  <li><b>Mobile app:</b> the recommended option shows the same web viewer inside a WebView, so there is one viewer to build, and pin taps are passed back to native screens. The alternative, expo-gl with React Three Fiber's native renderer, is smoother but means a second rendering setup and more testing on low-end Android phones.</li>
-  <li><b>Loaded on request.</b> The 2D map is the default. Three.js adds roughly 150 KB or more (compressed), so it downloads only when someone taps "View in 3D", which keeps event pages within the 3-second target. The 2D map with pin labels stays the screen-reader-friendly version (WCAG 2.1 AA).</li>
-  <li><b>Light scenes</b> for older phones: few distinct shapes, identical stall blocks repeated with Three.js instancing, and uploaded models compressed with Draco or meshopt.</li>
-  <li><b>Organiser editor:</b> a drag-to-place editor in the web portal, where stalls snap onto the floor plan, would make footprints easy to set. It is part of the in-app map builder that is still under discussion (section 14), so the group decides that first.</li>
-  <li><b>Runs on the user's device.</b> The viewer draws the scene with the phone's or laptop's graphics chip (WebGL), so the server does no rendering and needs no GPU.</li>
-  <li><b>No new backend service.</b> The venue maps module stores and serves the extra map data, and the monorepo gets a shared <code>venue-viewer</code> package that both the web portal and the mobile app use.</li>
+  <li><b>One map record per event.</b> Pins and zones are stored as JSON in PostgreSQL with the event. Positions and zone boxes are saved as fractions (0 to 1) of the layout image's width and height, so they line up at any screen size.</li>
+  <li><b>Drawn as a layer over the image.</b> The layout image is the background; pins and zone boxes are drawn on top as SVG (react-native-svg with gesture handling in the app, plain SVG in the Next.js portal), so zoom, pan and taps need no map service.</li>
+  <li><b>Stall listings in their own table.</b> Each stall's description and items (name and price in LKR) are rows linked to the stall and the vendor; stalls that use profile prices point to the profile instead. Item names go into PostgreSQL text search, which powers search by item (VM-11).</li>
+  <li><b>Editing.</b> The web portal is the main place to draw zones and place pins; the app allows small edits on the day. Republishing (VM-03) sends the new map to everyone viewing it through SSE.</li>
+  <li><b>Offline in the app (VM-15, Could).</b> The app saves the map record, layout image, times and announcements on the device when an event is opened, and refreshes them when the signal returns.</li>
+  <li><b>No new backend service.</b> The venue maps module stores and serves the map; the stall listings sit in the hiring module next to stalls (HR-10 to HR-12).</li>
 </ul>
 
 <!-- ============================================================ 9 -->
@@ -673,7 +696,8 @@
     <tr><td class="id">Organiser analytics <span class="tag">v2</span></td><td class="p"><span class="pri should">Should</span></td><td>'Going' counts and hiring tracking are already Must (6.9); the fuller dashboard adds value but is not core.</td></tr>
     <tr><td class="id">Availability calendar</td><td class="p"><span class="pri should">Should</span></td><td>Cuts back-and-forth when hiring; simple date blocking is enough at first.</td></tr>
     <tr><td class="id">Recommendations</td><td class="p"><span class="pri could">Could</span></td><td>Only useful once there is usage data; search and filters cover discovery at launch.</td></tr>
-    <tr><td class="id">3D venue view <span class="tag">v2</span></td><td class="p"><span class="pri could">Could</span></td><td>Helps attendees picture large venues, but the 2D map already covers every task. Start it only once VM-01 to VM-04 work.</td></tr>
+    <tr><td class="id">Interactive venue map <span class="tag">v5</span></td><td class="p"><span class="pri must">Must</span></td><td>Zones, stall lists with items and prices, search by item and 'Find on map' (VM-08 to VM-12). Replaces the 3D view: in the survey, attendees most needed to find stalls, parking, seating and toilets. Stage line-ups and the stall-type filter are Should.</td></tr>
+    <tr><td class="id">Offline venue map <span class="tag">v5</span></td><td class="p"><span class="pri could">Could</span></td><td>Large venues lose signal (survey), but organisers also put up signs. Mobile app only (VM-15).</td></tr>
     <tr class="later"><td class="id">Refunds and cancellations <span class="tag">v2</span></td><td class="p"><span class="pri later">Later</span></td><td>Moves with ticketing (6.3). When it arrives, full refunds on cancellation (TK-11) should be a Must and per-event refund policies (TK-10) a Should.</td></tr>
   </tbody>
 </table></div>
@@ -702,7 +726,7 @@
     <text class="s" x="214" y="110">Hiring marketplace and stalls</text>
     <text class="s" x="214" y="125">Reviews and ranking</text>
     <text class="s" x="214" y="140">Community and chat</text>
-    <text class="s" x="214" y="155">Venue maps (3D view if time allows)</text>
+    <text class="s" x="214" y="155">Venue maps (interactive 2D)</text>
     <text class="s" x="214" y="170">Admin and moderation</text>
     <text class="s" x="214" y="185">Sinhala and Tamil, if time allows</text>
 
@@ -815,8 +839,7 @@
   <tbody>
     <tr><td class="id">Push notification services</td><td>Alerts on Android and iOS</td><td>For example Firebase Cloud Messaging and Apple Push Notification service, reached through Expo Push (section 8).</td></tr>
     <tr><td class="id">Email delivery service <span class="tag">v2</span></td><td>Booking confirmations and verification emails (e-tickets and receipts once ticketing arrives)</td><td>Recommended: Resend (section 8).</td></tr>
-    <tr><td class="id">Media storage and streaming <span class="tag">v2</span></td><td>Images, reels, portfolios, venue layouts, verification documents, and 3D models (VM-07)</td><td>Reels need compression so they load quickly on mobile data. Recommended: Cloudinary (section 8).</td></tr>
-    <tr><td class="id">3D rendering library <span class="tag">v2</span></td><td>The 3D venue view (VM-06)</td><td>Three.js with React Three Fiber; open source, no service cost. Only needed if VM-06 is built.</td></tr>
+    <tr><td class="id">Media storage and streaming <span class="tag">v2</span></td><td>Images, reels, portfolios, venue layouts and verification documents</td><td>Reels need compression so they load quickly on mobile data. Recommended: Cloudinary (section 8).</td></tr>
     <tr><td class="id">Verification checks</td><td>NIC and business registration</td><td>Manual admin review in the MVP.</td></tr>
     <tr><td class="id">SMS service <span class="tag">v3</span></td><td>One-time codes to verify phone numbers at sign-up (AC-01), and urgent alerts (MS-07)</td><td>Dialog e-SMS (Dialog Enterprise). Needs a business account and sender ID approval (proposed: confirm with Dialog).</td></tr>
     <tr><td class="id">Maps service</td><td>Not needed in the MVP</td><td>Only if Google Maps directions are added later.</td></tr>
@@ -830,7 +853,7 @@
 <div class="tbl"><table>
   <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead>
   <tbody>
-    <tr><td>The scope is large for an SDGP timeline: four core modules plus add-ons, on mobile and web. <span class="tag">v2</span></td><td class="p">High</td><td>Build thin end-to-end slices first (publish an event, hire a provider, upload a venue map). Keep Should and Could items, including the 3D view, out until the Musts work, and review scope every sprint.</td></tr>
+    <tr><td>The scope is large for an SDGP timeline: four core modules plus add-ons, on mobile and web. <span class="tag">v2</span></td><td class="p">High</td><td>Build thin end-to-end slices first (publish an event, hire a provider, upload a venue map). Keep Should and Could items out until the Musts work, and review scope every sprint.</td></tr>
     <tr><td>Cold start: organisers won't join without consumers and providers, and the reverse.</td><td class="p">High</td><td>Pilot with one or two partner organisers and the vendors they already use. Seed communities by city and topic.</td></tr>
     <tr><td>Fake organisers: fake events, or stall fees and bookings agreed in the app and never honoured. <span class="tag">v2</span></td><td class="p">High</td><td>Verify organisers before they open stalls or hire (AC-08), let admins unpublish reported events (AD-03), and keep the booking and stall record as evidence for disputes (AD-04).</td></tr>
     <tr><td>Harassment or unsafe meetups through direct messages and group chats.</td><td class="p">High</td><td>Privacy settings, opt-in 'Going' lists, block and report, and active moderation. The minimum age is still to be decided.</td></tr>
@@ -840,7 +863,7 @@
     <tr><td>'Going' is weak proof of attendance, so consumers can review events they never went to. <span class="tag">v2</span></td><td class="p">Medium</td><td>Count only 'Going' marks made before the event starts, allow one review per event, and moderate under RV-07. Checked-in tickets replace 'Going' when ticketing arrives.</td></tr>
     <tr><td>Storage and streaming costs for reels grow quickly.</td><td class="p">Medium</td><td>Upload limits, compression and a managed media service.</td></tr>
     <tr><td>With hiring paid outside the app, the platform cannot enforce deals or earn hiring commission in the MVP.</td><td class="p">Medium</td><td>Keep the booking record as evidence, and move hiring payments into the app in a later phase if the group goes further.</td></tr>
-    <tr><td>The 3D view adds scope and runs poorly on low-end phones. <span class="tag">v2</span></td><td class="p">Low</td><td>Keep it a Could, generate it from existing pins (no modelling), load it only on request, and keep the 2D map as the default.</td></tr>
+    <tr><td>The interactive map (zones, stall listings, search by item) adds scope to a Must module, and drawing zones is fiddly on a phone. <span class="tag">v5</span></td><td class="p">Medium</td><td>Zones are plain rectangles; the web portal is the main editor; build VM-01 to VM-04 first, then zones and stall listings; stage line-ups and the filter stay Should.</td></tr>
   </tbody>
 </table></div>
 <h4>Risks for the ticketing phase <span class="tag">v2</span></h4>
@@ -861,11 +884,12 @@
   <li class="done">The product name. <i>Settled 8 October 2026: Tezera (previously REVAMP, settled 6 October). <span class="tag">v3</span></i></li>
   <li class="done">Is ticketing in the MVP? <i>Settled 6 October 2026: no, it is the first phase after the ATP (6.3).</i></li>
   <li>Can one email address or phone number register separate accounts for different roles?</li>
-  <li>What is the minimum user age, and how are age-restricted events (e.g., 18+) handled?</li>
+  <li class="done">What is the minimum user age, and how are age-restricted events (e.g., 18+) handled? <i>Settled 15 October 2026: 16 or older, with a parent or guardian's agreement for under-18s (AC-01, proposed); events carry an age rating and organisers check ID at the gate (EV-10). <span class="tag">v5</span></i></li>
   <li><span class="tag">v2</span> Can unverified organisers publish events at all, or only promote them without hiring and stalls?</li>
   <li><span class="tag">v2</span> Is a 'Going' mark enough to unlock attendee reviews, or should it need more, such as a location check-in at the venue?</li>
-  <li><span class="tag">v2</span> Venue map extras under discussion: an in-app 2D or 3D map builder, stalls linked to vendor profiles, Google Maps directions.</li>
-  <li><span class="tag">v2</span> Is the 3D venue view (VM-05, VM-06) built during the ATP if time allows, or after it?</li>
+  <li class="done"><span class="tag">v2</span> Venue map extras under discussion: an in-app 2D or 3D map builder, stalls linked to vendor profiles, Google Maps directions. <i>Settled 15 October 2026: a 2D map with drawn zones and stalls linked to vendor listings (VM-08 to VM-14); no 3D. Directions stay open (next question). <span class="tag">v5</span></i></li>
+  <li><span class="tag">v5</span> Google Maps directions to the venue: in the ATP, or later?</li>
+  <li class="done"><span class="tag">v2</span> Is the 3D venue view (VM-05, VM-06) built during the ATP if time allows, or after it? <i>Settled 15 October 2026: neither; the 3D view is removed (6.6). <span class="tag">v5</span></i></li>
   <li>Who creates communities: admins only, or users too?</li>
   <li>Which verification documents each role must submit.</li>
   <li>Rank score weights, tier badge thresholds and the review window length. <span class="tag">v4</span> Also the trending score weights (section 8).</li>
@@ -886,6 +910,10 @@
   <li>Will testing run on the payment gateway's sandbox only, or take real payments in a live pilot?</li>
   <li>Can one consumer buy several tickets in one order and send them to friends' accounts, and what is the per-order limit?</li>
   <li>Premium accounts: who buys them, and what do "VIP or fast-sale tickets" include?</li>
+</ul>
+<h4>For later phases <span class="tag">v5</span></h4>
+<ul class="qs">
+  <li>Should Tezera help organisers find sponsors? Four of seven organisers surveyed coordinate sponsors (survey analysis, section 8).</li>
 </ul>
 
 <!-- ============================================================ Sources -->

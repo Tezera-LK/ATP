@@ -67,21 +67,6 @@
       ]
     },
     {
-      "id": "viewer",
-      "type": "frontend",
-      "label": "3D venue viewer",
-      "sublabel": "Three.js · React Three Fiber",
-      "tag": "shared package",
-      "pos": [
-        320,
-        270
-      ],
-      "size": [
-        190,
-        70
-      ]
-    },
-    {
       "id": "web",
       "type": "frontend",
       "label": "Web portal",
@@ -258,24 +243,6 @@
       "variant": "security"
     },
     {
-      "id": "mobile-viewer",
-      "from": "mobile",
-      "to": "viewer",
-      "label": "WebView",
-      "variant": "dashed",
-      "fromSide": "bottom",
-      "toSide": "top"
-    },
-    {
-      "id": "web-viewer",
-      "from": "web",
-      "to": "viewer",
-      "label": "loads on tap",
-      "variant": "dashed",
-      "fromSide": "top",
-      "toSide": "bottom"
-    },
-    {
       "id": "mobile-api",
       "from": "mobile",
       "to": "api",
@@ -393,14 +360,15 @@
     },
     {
       "dot": "orange",
-      "title": "3D venue view (Could)",
+      "title": "Interactive 2D venue map",
       "items": [
-        "Built from map data: the floor plan lies flat and each pin with a footprint becomes a block",
-        "One map record (layout, pins, footprints) stored as JSON in PostgreSQL drives the 2D and 3D views",
-        "venue-viewer package: React Three Fiber + drei, loaded in the browser only, on 'View in 3D'",
-        "Mobile shows the same viewer in a WebView; pin taps go back to native screens",
-        "2D map stays the default and the accessible view; instancing keeps scenes light",
-        "Later: ready-made glTF/GLB models in Cloudinary, compressed with Draco or meshopt"
+        "Organisers upload a layout image, drop pins and draw named zones as boxes, e.g. 'Food court'",
+        "Consumers tap a zone to see its stalls; each stall shows the vendor, items and prices in LKR",
+        "Search by item (e.g. 'kottu') highlights matching stalls; 'Find on map' jumps to a stall",
+        "One map record (pins, zones) stored as JSON in PostgreSQL; zones kept as fractions of the layout so they scale (proposed)",
+        "Drawn as an SVG overlay on the layout: react-native-svg in the app, SVG in Next.js",
+        "Stall items in their own table, included in PostgreSQL text search",
+        "Mobile app only: keeps an opened event's map, times and announcements offline, with a 'last updated' time (Could)"
       ]
     },
     {
@@ -411,7 +379,7 @@
         "Events and promotion feed (posts, reels)",
         "Hiring marketplace: direct bookings, job posts, quotes, stalls",
         "Reviews and ranking (weighted rank score, badges, leaderboards); search via PostgreSQL text search + pg_trgm",
-        "Venue maps: layout image, pins and 3D footprints",
+        "Venue maps: layout, pins, zones, stall items and prices",
         "Community boards, meetups, messaging, announcements",
         "Admin: verification, report queue, disputes, audit log"
       ]
@@ -445,7 +413,7 @@
       "items": [
         "Ticketing: tiers, seats, RSVP tickets, QR entry, refunds",
         "Payment gateway: hiring and stall fees are paid outside the app",
-        "In-app map builder (2D or 3D editor): still under discussion"
+        "Google Maps directions to the venue: still under discussion"
       ]
     }
   ]

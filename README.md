@@ -2,19 +2,19 @@
 
 A mobile app and web portal where Sri Lankan event organisers hire vendors and freelancers, and attendees find events and each other. Every finished job leaves a review the next organiser can read.
 
-**Second-year Agile Team Project (SDGP)** · Project proposal, September 2026 (renamed from Eventline to Tezera on 6 October 2026, then to Tezera on 8 October 2026)
+**Second-year Agile Team Project (SDGP)** · Project proposal, September 2026 (renamed from Eventline to REVAMP on 6 October 2026, then to Tezera on 8 October 2026)
 
 ## Documents
 
 | Document | What it is | Read it when |
 | --- | --- | --- |
 | [Tezera Proposal.pdf](Tezera%20Proposal.pdf) | The 8-page project proposal: the problem, who is involved, the four modules, key workflows, the competitor comparison, SDG alignment and the roadmap for the Agile Team Project (ATP) | You want the plan at a glance |
-| [prd/tezera-prd.html](prd/tezera-prd.html) | The full product requirements document (version 3): roles, requirement tables with MoSCoW priorities, non-functional requirements, technical approach, business model, success metrics, risks and open questions. Edit this HTML file directly; print it to get a PDF | You need the detail behind a feature or decision |
-| [prd/tezera-architecture.html](prd/tezera-architecture.html) | The system architecture diagram (interactive, works offline), including the optional 3D venue viewer | You want to see how the apps, backend and services fit together |
-| [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) | Analysis of the discovery surveys of attendees, organisers, and vendors and freelancers (4–8 October 2026), with recommended PRD changes | You want to know what the market research found |
+| [prd/tezera-prd.html](prd/tezera-prd.html) | The full product requirements document (version 5): roles, requirement tables with MoSCoW priorities, non-functional requirements, technical approach, business model, success metrics, risks and open questions. Edit this HTML file directly; print it to get a PDF | You need the detail behind a feature or decision |
+| [prd/tezera-architecture.html](prd/tezera-architecture.html) | The system architecture diagram (interactive, works offline), including how the interactive venue map is built | You want to see how the apps, backend and services fit together |
+| [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) | Analysis of the discovery surveys of attendees, organisers, and vendors and freelancers (4–8 October 2026), with the twelve recommended PRD changes (R1–R12), all accepted on 15 October 2026 | You want to know what the market research found |
 | [research/tezera-personas.html](research/tezera-personas.html) | Eight user personas (two consumers, two organisers, three vendors and freelancers, one admin) built from the survey segments, each with evidence, quotes and the user stories written for them | You are designing a flow and need to know who it is for |
 | [research/tezera-user-stories.html](research/tezera-user-stories.html) | User stories for each role as Given / When / Then scenarios, drawn from the survey evidence and mapped to PRD requirement IDs | You are planning the backlog or a sprint |
-| [research/tezera-work-items.html](research/tezera-work-items.html) | The backlog as epics, stories and tasks with proposed story points, PRD coverage, and a Jira CSV export ([snapshot](research/tezera-work-items-jira.csv)). Work waiting on the survey recommendations R1–R12 is sized separately | You are planning sprints or importing into Jira |
+| [research/tezera-work-items.html](research/tezera-work-items.html) | The backlog as epics, stories and tasks with proposed story points, PRD coverage, and a Jira CSV export ([snapshot](research/tezera-work-items-jira.csv)). Includes the work for the accepted survey changes and the interactive venue map | You are planning sprints or importing into Jira |
 | [brand/tezera-brand-manual.html](brand/tezera-brand-manual.html) | The brand manual: name story, the three account personalities, light and dark palettes for organiser, vendor and attendee, type, icons, the tile system, motion rules, voice and applications | You are designing a screen, a post or a poster |
 | [HANDOFF.md](HANDOFF.md) | Where the work stands, what was decided, and what comes next. Updated after every session | You're picking up the work |
 
@@ -46,9 +46,9 @@ Supporting files:
 3. Users and roles
 4. How the platform fits together
 5. Competitive landscape
-6. Functional requirements, in ten modules: accounts, events, ticketing (after the ATP), hiring, reviews, venue maps (including an optional 3D view), community, messaging, organiser dashboard, administration
+6. Functional requirements, in ten modules: accounts, events, ticketing (after the ATP), hiring, reviews, venue maps (an interactive 2D map with zones and stall listings), community, messaging, organiser dashboard, administration
 7. Non-functional requirements, including Sri Lanka's Personal Data Protection Act
-8. Technical approach: the recommended stack and how the 3D venue view would work
+8. Technical approach: the recommended stack, the data design, and how the interactive venue map is built
 9. MVP scope and priorities
 10. Business model
 11. Success metrics
@@ -56,7 +56,7 @@ Supporting files:
 13. Risks and mitigations
 14. Open questions
 
-The PRD also lists what changed in version 2 and ends with a Sources list.
+The PRD also lists what changed in each version (2 to 5) and ends with a Sources list.
 
 ## Roadmap
 
@@ -69,7 +69,7 @@ The PRD also lists what changed in version 2 and ends with a Sources list.
     - hiring marketplace and stalls
     - reviews and ranking
     - community and chat
-    - venue maps (a 3D view if time allows)
+    - interactive venue maps (zones, stalls and what they sell)
     - admin and moderation
     - Sinhala and Tamil, if time allows
 3. **Live pilot:** one or two partner organisers and the vendors they already use run a real event through Tezera, producing the first reviews and SDG measures.
@@ -79,14 +79,14 @@ The PRD also lists what changed in version 2 and ends with a Sources list.
 **Beyond the ATP**
 
 1. **First — ticketing and entry:** ticket tiers and reserved seats, free RSVP events, QR tickets and gate scanning, refunds and cancellations, and attendee reviews of events.
-2. **After that — payments in the app:** hiring payments and deposits, stall fees, ticket and hiring commission, and venue map extras.
+2. **After that — payments in the app:** hiring payments and deposits, stall fees, ticket and hiring commission, and Google Maps directions to venues.
 3. **After that — hiring for private events:** weddings, birthdays and other private events.
 4. **Later version — premium accounts:** VIP and fast-sale ticket access.
 
 ## How the proposal and the PRD differ
 
 - **Private events:** both plan hiring for private events after the ATP, but whether to do it is still an open question in the PRD.
-- **3D venue view:** the PRD adds an optional 3D view of the venue map (Could). The proposal doesn't mention it.
+- **Survey changes:** the PRD (version 5) turns the twelve accepted survey recommendations into requirements, such as structured briefs, payment and cancellation terms on bookings, and live event status. The proposal stays at summary level.
 - **Technical approach:** only the PRD records the recommended stack.
 - **Wording:** the proposal calls consumers "attendees".
 
