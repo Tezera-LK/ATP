@@ -23,10 +23,13 @@ Docs diverge → also update README "How the proposal and the PRD differ".
 | `Tezera Proposal.pdf` | GENERATED from proposal HTML. |
 | `research/tezera-survey-analysis.html`, `research/tezera-user-stories.html` | Hand-edited HTML, generated from the 3 survey CSVs (not in repo; contain emails). Stories = title + Given/When/Then scenarios (`<div class="gwt">`), no "As a" line. |
 | `PRD Research.md` | Research record for PRD v1 (30 Sep 2026) + v2/v3 notes. No rewriting findings; append. |
+| `research/tezera-personas.html` | Hand-edited HTML. 8 personas (`<article class="persona">`), survey-segment based; invented details marked (assumed). Story chips + matrix at end → update both when stories change. |
+| `research/tezera-work-items.html` | Hand-edited HTML. Epic `<section class="epic">` › story `<article class="item">` (US- / PG- PRD gap / EN- enabling) › task `<tr class="task" data-pts data-area>`. Story pts = sum of tasks, update header pill + epic count. R1–R12 work NOT in backlog; lives in "Waiting on a group decision". Accepted R → move tasks in. |
+| `research/tezera-work-items-jira.csv` | GENERATED. Page's "Download Jira CSV" button, or headless Chrome `--dump-dom ".../tezera-work-items.html#export-csv"` → `<pre id="csvout">` (dump doubles line breaks: replace `\n\n` with `\r\n`). Epics, then stories, then sub-tasks; `Issue ID` + `Parent`. |
 | `brand/tezera-brand-manual.html` | Brand manual, hand-edited HTML (tiles + colour cards built by inline JS). Palettes in CSS `.org/.orgd/.ven/.vend/.att/.attd` AND JS `pal` object → change both. Vendor palette = inverse of organiser (intended). Vendor dark = (proposed). |
 | `SDG Alignment.md` | SDG 8 primary, 9 secondary, 10 supporting. |
 
-All 5 HTML docs share a navbar (`.brandbar` / `.doclinks`: PRD, Architecture, Survey analysis, User stories, Brand manual; brand manual's sits on its cover as `.docnav`). New doc → add link in all 5 (architecture via `.archify/inject-nav.py`).
+All 7 HTML docs share a navbar (`.brandbar` / `.doclinks`: PRD, Architecture, Survey analysis, Personas, User stories, Work items, Brand manual; brand manual's sits on its cover as `.docnav`). New doc → add link in all 7 (architecture via `.archify/inject-nav.py`).
 
 Regen proposal PDF (Git Bash, Windows):
 ```

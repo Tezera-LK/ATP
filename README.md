@@ -12,7 +12,9 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 | [prd/tezera-prd.html](prd/tezera-prd.html) | The full product requirements document (version 3): roles, requirement tables with MoSCoW priorities, non-functional requirements, technical approach, business model, success metrics, risks and open questions. Edit this HTML file directly; print it to get a PDF | You need the detail behind a feature or decision |
 | [prd/tezera-architecture.html](prd/tezera-architecture.html) | The system architecture diagram (interactive, works offline), including the optional 3D venue viewer | You want to see how the apps, backend and services fit together |
 | [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) | Analysis of the discovery surveys of attendees, organisers, and vendors and freelancers (4–8 October 2026), with recommended PRD changes | You want to know what the market research found |
+| [research/tezera-personas.html](research/tezera-personas.html) | Eight user personas (two consumers, two organisers, three vendors and freelancers, one admin) built from the survey segments, each with evidence, quotes and the user stories written for them | You are designing a flow and need to know who it is for |
 | [research/tezera-user-stories.html](research/tezera-user-stories.html) | User stories for each role as Given / When / Then scenarios, drawn from the survey evidence and mapped to PRD requirement IDs | You are planning the backlog or a sprint |
+| [research/tezera-work-items.html](research/tezera-work-items.html) | The backlog as epics, stories and tasks with proposed story points, PRD coverage, and a Jira CSV export ([snapshot](research/tezera-work-items-jira.csv)). Work waiting on the survey recommendations R1–R12 is sized separately | You are planning sprints or importing into Jira |
 | [brand/tezera-brand-manual.html](brand/tezera-brand-manual.html) | The brand manual: name story, the three account personalities, light and dark palettes for organiser, vendor and attendee, type, icons, the tile system, motion rules, voice and applications | You are designing a screen, a post or a poster |
 | [HANDOFF.md](HANDOFF.md) | Where the work stands, what was decided, and what comes next. Updated after every session | You're picking up the work |
 
@@ -113,7 +115,10 @@ The name, ticketing, revenue, discovery and the pilot now match.
 │   └── tezera-architecture.html
 ├── research/
 │   ├── tezera-survey-analysis.html
-│   └── tezera-user-stories.html
+│   ├── tezera-personas.html
+│   ├── tezera-user-stories.html
+│   ├── tezera-work-items.html
+│   └── tezera-work-items-jira.csv   (generated from the work items page)
 ├── PRD Research.md
 ├── SDG Alignment.md
 └── .archify/

@@ -1,0 +1,452 @@
+<!doctype html>
+<!--
+  tezera: User personas (editable source)
+
+  Written 15 October 2026 from the discovery surveys (tezera-survey-analysis.html), the user stories
+  (tezera-user-stories.html) and PRD version 4. Each persona is an <article class="persona" id="key">.
+  Names, ages and personal details are invented; marked "(assumed)" where they are not from the surveys.
+  Avatar colours are the role palettes in the brand manual (attendee #D77E70, organiser #526C80, vendor #70A992).
+  If a persona's story list changes, update its "User stories" chips and the matrix at the end.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tezera Personas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F7F4;
+    --card: #FFFFFF;
+    --surface: #E9EEEB;
+    --rule: #D2DAD7;
+    --ink: #0E2A30;
+    --ink-2: #3D5459;
+    --muted: #6E8185;
+    --marigold: #E3A21A;
+    --marigold-soft: #F7E7BF;
+    --marigold-ink: #7A5300;
+    --teal: #1F6F78;
+    --teal-soft: #DCEBEA;
+    --bar: #1F6F78;
+    --s1: #86C0C0; --s2: #56A3A7; --s3: #2D838A; --s4: #1B6168; --s5: #0D3F45;
+    --on-s-light: #0E2A30; --on-s-dark: #FFFFFF;
+    --display: "Bricolage Grotesque", Georgia, serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0F1B1D; --card: #162528; --surface: #1D3034; --rule: #2C4246;
+      --ink: #E6EEEE; --ink-2: #B3C4C5; --muted: #8DA0A2;
+      --marigold: #F0B73E; --marigold-soft: #3B2F12; --marigold-ink: #F3CF7F;
+      --teal: #6CC0C6; --teal-soft: #183B3E; --bar: #5AA4A9;
+      --s1: #30696E; --s2: #3F868C; --s3: #5AA4A9; --s4: #84C4C7; --s5: #BCE5E6;
+      --on-s-light: #FFFFFF; --on-s-dark: #0E2A30;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0F1B1D; --card: #162528; --surface: #1D3034; --rule: #2C4246;
+    --ink: #E6EEEE; --ink-2: #B3C4C5; --muted: #8DA0A2;
+    --marigold: #F0B73E; --marigold-soft: #3B2F12; --marigold-ink: #F3CF7F;
+    --teal: #6CC0C6; --teal-soft: #183B3E; --bar: #5AA4A9;
+    --s1: #30696E; --s2: #3F868C; --s3: #5AA4A9; --s4: #84C4C7; --s5: #BCE5E6;
+    --on-s-light: #FFFFFF; --on-s-dark: #0E2A30;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+  .doc { max-width: 920px; margin: 0 auto; padding: 40px 16px 96px; }
+
+  /* Header */
+  .brandbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  .wordmark { font-family: var(--display); font-weight: 600; font-size: 26px; letter-spacing: -.02em; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .wordmark .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--marigold); box-shadow: 14px 0 0 var(--teal); margin-right: 18px; }
+  .doclinks { display: flex; gap: 6px; flex-wrap: wrap; font-size: 14px; }
+  .doclinks a { padding: 5px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); text-decoration: none; background: var(--card); }
+  .doclinks a[aria-current] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0 0 8px; }
+  h1 { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 6vw, 54px); line-height: 1.04; margin: 0; letter-spacing: -.015em; max-width: 18ch; }
+  .byline { color: var(--muted); font-size: 14px; margin: 18px 0 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .lead { font-size: 19px; margin: 24px 0; color: var(--ink); }
+
+  /* Headings & text */
+  h2 { font-family: var(--display); font-weight: 600; font-size: 28px; margin: 60px 0 12px; padding-top: 10px; border-top: 2px solid var(--ink); scroll-margin-top: 16px; }
+  h2 .num { color: var(--muted); font-weight: 500; margin-right: 6px; }
+  h3 { font-family: var(--display); font-weight: 600; font-size: 20px; margin: 36px 0 8px; scroll-margin-top: 16px; }
+  h4 { font-size: 14px; font-weight: 600; margin: 24px 0 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+  p { margin: 10px 0; }
+  ul, ol { padding-left: 22px; margin: 10px 0; }
+  li { margin: 4px 0; }
+  a { color: var(--teal); }
+  .muted { color: var(--muted); }
+  .note { font-size: 14px; color: var(--ink-2); }
+  b, strong { font-weight: 600; }
+
+  /* Contents */
+  nav.toc { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 20px; margin: 24px 0; }
+  nav.toc p { margin: 0 0 8px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  nav.toc ol { columns: 2; column-gap: 32px; margin: 0; padding-left: 22px; font-size: 15px; }
+  nav.toc li { break-inside: avoid; }
+  @media (max-width: 640px) { nav.toc ol { columns: 1; } }
+
+  /* Stat tiles */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 20px 0; }
+  .stat { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+  .stat .k { font-size: 13px; color: var(--ink-2); }
+  .stat .v { font-family: var(--body); font-weight: 600; font-size: 32px; line-height: 1.1; margin-top: 4px; }
+  .stat .d { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .stat.hl { border-top: 3px solid var(--marigold); }
+
+  /* Callouts */
+  .callout { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--marigold); border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 15px; }
+  .callout.teal { border-left-color: var(--teal); }
+  .callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+
+  /* Key findings */
+  ol.findings { list-style: none; padding: 0; counter-reset: f; display: grid; gap: 10px; }
+  ol.findings > li { counter-increment: f; position: relative; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px 14px 56px; margin: 0; }
+  ol.findings > li::before { content: counter(f); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--marigold-soft); color: var(--marigold-ink); font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+  ol.findings b.h { display: block; font-size: 16.5px; margin-bottom: 2px; }
+
+  /* Charts: horizontal bars (single series) */
+  .chart { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 16px 12px; margin: 16px 0; }
+  .chart .title { font-weight: 600; margin: 0; font-size: 15.5px; }
+  .chart .sub { font-size: 13.5px; color: var(--muted); margin: 2px 0 12px; }
+  .chart .foot { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .grid2 > .chart { margin: 8px 0; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  ol.bars { list-style: none; padding: 0; margin: 0; display: grid; gap: 3px; }
+  ol.bars li { display: grid; grid-template-columns: minmax(110px, 38%) 1fr auto; align-items: center; gap: 10px; margin: 0; padding: 3px 4px; border-radius: 6px; position: relative; font-size: 14px; }
+  ol.bars li:hover { background: var(--surface); }
+  ol.bars .lbl { color: var(--ink-2); line-height: 1.25; }
+  ol.bars .track { height: 14px; position: relative; }
+  ol.bars .fill { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) / var(--n) * 100%); background: var(--bar); border-radius: 0 4px 4px 0; min-width: 2px; }
+  ol.bars .val { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 64px; text-align: right; color: var(--ink); }
+  ol.bars .pc { font-weight: 400; color: var(--muted); display: inline-block; min-width: 4.4ch; }
+
+  /* Charts: 100% stacked (ordinal scale) */
+  .stack { display: flex; gap: 2px; height: 30px; border-radius: 4px; overflow: visible; margin: 4px 0 10px; }
+  .stack .seg { flex: var(--v) 1 0; display: grid; place-items: center; font-size: 13px; font-weight: 600; position: relative; min-width: 4px; }
+  .stack .seg:first-child { border-radius: 4px 0 0 4px; } .stack .seg:last-child { border-radius: 0 4px 4px 0; }
+  .stack .seg:only-child { border-radius: 4px; }
+  .stack .seg:hover { outline: 2px solid var(--ink); outline-offset: 1px; z-index: 1; }
+  .s1 { background: var(--s1); color: var(--on-s-light); } .s2 { background: var(--s2); color: var(--on-s-light); }
+  .s3 { background: var(--s3); color: var(--on-s-dark); } .s4 { background: var(--s4); color: var(--on-s-dark); } .s5 { background: var(--s5); color: var(--on-s-dark); }
+  ul.key { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+  ul.key li { margin: 0; display: inline-flex; align-items: center; gap: 6px; }
+  ul.key b { color: var(--ink); }
+  ul.key .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+  /* Tooltip (hover / keyboard focus) */
+  [data-tip]:hover::after { content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%); background: var(--ink); color: var(--paper); font-size: 12.5px; font-weight: 500; padding: 5px 9px; border-radius: 6px; white-space: nowrap; pointer-events: none; z-index: 5; }
+
+  /* Quotes */
+  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 14px 0; }
+  blockquote { margin: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; font-size: 15px; position: relative; }
+  blockquote p { margin: 0; }
+  blockquote p::before { content: "\201C"; font-family: var(--display); font-size: 34px; line-height: 0; vertical-align: -12px; color: var(--marigold); margin-right: 3px; }
+  blockquote footer { margin-top: 8px; font-size: 13px; color: var(--muted); }
+
+  /* Tables */
+  .tbl { overflow-x: auto; margin: 14px 0; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+  th { background: var(--surface); font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  td.id { white-space: nowrap; font-weight: 600; font-variant-numeric: tabular-nums; }
+  td.p { white-space: nowrap; }
+  td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* Pills */
+  .pri { display: inline-block; min-width: 58px; text-align: center; padding: 2px 8px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+  .pri.must { background: var(--ink); color: var(--paper); }
+  .pri.should { background: var(--marigold); color: #0E2A30; }
+  .pri.could { background: var(--teal-soft); color: var(--teal); border: 1px solid var(--teal); }
+  .pri.later { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+  .verdict { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+  .verdict.yes { background: var(--teal-soft); color: var(--teal); }
+  .verdict.part { background: var(--marigold-soft); color: var(--marigold-ink); }
+  .verdict.no { background: var(--surface); color: var(--ink-2); }
+  .tag { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 4px; background: var(--marigold-soft); color: var(--marigold-ink); font-size: 11.5px; font-weight: 600; vertical-align: 1px; white-space: nowrap; }
+  .tag.new { background: var(--marigold); color: #0E2A30; }
+  .tag.gap { background: var(--surface); color: var(--ink-2); }
+  code { font-size: .9em; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
+
+
+  
+  /* Personas */
+  .glance { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin: 20px 0; }
+  .glance a { display: flex; gap: 10px; align-items: center; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; text-decoration: none; color: var(--ink); }
+  .glance a:hover { border-color: var(--teal); }
+  .glance b { display: block; font-size: 15px; line-height: 1.2; }
+  .glance small { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.3; }
+  .av { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 15px; letter-spacing: .02em; }
+  .av.lg { width: 64px; height: 64px; font-size: 21px; }
+  .av.consumer { background: #D77E70; color: #392F3D; }
+  .av.organiser { background: #526C80; color: #FFFFFF; }
+  .av.provider { background: #70A992; color: #050316; }
+  .av.admin { background: var(--ink); color: var(--paper); }
+  .persona { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 20px; margin: 18px 0; scroll-margin-top: 16px; }
+  .persona:target { border-color: var(--marigold); box-shadow: 0 0 0 2px var(--marigold-soft); }
+  .phead { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .phead h3 { margin: 0; font-size: 24px; }
+  .phead .seg { font-size: 15px; color: var(--ink-2); margin: 2px 0 0; }
+  .plabel { font-size: 12.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); margin: 0; }
+  dl.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin: 16px 0; }
+  dl.facts div { background: var(--surface); border-radius: 8px; padding: 8px 10px; }
+  dl.facts dt { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  dl.facts dd { margin: 2px 0 0; font-size: 14.5px; font-weight: 500; }
+  .persona blockquote { margin: 14px 0; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+  @media (max-width: 700px) { .cols { grid-template-columns: 1fr; } }
+  .persona h4 { margin: 16px 0 4px; }
+  .persona ul { font-size: 15px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; }
+  .chips li { margin: 0; }
+  .chips a { display: inline-block; padding: 2px 9px; border: 1px solid var(--rule); border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; background: var(--paper); }
+  .chips a:hover { border-color: var(--teal); }
+  .thin { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 4px; background: var(--marigold-soft); color: var(--marigold-ink); font-size: 12px; font-weight: 600; }
+  table.matrix td, table.matrix th { text-align: center; padding: 6px 8px; }
+  table.matrix td:first-child, table.matrix th:first-child, table.matrix td:nth-child(2), table.matrix th:nth-child(2) { text-align: left; }
+  table.matrix .yes { color: var(--teal); font-size: 16px; }
+
+  @media print {
+    @page { size: A4; margin: 15mm 13mm; }
+    :root { --paper: #fff; }
+    body { font-size: 10.5pt; }
+    .doc { max-width: none; padding: 0; }
+    .doclinks { display: none !important; }
+    .persona, tr, blockquote { break-inside: avoid; }
+    a { color: var(--ink); text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<main class="doc">
+
+<div class="brandbar">
+  <a class="wordmark" href="../prd/tezera-prd.html"><span class="dot" aria-hidden="true"></span>tezera</a>
+  <nav class="doclinks" aria-label="Tezera documents">
+    <a href="../prd/tezera-prd.html">PRD</a>
+    <a href="../prd/tezera-architecture.html">Architecture</a>
+    <a href="tezera-survey-analysis.html">Survey analysis</a>
+    <a href="tezera-personas.html" aria-current="page">Personas</a>
+    <a href="tezera-user-stories.html">User stories</a>
+    <a href="tezera-work-items.html">Work items</a>
+    <a href="../brand/tezera-brand-manual.html">Brand manual</a>
+  </nav>
+</div>
+
+<header>
+  <p class="eyebrow">Product research · ATP release</p>
+  <h1>User personas</h1>
+  <p class="byline">Version 1 · 15 October 2026 · based on the discovery surveys of 4–8 October 2026, the user stories and PRD version 4 · SDGP Agile Team Project</p>
+</header>
+
+<p class="lead">Eight people Tezera is built for: two consumers, two organisers, three vendors and freelancers, and one admin. Each one stands for a group the surveys heard from, and each is linked to the user stories written for them.</p>
+
+<div class="stats">
+  <div class="stat hl"><div class="k">Personas</div><div class="v">8</div><div class="d">from 46 survey responses</div></div>
+  <div class="stat"><div class="k">Consumers</div><div class="v">2</div><div class="d">26 attendees surveyed</div></div>
+  <div class="stat"><div class="k">Organisers</div><div class="v">2</div><div class="d">7 organisers surveyed</div></div>
+  <div class="stat"><div class="k">Providers</div><div class="v">3</div><div class="d">13 vendors and freelancers</div></div>
+  <div class="stat"><div class="k">Admins</div><div class="v">1</div><div class="d">not surveyed</div></div>
+</div>
+
+<div class="callout">
+  <p><b>How to read these.</b> Each persona combines several survey respondents. Names, ages and personal details are made up so the team can talk about "Nuwan" rather than "provider segment 1". They are marked <i>(assumed)</i> where the surveys don't support them. Goals, frustrations and evidence come from survey counts (out of 26 attendees, 7 organisers or 13 vendors and freelancers). Quotes are real survey answers, credited to the respondent who wrote them, who is not the persona.</p>
+  <p><b>Primary</b> personas are the ones to design for first when two needs conflict. The fictional Sri Lankan names are spread across communities on purpose; they say nothing about language or preferences, which the surveys didn't ask about.</p>
+</div>
+
+<div class="glance"><a href="#tharushi"><span class="av consumer" aria-hidden="true">TF</span><span><b>Tharushi Fernando</b><small>The weekend regular</small><small>Consumer · primary</small></span></a><a href="#kavindu"><span class="av consumer" aria-hidden="true">KP</span><span><b>Kavindu Perera</b><small>The careful planner</small><small>Consumer · secondary</small></span></a><a href="#ashan"><span class="av organiser" aria-hidden="true">AW</span><span><b>Ashan Wijesinghe</b><small>The festival organiser</small><small>Organiser · primary</small></span></a><a href="#dilini"><span class="av organiser" aria-hidden="true">DJ</span><span><b>Dilini Jayawardena</b><small>The wedding and corporate planner</small><small>Organiser · secondary</small></span></a><a href="#nuwan"><span class="av provider" aria-hidden="true">NS</span><span><b>Nuwan Silva</b><small>The freelance photographer</small><small>Freelancer · primary</small></span></a><a href="#fathima"><span class="av provider" aria-hidden="true">FR</span><span><b>Fathima Rizvi</b><small>The food stall vendor</small><small>Vendor · secondary</small></span></a><a href="#pradeep"><span class="av provider" aria-hidden="true">PR</span><span><b>Pradeep Rajaratnam</b><small>The sound and lighting supplier</small><small>Vendor · secondary</small></span></a><a href="#sanduni"><span class="av admin" aria-hidden="true">SH</span><span><b>Sanduni Herath</b><small>The trust and safety admin</small><small>Admin</small></span></a></div>
+
+<h2 id="consumers">Consumers</h2>
+<p>People who go to events.</p>
+<article class="persona" id="tharushi">
+  <div class="phead"><span class="av lg consumer" aria-hidden="true">TF</span>
+    <div><p class="plabel">Consumer · primary</p><h3>Tharushi Fernando</h3><p class="seg">The weekend regular</p></div></div>
+  <dl class="facts"><div><dt>Age</dt><dd>21 (assumed)</dd></div><div><dt>Lives</dt><dd>Colombo</dd></div><div><dt>Goes to events</dt><dd>Several times a month</dd></div><div><dt>Usually</dt><dd>Concerts and university events</dd></div><div><dt>Finds events on</dt><dd>Instagram, friends, WhatsApp</dd></div></dl>
+  <p>An undergraduate who goes to concerts, club nights and university events with the same group of friends. She hears about most events on Instagram or from friends, and the group makes its plans in a WhatsApp chat. Who else is going matters to her as much as who is playing.</p>
+  <blockquote><p>… events never starting on time (not knowing the actual start time when the events are delayed, an estimated delay of starting time would be helpful with like live updates).</p><footer>Attendee, several times a month, survey answer</footer></blockquote>
+  <div class="cols">
+    <div><h4>Goals</h4><ul><li>Hear about events early, before tickets or places run out</li><li>See which friends are going and plan with them in one place</li><li>Find the entrance, toilets and her friends quickly at a big venue</li><li>Know straight away when an event is late, moved or cancelled</li></ul></div>
+    <div><h4>Frustrations</h4><ul><li>Missing events because she wasn&#x27;t following the right page</li><li>Details released poster by poster, then hard to find again</li><li>Events starting late with no estimate and no update</li><li>No mobile signal at large venues, so nothing loads</li></ul></div>
+  </div>
+  <h4>Evidence</h4><ul><li>25 of 26 attendees find events on Instagram; 22 through friends</li><li>17 of 26 have missed an event because they heard too late</li><li>20 of 26 say who else is attending matters, more than the line-up (18)</li><li>14 of 26 coordinate in WhatsApp groups</li><li>Toilets (13), entrances and exits (10) are the hardest things to find</li><li>Delays and last-minute changes: the most common on-the-day complaint (6)</li></ul>
+  <h4>What this means for Tezera</h4><ul><li>Sharing out to Instagram and WhatsApp matters more than keeping her in the app</li><li>Friends going and the event group chat beat meeting strangers</li><li>Live changes must reach her by push, not only on the event page</li></ul>
+  <h4>User stories</h4><ul class="chips"><li><a href="tezera-user-stories.html#US-C01" title="Find every event in one place">US-C01</a></li><li><a href="tezera-user-stories.html#US-C02" title="Hear about new events from organisers I follow">US-C02</a></li><li><a href="tezera-user-stories.html#US-C06" title="Be told when plans change">US-C06</a></li><li><a href="tezera-user-stories.html#US-C07" title="Know if the event is running late">US-C07</a></li><li><a href="tezera-user-stories.html#US-C09" title="See which friends are going">US-C09</a></li><li><a href="tezera-user-stories.html#US-C10" title="Plan with people going to the same event">US-C10</a></li><li><a href="tezera-user-stories.html#US-C11" title="Find toilets, entrances and parking at the venue">US-C11</a></li><li><a href="tezera-user-stories.html#US-C12" title="Use the map when there is no signal">US-C12</a></li><li><a href="tezera-user-stories.html#US-C15" title="Share an event with my friends">US-C15</a></li><li><a href="tezera-user-stories.html#US-C17" title="Get in quickly, with the ticket I want">US-C17</a></li></ul>
+</article>
+<article class="persona" id="kavindu">
+  <div class="phead"><span class="av lg consumer" aria-hidden="true">KP</span>
+    <div><p class="plabel">Consumer · secondary</p><h3>Kavindu Perera</h3><p class="seg">The careful planner</p></div></div>
+  <dl class="facts"><div><dt>Age</dt><dd>27 (assumed)</dd></div><div><dt>Lives</dt><dd>Colombo suburbs (assumed)</dd></div><div><dt>Goes to events</dt><dd>Every 2–3 months</dd></div><div><dt>Usually</dt><dd>Concerts, festivals and food fairs</dd></div><div><dt>Finds events on</dt><dd>Instagram and friends</dd></div></dl>
+  <p>A young professional who goes out less often and plans each outing: the date, the price, how to get there, what to wear and whether the event is real. He has paid for tickets to events that were later cancelled with no word on a refund, so he checks who is behind an event before he commits.</p>
+  <blockquote><p>Sometimes authenticity is a problem specially in terms of purchasing tickets, because I&#x27;m sometimes skeptical whether I&#x27;m paying for the right agency or not, because some duplicates do exist (scams).</p><footer>Attendee, several times a month, survey answer</footer></blockquote>
+  <div class="cols">
+    <div><h4>Goals</h4><ul><li>Decide quickly from date, price, venue and line-up</li><li>Be sure the event and the organiser are real</li><li>Know the practical details: parking, dress code, rules, food prices</li><li>Get a straight answer from the organiser before he goes</li></ul></div>
+    <div><h4>Frustrations</h4><ul><li>Fake or duplicate ticket sellers</li><li>Cancelled events with no update and no refund</li><li>Helpline numbers nobody answers</li><li>Joining a WhatsApp group late and missing earlier answers</li></ul></div>
+  </div>
+  <h4>Evidence</h4><ul><li>Date and time (24 of 26), price (23) and venue (21) decide whether to go</li><li>24 of 26 trust information from the official organiser account</li><li>In open answers, 5 asked about dress code and 3 about transport or parking</li><li>6 of 26 trust reviews from previous attendees</li><li>Two attendees described cancelled events with no refund or update</li></ul>
+  <h4>What this means for Tezera</h4><ul><li>Verified badges and an &#x27;unverified organiser&#x27; label carry his trust decision</li><li>The essentials sit at the top of the event page; nothing is buried in posts</li><li>Public Q&amp;A answers stay visible to people who arrive late</li></ul>
+  <h4>User stories</h4><ul class="chips"><li><a href="tezera-user-stories.html#US-C01" title="Find every event in one place">US-C01</a></li><li><a href="tezera-user-stories.html#US-C03" title="See the essentials at a glance">US-C03</a></li><li><a href="tezera-user-stories.html#US-C04" title="Know what to wear, bring and expect">US-C04</a></li><li><a href="tezera-user-stories.html#US-C05" title="Tell a real event from a fake one">US-C05</a></li><li><a href="tezera-user-stories.html#US-C06" title="Be told when plans change">US-C06</a></li><li><a href="tezera-user-stories.html#US-C08" title="Ask the organiser and see earlier answers">US-C08</a></li><li><a href="tezera-user-stories.html#US-C13" title="See which stalls will be there">US-C13</a></li><li><a href="tezera-user-stories.html#US-C14" title="Review an event I went to">US-C14</a></li><li><a href="tezera-user-stories.html#US-C16" title="Get my money back when an event is cancelled">US-C16</a></li></ul>
+</article>
+<h2 id="organisers">Organisers</h2>
+<p>People and companies who run events.</p>
+<article class="persona" id="ashan">
+  <div class="phead"><span class="av lg organiser" aria-hidden="true">AW</span>
+    <div><p class="plabel">Organiser · primary</p><h3>Ashan Wijesinghe</h3><p class="seg">The festival organiser</p></div></div>
+  <dl class="facts"><div><dt>Age</dt><dd>34 (assumed)</dd></div><div><dt>Works in</dt><dd>Colombo, sometimes Kandy</dd></div><div><dt>Experience</dt><dd>4–6 years</dd></div><div><dt>Runs</dt><dd>More than 10 public events a year: concerts, exhibitions, festivals</dd></div><div><dt>Promotes on</dt><dd>Instagram, Facebook, personal networks</dd></div></dl>
+  <p>Runs a small events company that puts on ticketed concerts and exhibitions with food and craft stalls. He fills stalls by phoning vendors he knows and tracks them in a spreadsheet, shares the layout through signs and staff on the day, and spends most of his time talking to vendors and promoting.</p>
+  <blockquote><p>… that would be convenient to have everything in one place like places to find stalls people who are looking to sponsor and promote themselves, kinda like uber x social media for event organisers.</p><footer>Organiser, 4–6 years, survey answer</footer></blockquote>
+  <div class="cols">
+    <div><h4>Goals</h4><ul><li>Get people to engage with and share his events</li><li>Fill stalls without phone calls and spreadsheets</li><li>Keep attendees informed when something changes</li><li>See how much interest an event has, as it changes</li></ul></div>
+    <div><h4>Frustrations</h4><ul><li>Getting people to engage and share</li><li>Keeping information up to date in several places</li><li>Talking to vendors takes the most time</li><li>No easy way to share the venue layout before the day</li></ul></div>
+  </div>
+  <h4>Evidence</h4><ul><li>6 of 7 organisers promote on Instagram; engagement and sharing is the top promotion difficulty (3)</li><li>All 7 coordinate the venue layout; only 1 shares a digital map</li><li>6 of 7 manage stalls by contacting vendors directly; 2 use spreadsheets</li><li>Talking to vendors is the most time-consuming task for 5 of 7</li><li>3 of 7 run more than 10 events a year</li></ul>
+  <h4>What this means for Tezera</h4><ul><li>Organisers work mainly on the web portal; the app covers on-the-day updates</li><li>Stalls, map pins and the event page share one stall number</li><li>Announcements must reach Going, Interested and followers in one send</li></ul>
+  <h4>User stories</h4><ul class="chips"><li><a href="tezera-user-stories.html#US-O01" title="Find providers outside my network">US-O01</a></li><li><a href="tezera-user-stories.html#US-O02" title="Judge a provider before hiring them">US-O02</a></li><li><a href="tezera-user-stories.html#US-O05" title="Send a complete brief">US-O05</a></li><li><a href="tezera-user-stories.html#US-O06" title="Compare quotes side by side">US-O06</a></li><li><a href="tezera-user-stories.html#US-O09" title="Run stall applications in one place">US-O09</a></li><li><a href="tezera-user-stories.html#US-O10" title="Share the venue layout before the event">US-O10</a></li><li><a href="tezera-user-stories.html#US-O11" title="Promote an event and get it shared">US-O11</a></li><li><a href="tezera-user-stories.html#US-O12" title="Update everyone at once">US-O12</a></li><li><a href="tezera-user-stories.html#US-O13" title="See how much interest an event has">US-O13</a></li><li><a href="tezera-user-stories.html#US-O14" title="Track each event&#x27;s hiring and payments">US-O14</a></li><li><a href="tezera-user-stories.html#US-C15" title="Share an event with my friends">US-C15</a></li></ul>
+</article>
+<article class="persona" id="dilini">
+  <div class="phead"><span class="av lg organiser" aria-hidden="true">DJ</span>
+    <div><p class="plabel">Organiser · secondary</p><h3>Dilini Jayawardena</h3><p class="seg">The wedding and corporate planner</p></div></div>
+  <dl class="facts"><div><dt>Age</dt><dd>41 (assumed)</dd></div><div><dt>Works in</dt><dd>Colombo</dd></div><div><dt>Experience</dt><dd>More than 6 years</dd></div><div><dt>Runs</dt><dd>Weddings and corporate events for invited guests</dd></div><div><dt>Promotes on</dt><dd>Rarely promotes; guests are invited</dd></div></dl>
+  <p>Plans weddings and corporate events where the guests are invited, so she hardly promotes anything. Her job is hiring: photographers, decorators, sound and catering. She hires people she has used before or who come recommended, pays them in instalments, and has been let down by providers when it was too late to switch.</p>
+  <blockquote><p>Sometimes people don&#x27;t deliver according to our expectations and when we realise this, it&#x27;s too late to switch to another person mostly because of budget and time constraints.</p><footer>Organiser, 4–6 years, survey answer</footer></blockquote>
+  <div class="cols">
+    <div><h4>Goals</h4><ul><li>Find reliable providers beyond her own contacts</li><li>Judge quality before hiring, from work and from other organisers</li><li>Compare quotes and agree terms in writing</li><li>Replace a provider quickly if one cancels</li></ul></div>
+    <div><h4>Frustrations</h4><ul><li>Work that doesn&#x27;t meet expectations</li><li>Not knowing whether a new provider is reliable</li><li>Many small instalment payments and deadlines</li><li>Unclear pricing and quotes that are hard to compare</li></ul></div>
+  </div>
+  <h4>Evidence</h4><ul><li>All 7 organisers find providers through personal contacts and past vendors</li><li>Finding someone suitable (6 of 7) and quality not matching expectations (5) are the top hiring difficulties</li><li>6 of 7 rate feedback from other organisers 5 out of 5 for usefulness</li><li>Availability decides for 5 of 7; getting quotes and unclear pricing trouble 3 each</li><li>One organiser described instalment payments as &#x27;hard and time consuming&#x27;</li></ul>
+  <h4>What this means for Tezera</h4><ul><li>Whether the marketplace covers private events with no public page is still open (PRD section 14)</li><li>Reviews filtered by type of work would serve her directly (R10, pending)</li><li>Payment terms and instalment tracking (R2, R3) are pending a group decision</li></ul>
+  <h4>User stories</h4><ul class="chips"><li><a href="tezera-user-stories.html#US-O01" title="Find providers outside my network">US-O01</a></li><li><a href="tezera-user-stories.html#US-O02" title="Judge a provider before hiring them">US-O02</a></li><li><a href="tezera-user-stories.html#US-O03" title="See reviews for the kind of job I need">US-O03</a></li><li><a href="tezera-user-stories.html#US-O04" title="Only ask providers who are free">US-O04</a></li><li><a href="tezera-user-stories.html#US-O05" title="Send a complete brief">US-O05</a></li><li><a href="tezera-user-stories.html#US-O06" title="Compare quotes side by side">US-O06</a></li><li><a href="tezera-user-stories.html#US-O07" title="Agree payment terms in writing">US-O07</a></li><li><a href="tezera-user-stories.html#US-O08" title="Replace a provider who cancels">US-O08</a></li><li><a href="tezera-user-stories.html#US-O14" title="Track each event&#x27;s hiring and payments">US-O14</a></li></ul>
+</article>
+<h2 id="providers">Vendors and freelancers</h2>
+<p>Businesses and individuals hired for events.</p>
+<article class="persona" id="nuwan">
+  <div class="phead"><span class="av lg provider" aria-hidden="true">NS</span>
+    <div><p class="plabel">Freelancer · primary</p><h3>Nuwan Silva</h3><p class="seg">The freelance photographer</p></div></div>
+  <dl class="facts"><div><dt>Age</dt><dd>26 (assumed)</dd></div><div><dt>Works in</dt><dd>Colombo</dd></div><div><dt>Works events</dt><dd>Several times a month</dd></div><div><dt>Offers</dt><dd>Photography and videography</dd></div><div><dt>Gets work through</dt><dd>Referrals, past clients, Instagram</dd></div></dl>
+  <p>A freelance photographer and videographer who gets almost all his work from referrals and repeat clients, and shows his work on Instagram. He quotes on the deliverables, so a vague brief means a wrong price. He has waited months to be paid and had jobs cancelled after a verbal yes.</p>
+  <blockquote><p>The organizer wanting about 3 months to settle the payments. Settled the renting cost with personal funds and waited for the payment to come through.</p><footer>Photographer and videographer, survey answer</footer></blockquote>
+  <div class="cols">
+    <div><h4>Goals</h4><ul><li>Be found by organisers outside his network</li><li>Get the full brief, especially the deliverables, before quoting</li><li>Know the payment terms and the organiser&#x27;s record before accepting</li><li>Build a track record that travels with him</li></ul></div>
+    <div><h4>Frustrations</h4><ul><li>Last-minute cancellations after a verbal confirmation</li><li>Late or missing payment</li><li>Briefs missing deliverables, timings and audience size</li><li>Negotiating prices</li></ul></div>
+  </div>
+  <h4>Evidence</h4><ul><li>9 of 13 providers are photographers or videographers</li><li>11 of 13 get work through referrals and 11 through past clients</li><li>Last-minute cancellations (9 of 13) and unpaid or late payment (7) are the top difficulties</li><li>11 of 13 want payment terms before anything else about a new organiser</li><li>All 13 need date and location; deliverables are the most often missing detail</li></ul>
+  <h4>What this means for Tezera</h4><ul><li>Reviews run both ways and only from completed bookings</li><li>The brief stays attached to the booking as the written record</li><li>Payment tracking and late-cancellation records wait on R3 and R4</li></ul>
+  <h4>User stories</h4><ul class="chips"><li><a href="tezera-user-stories.html#US-P01" title="Be found by organisers I don&#x27;t know">US-P01</a></li><li><a href="tezera-user-stories.html#US-P02" title="Show my work">US-P02</a></li><li><a href="tezera-user-stories.html#US-P03" title="Get the full brief before I quote">US-P03</a></li><li><a href="tezera-user-stories.html#US-P04" title="Check an organiser before accepting">US-P04</a></li><li><a href="tezera-user-stories.html#US-P05" title="See payment and cancellation terms before I accept">US-P05</a></li><li><a href="tezera-user-stories.html#US-P06" title="Reply with my own quote">US-P06</a></li><li><a href="tezera-user-stories.html#US-P07" title="Record payments received">US-P07</a></li><li><a href="tezera-user-stories.html#US-P08" title="Find job posts that fit me">US-P08</a></li><li><a href="tezera-user-stories.html#US-P10" title="Be protected from last-minute cancellations">US-P10</a></li><li><a href="tezera-user-stories.html#US-P11" title="Review the organiser">US-P11</a></li><li><a href="tezera-user-stories.html#US-P12" title="Be reviewed fairly">US-P12</a></li></ul>
+</article>
+<article class="persona" id="fathima">
+  <div class="phead"><span class="av lg provider" aria-hidden="true">FR</span>
+    <div><p class="plabel">Vendor · secondary</p><h3>Fathima Rizvi</h3><p class="seg">The food stall vendor<span class="thin">thin evidence</span></p></div></div>
+  <dl class="facts"><div><dt>Age</dt><dd>38 (assumed)</dd></div><div><dt>Works in</dt><dd>Colombo and Galle (assumed)</dd></div><div><dt>Works events</dt><dd>About once a month (assumed)</dd></div><div><dt>Offers</dt><dd>Short eats and drinks stall</dd></div><div><dt>Gets work through</dt><dd>Organisers who call her</dd></div></dl>
+  <p>Runs a small food business that takes stalls at festivals, fairs and exhibitions. Organisers usually call her with an offer; she wants to know the stall fee, the expected crowd and whether the organiser can be trusted before she pays anything up front.</p>
+  <blockquote><p>There should be a system to show the credibility of an event.</p><footer>Media and design freelancer, survey answer</footer></blockquote>
+  <div class="cols">
+    <div><h4>Goals</h4><ul><li>See open stall slots with type, fee and deadline</li><li>Check the organiser and the event are real before paying a stall fee</li><li>Be listed on the event page and the map so attendees find her</li><li>Earn reviews from attendees who visited her stall</li></ul></div>
+    <div><h4>Frustrations</h4><ul><li>Organisers who disappear without paying their vendors</li><li>Stall terms agreed by phone with nothing written down</li><li>Attendees who can&#x27;t find her stall</li></ul></div>
+  </div>
+  <h4>Evidence</h4><ul><li>Thin: only 2 of 13 providers are caterers, so this persona leans on the organiser and attendee surveys</li><li>6 of 7 organisers fill stalls by contacting vendors directly</li><li>7 of 13 providers ask about the payment or stall fee before accepting</li><li>Attendees mentioned stalls running out (3) and asked about food prices (2)</li><li>One provider described an organiser who &#x27;fled the venue&#x27; without paying vendors</li></ul>
+  <h4>What this means for Tezera</h4><ul><li>Only vendors take stalls; freelancers cannot apply</li><li>Stall fees are paid outside Tezera, so the stall record is the evidence in disputes</li><li>Validate this persona in the follow-up interviews (survey analysis section 9)</li></ul>
+  <h4>User stories</h4><ul class="chips"><li><a href="tezera-user-stories.html#US-P01" title="Be found by organisers I don&#x27;t know">US-P01</a></li><li><a href="tezera-user-stories.html#US-P04" title="Check an organiser before accepting">US-P04</a></li><li><a href="tezera-user-stories.html#US-P11" title="Review the organiser">US-P11</a></li><li><a href="tezera-user-stories.html#US-P13" title="Apply for a stall">US-P13</a></li><li><a href="tezera-user-stories.html#US-C13" title="See which stalls will be there">US-C13</a></li><li><a href="tezera-user-stories.html#US-A02" title="Take down fake events">US-A02</a></li></ul>
+</article>
+<article class="persona" id="pradeep">
+  <div class="phead"><span class="av lg provider" aria-hidden="true">PR</span>
+    <div><p class="plabel">Vendor · secondary</p><h3>Pradeep Rajaratnam</h3><p class="seg">The sound and lighting supplier</p></div></div>
+  <dl class="facts"><div><dt>Age</dt><dd>45 (assumed)</dd></div><div><dt>Works in</dt><dd>Kandy, travels islandwide</dd></div><div><dt>Works events</dt><dd>Several times a month</dd></div><div><dt>Offers</dt><dd>Sound, lighting and DJ equipment with crew</dd></div><div><dt>Gets work through</dt><dd>Past clients and referrals</dd></div></dl>
+  <p>Owns a sound and lighting company with a small crew. Each booking ties up equipment and people for a day, so he needs the run-of-show and the on-site technical details early, and a clash between bookings is expensive. He works outside Colombo, where organisers&#x27; own networks are thinner.</p>
+  <blockquote><p>Organisers often share overall event concepts but omit on-site technical or logistical details until the event day.</p><footer>Photographer, videographer and designer, survey answer</footer></blockquote>
+  <div class="cols">
+    <div><h4>Goals</h4><ul><li>Get technical requirements and timings before quoting</li><li>Keep his calendar accurate so he is never double-booked</li><li>Reach organisers in other districts</li><li>Have terms in writing when an event changes on the day</li></ul></div>
+    <div><h4>Frustrations</h4><ul><li>Technical details missing until the event day</li><li>Scope creep during the event</li><li>Managing several bookings at once</li><li>Difficult organisers</li></ul></div>
+  </div>
+  <h4>Evidence</h4><ul><li>4 of 13 offer sound and lighting and 4 music or DJ services</li><li>3 of 13 need to know what equipment or facilities are provided</li><li>2 of 13 find managing multiple bookings hard</li><li>4 of 13 name difficult organisers and 4 unclear requirements</li><li>Only one provider works in Kandy and two islandwide, so evidence outside Colombo is thin</li></ul>
+  <h4>What this means for Tezera</h4><ul><li>The availability calendar fills itself from confirmed bookings</li><li>Districts served are a search filter, so providers outside Colombo show up</li><li>Equipment and run-of-show fields come with the structured brief (R1, pending)</li></ul>
+  <h4>User stories</h4><ul class="chips"><li><a href="tezera-user-stories.html#US-P01" title="Be found by organisers I don&#x27;t know">US-P01</a></li><li><a href="tezera-user-stories.html#US-P03" title="Get the full brief before I quote">US-P03</a></li><li><a href="tezera-user-stories.html#US-P05" title="See payment and cancellation terms before I accept">US-P05</a></li><li><a href="tezera-user-stories.html#US-P06" title="Reply with my own quote">US-P06</a></li><li><a href="tezera-user-stories.html#US-P09" title="Keep track of my bookings">US-P09</a></li><li><a href="tezera-user-stories.html#US-P10" title="Be protected from last-minute cancellations">US-P10</a></li><li><a href="tezera-user-stories.html#US-O04" title="Only ask providers who are free">US-O04</a></li></ul>
+</article>
+<h2 id="admins">Admins</h2>
+<p>Platform staff.</p>
+<article class="persona" id="sanduni">
+  <div class="phead"><span class="av lg admin" aria-hidden="true">SH</span>
+    <div><p class="plabel">Admin</p><h3>Sanduni Herath</h3><p class="seg">The trust and safety admin<span class="thin">thin evidence</span></p></div></div>
+  <dl class="facts"><div><dt>Age</dt><dd>24 (assumed)</dd></div><div><dt>Works</dt><dd>Tezera platform staff; during the ATP, a team member</dd></div><div><dt>Uses</dt><dd>Web admin panel</dd></div><div><dt>Handles</dt><dd>Verification, reports, disputes, communities</dd></div><div><dt>Evidence</dt><dd>Not surveyed; from the PRD</dd></div></dl>
+  <p>Works through the admin panel each day: checking verification documents, clearing the report queue, taking down fake events and settling disputes between organisers and providers. With money changing hands outside the app, the booking and stall record is all she has to go on.</p>
+  <blockquote><p>Two-way verified reviews linked directly to completed jobs, clear dispute resolution before feedback is finalized, and objective evaluation metrics (punctuality, communication, deliverable quality, and payment speed).</p><footer>Photographer, videographer and designer, describing what a fair system needs, survey answer</footer></blockquote>
+  <div class="cols">
+    <div><h4>Goals</h4><ul><li>Verify real organisers and providers quickly and consistently</li><li>Remove fake events before people pay outside the app</li><li>Settle disputes from the written record, not from claims</li><li>Keep ratings and rank scores free of fake reviews</li></ul></div>
+    <div><h4>Frustrations</h4><ul><li>Disputes with no written terms to check (anticipated)</li><li>Personal documents she must handle under the PDPA (anticipated)</li><li>Reports arriving from many places with no single queue (anticipated)</li></ul></div>
+  </div>
+  <h4>Evidence</h4><ul><li>No admin was surveyed. Her work comes from PRD 6.10 (AD-01 to AD-06)</li><li>24 of 26 attendees trust the official organiser account, so verification carries trust</li><li>Providers asked for fair, two-way reviews with a dispute step</li></ul>
+  <h4>What this means for Tezera</h4><ul><li>NIC and registration documents open only for admins, through short-lived signed links</li><li>Every admin action is logged (AD-06)</li><li>Hidden reviews and banned accounts drop out of rank scores automatically</li></ul>
+  <h4>User stories</h4><ul class="chips"><li><a href="tezera-user-stories.html#US-A01" title="Verify organisers and providers">US-A01</a></li><li><a href="tezera-user-stories.html#US-A02" title="Take down fake events">US-A02</a></li><li><a href="tezera-user-stories.html#US-A03" title="Settle disputes using the booking record">US-A03</a></li><li><a href="tezera-user-stories.html#US-A04" title="Keep reviews honest">US-A04</a></li><li><a href="tezera-user-stories.html#US-C05" title="Tell a real event from a fake one">US-C05</a></li><li><a href="tezera-user-stories.html#US-P12" title="Be reviewed fairly">US-P12</a></li></ul>
+</article>
+
+<h2 id="not-for">Who we are not designing for in the ATP release</h2>
+<ul><li><b>The in-app ticket buyer.</b> Attendees who want to buy tickets, pick seats and get in with a QR code. Ticketing is the first phase after the ATP, so the ATP release links out to the organiser&#x27;s own ticket seller instead (US-C16, US-C17 are Later).</li><li><b>The stranger-meetup seeker.</b> Only 1 of 26 attendees asked for a way to find new people to go with, and 7 don&#x27;t interact with other attendees at all. Event boards stay, but the design favours friends and the event group chat.</li><li><b>The sponsor hunter.</b> 4 of 7 organisers coordinate sponsors, but finding sponsors is not in the PRD. It is parked for a later phase (survey analysis section 8).</li></ul>
+
+<h2 id="matrix">Personas and user stories</h2>
+<p>Which personas each user story serves. Stories <a href="tezera-work-items.html#pending">waiting on a group decision</a> are included, because the need is real even if the PRD change isn't agreed yet.</p>
+<div class="tbl"><table class="matrix">
+<thead><tr><th scope="col">Story</th><th scope="col">Title</th><th scope="col" title="Tharushi Fernando">TF</th><th scope="col" title="Kavindu Perera">KP</th><th scope="col" title="Ashan Wijesinghe">AW</th><th scope="col" title="Dilini Jayawardena">DJ</th><th scope="col" title="Nuwan Silva">NS</th><th scope="col" title="Fathima Rizvi">FR</th><th scope="col" title="Pradeep Rajaratnam">PR</th><th scope="col" title="Sanduni Herath">SH</th></tr></thead>
+<tbody>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C01" title="Find every event in one place">US-C01</a></td><td>Find every event in one place</td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C02" title="Hear about new events from organisers I follow">US-C02</a></td><td>Hear about new events from organisers I follow</td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C03" title="See the essentials at a glance">US-C03</a></td><td>See the essentials at a glance</td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C04" title="Know what to wear, bring and expect">US-C04</a></td><td>Know what to wear, bring and expect</td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C05" title="Tell a real event from a fake one">US-C05</a></td><td>Tell a real event from a fake one</td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C06" title="Be told when plans change">US-C06</a></td><td>Be told when plans change</td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C07" title="Know if the event is running late">US-C07</a></td><td>Know if the event is running late</td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C08" title="Ask the organiser and see earlier answers">US-C08</a></td><td>Ask the organiser and see earlier answers</td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C09" title="See which friends are going">US-C09</a></td><td>See which friends are going</td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C10" title="Plan with people going to the same event">US-C10</a></td><td>Plan with people going to the same event</td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C11" title="Find toilets, entrances and parking at the venue">US-C11</a></td><td>Find toilets, entrances and parking at the venue</td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C12" title="Use the map when there is no signal">US-C12</a></td><td>Use the map when there is no signal</td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C13" title="See which stalls will be there">US-C13</a></td><td>See which stalls will be there</td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C14" title="Review an event I went to">US-C14</a></td><td>Review an event I went to</td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C15" title="Share an event with my friends">US-C15</a></td><td>Share an event with my friends</td><td><span class="yes" aria-label="yes">●</span></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C16" title="Get my money back when an event is cancelled">US-C16</a></td><td>Get my money back when an event is cancelled</td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-C17" title="Get in quickly, with the ticket I want">US-C17</a></td><td>Get in quickly, with the ticket I want</td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O01" title="Find providers outside my network">US-O01</a></td><td>Find providers outside my network</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O02" title="Judge a provider before hiring them">US-O02</a></td><td>Judge a provider before hiring them</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O03" title="See reviews for the kind of job I need">US-O03</a></td><td>See reviews for the kind of job I need</td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O04" title="Only ask providers who are free">US-O04</a></td><td>Only ask providers who are free</td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O05" title="Send a complete brief">US-O05</a></td><td>Send a complete brief</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O06" title="Compare quotes side by side">US-O06</a></td><td>Compare quotes side by side</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O07" title="Agree payment terms in writing">US-O07</a></td><td>Agree payment terms in writing</td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O08" title="Replace a provider who cancels">US-O08</a></td><td>Replace a provider who cancels</td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O09" title="Run stall applications in one place">US-O09</a></td><td>Run stall applications in one place</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O10" title="Share the venue layout before the event">US-O10</a></td><td>Share the venue layout before the event</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O11" title="Promote an event and get it shared">US-O11</a></td><td>Promote an event and get it shared</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O12" title="Update everyone at once">US-O12</a></td><td>Update everyone at once</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O13" title="See how much interest an event has">US-O13</a></td><td>See how much interest an event has</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-O14" title="Track each event&#x27;s hiring and payments">US-O14</a></td><td>Track each event&#x27;s hiring and payments</td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P01" title="Be found by organisers I don&#x27;t know">US-P01</a></td><td>Be found by organisers I don&#x27;t know</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P02" title="Show my work">US-P02</a></td><td>Show my work</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P03" title="Get the full brief before I quote">US-P03</a></td><td>Get the full brief before I quote</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P04" title="Check an organiser before accepting">US-P04</a></td><td>Check an organiser before accepting</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P05" title="See payment and cancellation terms before I accept">US-P05</a></td><td>See payment and cancellation terms before I accept</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P06" title="Reply with my own quote">US-P06</a></td><td>Reply with my own quote</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P07" title="Record payments received">US-P07</a></td><td>Record payments received</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P08" title="Find job posts that fit me">US-P08</a></td><td>Find job posts that fit me</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P09" title="Keep track of my bookings">US-P09</a></td><td>Keep track of my bookings</td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P10" title="Be protected from last-minute cancellations">US-P10</a></td><td>Be protected from last-minute cancellations</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P11" title="Review the organiser">US-P11</a></td><td>Review the organiser</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P12" title="Be reviewed fairly">US-P12</a></td><td>Be reviewed fairly</td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-P13" title="Apply for a stall">US-P13</a></td><td>Apply for a stall</td><td></td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-A01" title="Verify organisers and providers">US-A01</a></td><td>Verify organisers and providers</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-A02" title="Take down fake events">US-A02</a></td><td>Take down fake events</td><td></td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td><td></td><td><span class="yes" aria-label="yes">●</span></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-A03" title="Settle disputes using the booking record">US-A03</a></td><td>Settle disputes using the booking record</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td></tr>
+<tr><td class="id"><a href="tezera-user-stories.html#US-A04" title="Keep reviews honest">US-A04</a></td><td>Keep reviews honest</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="yes" aria-label="yes">●</span></td></tr>
+</tbody></table></div>
+
+<p class="note">Sources: <a href="tezera-survey-analysis.html">survey analysis</a> (counts, quotes and limits of the data), <a href="tezera-user-stories.html">user stories</a>, <a href="../prd/tezera-prd.html#roles">PRD section 3</a> (roles). The samples are small and come from the team's own networks, mostly in Colombo, so treat these personas as starting points to check in the organiser and provider interviews (survey analysis section 9).</p>
+
+</main>
+</body>
+</html>

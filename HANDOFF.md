@@ -2,7 +2,7 @@
 
 Where the work stands, what was decided, and what comes next. **Update this file at the end of every session or section of work** (see `CLAUDE.md` for the steps).
 
-**Last updated:** 15 October 2026, Claude Code session on Windows (git user Damian De Cruz), rule added: Claude never commits or pushes
+**Last updated:** 15 October 2026, Claude Code session on Windows (git user Damian De Cruz), user personas and work items (with Jira CSV) added
 
 ## Current state
 
@@ -11,10 +11,12 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | `prd/tezera-prd.html` | PRD version 4 (13 Oct): section 8 gains the data design (rank score, leaderboards, feed, trending, counters, search, database tools, upgrade paths), tagged v4. Version 3 renamed it to Tezera and pointed to the survey results. Requirements unchanged since v2. Has the shared document navbar (PRD, Architecture, Survey analysis, User stories) |
 | `research/tezera-survey-analysis.html` | New. Analysis of the three discovery surveys (26 attendees, 7 organisers, 13 vendors and freelancers; 4–8 Oct 2026), the PRD's section 1 hypotheses checked, and 12 proposed PRD changes (R1–R12) |
 | `research/tezera-user-stories.html` | Version 2. 48 user stories (17 consumer, 14 organiser, 13 provider, 4 admin), each a title plus Given / When / Then scenarios (the "As a… I want… so that…" line was dropped), with PRD links and survey evidence; 16 depend on R1–R12. Filter by role, priority and "PRD change" |
+| `research/tezera-personas.html` | New (15 Oct). 8 personas from the survey segments: Tharushi (weekend regular) and Kavindu (careful planner), consumers; Ashan (festival organiser) and Dilini (wedding and corporate planner), organisers; Nuwan (freelance photographer), Fathima (food stall vendor), Pradeep (sound and lighting supplier), providers; Sanduni (trust and safety admin). Each has survey evidence, a real survey quote, goals, frustrations and linked user stories; invented details marked (assumed). Also 'not designing for' and a persona × story matrix |
+| `research/tezera-work-items.html` + `research/tezera-work-items-jira.csv` | New (15 Oct). 14 epics › 78 stories › 322 tasks, 850 story points (proposed). Stories: 43 from user stories, 18 PRD gaps (PG-, e.g. sign-up, create an event, communities, chat), 17 enabling (EN-, setup and non-functional). R1–R12 work left out and sized separately (91 pts). PRD coverage table: every Must/Should/Could row has a story. 'Download Jira CSV' button; the CSV is a snapshot made from it |
 | `prd/tezera-architecture.html` | Redrawn from `.archify/architecture-tezera-sse-20261008-132233/candidate.json`: consumers on the web portal, web portal to Cloudinary CDN, SSE instead of Socket.IO, Dialog e-SMS for OTP and urgent alerts, and two cards with the reasons for each platform and its alternatives. 13 Oct: Redis now "jobs, pub/sub, rankings", PostgreSQL "Prisma + raw SQL", API-to-Redis and worker-to-database labels updated, and a new "Data design: ranking and feed (PRD v4)" card. Archify `finalize` passed all four gates; screenshot reviewed. Shared navbar injected by `.archify/inject-nav.py`, which must be re-run after every regeneration |
 | `brand/tezera-brand-manual.html` | New. Brand manual v1.1, brought in from the team's "TESSERA Brand Manual" and renamed to Tezera. Attendee and vendor palettes swapped (attendee = coral/pink/yellow; vendor = sage/slate, the inverse of the organiser palette), personality words swapped with them, copy edited. Calmed down on 8 Oct: rotated/scattered tile grids, tile hover, attendee jiggle and the motion section's demo frames removed; the three accounts now differ by colour only; section 09 phones animate in on scroll. Linked from every doc's navbar |
 | `Tezera Proposal.pdf` + `proposal/tezera-proposal.html` | Renamed; acronym and tagline removed; PDF regenerated on the Mac, 8 pages |
-| `README.md`, `PRD Research.md`, `SDG Alignment.md`, `CLAUDE.md` | Renamed throughout; README lists the research docs; CLAUDE.md has a macOS PDF command |
+| `README.md`, `PRD Research.md`, `SDG Alignment.md`, `CLAUDE.md` | Renamed throughout; README lists the research docs (now incl. personas and work items); CLAUDE.md has a macOS PDF command and edit rules for the new docs. All 7 HTML docs share the navbar (PRD, Architecture, Survey analysis, Personas, User stories, Work items, Brand manual) |
 
 **On `main`:** PRs #2, #3 and #4 are merged. Claude does not commit or push (15 Oct decision); the team does all git work, so expect uncommitted changes after a Claude session. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
 
@@ -22,6 +24,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 
 | Date | Decision | Made by |
 | --- | --- | --- |
+| 15 Oct 2026 | Personas split by survey segment (8, with a primary per role); work items as Epic › Story › Task covering the user stories, PRD gaps and setup work; story points (Fibonacci, proposed) without sprints; work that depends on R1–R12 left out of the backlog until the group decides; HTML in `research/` plus a Jira CSV | Damian (this session) |
 | 15 Oct 2026 | Claude never commits or pushes (no commits, pushes, branches or PRs); the team handles all git. Rule is in `CLAUDE.md` | Damian |
 | 13 Oct 2026 | Data design in PRD section 8: PostgreSQL stays the only database (rank score column, materialized-view leaderboards, feed built on read with keyset pagination, text search + `pg_trgm`); Prisma for schema, raw SQL for ranking queries; Redis sorted sets for leaderboards and trending, Redis counters for likes and views; DBeaver for inspection only, never schema changes | User asked for it in the PRD; the design is Claude's recommendation |
 | 8 Oct 2026 | Product name: **Tezera**. Written "tezera" as a wordmark (logo, h1, diagram title), "Tezera" in prose. No acronym, no tagline | User (this session) |
@@ -44,28 +47,41 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - **Data design (13 Oct, PRD section 8, v4):** confirm the approach, and tune the trending score `(likes + 2·comments + 3·shares) / (age in hours + 2)^1.5` (proposed; added to the section 14 rank-weights question).
 - **Survey method:** the analysis assumes responses came from the team's own networks. Confirm how the forms were shared.
 - **Brand manual (8 Oct):** vendor dark mode is derived and marked (proposed): #dcdbe4 / #1d1b16 / #5a9179 / #7d97ab / #4b583c. Confirm or replace. "Tezera comes from tessera" is now in the name section; check that's the story the team wants. The tile-system section lost its Layer and Crop samples (they were rotated); its copy now names repeat, connect and crop only, so check the team is fine dropping 'layer' as a move. Button text on the vendor primary (#e9e7e2 on #70a992) is 2.2:1 contrast, below the 4.5:1 for normal text; the old attendee primary was worse (1.6:1). The logo is still a placeholder.
+- **Personas (15 Oct):** names, ages and some places are invented and marked (assumed). Fathima (food stall vendor) rests on thin evidence (2 caterers) and Sanduni (admin) on the PRD only; check both in the follow-up interviews. Confirm the primary personas (Tharushi, Ashan, Nuwan).
+- **Work items (15 Oct):** every story point is proposed; re-estimate in planning. The 18 PG- stories have 'done when' checks, not Given / When / Then scenarios yet. Some calls made while splitting tasks: free-text terms on bookings stay in the backlog (HR-08) while instalments wait on R2; Open Graph link previews wait on R9; organisers can edit maps on mobile (5 pts). Jira column mapping follows Atlassian's current CSV guide but hasn't been tried in the team's Jira.
 - **From 6 Oct, still open:** AC-08 verification gate, EV-01 external ticket link, 'Going' before start for reviews, and the new section 14 questions.
 
 ## Next steps
 
-1. Group reviews the survey analysis and decides on R1–R12; update the PRD (v4) and the user stories to match.
-2. Commit 711ba65 says the architecture diagram moved from React Native to Flutter, but `CLAUDE.md` and PRD section 8 still say React Native + Expo. Group to confirm which, then align the PRD, diagram, proposal and `CLAUDE.md`.
-3. Follow-up research (analysis section 9): interview 2–3 organisers, test R1–R4 with providers, reach beyond Colombo and students.
-4. Confirm the recommended stack and the v4 data design against the team's skills (PRD section 8).
+1. Group reviews the survey analysis and decides on R1–R12; update the PRD (v5), the user stories, and move the matching tasks from 'Waiting on a group decision' into the work items backlog.
+2. Review the personas and the work items; re-estimate, then import `research/tezera-work-items-jira.csv` into Jira (needs Jira admin) and plan the first sprint around EP-00 and the first thin slice (publish and find an event).
+3. Write Given / When / Then scenarios for the 18 PG- stories and add them to the user stories doc.
+4. Follow-up research (analysis section 9): interview 2–3 organisers, test R1–R4 with providers, reach beyond Colombo and students.
+5. Confirm the recommended stack and the v4 data design against the team's skills (PRD section 8).
 
 ## Gotchas
 
 - `prd/tezera-architecture.html` is generated. Edit `.archify/architecture-tezera-sse-20261008-132233/candidate.json` and rebuild with archify `finalize` (see `CLAUDE.md`). Older `.archify` folders are history.
 - The proposal PDF is generated from its HTML with headless Chrome (Windows and macOS commands in `CLAUDE.md`).
 - `CLAUDE.md` is compressed with `/caveman-compress`. The readable backup on the Windows machine predates the rename; re-run the compressor there after editing.
+- Commit 711ba65's message says the diagram moved to Flutter, but nothing did: `candidate.json`, the architecture page and the PRD all still say React Native + Expo (checked 15 Oct). The work items assume React Native + Expo.
+- The work items page is the source for the Jira CSV. After editing it, re-export with the button (or the headless Chrome command in `CLAUDE.md`) and replace the snapshot.
 - The research docs were generated once from the CSVs by a script that was not kept; edit the HTML by hand. Each chart bar is `<li style="--v:COUNT">` inside `<ol class="bars" style="--n:TOTAL">`.
 
 ## Session log
 
+### 15 October 2026: user personas and work items
+- New `research/tezera-personas.html`: 8 survey-segment personas with evidence, quotes, goals, frustrations, implications, linked stories, 'not designing for' and a persona × story matrix.
+- New `research/tezera-work-items.html`: 14 epics, 78 stories (43 user stories, 18 PRD gaps, 17 enabling), 322 tasks, 850 pts (proposed); R1–R12 work sized separately (91 pts, not counted); PRD coverage table; filters; 'Download Jira CSV'. New `research/tezera-work-items-jira.csv` exported from the page (414 rows; Issue ID + Parent; epics, then stories, then sub-tasks; Must→High, Should→Medium, Could→Low, Later→Lowest).
+- Story titles, priorities and scenario names are read from the user stories page, so they match it. The 5 stories that depend entirely on R-changes (US-C04, US-C07, US-C12, US-O03, US-P07) are only in 'Waiting on a group decision'; US-C16 and US-C17 (Later) have no tasks.
+- Navbar: Personas and Work items added to the PRD, survey analysis, user stories, brand manual and `.archify/inject-nav.py` (re-run; architecture page updated). README and `CLAUDE.md` updated.
+- Decisions by Damian, through questions at the start: persona split, hierarchy, scope, format, Jira, points without sprints, R1–R12 excluded.
+- Checked: generator asserts (every PRD Must/Should/Could covered, dependencies resolve, every user story has a persona), CSV parent links and order, screenshots of both pages, no sideways scroll at 375px. Not verified: the Jira import itself; story points; persona details marked (assumed). Corrected last session's note: the diagram does not show Flutter. Nothing committed.
+
 ### 15 October 2026: no commits or pushes by Claude
 - `CLAUDE.md`: environment rule changed from "no commit/push unless asked" to "never commit or push; the user does all git".
 - `HANDOFF.md`: decision row added; current state now says PRs #2–#4 are merged into `main`; stale "merge PR #2/#3" next step replaced with the React Native vs Flutter question raised by commit 711ba65.
-- Decision by Damian. Not verified: whether the diagram really shows Flutter now (only the commit message was read). Nothing committed.
+- Decision by Damian. Nothing committed. (The Flutter question was checked later the same day: nothing in the diagram changed to Flutter.)
 
 ### 13 October 2026: data design in PRD section 8
 - Answered which database to use for the rank score and the promotion feed: PostgreSQL (already chosen); DBeaver is a client, not a database.

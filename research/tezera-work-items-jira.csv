@@ -1,0 +1,763 @@
+﻿Issue ID,Issue Type,Summary,Epic Name,Parent,Priority,Story Points,Labels,Labels,Labels,Description
+1,Epic,[EP-00] Foundations,Foundations,,High,,,,,"Monorepo, environments, database, auth, app shells, design system, media, notifications, live updates, worker and search: the plumbing every feature needs."
+2,Epic,"[EP-01] Accounts, profiles and verification","Accounts, profiles and verification",,High,,,,,"Sign-up with one role, profiles for each role, privacy, block and report, provider portfolios."
+3,Epic,[EP-02] Events and discovery,Events and discovery,,High,,,,,"Organisers create and publish events; consumers search, follow, mark Going and hear about changes."
+4,Epic,[EP-03] Promotion feed and sharing,Promotion feed and sharing,,High,,,,,"Organiser posts and reels, the feed, likes and comments, and sharing out to WhatsApp and Instagram."
+5,Epic,[EP-04] Hiring marketplace,Hiring marketplace,,High,,,,,"Provider search, booking requests, job posts, quotes, confirmed bookings, cancellation and completion."
+6,Epic,[EP-05] Stalls,Stalls,,High,,,,,"Stall slots, applications, invitations, stall numbers and the stall list on the event page."
+7,Epic,[EP-06] Reviews and ranking,Reviews and ranking,,High,,,,,"Four-way reviews tied to real jobs or Going marks, rank score, tier badges and leaderboards."
+8,Epic,[EP-07] Venue maps,Venue maps,,High,,,,,"Floor plan upload, labelled pins, the 2D map viewer, and the optional 3D view."
+9,Epic,[EP-08] Community,Community,,High,,,,,"Event boards and group chats, topic and city communities, friends."
+10,Epic,[EP-09] Messaging and notifications,Messaging and notifications,,High,,,,,"1:1 chat, event Q&A, announcements and transactional notifications."
+11,Epic,[EP-10] Organiser dashboard,Organiser dashboard,,High,,,,,"Live interest counts, analytics and the hiring tracker for each event."
+12,Epic,"[EP-11] Administration, trust and safety","Administration, trust and safety",,High,,,,,"Verification, report queue, fake events, disputes, review moderation, communities and the audit log."
+13,Epic,"[EP-12] Quality, privacy and release","Quality, privacy and release",,High,,,,,"Languages, PDPA, accessibility, performance, security, usability testing and pilot readiness."
+14,Epic,[EP-13] Ticketing (after the ATP),Ticketing (after the ATP),,Lowest,,,,,Kept so the backlog is complete. No tasks until the ticketing phase is planned.
+15,Story,[EN-01] Monorepo and tooling,,1,High,12,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-01
+PRD: Section 8
+Done when: One repository builds the app, the portal, the API and the shared packages | CI runs lint, type-check and tests on every pull request"
+16,Story,[EN-02] Environments and deployment,,1,High,12,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-02
+PRD: Section 8
+Depends on: EN-01
+Done when: Every pull request gets a Vercel preview and its own Neon database branch | main deploys the API and the worker to Render"
+17,Story,[EN-03] Database schema and migrations,,1,High,11,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-03
+PRD: Section 8
+Depends on: EN-02
+Done when: Prisma schema and migrations own every table; migrations run in CI | A seed script loads demo organisers, providers, consumers and events"
+18,Story,[EN-04] Authentication and role-based access,,1,High,15,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-04
+PRD: Section 8, Section 7
+Depends on: EN-03
+Done when: JWT log-in with refresh tokens; passwords hashed | Every endpoint checks the caller's role; each account holds exactly one role"
+19,Story,[EN-05] Mobile app shell,,1,High,11,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-05
+PRD: Section 8
+Depends on: EN-04
+Done when: One Expo app with role-based navigation for all four roles | Shared loading, error and empty states; deep links open the right screen"
+20,Story,[EN-06] Web portal shell,,1,High,10,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-06
+PRD: Section 8
+Depends on: EN-04
+Done when: Next.js portal with layouts for consumers, organisers, providers and admins | Event and profile pages render on the server and open without logging in"
+21,Story,[EN-07] Design system and translation-ready UI,,1,High,16,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-07
+PRD: Section 7
+Depends on: EN-01
+Done when: Design tokens from the brand manual, with the three role palettes | All interface text lives in translation files from the start, with Unicode fonts for Sinhala and Tamil"
+22,Story,[EN-08] Media uploads,,1,High,11,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-08
+PRD: Section 8, Section 7
+Depends on: EN-04
+Done when: Signed uploads to Cloudinary with size and length limits per type (limits proposed) | Verification documents are private and open only through short-lived signed links"
+23,Story,[EN-09] Notification service,,1,High,17,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-09
+PRD: MS-07, Section 8
+Depends on: EN-03, EN-11
+Done when: One service sends push, in-app, email and SMS | In-app inbox and per-type settings that each user can switch off"
+24,Story,[EN-10] Live updates over SSE,,1,High,10,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-10
+PRD: Section 8
+Depends on: EN-04
+Done when: Each client keeps one SSE stream open; updates reach it within seconds | Redis pub/sub passes events between API instances"
+25,Story,[EN-11] Background job worker,,1,High,4,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-11
+PRD: Section 8
+Depends on: EN-02
+Done when: BullMQ worker on Render with retries, failed-job handling and scheduled jobs"
+26,Story,[EN-12] Search foundation,,1,High,6,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-12
+PRD: EV-05, HR-01, Section 8
+Depends on: EN-03
+Done when: Text search with tsvector and GIN indexes; pg_trgm matches slightly misspelt names | One query builder with keyset pagination used by event and provider search"
+27,Story,"[PG-01] Sign up, verify and pick a role",,2,High,17,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-01
+PRD: AC-01
+Personas: Tharushi Fernando, Kavindu Perera, Ashan Wijesinghe, Dilini Jayawardena, Nuwan Silva, Fathima Rizvi, Pradeep Rajaratnam
+Depends on: EN-04, EN-09
+Done when: Sign up with an email address or phone number and verify it with a code or link | Pick one role: organiser, vendor, freelancer or consumer | Log in, log out and reset a forgotten password"
+28,Story,[PG-02] Consumer profile and privacy settings,,2,High,12,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-02
+PRD: AC-05, AC-06, CM-06
+Personas: Tharushi Fernando, Kavindu Perera
+Depends on: PG-01
+Done when: Profile with name, photo and interests; events attended shown only if allowed | Settings for who sees the profile, Going status and friends, and who can message | Going is private by default (proposed); only 'everyone' adds a person to the public Going list"
+29,Story,[PG-03] Block or report any user,,2,High,8,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-03
+PRD: AC-07
+Personas: Tharushi Fernando, Sanduni Herath
+Depends on: PG-01, PG-18
+Done when: Blocking someone hides their messages and posts from me and stops them messaging me | Reporting someone puts them in the admin report queue"
+30,Story,[US-P01] Be found by organisers I don't know,,2,High,13,moscow-must,src-user-story,,"User story US-P01: research/tezera-user-stories.html#US-P01
+Work items: research/tezera-work-items.html#US-P01
+PRD: AC-03, AC-09, HR-01, RV-06
+Personas: Nuwan Silva, Fathima Rizvi, Pradeep Rajaratnam
+Depends on: PG-01, EN-08
+Acceptance (scenarios): Fill in my profile | Get the Verified badge | Appear on leaderboards"
+31,Story,[US-P02] Show my work,,2,High,12,moscow-must,src-user-story,,"User story US-P02: research/tezera-user-stories.html#US-P02
+Work items: research/tezera-work-items.html#US-P02
+PRD: AC-04
+Personas: Nuwan Silva
+Depends on: US-P01, EN-08
+Acceptance (scenarios): Upload work | Label work | Count completed jobs"
+32,Story,[US-P04] Check an organiser before accepting,,2,High,9,moscow-must,src-user-story,,"User story US-P04: research/tezera-user-stories.html#US-P04
+Work items: research/tezera-work-items.html#US-P04
+PRD: AC-02, AC-08, RV-03
+Personas: Nuwan Silva, Fathima Rizvi
+Depends on: PG-05, US-P11
+Acceptance (scenarios): Check the organiser
+Not included, waiting on a group decision: See their payment record (proposed) (R3)"
+33,Story,[PG-05] Create and publish an event,,3,High,20,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-05
+PRD: EV-01, EV-02
+Personas: Ashan Wijesinghe, Dilini Jayawardena
+Depends on: EN-05, EN-06, EN-08
+Done when: Organiser fills in every EV-01 field: title, category, date and time, venue and address, description, cover, line-up or schedule, price or free | Save as draft, publish, edit, postpone or cancel | Optional link to an outside ticket seller (proposed) | Changes to date, time or venue, postponement and cancellation are recorded for notifications"
+34,Story,[US-C01] Find every event in one place,,3,High,16,moscow-must,src-user-story,,"User story US-C01: research/tezera-user-stories.html#US-C01
+Work items: research/tezera-work-items.html#US-C01
+PRD: EV-05
+Personas: Tharushi Fernando, Kavindu Perera
+Depends on: EN-12, PG-05
+Acceptance (scenarios): Search by keyword | Combine filters | Read a result | Hide past and cancelled events"
+35,Story,[US-C02] Hear about new events from organisers I follow,,3,Medium,9,moscow-should,src-user-story,,"User story US-C02: research/tezera-user-stories.html#US-C02
+Work items: research/tezera-work-items.html#US-C02
+PRD: EV-04, MS-08
+Personas: Tharushi Fernando
+Depends on: PG-05, EN-09
+Acceptance (scenarios): Follow an organiser | Hear about a new event | Switch this notification off"
+36,Story,[US-C03] See the essentials at a glance,,3,High,14,moscow-must,src-user-story,,"User story US-C03: research/tezera-user-stories.html#US-C03
+Work items: research/tezera-work-items.html#US-C03
+PRD: EV-01
+Personas: Kavindu Perera
+Depends on: PG-05
+Acceptance (scenarios): See the essentials first | Follow a link to an outside ticket seller (proposed) | Find everything on one page"
+37,Story,[US-C05] Tell a real event from a fake one,,3,High,9,moscow-must,src-user-story,,"User story US-C05: research/tezera-user-stories.html#US-C05
+Work items: research/tezera-work-items.html#US-C05
+PRD: AC-08, CM-04, AD-03
+Personas: Kavindu Perera, Sanduni Herath
+Depends on: US-C03, US-A01, PG-18
+Acceptance (scenarios): See a verified organiser | See an unverified organiser | Report a fake event"
+38,Story,[US-C06] Be told when plans change,,3,High,11,moscow-must,src-user-story,,"User story US-C06: research/tezera-user-stories.html#US-C06
+Work items: research/tezera-work-items.html#US-C06
+PRD: EV-02, MS-05
+Personas: Tharushi Fernando, Kavindu Perera
+Depends on: PG-05, US-C09, EN-09
+Acceptance (scenarios): Hear about a change | See what changed | Find a cancelled event"
+39,Story,[US-C09] See which friends are going,,3,High,13,moscow-must,src-user-story,,"User story US-C09: research/tezera-user-stories.html#US-C09
+Work items: research/tezera-work-items.html#US-C09
+PRD: CM-05, CM-06, EV-06
+Personas: Tharushi Fernando
+Depends on: PG-02, PG-13
+Acceptance (scenarios): See friends who are going | Going is private by default (proposed) | Mark in one tap"
+40,Story,[PG-06] Event recommendations,,3,Low,9,moscow-could,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-06
+PRD: EV-07
+Personas: Tharushi Fernando
+Depends on: US-C09, US-C02
+Done when: A 'For you' list ranks upcoming events by interests, followed organisers, past Going marks and district"
+41,Story,"[PG-07] Browse the feed, like and comment",,4,High,26,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-07
+PRD: EV-03, EV-04
+Personas: Tharushi Fernando, Ashan Wijesinghe
+Depends on: US-O11, US-C02
+Done when: Feed shows posts from followed organisers, newest first, loading page by page | Like, comment on and share any post; a person can like a post only once | Trending posts ranked by engagement that fades with age (score proposed)"
+42,Story,[US-O11] Promote an event and get it shared,,4,High,10,moscow-must,src-user-story,,"User story US-O11: research/tezera-user-stories.html#US-O11
+Work items: research/tezera-work-items.html#US-O11
+PRD: EV-03, EV-04
+Personas: Ashan Wijesinghe
+Depends on: PG-05, EN-08
+Acceptance (scenarios): Link a post to an event | Share outside Tezera"
+43,Story,[US-C15] Share an event with my friends,,4,High,7,moscow-must,src-user-story,,"User story US-C15: research/tezera-user-stories.html#US-C15
+Work items: research/tezera-work-items.html#US-C15
+PRD: EV-04
+Personas: Tharushi Fernando, Ashan Wijesinghe
+Depends on: US-C03, EN-05, EN-06
+Acceptance (scenarios): Share an event | Open a shared link
+Not included, waiting on a group decision: Link preview card with cover image, title, date and venue (in 'Share an event') (R9) | Share to an Instagram story (R9)"
+44,Story,[US-O01] Find providers outside my network,,5,High,11,moscow-must,src-user-story,,"User story US-O01: research/tezera-user-stories.html#US-O01
+Work items: research/tezera-work-items.html#US-O01
+PRD: HR-01
+Personas: Ashan Wijesinghe, Dilini Jayawardena
+Depends on: US-P01, EN-12, PG-09
+Acceptance (scenarios): Combine filters | Order by rank | Read a result"
+45,Story,[US-O04] Only ask providers who are free,,5,Medium,10,moscow-should,src-user-story,,"User story US-O04: research/tezera-user-stories.html#US-O04
+Work items: research/tezera-work-items.html#US-O04
+PRD: HR-02
+Personas: Dilini Jayawardena, Pradeep Rajaratnam
+Depends on: US-O01
+Acceptance (scenarios): Booked providers are hidden"
+46,Story,[US-O05] Send a complete brief,,5,High,12,moscow-must,src-user-story,,"User story US-O05: research/tezera-user-stories.html#US-O05
+Work items: research/tezera-work-items.html#US-O05
+PRD: HR-03, HR-05
+Personas: Ashan Wijesinghe, Dilini Jayawardena
+Depends on: US-O01, EN-08
+Acceptance (scenarios): Required fields | Attach files
+Not included, waiting on a group decision: Optional fields (proposed): audience, deliverables, run-of-show, equipment, rules (R1)"
+47,Story,[US-O06] Compare quotes side by side,,5,High,19,moscow-must,src-user-story,,"User story US-O06: research/tezera-user-stories.html#US-O06
+Work items: research/tezera-work-items.html#US-O06
+PRD: HR-05, HR-06, HR-07
+Personas: Ashan Wijesinghe, Dilini Jayawardena
+Depends on: US-O05
+Acceptance (scenarios): Compare quotes | Accept more than one | Others are told"
+48,Story,[US-O07] Agree payment terms in writing,,5,High,8,moscow-must,src-user-story,,"User story US-O07: research/tezera-user-stories.html#US-O07
+Work items: research/tezera-work-items.html#US-O07
+PRD: HR-04, HR-08
+Personas: Dilini Jayawardena
+Depends on: US-O05
+Acceptance (scenarios): Set the terms | Provider sees the terms first
+Not included, waiting on a group decision: Deposit and instalments with due dates, and cancellation terms (in 'Set the terms') (R2) | Changing agreed terms (proposed) (R2)"
+49,Story,[US-P03] Get the full brief before I quote,,5,High,9,moscow-must,src-user-story,,"User story US-P03: research/tezera-user-stories.html#US-P03
+Work items: research/tezera-work-items.html#US-P03
+PRD: HR-03, HR-05, MS-02
+Personas: Nuwan Silva, Pradeep Rajaratnam
+Depends on: US-O05, PG-14
+Acceptance (scenarios): See the brief | Ask before quoting | Keep the brief"
+50,Story,[US-P05] See payment and cancellation terms before I accept,,5,High,3,moscow-must,src-user-story,,"User story US-P05: research/tezera-user-stories.html#US-P05
+Work items: research/tezera-work-items.html#US-P05
+PRD: HR-04, HR-08
+Personas: Nuwan Silva, Pradeep Rajaratnam
+Depends on: US-O07
+Acceptance (scenarios): See terms before deciding | Terms are stored
+Not included, waiting on a group decision: Propose other terms (R2)"
+51,Story,[US-P06] Reply with my own quote,,5,High,13,moscow-must,src-user-story,,"User story US-P06: research/tezera-user-stories.html#US-P06
+Work items: research/tezera-work-items.html#US-P06
+PRD: HR-04
+Personas: Nuwan Silva, Pradeep Rajaratnam
+Depends on: US-O05
+Acceptance (scenarios): Reply to a request | Organiser decides on my quote"
+52,Story,[US-P08] Find job posts that fit me,,5,High,10,moscow-must,src-user-story,,"User story US-P08: research/tezera-user-stories.html#US-P08
+Work items: research/tezera-work-items.html#US-P08
+PRD: HR-06
+Personas: Nuwan Silva
+Depends on: US-O06
+Acceptance (scenarios): Matching job posts | Apply with a quote"
+53,Story,[US-P09] Keep track of my bookings,,5,Medium,9,moscow-should,src-user-story,,"User story US-P09: research/tezera-user-stories.html#US-P09
+Work items: research/tezera-work-items.html#US-P09
+PRD: HR-02, MS-08
+Personas: Pradeep Rajaratnam
+Depends on: US-O04, US-P06
+Acceptance (scenarios): Bookings on the calendar | Reminders
+Not included, waiting on a group decision: Reminders for payment due dates (in 'Reminders') (R2/R3)"
+54,Story,[US-O08] Replace a provider who cancels,,5,Medium,7,moscow-should,src-user-story,,"User story US-O08: research/tezera-user-stories.html#US-O08
+Work items: research/tezera-work-items.html#US-O08
+PRD: HR-08, HR-05
+Personas: Dilini Jayawardena
+Depends on: US-P06
+Acceptance (scenarios): Hear about a cancellation
+Not included, waiting on a group decision: Reopen as a job post (R4) | Late cancellation on record (proposed) (R4)"
+55,Story,[US-P10] Be protected from last-minute cancellations,,5,Medium,4,moscow-should,src-user-story,,"User story US-P10: research/tezera-user-stories.html#US-P10
+Work items: research/tezera-work-items.html#US-P10
+PRD: HR-08
+Personas: Nuwan Silva, Pradeep Rajaratnam
+Depends on: US-O08
+Acceptance (scenarios): Reason required
+Not included, waiting on a group decision: Late cancellation on record (proposed) (R4) | Review after cancellation (proposed) (R4)"
+56,Story,[PG-08] Complete a booking to open reviews,,5,High,10,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-08
+PRD: HR-09, RV-02
+Personas: Dilini Jayawardena, Nuwan Silva
+Depends on: US-P06, EN-11
+Done when: After the event date the organiser marks the booking completed (proposed) | Completion opens reviews for both sides and adds one to the provider's completed jobs | Review windows close 14 days later (proposed)"
+57,Story,[US-O09] Run stall applications in one place,,6,High,21,moscow-must,src-user-story,,"User story US-O09: research/tezera-user-stories.html#US-O09
+Work items: research/tezera-work-items.html#US-O09
+PRD: HR-10, HR-11, HR-12, HR-13
+Personas: Ashan Wijesinghe
+Depends on: PG-05, US-A01
+Acceptance (scenarios): Open stall slots | Handle applications | Give out stall numbers | Fees are paid outside the app"
+58,Story,[US-P13] Apply for a stall,,6,High,10,moscow-must,src-user-story,,"User story US-P13: research/tezera-user-stories.html#US-P13
+Work items: research/tezera-work-items.html#US-P13
+PRD: HR-10, HR-11, HR-13
+Personas: Fathima Rizvi
+Depends on: US-O09
+Acceptance (scenarios): See open slots | Apply or answer an invitation | Vendors only"
+59,Story,[US-C13] See which stalls will be there,,6,High,8,moscow-must,src-user-story,,"User story US-C13: research/tezera-user-stories.html#US-C13
+Work items: research/tezera-work-items.html#US-C13
+PRD: EV-01, HR-12, VM-02
+Personas: Kavindu Perera, Fathima Rizvi
+Depends on: US-O09, US-C11
+Acceptance (scenarios): See the stall list | Go to a stall vendor | See price ranges (proposed)"
+60,Story,[US-P11] Review the organiser,,7,High,11,moscow-must,src-user-story,,"User story US-P11: research/tezera-user-stories.html#US-P11
+Work items: research/tezera-work-items.html#US-P11
+PRD: RV-01, RV-02
+Personas: Nuwan Silva, Fathima Rizvi
+Depends on: PG-08, US-O09
+Acceptance (scenarios): Unlock a review | Rate each category"
+61,Story,[US-O02] Judge a provider before hiring them,,7,High,11,moscow-must,src-user-story,,"User story US-O02: research/tezera-user-stories.html#US-O02
+Work items: research/tezera-work-items.html#US-O02
+PRD: RV-03, AC-04, RV-05
+Personas: Ashan Wijesinghe, Dilini Jayawardena
+Depends on: US-P11, US-P02, PG-09
+Acceptance (scenarios): Check the profile | Check the reviews | Only real jobs are reviewed"
+62,Story,[US-P12] Be reviewed fairly,,7,High,5,moscow-must,src-user-story,,"User story US-P12: research/tezera-user-stories.html#US-P12
+Work items: research/tezera-work-items.html#US-P12
+PRD: RV-01, RV-07, AD-04
+Personas: Nuwan Silva, Sanduni Herath
+Depends on: US-P11, PG-18
+Acceptance (scenarios): Only real jobs | Dispute a review
+Not included, waiting on a group decision: Reply to a review (proposed) (R10)"
+63,Story,[US-C14] Review an event I went to,,7,High,11,moscow-must,src-user-story,,"User story US-C14: research/tezera-user-stories.html#US-C14
+Work items: research/tezera-work-items.html#US-C14
+PRD: RV-01, RV-02
+Personas: Kavindu Perera
+Depends on: US-C09, US-P11
+Acceptance (scenarios): Review after going | Review window closes (proposed) | Can't review without going | Rate each category (proposed) | One review per event
+Not included, waiting on a group decision: Facilities category (toilets, queues, food availability) in 'Rate each category' (R11)"
+64,Story,[PG-10] Review a stall vendor,,7,High,6,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-10
+PRD: RV-01, RV-02
+Personas: Kavindu Perera, Fathima Rizvi
+Depends on: US-C14, US-C13
+Done when: A consumer who marked Going before the start can rate a stall vendor at that event after it ends | Categories: quality, value for money, service (proposed)"
+65,Story,"[PG-09] Rank score, tier badges and leaderboards",,7,High,20,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-09
+PRD: RV-04, RV-05, RV-06
+Personas: Nuwan Silva, Ashan Wijesinghe
+Depends on: US-P11, EN-11
+Done when: Rank score recalculated after each review and each moderation (formula proposed) | Tier badges: New, Rising, Top Rated (thresholds proposed) | Leaderboards of providers by category and district, and of organisers"
+66,Story,[US-O10] Share the venue layout before the event,,8,High,17,moscow-must,src-user-story,,"User story US-O10: research/tezera-user-stories.html#US-O10
+Work items: research/tezera-work-items.html#US-O10
+PRD: VM-01, VM-02, VM-03
+Personas: Ashan Wijesinghe
+Depends on: PG-05, EN-08
+Acceptance (scenarios): Upload a layout | Edit pins"
+67,Story,"[US-C11] Find toilets, entrances and parking at the venue",,8,High,11,moscow-must,src-user-story,,"User story US-C11: research/tezera-user-stories.html#US-C11
+Work items: research/tezera-work-items.html#US-C11
+PRD: VM-02, VM-04
+Personas: Tharushi Fernando
+Depends on: US-O10
+Acceptance (scenarios): Open the map | Find facilities by pin | Always see the latest map
+Not included, waiting on a group decision: More standard pins (proposed): parking, registration, seating, food and drink, water (R7)"
+68,Story,[PG-11] 3D venue view,,8,Low,18,moscow-could,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-11
+PRD: VM-05, VM-06
+Personas: Tharushi Fernando
+Depends on: US-O10, US-C11
+Done when: Organisers can give a pin a footprint (width, depth, height, rotation) | Consumers switch to a 3D view built from the layout and pins; the 2D map stays the default | The viewer downloads only when someone taps 'View in 3D'"
+69,Story,[PG-13] Add friends and follow people,,9,High,7,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-13
+PRD: CM-05
+Personas: Tharushi Fernando
+Depends on: PG-02
+Done when: Send, accept and decline friend requests; follow other users"
+70,Story,[US-C10] Plan with people going to the same event,,9,High,12,moscow-must,src-user-story,,"User story US-C10: research/tezera-user-stories.html#US-C10
+Work items: research/tezera-work-items.html#US-C10
+PRD: MS-04, CM-01
+Personas: Tharushi Fernando
+Depends on: US-C09, PG-12, PG-14, PG-03
+Acceptance (scenarios): Join the group chat | Start a meetup thread | Block or report someone"
+71,Story,[PG-12] Communities and threads,,9,High,23,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-12
+PRD: CM-02, CM-03, CM-04
+Personas: Tharushi Fernando
+Depends on: PG-01, PG-16
+Done when: Join topic and city communities | Post threads with text, images and links; nested replies; up and down votes; sort by newest or most upvoted | A role badge, plus Verified where earned, beside every name"
+72,Story,[PG-14] Chat in the app,,10,High,25,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-14
+PRD: MS-01, MS-02, MS-03
+Personas: Kavindu Perera, Dilini Jayawardena, Nuwan Silva
+Depends on: EN-10, PG-02
+Done when: 1:1 chats: consumer and organiser, organiser and provider (with photos and files), consumer and consumer within privacy settings | No private chat between consumers and providers (proposed) | New messages arrive live over SSE; sending is a REST call"
+73,Story,[US-C08] Ask the organiser and see earlier answers,,10,High,10,moscow-must,src-user-story,,"User story US-C08: research/tezera-user-stories.html#US-C08
+Work items: research/tezera-work-items.html#US-C08
+PRD: MS-06, MS-01
+Personas: Kavindu Perera
+Depends on: US-C03, PG-14
+Acceptance (scenarios): Ask in public | Read earlier answers | Ask something private"
+74,Story,[US-O12] Update everyone at once,,10,High,11,moscow-must,src-user-story,,"User story US-O12: research/tezera-user-stories.html#US-O12
+Work items: research/tezera-work-items.html#US-O12
+PRD: MS-05, EV-02
+Personas: Ashan Wijesinghe
+Depends on: US-C09, US-C02, EN-09
+Acceptance (scenarios): Send an announcement
+Not included, waiting on a group decision: Set live status from the same screen (R6)"
+75,Story,[PG-15] Transactional notifications,,10,High,8,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-15
+PRD: MS-07
+Personas: Dilini Jayawardena, Nuwan Silva, Fathima Rizvi, Pradeep Rajaratnam
+Depends on: EN-09
+Done when: Every MS-07 type is sent: booking requests and quotes, confirmations, stall decisions, verification decisions, new messages, event changes | Urgent ones (event cancelled or moved, booking cancelled) also go by SMS (proposed)"
+76,Story,[US-O13] See how much interest an event has,,11,High,16,moscow-must,src-user-story,,"User story US-O13: research/tezera-user-stories.html#US-O13
+Work items: research/tezera-work-items.html#US-O13
+PRD: OD-01, OD-04
+Personas: Ashan Wijesinghe
+Depends on: US-C09, EN-10, PG-07
+Acceptance (scenarios): Counts update live | See analytics"
+77,Story,[US-O14] Track each event's hiring and payments,,11,High,9,moscow-must,src-user-story,,"User story US-O14: research/tezera-user-stories.html#US-O14
+Work items: research/tezera-work-items.html#US-O14
+PRD: OD-03
+Personas: Ashan Wijesinghe, Dilini Jayawardena
+Depends on: US-O06, US-O09
+Acceptance (scenarios): See every item for an event
+Not included, waiting on a group decision: Track payments (proposed) (R3)"
+78,Story,[PG-18] Work the report queue,,12,High,12,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-18
+PRD: AD-02
+Personas: Sanduni Herath
+Depends on: EN-06, EN-04
+Done when: One queue for reported posts, comments, threads, reviews, messages and users | Actions: dismiss, hide, remove, warn, suspend or ban; suspended and banned users cannot log in"
+79,Story,[US-A01] Verify organisers and providers,,12,High,15,moscow-must,src-user-story,,"User story US-A01: research/tezera-user-stories.html#US-A01
+Work items: research/tezera-work-items.html#US-A01
+PRD: AC-08, AC-09, AD-01
+Personas: Sanduni Herath
+Depends on: EN-08, EN-06
+Acceptance (scenarios): Review documents | Approve or reject | Unverified organisers are limited"
+80,Story,[US-A02] Take down fake events,,12,High,6,moscow-must,src-user-story,,"User story US-A02: research/tezera-user-stories.html#US-A02
+Work items: research/tezera-work-items.html#US-A02
+PRD: AD-03
+Personas: Fathima Rizvi, Sanduni Herath
+Depends on: PG-18, US-O09, US-O06
+Acceptance (scenarios): Unpublish a fake event | People are told"
+81,Story,[US-A03] Settle disputes using the booking record,,12,High,12,moscow-must,src-user-story,,"User story US-A03: research/tezera-user-stories.html#US-A03
+Work items: research/tezera-work-items.html#US-A03
+PRD: AD-04
+Personas: Sanduni Herath
+Depends on: PG-18, US-O07, PG-14
+Acceptance (scenarios): Open a dispute | Decide the outcome"
+82,Story,[US-A04] Keep reviews honest,,12,High,6,moscow-must,src-user-story,,"User story US-A04: research/tezera-user-stories.html#US-A04
+Work items: research/tezera-work-items.html#US-A04
+PRD: RV-07, AD-02
+Personas: Sanduni Herath
+Depends on: PG-18, PG-09
+Acceptance (scenarios): Reported reviews | Leave out hidden reviews and fake accounts"
+83,Story,[PG-16] Manage communities,,12,High,6,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-16
+PRD: AD-05, CM-02
+Personas: Sanduni Herath
+Depends on: PG-18
+Done when: Admins create, edit and archive communities; admins create the first set (proposed)"
+84,Story,[PG-17] Audit log of admin actions,,12,Medium,5,moscow-should,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-17
+PRD: AD-06
+Personas: Sanduni Herath
+Depends on: PG-18
+Done when: Every admin action is logged with who did it and when, and can be viewed"
+85,Story,[PG-04] Use Tezera in Sinhala or Tamil,,13,Medium,10,moscow-should,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-04
+PRD: AC-10
+Personas: Pradeep Rajaratnam, Fathima Rizvi
+Depends on: EN-07
+Done when: Every screen is available in English, Sinhala and Tamil | Language can be switched in settings"
+86,Story,[EN-13] Privacy and the PDPA,,13,High,9,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-13
+PRD: Section 7
+Depends on: EN-04, EN-08
+Done when: Users can view, correct and delete their data | Consent asked for marketing messages | Data inventory, privacy notice and a 72-hour breach response plan"
+87,Story,[EN-14] Accessibility,,13,High,5,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-14
+PRD: Section 7
+Depends on: EN-07
+Done when: Main flows meet WCAG 2.1 AA (proposed): screen-reader labels, text size, contrast"
+88,Story,[EN-15] Performance on mobile data,,13,High,5,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-15
+PRD: Section 7
+Depends on: PG-07, US-C01, US-C03
+Done when: Feed, event pages and search load within 3 seconds on 4G (proposed)"
+89,Story,[EN-16] Security hardening,,13,High,6,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-16
+PRD: Section 7
+Depends on: EN-04
+Done when: HTTPS only; inputs validated with the shared Zod schemas; rate limits | Tests prove each role reaches only its own tools"
+90,Story,[EN-17] Usability test and pilot readiness,,13,High,8,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-17
+PRD: Section 11, Section 9
+Depends on: PG-05, US-O06, US-O10
+Done when: Usability test of three tasks: publish an event, post a job, upload a venue map | Success metrics are measured from launch | Production environment and an onboarding checklist for 1–2 partner organisers"
+91,Story,[US-C16] Get my money back when an event is cancelled,,14,Lowest,,moscow-later,src-user-story,,"User story US-C16: research/tezera-user-stories.html#US-C16
+Work items: research/tezera-work-items.html#US-C16
+PRD: TK-11
+Personas: Kavindu Perera
+Acceptance (scenarios): Refund on cancellation (after the ATP)"
+92,Story,"[US-C17] Get in quickly, with the ticket I want",,14,Lowest,,moscow-later,src-user-story,,"User story US-C17: research/tezera-user-stories.html#US-C17
+Work items: research/tezera-work-items.html#US-C17
+PRD: TK-01, TK-07
+Personas: Tharushi Fernando
+Acceptance (scenarios): Choose a tier and get in (after the ATP)"
+93,Sub-task,"[EN-01-T1] Set up Turborepo: apps/mobile, apps/web, apps/api, packages/shared; strict TypeScript, ESLint, Prettier",,15,High,3,area-infra,moscow-must,,Story: EN-01. Area: infra.
+94,Sub-task,[EN-01-T2] Shared package with Zod schemas and types used by all three apps,,15,High,2,area-infra,moscow-must,,Story: EN-01. Area: infra.
+95,Sub-task,"[EN-01-T3] GitHub Actions CI: install, lint, type-check and test on every pull request",,15,High,3,area-infra,moscow-must,,Story: EN-01. Area: infra.
+96,Sub-task,"[EN-01-T4] Test setup: Jest for API and shared code, React Native Testing Library, Playwright for the portal",,15,High,3,area-infra,moscow-must,,Story: EN-01. Area: infra.
+97,Sub-task,[EN-01-T5] Pull request template and branch protection on main,,15,High,1,area-infra,moscow-must,,Story: EN-01. Area: infra.
+98,Sub-task,"[EN-02-T1] Render services for the API and the job worker, with a health-check endpoint",,16,High,3,area-infra,moscow-must,,Story: EN-02. Area: infra.
+99,Sub-task,[EN-02-T2] Vercel project for the web portal with preview deploys,,16,High,1,area-infra,moscow-must,,Story: EN-02. Area: infra.
+100,Sub-task,"[EN-02-T3] Neon project, with a database branch per pull request wired into CI",,16,High,3,area-infra,moscow-must,,Story: EN-02. Area: infra.
+101,Sub-task,[EN-02-T4] Upstash Redis and Cloudinary accounts; secrets per environment; documented .env.example,,16,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
+102,Sub-task,"[EN-02-T5] Expo EAS: development builds for Android and iOS, internal distribution to the team",,16,High,3,area-infra,moscow-must,,Story: EN-02. Area: infra.
+103,Sub-task,"[EN-03-T1] Core schema: users, roles, organiser, provider and consumer profiles, districts and categories",,17,High,5,area-db,moscow-must,,Story: EN-03. Area: db.
+104,Sub-task,[EN-03-T2] Shareable ER diagram in dbdiagram.io (DBML),,17,High,2,area-db,moscow-must,,Story: EN-03. Area: db.
+105,Sub-task,"[EN-03-T3] Seed script: demo accounts and events in Colombo, Kandy and Galle",,17,High,3,area-db,moscow-must,,Story: EN-03. Area: db.
+106,Sub-task,"[EN-03-T4] Migration rules written down: Prisma only, DBeaver read-only (PRD section 8)",,17,High,1,area-db,moscow-must,,Story: EN-03. Area: db.
+107,Sub-task,"[EN-04-T1] Auth module: log-in, refresh tokens (JWT), password hashing",,18,High,5,area-api,moscow-must,,Story: EN-04. Area: api.
+108,Sub-task,"[EN-04-T2] Role guards for organiser, vendor, freelancer, consumer and admin",,18,High,3,area-api,moscow-must,,Story: EN-04. Area: api.
+109,Sub-task,[EN-04-T3] Secure token storage and auth state (expo-secure-store),,18,High,2,area-mobile,moscow-must,,Story: EN-04. Area: mobile.
+110,Sub-task,"[EN-04-T4] Session handling, protected routes and admin-only routes in Next.js",,18,High,3,area-web,moscow-must,,Story: EN-04. Area: web.
+111,Sub-task,[EN-04-T5] Rate limiting on auth endpoints,,18,High,2,area-api,moscow-must,,Story: EN-04. Area: api.
+112,Sub-task,[EN-05-T1] Expo Router app with role-based tab navigation,,19,High,5,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
+113,Sub-task,"[EN-05-T2] Typed API client from the shared package; loading, error and empty-state components",,19,High,3,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
+114,Sub-task,"[EN-05-T3] Deep links and universal / app links for event, post and profile URLs",,19,High,3,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
+115,Sub-task,[EN-06-T1] Next.js App Router with role-based layouts,,20,High,5,area-web,moscow-must,,Story: EN-06. Area: web.
+116,Sub-task,"[EN-06-T2] Typed API client; loading, error and empty-state components",,20,High,2,area-web,moscow-must,,Story: EN-06. Area: web.
+117,Sub-task,"[EN-06-T3] Public, server-rendered routes for event and profile pages",,20,High,3,area-web,moscow-must,,Story: EN-06. Area: web.
+118,Sub-task,"[EN-07-T1] Wireframes for the main flows: publish an event, hire a provider, run stalls, upload a map",,21,High,5,area-design,moscow-must,,Story: EN-07. Area: design.
+119,Sub-task,"[EN-07-T2] Design tokens from the brand manual (role palettes, type, spacing)",,21,High,3,area-design,moscow-must,,Story: EN-07. Area: design.
+120,Sub-task,"[EN-07-T3] Core components on mobile and web: buttons, inputs, cards, priority pills, Verified, role and tier badges",,21,High,5,area-design,moscow-must,,Story: EN-07. Area: design.
+121,Sub-task,[EN-07-T4] i18n setup (i18next) with English strings in translation files; Sinhala and Tamil fonts loaded,,21,High,3,area-infra,moscow-must,,Story: EN-07. Area: infra.
+122,Sub-task,[EN-08-T1] Signed upload endpoint with per-type size and length limits,,22,High,3,area-api,moscow-must,,Story: EN-08. Area: api.
+123,Sub-task,[EN-08-T2] Private documents: authenticated delivery and short-lived signed URLs for admins,,22,High,3,area-api,moscow-must,,Story: EN-08. Area: api.
+124,Sub-task,[EN-08-T3] Image and video picker with upload progress and limit errors,,22,High,3,area-mobile,moscow-must,,Story: EN-08. Area: mobile.
+125,Sub-task,[EN-08-T4] Upload component with progress and limit errors,,22,High,2,area-web,moscow-must,,Story: EN-08. Area: web.
+126,Sub-task,"[EN-09-T1] Notifications module: types, in-app inbox, per-type user settings",,23,High,5,area-api,moscow-must,,Story: EN-09. Area: api.
+127,Sub-task,"[EN-09-T2] Senders on the job queue: Expo Push, Resend email, Dialog e-SMS",,23,High,5,area-worker,moscow-must,,Story: EN-09. Area: worker.
+128,Sub-task,[EN-09-T3] Push token registration and the in-app notification list,,23,High,3,area-mobile,moscow-must,,Story: EN-09. Area: mobile.
+129,Sub-task,[EN-09-T4] Notification bell and list,,23,High,2,area-web,moscow-must,,Story: EN-09. Area: web.
+130,Sub-task,[EN-09-T5] Dialog Enterprise account and sender ID; test the e-SMS API early (docs are thin),,23,High,2,area-infra,moscow-must,,Story: EN-09. Area: infra.
+131,Sub-task,"[EN-10-T1] Authenticated SSE endpoint per user, with heartbeat and Redis pub/sub",,24,High,5,area-api,moscow-must,,Story: EN-10. Area: api.
+132,Sub-task,[EN-10-T2] SSE client with automatic reconnect,,24,High,3,area-mobile,moscow-must,,Story: EN-10. Area: mobile.
+133,Sub-task,[EN-10-T3] EventSource hook with reconnect,,24,High,2,area-web,moscow-must,,Story: EN-10. Area: web.
+134,Sub-task,"[EN-11-T1] Worker app with BullMQ queues, retries, failed jobs and repeatable jobs",,25,High,3,area-worker,moscow-must,,Story: EN-11. Area: worker.
+135,Sub-task,[EN-11-T2] Check Upstash command use against the free limit (BullMQ polls Redis),,25,High,1,area-worker,moscow-must,,Story: EN-11. Area: worker.
+136,Sub-task,[EN-12-T1] Enable pg_trgm; tsvector columns and GIN indexes on events and provider profiles,,26,High,3,area-db,moscow-must,,Story: EN-12. Area: db.
+137,Sub-task,[EN-12-T2] Shared raw-SQL search builder with keyset pagination,,26,High,3,area-api,moscow-must,,Story: EN-12. Area: api.
+138,Sub-task,"[PG-01-T1] Registration by email or phone, verification codes, password reset",,27,High,5,area-api,moscow-must,,Story: PG-01. Area: api.
+139,Sub-task,[PG-01-T2] Send codes by Dialog e-SMS and verification emails by Resend,,27,High,2,area-worker,moscow-must,,Story: PG-01. Area: worker.
+140,Sub-task,"[PG-01-T3] Sign-up, verify, role choice, log-in and reset screens",,27,High,5,area-mobile,moscow-must,,Story: PG-01. Area: mobile.
+141,Sub-task,"[PG-01-T4] Sign-up, verify, role choice, log-in and reset pages",,27,High,3,area-web,moscow-must,,Story: PG-01. Area: web.
+142,Sub-task,[PG-01-T5] Automated tests for the done-when checks,,27,High,2,area-qa,moscow-must,,Story: PG-01. Area: qa.
+143,Sub-task,"[PG-02-T1] Consumer profile and privacy settings, enforced on every read",,28,High,5,area-api,moscow-must,,Story: PG-02. Area: api.
+144,Sub-task,[PG-02-T2] Profile and privacy settings screens,,28,High,3,area-mobile,moscow-must,,Story: PG-02. Area: mobile.
+145,Sub-task,[PG-02-T3] Profile and privacy settings pages,,28,High,2,area-web,moscow-must,,Story: PG-02. Area: web.
+146,Sub-task,[PG-02-T4] Automated tests for the done-when checks,,28,High,2,area-qa,moscow-must,,Story: PG-02. Area: qa.
+147,Sub-task,"[PG-03-T1] Block list applied to chats, boards and comments; report endpoint into the queue",,29,High,3,area-api,moscow-must,,Story: PG-03. Area: api.
+148,Sub-task,"[PG-03-T2] Block and report menu on profiles, messages and posts",,29,High,2,area-mobile,moscow-must,,Story: PG-03. Area: mobile.
+149,Sub-task,"[PG-03-T3] Block and report menu on profiles, messages and posts",,29,High,2,area-web,moscow-must,,Story: PG-03. Area: web.
+150,Sub-task,[PG-03-T4] Automated tests for the done-when checks,,29,High,1,area-qa,moscow-must,,Story: PG-03. Area: qa.
+151,Sub-task,"[US-P01-T1] Provider profile: category, services, indicative prices in LKR, districts served",,30,High,3,area-api,moscow-must,,Story: US-P01. Area: api.
+152,Sub-task,[US-P01-T2] Provider profile: edit and public view,,30,High,3,area-mobile,moscow-must,,Story: US-P01. Area: mobile.
+153,Sub-task,[US-P01-T3] Provider profile: edit and public view,,30,High,3,area-web,moscow-must,,Story: US-P01. Area: web.
+154,Sub-task,[US-P01-T4] Provider verification documents and the Verified badge on the profile,,30,High,2,area-api,moscow-must,,Story: US-P01. Area: api.
+155,Sub-task,[US-P01-T5] Automated tests for the scenarios: Fill in my profile; Get the Verified badge; Appear on leaderboards,,30,High,2,area-qa,moscow-must,,Story: US-P01. Area: qa.
+156,Sub-task,"[US-P02-T1] Portfolio items: photo or video, title, event or event type",,31,High,3,area-api,moscow-must,,Story: US-P02. Area: api.
+157,Sub-task,[US-P02-T2] Portfolio upload and gallery,,31,High,3,area-mobile,moscow-must,,Story: US-P02. Area: mobile.
+158,Sub-task,[US-P02-T3] Portfolio gallery and management,,31,High,3,area-web,moscow-must,,Story: US-P02. Area: web.
+159,Sub-task,[US-P02-T4] Completed-jobs count goes up when a booking is completed,,31,High,1,area-api,moscow-must,,Story: US-P02. Area: api.
+160,Sub-task,[US-P02-T5] Automated tests for the scenarios: Upload work; Label work; Count completed jobs,,31,High,2,area-qa,moscow-must,,Story: US-P02. Area: qa.
+161,Sub-task,"[US-P04-T1] Organiser profile: Verified badge, upcoming and past events, rating, rank, tier and provider reviews",,32,High,3,area-api,moscow-must,,Story: US-P04. Area: api.
+162,Sub-task,[US-P04-T2] Organiser profile with past events and a provider-reviews tab; linked from booking requests,,32,High,3,area-mobile,moscow-must,,Story: US-P04. Area: mobile.
+163,Sub-task,[US-P04-T3] Organiser profile with past events and provider reviews,,32,High,2,area-web,moscow-must,,Story: US-P04. Area: web.
+164,Sub-task,[US-P04-T4] Automated tests for the scenarios: Check the organiser,,32,High,1,area-qa,moscow-must,,Story: US-P04. Area: qa.
+165,Sub-task,"[PG-05-T1] Event model and endpoints: draft, published, postponed, cancelled; change history",,33,High,5,area-api,moscow-must,,Story: PG-05. Area: api.
+166,Sub-task,"[PG-05-T2] Detect date, time, venue, postpone and cancel changes and queue an event-changed job",,33,High,3,area-api,moscow-must,,Story: PG-05. Area: api.
+167,Sub-task,"[PG-05-T3] Create and edit event form, with cover image and line-up (portal is the organiser's main tool)",,33,High,5,area-web,moscow-must,,Story: PG-05. Area: web.
+168,Sub-task,[PG-05-T4] Create and edit event form,,33,High,5,area-mobile,moscow-must,,Story: PG-05. Area: mobile.
+169,Sub-task,[PG-05-T5] Automated tests for the done-when checks,,33,High,2,area-qa,moscow-must,,Story: PG-05. Area: qa.
+170,Sub-task,"[US-C01-T1] Event search: keyword over title, line-up and organiser; filters for category, dates, district, price and free; past and cancelled hidden",,34,High,5,area-api,moscow-must,,Story: US-C01. Area: api.
+171,Sub-task,"[US-C01-T2] Search screen with filters and result cards (date, venue, price or free, organiser, Verified)",,34,High,5,area-mobile,moscow-must,,Story: US-C01. Area: mobile.
+172,Sub-task,[US-C01-T3] Search page with filters and result cards,,34,High,3,area-web,moscow-must,,Story: US-C01. Area: web.
+173,Sub-task,[US-C01-T4] Automated tests for the scenarios: Search by keyword; Combine filters; Read a result; Hide past and cancelled events,,34,High,3,area-qa,moscow-must,,Story: US-C01. Area: qa.
+174,Sub-task,[US-C02-T1] Follow and unfollow organisers,,35,Medium,2,area-api,moscow-should,,Story: US-C02. Area: api.
+175,Sub-task,"[US-C02-T2] On publish, notify followers by push and in-app unless they switched it off",,35,Medium,2,area-worker,moscow-should,,Story: US-C02. Area: worker.
+176,Sub-task,[US-C02-T3] Follow button on organiser profiles and event pages; notification setting,,35,Medium,2,area-mobile,moscow-should,,Story: US-C02. Area: mobile.
+177,Sub-task,[US-C02-T4] Follow button and notification setting,,35,Medium,1,area-web,moscow-should,,Story: US-C02. Area: web.
+178,Sub-task,[US-C02-T5] Automated tests for the scenarios: Follow an organiser; Hear about a new event; Switch this notification off,,35,Medium,2,area-qa,moscow-should,,Story: US-C02. Area: qa.
+179,Sub-task,"[US-C03-T1] Event page endpoint: details, linked posts and announcements together",,36,High,2,area-api,moscow-must,,Story: US-C03. Area: api.
+180,Sub-task,"[US-C03-T2] Event page with the essentials at the top, ticket link, posts and announcements",,36,High,5,area-mobile,moscow-must,,Story: US-C03. Area: mobile.
+181,Sub-task,"[US-C03-T3] Public, server-rendered event page with the same layout",,36,High,5,area-web,moscow-must,,Story: US-C03. Area: web.
+182,Sub-task,[US-C03-T4] Automated tests for the scenarios: See the essentials first; Follow a link to an outside ticket seller (proposed); Find everything on one page,,36,High,2,area-qa,moscow-must,,Story: US-C03. Area: qa.
+183,Sub-task,"[US-C05-T1] Verified badge on organiser profiles, events and posts; 'unverified organiser' label",,37,High,2,area-mobile,moscow-must,,Story: US-C05. Area: mobile.
+184,Sub-task,[US-C05-T2] Verified badge and 'unverified organiser' label,,37,High,1,area-web,moscow-must,,Story: US-C05. Area: web.
+185,Sub-task,"[US-C05-T3] Report an event with a reason, into the admin report queue",,37,High,2,area-api,moscow-must,,Story: US-C05. Area: api.
+186,Sub-task,[US-C05-T4] Report-event flow with reasons,,37,High,1,area-mobile,moscow-must,,Story: US-C05. Area: mobile.
+187,Sub-task,[US-C05-T5] Report-event flow with reasons,,37,High,1,area-web,moscow-must,,Story: US-C05. Area: web.
+188,Sub-task,[US-C05-T6] Automated tests for the scenarios: See a verified organiser; See an unverified organiser; Report a fake event,,37,High,2,area-qa,moscow-must,,Story: US-C05. Area: qa.
+189,Sub-task,[US-C06-T1] Event-changed job: push and in-app to everyone marked Going or Interested,,38,High,3,area-worker,moscow-must,,Story: US-C06. Area: worker.
+190,Sub-task,[US-C06-T2] Change banner data: what changed and when; cancelled events stay reachable,,38,High,2,area-api,moscow-must,,Story: US-C06. Area: api.
+191,Sub-task,[US-C06-T3] Change banner and Cancelled state on the event page,,38,High,2,area-mobile,moscow-must,,Story: US-C06. Area: mobile.
+192,Sub-task,[US-C06-T4] Change banner and Cancelled state on the event page,,38,High,2,area-web,moscow-must,,Story: US-C06. Area: web.
+193,Sub-task,[US-C06-T5] Automated tests for the scenarios: Hear about a change; See what changed; Find a cancelled event,,38,High,2,area-qa,moscow-must,,Story: US-C06. Area: qa.
+194,Sub-task,"[US-C09-T1] Going and Interested marks, one tap, with the time marked (unlocks reviews)",,39,High,3,area-api,moscow-must,,Story: US-C09. Area: api.
+195,Sub-task,[US-C09-T2] Friends-going query that respects each friend's Going privacy,,39,High,3,area-api,moscow-must,,Story: US-C09. Area: api.
+196,Sub-task,[US-C09-T3] Going and Interested buttons with instant feedback; friends-going list,,39,High,3,area-mobile,moscow-must,,Story: US-C09. Area: mobile.
+197,Sub-task,[US-C09-T4] Going and Interested buttons; friends-going list,,39,High,2,area-web,moscow-must,,Story: US-C09. Area: web.
+198,Sub-task,[US-C09-T5] Automated tests for the scenarios: See friends who are going; Going is private by default (proposed); Mark in one tap,,39,High,2,area-qa,moscow-must,,Story: US-C09. Area: qa.
+199,Sub-task,[PG-06-T1] Recommendation query scored in SQL,,40,Low,5,area-api,moscow-could,,Story: PG-06. Area: api.
+200,Sub-task,[PG-06-T2] 'For you' row on the home screen,,40,Low,2,area-mobile,moscow-could,,Story: PG-06. Area: mobile.
+201,Sub-task,[PG-06-T3] 'For you' row on the home page,,40,Low,1,area-web,moscow-could,,Story: PG-06. Area: web.
+202,Sub-task,[PG-06-T4] Automated tests for the done-when checks,,40,Low,1,area-qa,moscow-could,,Story: PG-06. Area: qa.
+203,Sub-task,"[PG-07-T1] Feed built on read with keyset pagination and an (author_id, created_at) index",,41,High,3,area-api,moscow-must,,Story: PG-07. Area: api.
+204,Sub-task,[PG-07-T2] Likes stored in PostgreSQL; like and view counters in Redis; comments,,41,High,5,area-api,moscow-must,,Story: PG-07. Area: api.
+205,Sub-task,[PG-07-T3] Trending sorted set and batched counter writes to PostgreSQL,,41,High,3,area-worker,moscow-must,,Story: PG-07. Area: worker.
+206,Sub-task,"[PG-07-T4] Feed with posts and reels, likes and comments; reels play well on mobile data",,41,High,8,area-mobile,moscow-must,,Story: PG-07. Area: mobile.
+207,Sub-task,[PG-07-T5] Feed page with likes and comments,,41,High,5,area-web,moscow-must,,Story: PG-07. Area: web.
+208,Sub-task,[PG-07-T6] Automated tests for the done-when checks,,41,High,2,area-qa,moscow-must,,Story: PG-07. Area: qa.
+209,Sub-task,"[US-O11-T1] Organiser-only posts and reels, optionally linked to an event",,42,High,3,area-api,moscow-must,,Story: US-O11. Area: api.
+210,Sub-task,[US-O11-T2] Create a post or reel and link it to an event,,42,High,3,area-mobile,moscow-must,,Story: US-O11. Area: mobile.
+211,Sub-task,[US-O11-T3] Create a post or reel and link it to an event,,42,High,3,area-web,moscow-must,,Story: US-O11. Area: web.
+212,Sub-task,[US-O11-T4] Automated tests for the scenarios: Link a post to an event; Share outside Tezera,,42,High,1,area-qa,moscow-must,,Story: US-O11. Area: qa.
+213,Sub-task,[US-C15-T1] Share button on event pages and posts through the phone's share sheet,,43,High,2,area-mobile,moscow-must,,Story: US-C15. Area: mobile.
+214,Sub-task,[US-C15-T2] Share and copy-link on event pages and posts,,43,High,1,area-web,moscow-must,,Story: US-C15. Area: web.
+215,Sub-task,[US-C15-T3] Shared links open the public event page without log-in; people with the app open it in the app,,43,High,3,area-web,moscow-must,,Story: US-C15. Area: web.
+216,Sub-task,[US-C15-T4] Automated tests for the scenarios: Share an event; Open a shared link,,43,High,1,area-qa,moscow-must,,Story: US-C15. Area: qa.
+217,Sub-task,"[US-O01-T1] Provider search: category, district, minimum rating, Verified only; ordered by rank score",,44,High,3,area-api,moscow-must,,Story: US-O01. Area: api.
+218,Sub-task,[US-O01-T2] Provider search with filters and result cards,,44,High,3,area-mobile,moscow-must,,Story: US-O01. Area: mobile.
+219,Sub-task,[US-O01-T3] Provider search with filters and result cards,,44,High,3,area-web,moscow-must,,Story: US-O01. Area: web.
+220,Sub-task,[US-O01-T4] Automated tests for the scenarios: Combine filters; Order by rank; Read a result,,44,High,2,area-qa,moscow-must,,Story: US-O01. Area: qa.
+221,Sub-task,[US-O04-T1] Availability calendar (booked or unavailable dates) and an available-date search filter,,45,Medium,3,area-api,moscow-should,,Story: US-O04. Area: api.
+222,Sub-task,[US-O04-T2] Calendar editor for providers; date filter for organisers,,45,Medium,3,area-mobile,moscow-should,,Story: US-O04. Area: mobile.
+223,Sub-task,[US-O04-T3] Calendar editor and date filter,,45,Medium,3,area-web,moscow-should,,Story: US-O04. Area: web.
+224,Sub-task,[US-O04-T4] Automated tests for the scenarios: Booked providers are hidden,,45,Medium,1,area-qa,moscow-should,,Story: US-O04. Area: qa.
+225,Sub-task,"[US-O05-T1] Booking request: event, date, start and end times, brief and budget, with field-level errors",,46,High,3,area-api,moscow-must,,Story: US-O05. Area: api.
+226,Sub-task,"[US-O05-T2] Attach files (brief, mood board) to requests and job posts",,46,High,2,area-api,moscow-must,,Story: US-O05. Area: api.
+227,Sub-task,[US-O05-T3] Booking request form that highlights empty required fields; attachments,,46,High,3,area-mobile,moscow-must,,Story: US-O05. Area: mobile.
+228,Sub-task,[US-O05-T4] Booking request form with required-field errors and attachments,,46,High,3,area-web,moscow-must,,Story: US-O05. Area: web.
+229,Sub-task,[US-O05-T5] Automated tests for the scenarios: Required fields; Attach files,,46,High,1,area-qa,moscow-must,,Story: US-O05. Area: qa.
+230,Sub-task,"[US-O06-T1] Job posts (requirements, budget range, quote deadline) and quotes; accept one or more to create bookings",,47,High,5,area-api,moscow-must,,Story: US-O06. Area: api.
+231,Sub-task,[US-O06-T2] Close a job post and notify the providers not chosen,,47,High,2,area-api,moscow-must,,Story: US-O06. Area: api.
+232,Sub-task,"[US-O06-T3] Post a job; compare quotes side by side (price, rating, tier, message)",,47,High,5,area-web,moscow-must,,Story: US-O06. Area: web.
+233,Sub-task,[US-O06-T4] Post a job; quote list to compare and accept,,47,High,5,area-mobile,moscow-must,,Story: US-O06. Area: mobile.
+234,Sub-task,[US-O06-T5] Automated tests for the scenarios: Compare quotes; Accept more than one; Others are told,,47,High,2,area-qa,moscow-must,,Story: US-O06. Area: qa.
+235,Sub-task,"[US-O07-T1] Booking records the agreed service, date, price and terms (free text), kept on the confirmed booking",,48,High,3,area-api,moscow-must,,Story: US-O07. Area: api.
+236,Sub-task,[US-O07-T2] Terms section on the request and the booking,,48,High,2,area-mobile,moscow-must,,Story: US-O07. Area: mobile.
+237,Sub-task,[US-O07-T3] Terms section on the request and the booking,,48,High,2,area-web,moscow-must,,Story: US-O07. Area: web.
+238,Sub-task,[US-O07-T4] Automated tests for the scenarios: Set the terms; Provider sees the terms first,,48,High,1,area-qa,moscow-must,,Story: US-O07. Area: qa.
+239,Sub-task,[US-P03-T1] Brief and attachments copied onto the confirmed booking so they stay attached,,49,High,2,area-api,moscow-must,,Story: US-P03. Area: api.
+240,Sub-task,"[US-P03-T2] Request detail with brief, attachments and 'Ask in chat'",,49,High,3,area-mobile,moscow-must,,Story: US-P03. Area: mobile.
+241,Sub-task,"[US-P03-T3] Request detail with brief, attachments and 'Ask in chat'",,49,High,2,area-web,moscow-must,,Story: US-P03. Area: web.
+242,Sub-task,[US-P03-T4] Automated tests for the scenarios: See the brief; Ask before quoting; Keep the brief,,49,High,2,area-qa,moscow-must,,Story: US-P03. Area: qa.
+243,Sub-task,"[US-P05-T1] Show terms above the accept, decline and quote buttons",,50,High,1,area-mobile,moscow-must,,Story: US-P05. Area: mobile.
+244,Sub-task,"[US-P05-T2] Show terms above the accept, decline and quote buttons",,50,High,1,area-web,moscow-must,,Story: US-P05. Area: web.
+245,Sub-task,[US-P05-T3] Automated tests for the scenarios: See terms before deciding; Terms are stored,,50,High,1,area-qa,moscow-must,,Story: US-P05. Area: qa.
+246,Sub-task,"[US-P06-T1] Accept, decline or quote on a request; organiser accepts or declines the quote; booking at the quoted price",,51,High,5,area-api,moscow-must,,Story: US-P06. Area: api.
+247,Sub-task,"[US-P06-T2] Notifications for requests, quotes and decisions",,51,High,1,area-worker,moscow-must,,Story: US-P06. Area: worker.
+248,Sub-task,"[US-P06-T3] Reply actions, quote form and the organiser's quote decision",,51,High,3,area-mobile,moscow-must,,Story: US-P06. Area: mobile.
+249,Sub-task,"[US-P06-T4] Reply actions, quote form and the organiser's quote decision",,51,High,3,area-web,moscow-must,,Story: US-P06. Area: web.
+250,Sub-task,[US-P06-T5] Automated tests for the scenarios: Reply to a request; Organiser decides on my quote,,51,High,1,area-qa,moscow-must,,Story: US-P06. Area: qa.
+251,Sub-task,[US-P08-T1] Job board defaulting to the provider's category and district; apply with quote and message before the deadline,,52,High,3,area-api,moscow-must,,Story: US-P08. Area: api.
+252,Sub-task,[US-P08-T2] Close applications at the quote deadline,,52,High,1,area-worker,moscow-must,,Story: US-P08. Area: worker.
+253,Sub-task,[US-P08-T3] Job board and apply form,,52,High,3,area-mobile,moscow-must,,Story: US-P08. Area: mobile.
+254,Sub-task,[US-P08-T4] Job board and apply form,,52,High,2,area-web,moscow-must,,Story: US-P08. Area: web.
+255,Sub-task,[US-P08-T5] Automated tests for the scenarios: Matching job posts; Apply with a quote,,52,High,1,area-qa,moscow-must,,Story: US-P08. Area: qa.
+256,Sub-task,[US-P09-T1] Confirmed bookings block the date on the calendar automatically,,53,Medium,1,area-api,moscow-should,,Story: US-P09. Area: api.
+257,Sub-task,[US-P09-T2] Event reminders before each booking; each reminder type can be switched off,,53,Medium,2,area-worker,moscow-should,,Story: US-P09. Area: worker.
+258,Sub-task,[US-P09-T3] My bookings list and reminder settings,,53,Medium,3,area-mobile,moscow-should,,Story: US-P09. Area: mobile.
+259,Sub-task,[US-P09-T4] My bookings list,,53,Medium,2,area-web,moscow-should,,Story: US-P09. Area: web.
+260,Sub-task,[US-P09-T5] Automated tests for the scenarios: Bookings on the calendar; Reminders,,53,Medium,1,area-qa,moscow-should,,Story: US-P09. Area: qa.
+261,Sub-task,[US-O08-T1] Cancel a confirmed booking with a required reason; notify the other side with the reason,,54,Medium,3,area-api,moscow-should,,Story: US-O08. Area: api.
+262,Sub-task,[US-O08-T2] Cancellation notice with reason; booking shows Cancelled,,54,Medium,2,area-mobile,moscow-should,,Story: US-O08. Area: mobile.
+263,Sub-task,[US-O08-T3] Cancellation notice with reason; booking shows Cancelled,,54,Medium,1,area-web,moscow-should,,Story: US-O08. Area: web.
+264,Sub-task,[US-O08-T4] Automated tests for the scenarios: Hear about a cancellation,,54,Medium,1,area-qa,moscow-should,,Story: US-O08. Area: qa.
+265,Sub-task,[US-P10-T1] Cancel flow that cannot be sent without a reason,,55,Medium,2,area-mobile,moscow-should,,Story: US-P10. Area: mobile.
+266,Sub-task,[US-P10-T2] Cancel flow that cannot be sent without a reason,,55,Medium,1,area-web,moscow-should,,Story: US-P10. Area: web.
+267,Sub-task,[US-P10-T3] Automated tests for the scenarios: Reason required,,55,Medium,1,area-qa,moscow-should,,Story: US-P10. Area: qa.
+268,Sub-task,[PG-08-T1] Mark a booking completed after the event date; open the review window for both sides,,56,High,3,area-api,moscow-must,,Story: PG-08. Area: api.
+269,Sub-task,[PG-08-T2] Close review windows after 14 days (proposed),,56,High,2,area-worker,moscow-must,,Story: PG-08. Area: worker.
+270,Sub-task,[PG-08-T3] Complete button and a prompt to review,,56,High,2,area-mobile,moscow-must,,Story: PG-08. Area: mobile.
+271,Sub-task,[PG-08-T4] Complete button and a prompt to review,,56,High,1,area-web,moscow-must,,Story: PG-08. Area: web.
+272,Sub-task,[PG-08-T5] Automated tests for the done-when checks,,56,High,2,area-qa,moscow-must,,Story: PG-08. Area: qa.
+273,Sub-task,"[US-O09-T1] Stall slots (type, fee, deadline), applications, approve and reject",,57,High,5,area-api,moscow-must,,Story: US-O09. Area: api.
+274,Sub-task,[US-O09-T2] Invite a vendor directly; acceptance counts as approval,,57,High,2,area-api,moscow-must,,Story: US-O09. Area: api.
+275,Sub-task,[US-O09-T3] Assign stall numbers; stall fee shown with a 'paid outside Tezera' note,,57,High,2,area-api,moscow-must,,Story: US-O09. Area: api.
+276,Sub-task,[US-O09-T4] Notify vendors of each decision,,57,High,1,area-worker,moscow-must,,Story: US-O09. Area: worker.
+277,Sub-task,"[US-O09-T5] Stall board for organisers: slots, applications, decisions, numbers",,57,High,5,area-web,moscow-must,,Story: US-O09. Area: web.
+278,Sub-task,[US-O09-T6] Stall applications and decisions on the go,,57,High,3,area-mobile,moscow-must,,Story: US-O09. Area: mobile.
+279,Sub-task,[US-O09-T7] Automated tests for the scenarios: Open stall slots; Handle applications; Give out stall numbers; Fees are paid outside the app,,57,High,3,area-qa,moscow-must,,Story: US-O09. Area: qa.
+280,Sub-task,[US-P13-T1] Vendor-only browse and apply; accept or decline invitations,,58,High,3,area-api,moscow-must,,Story: US-P13. Area: api.
+281,Sub-task,"[US-P13-T2] Open stall slots, apply, invitations",,58,High,3,area-mobile,moscow-must,,Story: US-P13. Area: mobile.
+282,Sub-task,"[US-P13-T3] Open stall slots, apply, invitations",,58,High,2,area-web,moscow-must,,Story: US-P13. Area: web.
+283,Sub-task,[US-P13-T4] Automated tests for the scenarios: See open slots; Apply or answer an invitation; Vendors only,,58,High,2,area-qa,moscow-must,,Story: US-P13. Area: qa.
+284,Sub-task,"[US-C13-T1] Stall list on the event page: vendor, stall number, category, indicative price range in LKR",,59,High,2,area-api,moscow-must,,Story: US-C13. Area: api.
+285,Sub-task,[US-C13-T2] Stall list linking to each vendor's profile and map pin,,59,High,2,area-mobile,moscow-must,,Story: US-C13. Area: mobile.
+286,Sub-task,[US-C13-T3] Stall list linking to each vendor's profile and map pin,,59,High,2,area-web,moscow-must,,Story: US-C13. Area: web.
+287,Sub-task,[US-C13-T4] Automated tests for the scenarios: See the stall list; Go to a stall vendor; See price ranges (proposed),,59,High,2,area-qa,moscow-must,,Story: US-C13. Area: qa.
+288,Sub-task,"[US-P11-T1] Reviews module: stars, category ratings and text; unlocked by a completed booking or a stall at an ended event",,60,High,5,area-api,moscow-must,,Story: US-P11. Area: api.
+289,Sub-task,"[US-P11-T2] Write a review of the organiser (payment, communication, planning)",,60,High,3,area-mobile,moscow-must,,Story: US-P11. Area: mobile.
+290,Sub-task,[US-P11-T3] Write a review of the organiser,,60,High,2,area-web,moscow-must,,Story: US-P11. Area: web.
+291,Sub-task,[US-P11-T4] Automated tests for the scenarios: Unlock a review; Rate each category,,60,High,1,area-qa,moscow-must,,Story: US-P11. Area: qa.
+292,Sub-task,"[US-O02-T1] Review page data: average, category averages, count and every review",,61,High,3,area-api,moscow-must,,Story: US-O02. Area: api.
+293,Sub-task,"[US-O02-T2] Provider profile with portfolio, completed jobs, tier badge and reviews; organiser writes a review",,61,High,3,area-mobile,moscow-must,,Story: US-O02. Area: mobile.
+294,Sub-task,"[US-O02-T3] Provider profile with portfolio, completed jobs, tier badge and reviews; organiser writes a review",,61,High,3,area-web,moscow-must,,Story: US-O02. Area: web.
+295,Sub-task,[US-O02-T4] Automated tests for the scenarios: Check the profile; Check the reviews; Only real jobs are reviewed,,61,High,2,area-qa,moscow-must,,Story: US-O02. Area: qa.
+296,Sub-task,[US-P12-T1] Report a review into the admin queue with the booking record attached,,62,High,2,area-api,moscow-must,,Story: US-P12. Area: api.
+297,Sub-task,[US-P12-T2] Report a review,,62,High,1,area-mobile,moscow-must,,Story: US-P12. Area: mobile.
+298,Sub-task,[US-P12-T3] Report a review,,62,High,1,area-web,moscow-must,,Story: US-P12. Area: web.
+299,Sub-task,[US-P12-T4] Automated tests for the scenarios: Only real jobs; Dispute a review,,62,High,1,area-qa,moscow-must,,Story: US-P12. Area: qa.
+300,Sub-task,"[US-C14-T1] Consumer review rules: Going before the start, event ended, within 14 days (proposed), one per event",,63,High,3,area-api,moscow-must,,Story: US-C14. Area: api.
+301,Sub-task,[US-C14-T2] Review prompt after the event and the review form,,63,High,3,area-mobile,moscow-must,,Story: US-C14. Area: mobile.
+302,Sub-task,[US-C14-T3] Review form,,63,High,2,area-web,moscow-must,,Story: US-C14. Area: web.
+303,Sub-task,[US-C14-T4] Automated tests for the scenarios: Review after going; Review window closes (proposed); Can't review without going; Rate each category (proposed); One review per event,,63,High,3,area-qa,moscow-must,,Story: US-C14. Area: qa.
+304,Sub-task,[PG-10-T1] Stall-vendor review rules and categories,,64,High,2,area-api,moscow-must,,Story: PG-10. Area: api.
+305,Sub-task,[PG-10-T2] Review a stall from the event's stall list,,64,High,2,area-mobile,moscow-must,,Story: PG-10. Area: mobile.
+306,Sub-task,[PG-10-T3] Review a stall from the event's stall list,,64,High,1,area-web,moscow-must,,Story: PG-10. Area: web.
+307,Sub-task,[PG-10-T4] Automated tests for the done-when checks,,64,High,1,area-qa,moscow-must,,Story: PG-10. Area: qa.
+308,Sub-task,"[PG-09-T1] rank_score column and (category, district, rank_score DESC) index; leaderboard materialized view",,65,High,3,area-db,moscow-must,,Story: PG-09. Area: db.
+309,Sub-task,[PG-09-T2] Recalculate the rank score after reviews and moderation,,65,High,5,area-worker,moscow-must,,Story: PG-09. Area: worker.
+310,Sub-task,[PG-09-T3] Work out tier badges from rank score and completed jobs or events,,65,High,2,area-worker,moscow-must,,Story: PG-09. Area: worker.
+311,Sub-task,[PG-09-T4] Refresh leaderboards concurrently; copy the top of each board to Redis,,65,High,3,area-worker,moscow-must,,Story: PG-09. Area: worker.
+312,Sub-task,[PG-09-T5] Leaderboards screen,,65,High,3,area-mobile,moscow-must,,Story: PG-09. Area: mobile.
+313,Sub-task,[PG-09-T6] Leaderboards page,,65,High,2,area-web,moscow-must,,Story: PG-09. Area: web.
+314,Sub-task,[PG-09-T7] Automated tests for the done-when checks,,65,High,2,area-qa,moscow-must,,Story: PG-09. Area: qa.
+315,Sub-task,"[US-O10-T1] Map record per event: layout image, pins as JSON, version; publish and republish",,66,High,3,area-api,moscow-must,,Story: US-O10. Area: api.
+316,Sub-task,"[US-O10-T2] Map editor: upload PNG or JPG; add, move, relabel and remove pins; stall pins carry the stall number",,66,High,8,area-web,moscow-must,,Story: US-O10. Area: web.
+317,Sub-task,[US-O10-T3] Pin editing on the phone,,66,High,5,area-mobile,moscow-must,,Story: US-O10. Area: mobile.
+318,Sub-task,[US-O10-T4] Automated tests for the scenarios: Upload a layout; Edit pins,,66,High,1,area-qa,moscow-must,,Story: US-O10. Area: qa.
+319,Sub-task,[US-C11-T1] Map fetch with a version tag so republished maps are fetched again,,67,High,1,area-api,moscow-must,,Story: US-C11. Area: api.
+320,Sub-task,"[US-C11-T2] Map viewer: zoom, pan, tap a pin to read its label",,67,High,5,area-mobile,moscow-must,,Story: US-C11. Area: mobile.
+321,Sub-task,"[US-C11-T3] Map viewer: zoom, pan, tap a pin to read its label",,67,High,3,area-web,moscow-must,,Story: US-C11. Area: web.
+322,Sub-task,[US-C11-T4] Automated tests for the scenarios: Open the map; Find facilities by pin; Always see the latest map,,67,High,2,area-qa,moscow-must,,Story: US-C11. Area: qa.
+323,Sub-task,[PG-11-T1] Optional pin footprint in the map record,,68,Low,2,area-api,moscow-could,,Story: PG-11. Area: api.
+324,Sub-task,[PG-11-T2] Footprint inputs in the map editor,,68,Low,3,area-web,moscow-could,,Story: PG-11. Area: web.
+325,Sub-task,"[PG-11-T3] venue-viewer package (React Three Fiber, drei), loaded on request, using instancing",,68,Low,8,area-web,moscow-could,,Story: PG-11. Area: web.
+326,Sub-task,[PG-11-T4] Show the viewer in a WebView; pin taps go back to native screens,,68,Low,3,area-mobile,moscow-could,,Story: PG-11. Area: mobile.
+327,Sub-task,[PG-11-T5] Automated tests for the done-when checks,,68,Low,2,area-qa,moscow-could,,Story: PG-11. Area: qa.
+328,Sub-task,[PG-13-T1] Friend requests and follows,,69,High,3,area-api,moscow-must,,Story: PG-13. Area: api.
+329,Sub-task,[PG-13-T2] Friend requests and friends list,,69,High,2,area-mobile,moscow-must,,Story: PG-13. Area: mobile.
+330,Sub-task,[PG-13-T3] Friend requests and friends list,,69,High,1,area-web,moscow-must,,Story: PG-13. Area: web.
+331,Sub-task,[PG-13-T4] Automated tests for the done-when checks,,69,High,1,area-qa,moscow-must,,Story: PG-13. Area: qa.
+332,Sub-task,[US-C10-T1] Event board created when an event is published,,70,High,2,area-api,moscow-must,,Story: US-C10. Area: api.
+333,Sub-task,[US-C10-T2] Event group chat that only people marked Going can join,,70,High,3,area-api,moscow-must,,Story: US-C10. Area: api.
+334,Sub-task,[US-C10-T3] Join the group chat; event board threads,,70,High,3,area-mobile,moscow-must,,Story: US-C10. Area: mobile.
+335,Sub-task,[US-C10-T4] Join the group chat; event board threads,,70,High,2,area-web,moscow-must,,Story: US-C10. Area: web.
+336,Sub-task,[US-C10-T5] Automated tests for the scenarios: Join the group chat; Start a meetup thread; Block or report someone,,70,High,2,area-qa,moscow-must,,Story: US-C10. Area: qa.
+337,Sub-task,"[PG-12-T1] Communities, membership, threads, nested replies, votes and sorting",,71,High,8,area-api,moscow-must,,Story: PG-12. Area: api.
+338,Sub-task,"[PG-12-T2] Communities list, community page, thread view and composer",,71,High,8,area-mobile,moscow-must,,Story: PG-12. Area: mobile.
+339,Sub-task,"[PG-12-T3] Communities list, community page, thread view and composer",,71,High,5,area-web,moscow-must,,Story: PG-12. Area: web.
+340,Sub-task,[PG-12-T4] Automated tests for the done-when checks,,71,High,2,area-qa,moscow-must,,Story: PG-12. Area: qa.
+341,Sub-task,"[PG-14-T1] Conversations, messages and attachments; which pairs may chat, by role and privacy",,72,High,5,area-api,moscow-must,,Story: PG-14. Area: api.
+342,Sub-task,[PG-14-T2] Live delivery over SSE and unread counts,,72,High,3,area-api,moscow-must,,Story: PG-14. Area: api.
+343,Sub-task,[PG-14-T3] Push for new messages when the recipient is not in the app,,72,High,2,area-worker,moscow-must,,Story: PG-14. Area: worker.
+344,Sub-task,[PG-14-T4] Chat list and thread screens with attachments,,72,High,8,area-mobile,moscow-must,,Story: PG-14. Area: mobile.
+345,Sub-task,[PG-14-T5] Chat list and thread pages with attachments,,72,High,5,area-web,moscow-must,,Story: PG-14. Area: web.
+346,Sub-task,[PG-14-T6] Automated tests for the done-when checks,,72,High,2,area-qa,moscow-must,,Story: PG-14. Area: qa.
+347,Sub-task,"[US-C08-T1] Event Q&A: public questions, organiser answers, full history",,73,High,3,area-api,moscow-must,,Story: US-C08. Area: api.
+348,Sub-task,"[US-C08-T2] Q&A tab with 'Ask privately', which opens a chat; organiser answers",,73,High,3,area-mobile,moscow-must,,Story: US-C08. Area: mobile.
+349,Sub-task,[US-C08-T3] Q&A section with 'Ask privately'; organiser answers,,73,High,2,area-web,moscow-must,,Story: US-C08. Area: web.
+350,Sub-task,[US-C08-T4] Automated tests for the scenarios: Ask in public; Read earlier answers; Ask something private,,73,High,2,area-qa,moscow-must,,Story: US-C08. Area: qa.
+351,Sub-task,"[US-O12-T1] Announcements to Going, Interested and followers, also shown on the event page",,74,High,3,area-api,moscow-must,,Story: US-O12. Area: api.
+352,Sub-task,[US-O12-T2] Send announcements in batches by push and in-app,,74,High,3,area-worker,moscow-must,,Story: US-O12. Area: worker.
+353,Sub-task,[US-O12-T3] Announcement composer and announcements on the event page,,74,High,2,area-mobile,moscow-must,,Story: US-O12. Area: mobile.
+354,Sub-task,[US-O12-T4] Announcement composer and announcements on the event page,,74,High,2,area-web,moscow-must,,Story: US-O12. Area: web.
+355,Sub-task,[US-O12-T5] Automated tests for the scenarios: Send an announcement,,74,High,1,area-qa,moscow-must,,Story: US-O12. Area: qa.
+356,Sub-task,"[PG-15-T1] Wire each MS-07 type to push, in-app and email",,75,High,3,area-worker,moscow-must,,Story: PG-15. Area: worker.
+357,Sub-task,[PG-15-T2] Email templates (React Email for Resend),,75,High,2,area-design,moscow-must,,Story: PG-15. Area: design.
+358,Sub-task,[PG-15-T3] Urgent SMS through Dialog e-SMS (proposed),,75,High,2,area-worker,moscow-must,,Story: PG-15. Area: worker.
+359,Sub-task,[PG-15-T4] Automated tests for the done-when checks,,75,High,1,area-qa,moscow-must,,Story: PG-15. Area: qa.
+360,Sub-task,[US-O13-T1] Live Going and Interested counts over SSE,,76,High,2,area-api,moscow-must,,Story: US-O13. Area: api.
+361,Sub-task,[US-O13-T2] Event dashboard with live counts,,76,High,3,area-web,moscow-must,,Story: US-O13. Area: web.
+362,Sub-task,[US-O13-T3] Event dashboard with live counts,,76,High,2,area-mobile,moscow-must,,Story: US-O13. Area: mobile.
+363,Sub-task,"[US-O13-T4] Activity log summed into daily totals: page views, post and reel engagement, Going marks, follower growth",,76,High,5,area-worker,moscow-must,,Story: US-O13. Area: worker.
+364,Sub-task,[US-O13-T5] Analytics charts over time,,76,High,3,area-web,moscow-must,,Story: US-O13. Area: web.
+365,Sub-task,[US-O13-T6] Automated tests for the scenarios: Counts update live; See analytics,,76,High,1,area-qa,moscow-must,,Story: US-O13. Area: qa.
+366,Sub-task,"[US-O14-T1] Hiring summary per event: requests, quotes, bookings, stall applications and approvals with status",,77,High,3,area-api,moscow-must,,Story: US-O14. Area: api.
+367,Sub-task,[US-O14-T2] Hiring dashboard per event,,77,High,3,area-web,moscow-must,,Story: US-O14. Area: web.
+368,Sub-task,[US-O14-T3] Hiring summary per event,,77,High,2,area-mobile,moscow-must,,Story: US-O14. Area: mobile.
+369,Sub-task,[US-O14-T4] Automated tests for the scenarios: See every item for an event,,77,High,1,area-qa,moscow-must,,Story: US-O14. Area: qa.
+370,Sub-task,"[PG-18-T1] Reports and admin actions, enforced across the platform",,78,High,5,area-api,moscow-must,,Story: PG-18. Area: api.
+371,Sub-task,[PG-18-T2] Report queue with filters and actions,,78,High,5,area-web,moscow-must,,Story: PG-18. Area: web.
+372,Sub-task,[PG-18-T3] Tell the reported user about the action taken,,78,High,1,area-worker,moscow-must,,Story: PG-18. Area: worker.
+373,Sub-task,[PG-18-T4] Automated tests for the done-when checks,,78,High,1,area-qa,moscow-must,,Story: PG-18. Area: qa.
+374,Sub-task,[US-A01-T1] Verification requests with documents; approve or reject with a reason; decision logged,,79,High,3,area-api,moscow-must,,Story: US-A01. Area: api.
+375,Sub-task,[US-A01-T2] Admin verification queue with a document viewer (signed links),,79,High,3,area-web,moscow-must,,Story: US-A01. Area: web.
+376,Sub-task,[US-A01-T3] Organiser and provider document submission,,79,High,2,area-mobile,moscow-must,,Story: US-A01. Area: mobile.
+377,Sub-task,[US-A01-T4] Organiser and provider document submission,,79,High,2,area-web,moscow-must,,Story: US-A01. Area: web.
+378,Sub-task,"[US-A01-T5] Only verified organisers can open stalls, post jobs or send booking requests",,79,High,2,area-api,moscow-must,,Story: US-A01. Area: api.
+379,Sub-task,[US-A01-T6] Tell the user the decision and the reason,,79,High,1,area-worker,moscow-must,,Story: US-A01. Area: worker.
+380,Sub-task,[US-A01-T7] Automated tests for the scenarios: Review documents; Approve or reject; Unverified organisers are limited,,79,High,2,area-qa,moscow-must,,Story: US-A01. Area: qa.
+381,Sub-task,[US-A02-T1] Unpublish an event: close its stall applications and job posts; notify Going and Interested,,80,High,3,area-api,moscow-must,,Story: US-A02. Area: api.
+382,Sub-task,[US-A02-T2] Unpublish action on reported events,,80,High,2,area-web,moscow-must,,Story: US-A02. Area: web.
+383,Sub-task,[US-A02-T3] Automated tests for the scenarios: Unpublish a fake event; People are told,,80,High,1,area-qa,moscow-must,,Story: US-A02. Area: qa.
+384,Sub-task,"[US-A03-T1] Disputes: booking or stall, terms, statuses and chat history attached; outcomes",,81,High,5,area-api,moscow-must,,Story: US-A03. Area: api.
+385,Sub-task,[US-A03-T2] Dispute view for admins,,81,High,3,area-web,moscow-must,,Story: US-A03. Area: web.
+386,Sub-task,[US-A03-T3] Report a problem with a booking,,81,High,2,area-mobile,moscow-must,,Story: US-A03. Area: mobile.
+387,Sub-task,[US-A03-T4] Report a problem with a booking,,81,High,1,area-web,moscow-must,,Story: US-A03. Area: web.
+388,Sub-task,[US-A03-T5] Automated tests for the scenarios: Open a dispute; Decide the outcome,,81,High,1,area-qa,moscow-must,,Story: US-A03. Area: qa.
+389,Sub-task,[US-A04-T1] Hidden reviews and banned accounts' reviews leave ratings and trigger a rank recalculation,,82,High,3,area-api,moscow-must,,Story: US-A04. Area: api.
+390,Sub-task,[US-A04-T2] Hide action on reported reviews,,82,High,2,area-web,moscow-must,,Story: US-A04. Area: web.
+391,Sub-task,[US-A04-T3] Automated tests for the scenarios: Reported reviews; Leave out hidden reviews and fake accounts,,82,High,1,area-qa,moscow-must,,Story: US-A04. Area: qa.
+392,Sub-task,"[PG-16-T1] Create, edit and archive communities",,83,High,2,area-api,moscow-must,,Story: PG-16. Area: api.
+393,Sub-task,[PG-16-T2] Community management pages,,83,High,2,area-web,moscow-must,,Story: PG-16. Area: web.
+394,Sub-task,[PG-16-T3] Seed the first topic and city communities,,83,High,1,area-db,moscow-must,,Story: PG-16. Area: db.
+395,Sub-task,[PG-16-T4] Automated tests for the done-when checks,,83,High,1,area-qa,moscow-must,,Story: PG-16. Area: qa.
+396,Sub-task,[PG-17-T1] Audit log written for every admin endpoint,,84,Medium,2,area-api,moscow-should,,Story: PG-17. Area: api.
+397,Sub-task,[PG-17-T2] Audit log view,,84,Medium,2,area-web,moscow-should,,Story: PG-17. Area: web.
+398,Sub-task,[PG-17-T3] Automated tests for the done-when checks,,84,Medium,1,area-qa,moscow-should,,Story: PG-17. Area: qa.
+399,Sub-task,"[PG-04-T1] Sinhala and Tamil translations, checked by native speakers",,85,Medium,5,area-design,moscow-should,,Story: PG-04. Area: design.
+400,Sub-task,[PG-04-T2] Language switcher; check layouts with longer strings,,85,Medium,2,area-mobile,moscow-should,,Story: PG-04. Area: mobile.
+401,Sub-task,[PG-04-T3] Language switcher; check layouts with longer strings,,85,Medium,2,area-web,moscow-should,,Story: PG-04. Area: web.
+402,Sub-task,[PG-04-T4] Automated tests for the done-when checks,,85,Medium,1,area-qa,moscow-should,,Story: PG-04. Area: qa.
+403,Sub-task,[EN-13-T1] Data export and account deletion,,86,High,5,area-api,moscow-must,,Story: EN-13. Area: api.
+404,Sub-task,[EN-13-T2] Consent for marketing messages,,86,High,1,area-api,moscow-must,,Story: EN-13. Area: api.
+405,Sub-task,"[EN-13-T3] Data inventory, privacy notice and breach response plan",,86,High,3,area-qa,moscow-must,,Story: EN-13. Area: qa.
+406,Sub-task,"[EN-14-T1] Screen-reader and contrast audit of the main flows, mobile and web",,87,High,3,area-qa,moscow-must,,Story: EN-14. Area: qa.
+407,Sub-task,"[EN-14-T2] Fix contrast problems, such as text on the vendor primary colour (2.2:1)",,87,High,2,area-design,moscow-must,,Story: EN-14. Area: design.
+408,Sub-task,"[EN-15-T1] Load-time checks on throttled 4G for feed, event page and search",,88,High,3,area-qa,moscow-must,,Story: EN-15. Area: qa.
+409,Sub-task,[EN-15-T2] Right-sized images and compressed reels through Cloudinary transformations,,88,High,2,area-mobile,moscow-must,,Story: EN-15. Area: mobile.
+410,Sub-task,"[EN-16-T1] Security headers, CORS, validation and rate limits across the API",,89,High,3,area-api,moscow-must,,Story: EN-16. Area: api.
+411,Sub-task,[EN-16-T2] Role-access tests for every module,,89,High,3,area-qa,moscow-must,,Story: EN-16. Area: qa.
+412,Sub-task,[EN-17-T1] Usability test plan and sessions for the three tasks,,90,High,3,area-qa,moscow-must,,Story: EN-17. Area: qa.
+413,Sub-task,"[EN-17-T2] Record the success metrics: events published, Going rate, booking rate, stall fill, review rate",,90,High,3,area-api,moscow-must,,Story: EN-17. Area: api.
+414,Sub-task,[EN-17-T3] Production set-up and partner onboarding checklist,,90,High,2,area-infra,moscow-must,,Story: EN-17. Area: infra.
