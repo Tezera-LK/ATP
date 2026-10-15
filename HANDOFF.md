@@ -2,7 +2,7 @@
 
 Where the work stands, what was decided, and what comes next. **Update this file at the end of every session or section of work** (see `CLAUDE.md` for the steps).
 
-**Last updated:** 13 October 2026, Claude Code session on macOS (git user Samali Peiris), data design added to PRD section 8 (v4) and the architecture diagram
+**Last updated:** 15 October 2026, Claude Code session on Windows (git user Damian De Cruz), rule added: Claude never commits or pushes
 
 ## Current state
 
@@ -16,12 +16,13 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | `Tezera Proposal.pdf` + `proposal/tezera-proposal.html` | Renamed; acronym and tagline removed; PDF regenerated on the Mac, 8 pages |
 | `README.md`, `PRD Research.md`, `SDG Alignment.md`, `CLAUDE.md` | Renamed throughout; README lists the research docs; CLAUDE.md has a macOS PDF command |
 
-**Committed and pushed** on branch `docs/tezera-research-stack`; PR #2 (https://github.com/NDR-debugs/ATP/pull/2) is open into `main`. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
+**On `main`:** PRs #2, #3 and #4 are merged. Claude does not commit or push (15 Oct decision); the team does all git work, so expect uncommitted changes after a Claude session. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
 
 ## Decisions
 
 | Date | Decision | Made by |
 | --- | --- | --- |
+| 15 Oct 2026 | Claude never commits or pushes (no commits, pushes, branches or PRs); the team handles all git. Rule is in `CLAUDE.md` | Damian |
 | 13 Oct 2026 | Data design in PRD section 8: PostgreSQL stays the only database (rank score column, materialized-view leaderboards, feed built on read with keyset pagination, text search + `pg_trgm`); Prisma for schema, raw SQL for ranking queries; Redis sorted sets for leaderboards and trending, Redis counters for likes and views; DBeaver for inspection only, never schema changes | User asked for it in the PRD; the design is Claude's recommendation |
 | 8 Oct 2026 | Product name: **Tezera**. Written "tezera" as a wordmark (logo, h1, diagram title), "Tezera" in prose. No acronym, no tagline | User (this session) |
 | 8 Oct 2026 | Brand manual is informational: no scattered/rotated tiles, no tile hover, no idle motion. Cover load-in, corner tile clusters and cover blobs stay. The three accounts differ by palette only. Phones in section 09 animate in on scroll (pieces drift up and settle, once) | User (this session) |
@@ -48,7 +49,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 ## Next steps
 
 1. Group reviews the survey analysis and decides on R1–R12; update the PRD (v4) and the user stories to match.
-2. Review and merge PR #2, then PR #3 (Given/When/Then stories, shared navbar).
+2. Commit 711ba65 says the architecture diagram moved from React Native to Flutter, but `CLAUDE.md` and PRD section 8 still say React Native + Expo. Group to confirm which, then align the PRD, diagram, proposal and `CLAUDE.md`.
 3. Follow-up research (analysis section 9): interview 2–3 organisers, test R1–R4 with providers, reach beyond Colombo and students.
 4. Confirm the recommended stack and the v4 data design against the team's skills (PRD section 8).
 
@@ -60,6 +61,11 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - The research docs were generated once from the CSVs by a script that was not kept; edit the HTML by hand. Each chart bar is `<li style="--v:COUNT">` inside `<ol class="bars" style="--n:TOTAL">`.
 
 ## Session log
+
+### 15 October 2026: no commits or pushes by Claude
+- `CLAUDE.md`: environment rule changed from "no commit/push unless asked" to "never commit or push; the user does all git".
+- `HANDOFF.md`: decision row added; current state now says PRs #2–#4 are merged into `main`; stale "merge PR #2/#3" next step replaced with the React Native vs Flutter question raised by commit 711ba65.
+- Decision by Damian. Not verified: whether the diagram really shows Flutter now (only the commit message was read). Nothing committed.
 
 ### 13 October 2026: data design in PRD section 8
 - Answered which database to use for the rank score and the promotion feed: PostgreSQL (already chosen); DBeaver is a client, not a database.

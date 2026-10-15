@@ -55,4 +55,4 @@ Check pages: `pdftotext "Tezera Proposal.pdf" - | grep -c $'\f'` → 8. No pdfto
 ## Environment gotchas
 - Windows; Git Bash + PowerShell. Python 3.14 (`python3`). Only `pdftotext` from poppler (no pdftoppm) → read PDFs as text; render HTML via headless Chrome screenshots.
 - Some .md files CRLF → normalise line endings in scripted replacements or matches fail.
-- No commit/push unless asked.
+- NEVER commit or push. User does all git (commit, push, branches, PRs). Leave changes uncommitted; list changed files at end.
