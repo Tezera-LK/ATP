@@ -1,7 +1,7 @@
 # SDG Alignment — Tezera
 
 **Project:** Tezera, an event organisation platform for Sri Lanka (SDGP)
-**Date:** 30 September 2026 (product name updated 6 October 2026)
+**Date:** 30 September 2026 (product name updated 6 October 2026; 8.10 note added 15 October 2026)
 
 ## Summary
 
@@ -26,6 +26,7 @@ Tezera aligns most closely with **SDG 8: Decent Work and Economic Growth**, with
 | --- | --- | --- |
 | SDG 10 — Reduced Inequalities | 10.2 (social and economic inclusion) | Sinhala and Tamil language support. Individual freelancers can compete with agencies on reviews rather than connections. |
 | SDG 11 — Sustainable Cities and Communities | 11.4 (cultural heritage) | Only if the platform focuses on cultural or heritage events. |
+| SDG 8 — Decent Work and Economic Growth | 8.10 (access to banking and financial services) | Only once real-money payments go live: providers paid by card or wallet straight into their own merchant account. The ATP's payments are sandbox-only (PRD v6, HR-14), so do not claim this for the ATP. |
 
 ## How we will measure the contribution
 

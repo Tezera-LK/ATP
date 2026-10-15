@@ -1,0 +1,466 @@
+<!doctype html>
+<!--
+  tezera: Research briefs (editable source)
+
+  Hand-edited HTML. Desk-research briefs that feed the PRD. Each brief records its question,
+  method, findings with sources, and what the PRD did with it.
+  Version 1 (15 October 2026): brief 1 (in-app payments, legality in Sri Lanka) and brief 2
+  (map builder, what to take from ai-studio). Both were web research by a Claude Code research
+  agent on 15 October 2026, read-only. Keep every source URL as a link and keep "(not verified)"
+  markers. New brief: add an <h2 id> section, a TOC entry and a "What the PRD did with this" box.
+  Styles copied from research/tezera-survey-analysis.html; keep them in step.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tezera Research Briefs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F7F4;
+    --card: #FFFFFF;
+    --surface: #E9EEEB;
+    --rule: #D2DAD7;
+    --ink: #0E2A30;
+    --ink-2: #3D5459;
+    --muted: #6E8185;
+    --marigold: #E3A21A;
+    --marigold-soft: #F7E7BF;
+    --marigold-ink: #7A5300;
+    --teal: #1F6F78;
+    --teal-soft: #DCEBEA;
+    --display: "Bricolage Grotesque", Georgia, serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0F1B1D; --card: #162528; --surface: #1D3034; --rule: #2C4246;
+      --ink: #E6EEEE; --ink-2: #B3C4C5; --muted: #8DA0A2;
+      --marigold: #F0B73E; --marigold-soft: #3B2F12; --marigold-ink: #F3CF7F;
+      --teal: #6CC0C6; --teal-soft: #183B3E;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0F1B1D; --card: #162528; --surface: #1D3034; --rule: #2C4246;
+    --ink: #E6EEEE; --ink-2: #B3C4C5; --muted: #8DA0A2;
+    --marigold: #F0B73E; --marigold-soft: #3B2F12; --marigold-ink: #F3CF7F;
+    --teal: #6CC0C6; --teal-soft: #183B3E;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+  .doc { max-width: 920px; margin: 0 auto; padding: 40px 16px 96px; }
+
+  /* Header */
+  .brandbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  .wordmark { font-family: var(--display); font-weight: 600; font-size: 26px; letter-spacing: -.02em; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .wordmark .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--marigold); box-shadow: 14px 0 0 var(--teal); margin-right: 18px; }
+  .doclinks { display: flex; gap: 6px; flex-wrap: wrap; font-size: 14px; }
+  .doclinks a { padding: 5px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); text-decoration: none; background: var(--card); }
+  .doclinks a[aria-current] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0 0 8px; }
+  h1 { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 6vw, 54px); line-height: 1.04; margin: 0; letter-spacing: -.015em; max-width: 18ch; }
+  .byline { color: var(--muted); font-size: 14px; margin: 18px 0 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .lead { font-size: 19px; margin: 24px 0; color: var(--ink); }
+
+  /* Headings & text */
+  h2 { font-family: var(--display); font-weight: 600; font-size: 28px; line-height: 1.2; margin: 60px 0 12px; padding-top: 10px; border-top: 2px solid var(--ink); scroll-margin-top: 16px; }
+  h2 .num, h3 .num { color: var(--muted); font-weight: 500; margin-right: 6px; }
+  h3 { font-family: var(--display); font-weight: 600; font-size: 20px; line-height: 1.25; margin: 36px 0 8px; scroll-margin-top: 16px; }
+  h4 { font-size: 14px; font-weight: 600; margin: 24px 0 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+  p { margin: 10px 0; }
+  ul, ol { padding-left: 22px; margin: 10px 0; }
+  li { margin: 4px 0; }
+  a { color: var(--teal); overflow-wrap: anywhere; }
+  .muted { color: var(--muted); }
+  .note { font-size: 14px; color: var(--ink-2); }
+  b, strong { font-weight: 600; }
+  .src { font-size: 14px; color: var(--ink-2); }
+  .nv { color: var(--marigold-ink); font-weight: 600; white-space: nowrap; }
+
+  /* Contents */
+  nav.toc { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 20px; margin: 24px 0; }
+  nav.toc p { margin: 0 0 8px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  nav.toc > ol { columns: 2; column-gap: 32px; margin: 0; padding-left: 22px; font-size: 15px; }
+  nav.toc li { break-inside: avoid; }
+  nav.toc ol ol { columns: 1; font-size: 14px; margin: 2px 0 6px; padding-left: 18px; list-style: disc; }
+  @media (max-width: 640px) { nav.toc > ol { columns: 1; } }
+
+  /* Brief header facts */
+  dl.meta { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; margin: 16px 0; font-size: 15px; }
+  dl.meta dt { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding-top: 2px; }
+  dl.meta dd { margin: 0; }
+  @media (max-width: 560px) { dl.meta { grid-template-columns: 1fr; gap: 2px; } dl.meta dd { margin-bottom: 8px; } }
+
+  /* Callouts */
+  .callout { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--marigold); border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 15px; }
+  .callout.teal { border-left-color: var(--teal); }
+  .callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+  .callout.warn { background: var(--marigold-soft); border: 2px solid var(--marigold); border-left-width: 8px; font-size: 15.5px; }
+  .callout.warn .ttl { font-family: var(--display); font-size: 19px; font-weight: 600; color: var(--ink); }
+  .callout.prd { border-left-color: var(--teal); border-top: 3px solid var(--teal); padding: 14px 18px; }
+  .callout.prd .ttl { font-family: var(--display); font-size: 19px; font-weight: 600; margin-bottom: 6px; }
+
+  /* Key findings */
+  ol.findings { list-style: none; padding: 0; counter-reset: f; display: grid; gap: 10px; }
+  ol.findings > li { counter-increment: f; position: relative; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px 14px 56px; margin: 0; }
+  ol.findings > li::before { content: counter(f); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--marigold-soft); color: var(--marigold-ink); font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+  ol.findings b.h { display: block; font-size: 16.5px; margin-bottom: 2px; }
+
+  /* Mechanism / reuse cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin: 14px 0; }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; font-size: 15px; min-width: 0; }
+  .card h4 { margin: 0 0 6px; }
+  .card > :last-child { margin-bottom: 0; }
+  .card .k { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--teal-soft); color: var(--teal); font-weight: 600; font-size: 14px; margin-right: 8px; vertical-align: 1px; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; }
+
+  /* Tables */
+  .tbl { overflow-x: auto; margin: 14px 0; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table.wide { min-width: 860px; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+  th { background: var(--surface); font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  td.id { white-space: nowrap; font-weight: 600; }
+  td ul { margin: 0; padding-left: 16px; }
+  td li { margin: 2px 0; }
+
+  /* Pills */
+  .pri { display: inline-block; min-width: 58px; text-align: center; padding: 2px 8px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+  .pri.must { background: var(--ink); color: var(--paper); }
+  .pri.should { background: var(--marigold); color: #0E2A30; }
+  .pri.could { background: var(--teal-soft); color: var(--teal); border: 1px solid var(--teal); }
+  .pri.later { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+  .tag { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 4px; background: var(--marigold-soft); color: var(--marigold-ink); font-size: 11.5px; font-weight: 600; vertical-align: 1px; white-space: nowrap; }
+  code { font-family: var(--mono); font-size: .86em; background: var(--surface); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+  pre { font-family: var(--mono); font-size: 13.5px; line-height: 1.5; background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; margin: 10px 0 16px; overflow-x: auto; }
+  pre code { background: none; padding: 0; font-size: inherit; overflow-wrap: normal; }
+
+  /* Rows list in PRD boxes */
+  ul.rows { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 6px; }
+  ul.rows li { margin: 0; display: grid; grid-template-columns: 74px 1fr; gap: 10px; align-items: baseline; }
+  ul.rows .pri { min-width: 0; width: 100%; }
+
+  @media print {
+    @page { size: A4; margin: 15mm 13mm; }
+    :root { --paper: #fff; }
+    body { font-size: 10.5pt; }
+    .doc { max-width: none; padding: 0; }
+    .doclinks { display: none !important; }
+    h2 { break-after: avoid; } h3, h4 { break-after: avoid; }
+    .tbl, tr, .callout, .card, pre, ol.findings > li { break-inside: avoid; }
+    table.wide { min-width: 0; }
+    a { color: var(--ink); text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<main class="doc">
+
+<div class="brandbar">
+  <a class="wordmark" href="../prd/tezera-prd.html"><span class="dot" aria-hidden="true"></span>tezera</a>
+  <nav class="doclinks" aria-label="Tezera documents">
+    <a href="../prd/tezera-prd.html">PRD</a>
+    <a href="../prd/tezera-architecture.html">Architecture</a>
+    <a href="tezera-survey-analysis.html">Survey analysis</a>
+    <a href="tezera-personas.html">Personas</a>
+    <a href="tezera-user-stories.html">User stories</a>
+    <a href="tezera-work-items.html">Work items</a>
+    <a href="tezera-research-briefs.html" aria-current="page">Research briefs</a>
+    <a href="../brand/tezera-brand-manual.html">Brand manual</a>
+  </nav>
+</div>
+
+<header>
+  <p class="eyebrow">Desk research · Briefs for the PRD</p>
+  <h1>Research briefs</h1>
+  <p class="byline">Version 1 · 15 October 2026 · SDGP Agile Team Project</p>
+</header>
+
+<p class="lead">This page collects the desk-research briefs that feed the PRD. Each brief records the question it set out to answer, how the research was done, what it found (with sources), and what the PRD did with it.</p>
+<p>Both briefs on this page were web research by a Claude Code research agent on 15 October 2026. The agent only read sources and changed nothing. Findings marked <span class="nv">(not verified)</span> could not be confirmed from a primary source and need checking before anyone relies on them. The decisions in the "What the PRD did with this" boxes were taken by Damian on 15 October 2026 and are in PRD version 6.</p>
+
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#payments">In-app payments to vendors and freelancers: is it legal in Sri Lanka?</a>
+      <ol>
+        <li><a href="#pay-bottom-line">Bottom line</a></li>
+        <li><a href="#pay-1">Platform holding money</a></li>
+        <li><a href="#pay-2">Payment gateways</a></li>
+        <li><a href="#pay-3">Students and a real launch</a></li>
+        <li><a href="#pay-4">Data protection and card security</a></li>
+        <li><a href="#pay-5">Contracts and consumer law</a></li>
+        <li><a href="#pay-6">CBSL changes 2024–2026</a></li>
+        <li><a href="#pay-risks">Open risks for a lawyer</a></li>
+        <li><a href="#pay-prd">What the PRD did with this</a></li>
+      </ol>
+    </li>
+    <li><a href="#map-builder">Map builder: what we can take from ai-studio</a>
+      <ol>
+        <li><a href="#map-repo">What the repo is</a></li>
+        <li><a href="#map-mechanisms">Mechanisms worth copying (A–D)</a></li>
+        <li><a href="#map-mapping">How it maps to Tezera</a></li>
+        <li><a href="#map-reuse">Reusable, and what we must build</a></li>
+        <li><a href="#map-risks">Risks</a></li>
+        <li><a href="#map-format">Map format example</a></li>
+        <li><a href="#map-prd">What the PRD did with this</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+
+<!-- ============================================================ Brief 1: payments -->
+<h2 id="payments"><span class="num">1</span>In-app payments to vendors and freelancers: is it legal in Sri Lanka?</h2>
+
+<dl class="meta">
+  <dt>Question</dt><dd>Can Tezera let organisers pay vendors and freelancers (deposits, instalments, stall fees, refunds) inside the app, first as a student project and later for real? What would it take to do it legally in Sri Lanka?</dd>
+  <dt>Method</dt><dd>Web research by a Claude Code research agent on 15 October 2026; read-only. Sources: CBSL regulations and gazettes, gateway help and developer pages, law-firm and tax-adviser articles, news reports. Secondary sources are labelled as such.</dd>
+  <dt>Date</dt><dd>15 October 2026</dd>
+</dl>
+
+<div class="callout warn" role="note">
+  <p class="ttl">Not legal advice</p>
+  <p>This is desk research by a software team, not advice from a lawyer, accountant or the Central Bank of Sri Lanka (CBSL). It is enough to choose a safe design for the ATP. Before Tezera moves real money, a Sri Lankan lawyer and accountant must check the open risks listed below.</p>
+</div>
+
+<h3 id="pay-bottom-line">Bottom line</h3>
+<ol class="findings">
+  <li><b class="h">Sandbox payments now are fine.</b> Test-mode payments move no real money. Nothing was found in CBSL rules that stops a student team integrating a gateway's sandbox. The PayHere sandbox is a free self sign-up; Genie Business gives sandbox credentials on request by email.</li>
+  <li><b class="h">Holding or splitting real money most likely needs CBSL registration.</b> Collecting organisers' money and paying it on to vendors matches CBSL's "Money or Value Transfer Service" (MVTS). Registration needs a Companies Act company with at least LKR 15m unimpaired capital that does only MVTS business. That is not realistic for a student or start-up platform.</li>
+  <li><b class="h">No Sri Lankan gateway we checked documents marketplace or split payouts.</b> PayHere's help pages list "Multi-vendor platform" as unsupported because of "payment regulations &amp; partner bank policies". Stripe and Stripe Connect are not available to Sri Lankan businesses.</li>
+  <li><b class="h">For a real launch, Tezera should never touch the money.</b> Either (a) each provider has their own gateway merchant account (PayHere, Genie or WEBXPAY), Tezera produces a payment link or hosted checkout for that provider, the money settles to them, and Tezera invoices its commission separately; or (b) Tezera records the agreement and its status only, and payment happens outside the app (the current ATP decision).</li>
+  <li><b class="h">A real launch also needs a business behind it.</b> A registered business, tax registration, and readiness for the core duties of the Personal Data Protection Act (PDPA) from 1 January 2027.</li>
+</ol>
+
+<h3 id="pay-1"><span class="num">1</span>Platform holding money (payment facilitator)</h3>
+<ul>
+  <li><b>CBSL MVTS Regulations No. 1 of 2024</b> cover the "acceptance of cash… or other stores of value and the payment of a corresponding sum… to a beneficiary… [which] may involve… a final payment to a third party". An MVTS provider needs a CBSL Certificate of Registration. Registration covers "safekeeping of funds to the extent necessary", which is the closest thing to escrow. Entities licensed or authorised by another regulator are exempt.<br><span class="src">Source: <a href="https://www.cbsl.gov.lk/sites/default/files/cbslweb_documents/laws/cdg/psd_reg_2024__1_e.pdf">CBSL, MVTS Regulations No. 1 of 2024 (PDF)</a></span></li>
+  <li><b>2025 amendment</b> (Regulations No. 1 of 2025, Gazette 2468/06, in effect 31 December 2025). The definition covers transfers "within Sri Lanka"; cross-border transfers are subject to the Foreign Exchange Act No. 12 of 2017. Eligibility: a Companies Act company, at least LKR 15m unimpaired capital, and "exclusively" MVTS business. Unlicensed operators had to apply by 31 March 2026.<br><span class="src">Source: <a href="https://www.cbsl.gov.lk/sites/default/files/cbslweb_documents/laws/cdg/psd_reg_2025__1_e.pdf">CBSL, MVTS (Amendment) Regulations No. 1 of 2025 (PDF)</a></span></li>
+  <li><b>Escrow beyond that.</b> A registered MVTS provider may not accept deposits without a separate licence (reg. 12). Holding money for a long time might be caught by the Banking Act or the Finance Business Act <span class="nv">(agent's reading, not verified)</span>.</li>
+  <li><b>Payment Cards and Mobile Payment Systems Regulations No. 1 of 2013</b> license card issuers, financial acquirers, mobile payment operators and e-money operators. CBSL lists no separate "payment facilitator", "aggregator" or "IPG" licence.<br><span class="src">Sources: <a href="https://www.cbsl.gov.lk/en/financial-system/financial-infrastructure/payments-and-settlements-systems">CBSL, payments and settlements systems</a>; <a href="https://www.documents.gov.lk/view/extra-gazettes/2013/6/1813-25_E.pdf">Gazette 1813/25 (PDF)</a></span></li>
+  <li><b>Payment and Settlement Systems Act No. 28 of 2005:</b> only CBSL-authorised entities may operate a payment system.</li>
+  <li><b>CBSL Policy Agenda (8 January 2026):</b> "legal reforms relating to payment and settlement systems are expected to be undertaken in 2026".<br><span class="src">Source: <a href="https://www.cbsl.gov.lk/sites/default/files/cbslweb_documents/about/central_banks_policy_agenda_for_2026_and_beyond_e.pdf">CBSL, Central Bank's policy agenda for 2026 and beyond (PDF)</a></span></li>
+  <li><b>Financial Transactions Reporting Act No. 6 of 2006:</b> a registered MVTS provider is probably a reporting institution <span class="nv">(not verified)</span>.<br><span class="src">Source: <a href="https://fiusrilanka.gov.lk/fiu_establishment.html">Financial Intelligence Unit, establishment</a></span></li>
+  <li><b>Foreign Exchange Act:</b> only matters for non-residents or foreign currency.</li>
+</ul>
+
+<h3 id="pay-2"><span class="num">2</span>Payment gateways</h3>
+<p>What each gateway offers a team like ours. "Split" means paying part of a payment on to a third party, which is what a marketplace would need.</p>
+<div class="tbl"><table class="wide">
+  <thead><tr><th>Gateway</th><th>Sandbox</th><th>Split or payout to third parties</th><th>Onboarding</th><th>Sources</th></tr></thead>
+  <tbody>
+    <tr><td class="id">PayHere</td><td>Yes, free; test cards; payments simulated</td><td>None documented; "Multi-vendor platform" listed as unsupported</td><td>"A valid Business" and a local bank account. Registered businesses give their business registration (BR); unregistered ones can apply with other evidence (social page, Fiverr or Upwork profile). Settles T+2.</td><td><ul><li><a href="https://support.payhere.lk/sandbox-and-testing">Sandbox and testing</a></li><li><a href="https://support.payhere.lk/application-process">Application process</a></li><li><a href="https://support.payhere.lk/general-questions">General questions</a></li></ul></td></tr>
+    <tr><td class="id">WEBXPAY</td><td>Not found on the developer portal</td><td>Not found ("XSPLIT" is instalments, not a marketplace split)</td><td>Registered business and a corporate bank account (secondary source). Settles T+1.</td><td><ul><li><a href="https://webxpay.com/">webxpay.com</a></li><li><a href="https://developers.webxpay.com/">Developer portal</a></li><li><a href="https://www.hypesrilanka.com/best-payment-gateway-for-ecommerce-in-sri-lanka-2026/">Hype Sri Lanka (secondary)</a></li></ul></td></tr>
+    <tr><td class="id">Genie Business (Dialog)</td><td>Yes, on request from genie.integration@dialog.lk</td><td>Not found</td><td>National identity card (NIC) instead of BR (secondary sources, <span class="nv">not verified</span> with Dialog)</td><td><ul><li><a href="https://es-pr.wordpress.org/plugins/genie-business-payment-gateway/">WordPress plugin page</a></li><li><a href="https://cartdna.com/en-gb/resources/blog/no-business-needed-payment-gateway-for-sri-lankans">CartDNA blog (secondary)</a></li></ul></td></tr>
+    <tr><td class="id">FriMi (Nations Trust Bank)</td><td>No public IPG or sandbox</td><td>Not found</td><td>Merchant app and QR only</td><td><ul><li><a href="https://readme.lk/?p=84561">ReadMe.lk</a></li></ul></td></tr>
+    <tr><td class="id">LankaPay JustPay</td><td>No public sandbox</td><td>n/a</td><td>Through participating banks and approved apps</td><td><ul><li><a href="https://www.lankapay.net/en/for-you/justpay">LankaPay, JustPay</a></li></ul></td></tr>
+    <tr><td class="id">Sampath / Commercial Bank IPG</td><td>Not public; probably via the bank <span class="nv">(not verified)</span></td><td>Not found</td><td>BR or incorporation documents, ID, maybe audited accounts (secondary)</td><td><ul><li><a href="https://readme.lk/internet-payment-gateways-in-sri-lanka-2019/">ReadMe.lk, IPGs in Sri Lanka</a></li><li><a href="https://cartdna.com/en-gb/resources/blog/no-business-needed-payment-gateway-for-sri-lankans">CartDNA blog (secondary)</a></li></ul></td></tr>
+    <tr><td class="id">Stripe / Stripe Connect</td><td>Not available to Sri Lankan businesses</td><td>Connect cross-border payouts only for platforms in the US, UK, EEA, Canada and Switzerland</td><td>n/a</td><td><ul><li><a href="https://stripe.com/global">Stripe, global availability</a></li><li><a href="https://docs.stripe.com/connect/cross-border-payouts">Stripe Connect, cross-border payouts</a></li></ul></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="pay-3"><span class="num">3</span>Students and a real launch</h3>
+<ul>
+  <li><b>Sandbox:</b> the PayHere sandbox sign-up states no registration requirement. Genie gives sandbox access on request.</li>
+  <li><b>Live:</b> PayHere and the bank gateways need a business and a bank account. Genie reportedly accepts an NIC.</li>
+  <li><b>VAT:</b> sources disagree. De Saram says the threshold dropped to LKR 36m a year (LKR 9m a quarter) from 1 July 2026, and that VAT on digital services from non-residents started then. ACCA (July 2026) says the cut is "expected soon". Check with the Inland Revenue Department (IRD) <span class="nv">(not verified)</span>.<br><span class="src">Sources: <a href="https://www.desaram.com/sri-lanka-vat-changes-2026-key-updates-businesses-must-know/">De Saram, Sri Lanka VAT changes 2026</a>; <a href="https://abmagazine.accaglobal.com/global/articles/2026/jul/practice/threshold-changes-impact-smes.html">ACCA AB magazine, threshold changes</a></span></li>
+  <li><b>Social Security Contribution Levy (SSCL):</b> 2.5%. The threshold fell to LKR 36m a year (LKR 9m a quarter) from 1 July 2026 under the SSCL (Amendment) Act No. 10 of 2026.<br><span class="src">Source: <a href="https://taxable.lk/blog/sscl-amendment-2026-sri-lanka">Taxable.lk, SSCL amendment 2026</a></span></li>
+  <li><b>Withholding tax (WHT):</b> since 3 June 2026, 5% is withheld on service fees paid to resident individuals where the monthly total is over LKR 100,000. The list includes photographers, artists and musicians. Inland Revenue (Amendment) Act No. 11 of 2026, IRD notice SEC/PN/IT/2026/02.<br><span class="src">Source: <a href="https://regfollower.com/sri-lanka-unveils-major-tax-law-changes-covering-income-wht-registration/">RegFollower, Sri Lanka tax law changes</a></span></li>
+  <li><b>Who withholds</b> (the organiser or the platform) depends on who is legally the payer. A lawyer or accountant needs to confirm this.</li>
+</ul>
+
+<h3 id="pay-4"><span class="num">4</span>Data protection and card security</h3>
+<ul>
+  <li><b>PDPA No. 9 of 2022, as amended by Act No. 22 of 2025.</b> Gazette 2498/16 (22 July 2026) brings ss. 2–3, Part I (processing) and Part III (controllers and processors: data protection officer, breach notice, impact assessments) into force on 1 January 2027. Part II (rights) and Part VII (penalties) are awaiting a date.<br><span class="src">Sources: <a href="https://www.ft.lk/front-page/Data-protection-compliance-regime-takes-effect-on-1-Jan-2027/44-795776">Daily FT</a>; <a href="https://neelakandan.lk/insights/data-protection-in-transition-understanding-sri-lankas-new-legal-framework">Neelakandan &amp; Neelakandan</a>; <a href="https://www.themorning.lk/articles/I47njZnvYwXzvgQ8pB55">The Morning</a></span></li>
+  <li><b>Data leaving Sri Lanka (AWS Mumbai).</b> The 2025 amendment replaced the adequacy test. Data can go abroad if the processing complies with the Act and uses safeguards the Data Protection Authority specifies, or on grounds such as explicit consent or contractual necessity. The Authority's safeguard directive has not been published yet <span class="nv">(not verified)</span>, so Tezera should document a basis for hosting in Mumbai.<br><span class="src">Source: <a href="https://concentric.ai/sri-lankas-pdpa-takes-effect-january-1-2027-what-global-enterprises-need-to-know/">Concentric AI (vendor blog)</a></span></li>
+  <li><b>Bank and payment data:</b> whether it is a "special category" under the PDPA is <span class="nv">not verified</span>.</li>
+  <li><b>PCI DSS.</b> A redirect or fully outsourced payment page gets the shortest self-assessment (SAQ A). An embedded iframe must also meet the script-attack protections (requirements 6.4.3 and 11.6.1) from 1 April 2025. In-app SDK checkouts: <span class="nv">not verified</span>.<br><span class="src">Source: <a href="https://blog.pcisecuritystandards.org/faq-clarifies-new-saq-a-eligibility-criteria-for-e-commerce-merchants">PCI Security Standards Council, SAQ A eligibility FAQ</a></span></li>
+</ul>
+
+<h3 id="pay-5"><span class="num">5</span>Contracts and consumer law</h3>
+<ul>
+  <li><b>E-contracts are enforceable</b> under the Electronic Transactions Act No. 19 of 2006, amended by Act No. 25 of 2017 (which adopts the UN electronic communications convention).<br><span class="src">Sources: <a href="https://www.documents.gov.lk/view/acts/2017/11/25-2017_E.pdf">Act No. 25 of 2017 (PDF)</a>; <a href="https://www.desaram.com/covid_19/validity-of-electronic-signatures-under-sri-lankan-law/">De Saram, validity of electronic signatures</a></span></li>
+  <li><b>Consumer Affairs Authority (CAA) Gazette 2332/15 (17 May 2023)</b> applies to e-commerce entities and platform operators: no misleading practices; fair rating and review systems; a privacy statement; an order review step before confirming; receipts showing price, payment method and delivery terms; cooling-off and cancellation rights. Whether it covers organiser-to-provider (business-to-business) deals is <span class="nv">not verified</span>. A CAA e-commerce reform is under way.<br><span class="src">Sources: <a href="https://www.desaram.com/new-regulations-for-online-sellers-consumer-affairs-act-gazatte/">De Saram, new regulations for online sellers</a>; <a href="https://economynext.com/sri-lanka-updating-e-commerce-consumer-protection-laws-11436/">EconomyNext, e-commerce consumer protection</a></span></li>
+  <li><b>Platform liability when a vendor doesn't deliver:</b> no specific Sri Lankan rule was found. General contract law and Tezera's own terms apply.</li>
+</ul>
+
+<h3 id="pay-6"><span class="num">6</span>CBSL changes 2024–2026</h3>
+<ul>
+  <li>MVTS Regulations 2024 and the 2025 amendment (section 1 above).</li>
+  <li>LANKAQR Specification v1.3 (Circular 02/2026, 13 March 2026, addendum 17 June 2026): merchant QR and person-to-person payments, for financial institutions, e-money operators "or any other third party".</li>
+  <li>JustPay limits and fees (Circular 01/2026). Customer identification for payment apps (Circular 02/2024).</li>
+  <li>None of these target marketplaces.<br><span class="src">Source: <a href="https://www.cbsl.gov.lk/en/laws/directions-circulars-guidelines-on-payments-and-settlements">CBSL, directions, circulars and guidelines on payments and settlements</a></span></li>
+</ul>
+
+<h3 id="pay-risks">Open risks for a lawyer</h3>
+<p>Questions the research could not settle. They must be answered before Tezera moves real money.</p>
+<ol>
+  <li>Does collecting money as the provider's agent fall outside MVTS? No commercial-agent exemption is listed.</li>
+  <li>Would a "Tezera Pay" need its own company, given the rule that an MVTS company does only MVTS business?</li>
+  <li>Does PayHere's multi-vendor ban apply even if each provider has their own account and Tezera only takes a commission? Ask PayHere, Genie and WEBXPAY directly.</li>
+  <li>Who withholds tax and issues the invoice: the organiser or the platform?</li>
+  <li>Which VAT threshold is current?</li>
+  <li>What PDPA transfer safeguards are needed for AWS Mumbai, and what are the data protection officer duties from 1 January 2027?</li>
+  <li>Do the CAA rules apply when the organiser is an individual?</li>
+  <li>Will the 2026 payments-law reform add an aggregator licence?</li>
+</ol>
+
+<div class="callout prd" id="pay-prd">
+  <p class="ttl">What the PRD did with this</p>
+  <p>Decided by Damian on 15 October 2026; in PRD version 6, section 6.4 (Hiring marketplace). Ticketing (TK-*) and ticket refunds stay Later.</p>
+  <ul>
+    <li><b>Sandbox only in the ATP.</b> No real money moves. Every payment screen and receipt is labelled "Test payment, no real money".</li>
+    <li><b>Direct to the provider; Tezera never holds funds.</b> Each provider (and each organiser, for stall fees) connects their own PayHere sandbox merchant account. Tezera opens that account's hosted checkout on the web or the PayHere mobile SDK in the app, and the money settles straight to the payee. Tezera never holds, splits or pays out money, so the same design stays outside MVTS for a real launch.</li>
+    <li><b>PayHere behind an adapter.</b> The gateway is coded behind a small payment-provider interface so Genie Business or WEBXPAY can be added later.</li>
+    <li><b>Card details only on PayHere's hosted page</b> (PCI DSS SAQ A scope). PayHere's payment notifications reach one small HTTPS endpoint, a Lambda function URL (a deliberate exception to "GraphQL only"), which checks PayHere's signature and ignores repeats of the same order ID. Merchant secrets stay server-side (proposed).</li>
+    <li><b>Fallback:</b> a payee without a connected account is paid outside the app, and the organiser marks the instalment received by hand (HR-15 stays the base path).</li>
+  </ul>
+  <ul class="rows">
+    <li><span class="pri should">Should</span><span><b>HR-14</b> (was Later): organiser pays a booking's deposit and instalments in the app through the provider's connected account. A successful payment marks the instalment received (HR-15); both sides get a receipt.</span></li>
+    <li><span class="pri should">Should</span><span><b>HR-17</b>: organisers and providers connect a payment account (their own PayHere sandbox merchant account) on their profile.</span></li>
+    <li><span class="pri should">Should</span><span><b>HR-18</b>: a vendor pays a stall fee through the organiser's connected account; payment confirms the stall.</span></li>
+    <li><span class="pri should">Should</span><span><b>HR-19</b>: cancellation fees and refunds per the booking's cancellation terms (HR-08, HR-16), through the gateway (sandbox).</span></li>
+    <li><span class="pri should">Should</span><span><b>HR-20</b>: payment history and receipts for both sides, with Tezera's commission as a separate line (rate proposed, not charged in the ATP); admins see payment records for disputes.</span></li>
+  </ul>
+  <p>PRD section 14 (open questions) lists the questions to settle before real money moves: the eight open risks above.</p>
+</div>
+
+<!-- ============================================================ Brief 2: map builder -->
+<h2 id="map-builder"><span class="num">2</span>Map builder: what we can take from ai-studio</h2>
+
+<dl class="meta">
+  <dt>Question</dt><dd>Damian's own repo, ai-studio, turns an uploaded image into an editable structured result. Which of its ideas and code can Tezera reuse for a venue map builder that gives every event map the same standard format?</dd>
+  <dt>Method</dt><dd>Web research by a Claude Code research agent on 15 October 2026; read-only. The agent read the repo's README, plans, specs and source files on GitHub.</dd>
+  <dt>Repo</dt><dd><a href="https://github.com/EnderGuardian25/ai-studio">github.com/EnderGuardian25/ai-studio</a>, default branch <code>v2</code></dd>
+</dl>
+
+<div class="callout teal" role="note">
+  <p><b>Licence.</b> The repo has no LICENSE file (the GitHub API reports <code>license: null</code>), so by default nobody else may copy it. Its owner is Damian, who is on the Tezera team, and he allows the code to be copied and built on (15 October 2026). The licence risk is therefore moot for Tezera.</p>
+</div>
+
+<h3 id="map-repo">What the repo is</h3>
+<p>The README calls it "bistec-studio": an internal Bistec marketing tool that "turns a brief into a finished, on-brand, ready-to-publish social media post for Instagram and LinkedIn". Claude writes HTML and CSS, either by filling a brand template (Path A) or by designing freely (Path B), and Puppeteer renders the result to PNG.</p>
+<ul>
+  <li><b>Stack:</b> Next.js 16, React 19, TypeScript, PostgreSQL with Prisma, MinIO, better-auth, puppeteer-core, <code>@anthropic-ai/sdk</code>, openai, a Gemini image provider, Docker Compose, Playwright, Vitest.</li>
+  <li><b>Other features:</b> brand kits, campaigns and scheduling, draft revisions, inline editing, publishing to Instagram, LinkedIn and WhatsApp, and an MCP server.</li>
+</ul>
+<div class="callout">
+  <p><b>It is not a map tool.</b> There is no floor-plan, venue, map or zone code; no canvas library (Konva and Fabric are absent); no grid snapping; no JSON shape schema; no layers; and no region detection. What it offers is a set of mechanisms that carry over.</p>
+</div>
+
+<h3 id="map-mechanisms">Mechanisms worth copying</h3>
+<div class="cards">
+  <div class="card">
+    <h3><span class="k">A</span>Image to editable structured template ("F6")</h3>
+    <p>An admin uploads an image. It is saved as a <code>REFERENCE_IMAGE</code> artifact, so the source is kept and can be regenerated. It goes to Claude vision as base64 image blocks; the model returns HTML with named slots filled with sample content. The result is returned, not saved: the admin must fix it in the editor and then save. The prompt asks for "clear content SLOTS: a headline, supporting body text, a logo area, and a primary photo/subject slot". The plan says: "Vision output HTML may be imperfect — the editor step is the safety net (keep it mandatory)."</p>
+    <p><code>src/lib/aspectRatio.ts</code>: <code>nearestAspectRatio(w,h)</code> picks the closest of three fixed canvas sizes, and the admin can override it. This is the nearest thing to calibrating a scale.</p>
+    <p class="src">Files: <code>docs/plans/feature-6-image-to-template.md</code>, <code>src/lib/brandkit/templateFromImage.ts</code>, <code>src/app/api/admin/brandkits/[id]/templates/from-image/route.ts</code>, <code>src/lib/agent/vision.ts</code></p>
+  </div>
+  <div class="card">
+    <h3><span class="k">B</span>Click to select and edit</h3>
+    <p>The output is shown in a sandboxed iframe (<code>sandbox="allow-same-origin"</code>, no scripts). A click records <code>{ path: number[], tag, text: fingerprint, baseRevisionNumber }</code>. The server finds the element again by its path, checks the fingerprint, and refuses if the match is ambiguous ("fail closed"). Every save is a new revision.</p>
+    <p class="src">Files: <code>src/components/drafts/inlineElementEdit.ts</code>, <code>src/lib/drafts/htmlLocator.ts</code>, spec <code>docs/superpowers/specs/2026-07-23-draft-inline-edit-design.md</code></p>
+  </div>
+  <div class="card">
+    <h3><span class="k">C</span>Measuring rendered layout</h3>
+    <p>Chromium reads the laid-out boxes and computed styles of the rendered output.</p>
+    <p class="src">File: <code>src/lib/renderer/domFacts.ts</code></p>
+  </div>
+  <div class="card">
+    <h3><span class="k">D</span>Untrusted image content</h3>
+    <p>The vision prompt tells the model that text inside an uploaded image is data, not instructions.</p>
+    <p class="src">File: <code>src/lib/agent/vision.ts</code></p>
+  </div>
+</div>
+
+<h3 id="map-mapping">How it maps to Tezera</h3>
+<ol>
+  <li><b>Upload</b> a PNG or JPG floor plan. It is stored in S3 and kept as the source.</li>
+  <li><b>Calibrate:</b> the organiser marks two points and enters the real distance between them; positions are stored in normalised 0–1 coordinates. This must be built; ai-studio's aspect-ratio snapping is too crude.</li>
+  <li><b>AI draft</b> (Could): Claude on Amazon Bedrock returns JSON boxes <code>{id, kind: zone|stall|pin, label, x, y, w, h}</code>. It is a draft only.</li>
+  <li><b>Editor</b> on the web portal. This must be built (Konva or plain SVG, with grid snapping).</li>
+  <li><b>Assign vendors</b> to stalls from a side panel. Elements keep stable IDs, like ai-studio's path and fingerprint.</li>
+  <li><b>Publish</b> as versioned map JSON (like ai-studio's revisions) in DynamoDB or S3, drawn as SVG over the image in the mobile app and on the web. This feeds the consumer map features VM-08 to VM-12.</li>
+</ol>
+
+<h3 id="map-reuse">Reusable, and what we must build</h3>
+<div class="cards">
+  <div class="card">
+    <h4>Reusable from ai-studio</h4>
+    <ul>
+      <li>Keep the source image.</li>
+      <li>AI output is an editable draft, checked by a person.</li>
+      <li>Snapping.</li>
+      <li>Stable element IDs, with stale-edit checks that fail closed.</li>
+      <li>Every publish is a new revision.</li>
+      <li>The prompt guard for untrusted image text.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Must be built for Tezera</h4>
+    <ul>
+      <li>The canvas or box editor.</li>
+      <li>Scale calibration.</li>
+      <li>The map JSON schema.</li>
+      <li>A map renderer for both the app and the web portal.</li>
+      <li>PDF to image conversion (the repo only uses <code>pdf-parse</code> to extract text).</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="map-risks">Risks</h3>
+<ul>
+  <li><b>Licence:</b> moot, because Damian owns the repo and allows copying.</li>
+  <li><b>Paid AI and keys.</b> ai-studio uses an Anthropic API key or Claude CLI OAuth, optionally OpenAI or Gemini, and stores users' Claude tokens. Bedrock fits Tezera's AWS stack better.</li>
+  <li><b>Heavy dependencies that don't fit Amplify:</b> Puppeteer and Chromium, PostgreSQL and Prisma, MinIO, Docker. Adapt the ideas; don't lift the code wholesale.</li>
+  <li><b>Accuracy on Sri Lankan plans.</b> How well an AI draft works on scanned or hand-drawn floor plans was not researched. So the AI draft stays Could, and drawing by hand is Must.</li>
+</ul>
+
+<h3 id="map-format">Map format example <span class="tag">proposed</span></h3>
+<p>An illustrative shape for the standard Tezera map JSON (proposed). Positions and sizes are fractions of the background, from 0 to 1, so the same map draws correctly at any screen size. A pin is a point, so its width and height are 0. The final schema will be set when the builder is designed.</p>
+<pre><code>{
+  "version": 3,
+  "background": { "kind": "image", "src": "maps/evt_123/background.png", "widthM": 60, "heightM": 40 },
+  "scale": { "a": [0.10, 0.90], "b": [0.40, 0.90], "distanceM": 18 },
+  "items": [
+    { "id": "z1", "kind": "zone",  "label": "Food court", "x": 0.05, "y": 0.10, "w": 0.40, "h": 0.30 },
+    { "id": "s7", "kind": "stall", "label": "Stall 7",    "x": 0.08, "y": 0.14, "w": 0.06, "h": 0.05,
+      "zoneId": "z1", "stallNo": 7, "vendorId": "ven_42" },
+    { "id": "p1", "kind": "pin",   "label": "Toilets",    "x": 0.92, "y": 0.50, "w": 0, "h": 0 }
+  ]
+}</code></pre>
+<p class="note"><code>background.kind</code> is <code>image</code>, <code>pdf</code> (first page used) or <code>grid</code> (blank grid, no <code>src</code>). <code>scale</code> holds the two marked points and the real distance between them (VM-17). <code>zoneId</code>, <code>stallNo</code> and <code>vendorId</code> are optional.</p>
+
+<div class="callout prd" id="map-prd">
+  <p class="ttl">What the PRD did with this</p>
+  <p>Decided by Damian on 15 October 2026; in PRD version 6, section 6.6 (Venue maps). VM-01 (Must) is unchanged, except that the uploaded PNG or JPG becomes the builder's background layer.</p>
+  <ul>
+    <li><b>The builder runs on the web portal.</b> The mobile app does quick on-the-day edits: move, rename, hide.</li>
+    <li><b>One standard, versioned map format.</b> Every map, however it starts (image, PDF page or blank grid), is saved in the same Tezera map JSON. Each publish is a new version.</li>
+    <li><b>AI draft on Claude via Amazon Bedrock.</b> It stays inside AWS (IAM, no separate key). It is a draft only; the organiser checks it before anything publishes, and text inside the image is treated as data, not instructions. Whether Bedrock offers Claude in ap-south-1 (Mumbai) is <span class="nv">not verified</span>; it may need cross-region inference.</li>
+  </ul>
+  <ul class="rows">
+    <li><span class="pri must">Must</span><span><b>VM-16</b>: map builder on the web portal: draw, move, resize, label and delete zones, stalls and pins; grid snapping, alignment, number a row of stalls in one step, duplicate, undo. Quick edits in the app.</span></li>
+    <li><span class="pri must">Must</span><span><b>VM-17</b>: set the scale by marking two points and entering the real distance (or by grid size), so stall sizes show in metres.</span></li>
+    <li><span class="pri must">Must</span><span><b>VM-18</b>: every map is stored in one standard, versioned format; each publish is a new version, and the organiser can restore an earlier one.</span></li>
+    <li><span class="pri should">Should</span><span><b>VM-19</b>: upload a PDF floor plan; the first page becomes the background.</span></li>
+    <li><span class="pri should">Should</span><span><b>VM-20</b>: start from a blank grid of a set size (e.g. 60 m × 40 m) with no floor plan.</span></li>
+    <li><span class="pri should">Should</span><span><b>VM-21</b>: save a map as a reusable venue map and start a later event's map from it.</span></li>
+    <li><span class="pri could">Could</span><span><b>VM-22</b>: AI draft: Tezera suggests zones, stalls and pins from the uploaded plan as an editable draft; nothing publishes until the organiser checks it.</span></li>
+  </ul>
+</div>
+
+<p class="note" style="margin-top:48px">Both briefs: web research by a Claude Code research agent, 15 October 2026, read-only. Sources are linked where each finding appears. Decisions: Damian, 15 October 2026, recorded in PRD version 6. This page is not legal advice.</p>
+
+</main>
+</body>
+</html>

@@ -24,12 +24,13 @@ Docs diverge → also update README "How the proposal and the PRD differ".
 | `research/tezera-survey-analysis.html`, `research/tezera-user-stories.html` | Hand-edited HTML, generated from the 3 survey CSVs (not in repo; contain emails). Stories = title + Given/When/Then scenarios (`<div class="gwt">`), no "As a" line. |
 | `PRD Research.md` | Research record for PRD v1 (30 Sep 2026) + v2/v3 notes. No rewriting findings; append. |
 | `research/tezera-personas.html` | Hand-edited HTML. 8 personas (`<article class="persona">`), survey-segment based; invented details marked (assumed). Story chips + matrix at end → update both when stories change. |
+| `research/tezera-research-briefs.html` | Hand-edited HTML. Desk-research briefs (question, method, findings + source links, "What the PRD did with this"). New brief → new `<section>` + TOC entry; keep (not verified) markers. 15 Oct 2026: #payments (SL payments law, gateways, tax, PDPA), #map-builder (ai-studio concept). |
 | `research/tezera-work-items.html` | Hand-edited HTML. Epic `<section class="epic">` › story `<article class="item">` (US- / PG- PRD gap / EN- enabling) › task `<tr class="task" data-pts data-area>`. Story pts = sum of tasks, update header pill + epic count. R1–R12 accepted 15 Oct → tasks in backlog. Future unaccepted proposals → park in a "Waiting on a group decision" list, not backlog. |
 | `research/tezera-work-items-jira.csv` | GENERATED. Page's "Download Jira CSV" button, or headless Chrome `--dump-dom ".../tezera-work-items.html#export-csv"` → `<pre id="csvout">` (dump doubles line breaks: replace `\n\n` with `\r\n`). Epics, then stories, then sub-tasks; `Issue ID` + `Parent`. |
 | `brand/tezera-brand-manual.html` | Brand manual, hand-edited HTML (tiles + colour cards built by inline JS). Palettes in CSS `.org/.orgd/.ven/.vend/.att/.attd` AND JS `pal` object → change both. Vendor palette = inverse of organiser (intended). Vendor dark = (proposed). |
 | `SDG Alignment.md` | SDG 8 primary, 9 secondary, 10 supporting. |
 
-All 7 HTML docs share a navbar (`.brandbar` / `.doclinks`: PRD, Architecture, Survey analysis, Personas, User stories, Work items, Brand manual; brand manual's sits on its cover as `.docnav`). New doc → add link in all 7 (architecture via `.archify/inject-nav.py`).
+All 8 HTML docs share a navbar (`.brandbar` / `.doclinks`: PRD, Architecture, Survey analysis, Personas, User stories, Work items, Research briefs, Brand manual; brand manual's sits on its cover as `.docnav`). New doc → add link in all 8 (architecture via `.archify/inject-nav.py`).
 
 Regen proposal PDF (Git Bash, Windows):
 ```
@@ -42,10 +43,10 @@ macOS:
 Check pages: `pdftotext "Tezera Proposal.pdf" - | grep -c $'\f'` → 8. No pdftotext (Mac): `python3 -c "import re;print(len(re.findall(rb'/Type\s*/Page(?!s)',open('Tezera Proposal.pdf','rb').read())))"`.
 
 ## Locked decisions (details + dates in HANDOFF.md)
-- Ticketing/QR entry/refunds/payment gateway OUT of ATP release → first phase after ATP. TK-* rows = Later.
-- No in-app payments during ATP; hiring + stall fees paid outside app.
+- Ticketing/QR entry/ticket refunds OUT of ATP release → first phase after ATP. TK-* rows = Later.
+- Payments (15 Oct 2026, PRD v6): SANDBOX ONLY in ATP (PayHere test mode, no real money), Should: HR-14 instalments, HR-17 connect own merchant acct, HR-18 stall fees, HR-19 cancellation fees/refunds, HR-20 receipts + commission shown not charged. Direct to payee's own merchant acct; Tezera NEVER holds/splits funds (else CBSL MVTS registration, LKR 15m capital). PayHere behind provider interface; PayHere notify = 1 Lambda function URL (only non-GraphQL endpoint). No acct → pay outside + HR-15. Real money = after ATP, after legal Qs in PRD s14. Ticket refunds stay Later.
 - Attendee reviews unlock from 'Going' mark made before event start.
-- No 3D venue view (removed 15 Oct 2026, PRD v5; VM-05/06/07 IDs not reused). Interactive 2D map instead: zones as boxes, stall list + items/prices, search by item, find on map = Must (VM-08–12); stage line-up, stall-type filter = Should (VM-13/14); offline mobile = Could (VM-15).
+- No 3D venue view (removed 15 Oct 2026, PRD v5; VM-05/06/07 IDs not reused). Interactive 2D map instead: zones as boxes, stall list + items/prices, search by item, find on map = Must (VM-08–12); stage line-up, stall-type filter = Should (VM-13/14); offline mobile = Could (VM-15). Map builder (15 Oct, PRD v6): web builder + mobile quick edits, snapping, scale, one standard versioned map JSON (0–1 coords, stable IDs) = Must (VM-16–18); PDF, blank grid, saved venue maps = Should (VM-19–21); AI draft via Claude on Bedrock = Could (VM-22). Concept + code from Damian's own repo EnderGuardian25/ai-studio (no LICENSE, reuse allowed).
 - Survey recs R1–R12 all accepted 15 Oct 2026 (PRD v5). Accounts 16+ (proposed), parent/guardian tick under 18; events carry age rating, gate checks ID.
 - Stack (15 Oct 2026, PRD v6; team confirm): serverless on AWS Amplify Gen 2, ap-south-1 (Mumbai). TypeScript monorepo (app + portal + `amplify/` backend); React Native + Expo + Amplify JS libs; Next.js (+ admin panel) on Amplify Hosting; Amplify Data = AppSync GraphQL + subscriptions (no REST/SSE); DynamoDB + GSIs (no PostgreSQL); Lambda via SQS (+DLQ), DynamoDB Streams, EventBridge Scheduler (no Redis/BullMQ); Cognito, group per role, custom SMS sender Lambda → Dialog e-SMS; Amplify Storage S3 + CloudFront (no Cloudinary); Expo Push, Amazon SES, Dialog e-SMS (OTP + urgent alerts). No Pinpoint (EOL 30 Oct 2026). Web portal for all roles incl. consumers. Search = GSIs + prefix, Algolia/Typesense later.
 
