@@ -26,7 +26,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | Organiser map preview (claude.ai artifact, not in the repo) | Navindu, 19 Oct (version 2 on 20 Oct, the MS-08 tag): https://claude.ai/artifact/9VpfRaGRRvXBVWgQXPNPar. The same map as `mindmaps/`, drawn in the MindMeister style (areas on both sides of 'Organiser'). You can open and close topics, search by feature or PRD ID, and copy the outline. Private until shared |
 | Idea deck (claude.ai Slides artifact, not in the repo) | Navindu, 15 Oct. 4 slides for presenting live: https://claude.ai/artifact/U1cyi4CL5HtmdxKz7cbk4m. The problem (one survey figure per group), Tezera (PRD one-liner, four modules), how it works (three lines per group), why it matters (three survey figures, SDG 8). Agreed (Must/Should) features only, so no "(proposed)" items and no placeholders. Built from the 8 Oct docs (PRD v3). Private until shared |
 
-**On `main`:** PRs #2 to #6 are merged (`main` at e55a491). Branch `docs/account-mindmaps` (the mind maps, README, `CLAUDE.md` and this file) is open as a pull request into `main`; Claude pushed it on 21 Oct because Navindu asked. Otherwise Claude does not commit or push (15 Oct decision); the team does all git work, so expect uncommitted changes after a Claude session. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
+**On `main`:** PRs #2 to #6 are merged (`main` at e55a491). Branch `docs/account-mindmaps` (the mind maps, README, `CLAUDE.md` and this file) is open as PR #7 (https://github.com/NDR-debugs/ATP/pull/7) into `main`; Claude pushed it on 21 Oct because Navindu asked. Otherwise Claude does not commit or push (15 Oct decision); the team does all git work, so expect uncommitted changes after a Claude session. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
 
 ## Decisions
 
@@ -124,7 +124,7 @@ Where the work stands, what was decided, and what comes next. **Update this file
 ## Session log
 
 ### 21 October 2026: mind maps pushed for review (Navindu)
-- Navindu asked Claude to push the uncommitted work and open a pull request, an exception to the 'Claude never commits or pushes' rule. New branch `docs/account-mindmaps` off `main` (e55a491), one commit: `mindmaps/` (4 new files), `README.md`, `CLAUDE.md` and this file. The pull request into `main` is on GitHub.
+- Navindu asked Claude to push the uncommitted work and open a pull request, an exception to the 'Claude never commits or pushes' rule. New branch `docs/account-mindmaps` off `main` (e55a491), one commit: `mindmaps/` (4 new files), `README.md`, `CLAUDE.md` and this file. Opened PR #7 into `main` (https://github.com/NDR-debugs/ATP/pull/7).
 - Checked before pushing: `main` had nothing new to pull; the four mind-map files contain no email addresses, links or keys.
 - No document content changed this session, only this file.
 
