@@ -1,0 +1,258 @@
+Organiser
+	Account and settings
+		Sign up
+			Email or phone number
+				Verify with a code
+					Pick role: Organiser
+						16 or older (proposed); under 18 ticks that a parent or guardian agreed
+		Log in
+			Email or phone number and password
+		Forgot password
+			Enter email or phone, get a reset code
+		Settings
+			Language (Should)
+				English, Sinhala or Tamil
+			Light or dark theme (To decide)
+				Brand manual has dark colours; not in the PRD yet
+			Notification settings (Should)
+				Switch each reminder type off
+			Payment account (Should)
+				Connect own PayHere merchant account (sandbox)
+			Blocked users
+			Log out
+	Profile and verification
+		Organiser profile
+			Name, logo, description, contact details
+			Upcoming and past events
+			Rating, rank and tier badge
+				New, Rising or Top Rated
+			Reviews page
+				Average, category averages, every review
+			Followers
+			Track record (Should)
+				Share of bookings paid on time
+				Late cancellations on the record
+			Short link to share
+		Verification
+			Upload documents
+				Business registration (company) or NIC (individual) (proposed)
+			Admin review
+				Pending, approved, or rejected with a reason
+			Verified badge
+				Unlocks stall slots, job posts and booking requests
+	Feed and promotion
+		Create a post
+			Image post or poster
+			Reel (short video)
+			Link the post to an event
+		Only organisers post to the feed
+		Followers see my posts in their feed
+		Like, comment and share
+			Short link with a preview image for WhatsApp and Instagram
+			‘Share to story’ image sized for Instagram stories
+		Post and reel engagement (Should)
+	My events
+		Create an event page
+			Title, category, date and time
+				Concert, exhibition, festival and so on
+			Venue name and address
+			Description and cover image
+			Line-up or schedule
+			Entry price or free
+			Link to where tickets are sold (proposed)
+				Until ticketing arrives
+			Age rating (Should)
+				All ages, 18+ or 21+; ID checked at the gate
+		Know before you go (Should)
+			Dress code, parking and transport, what to bring
+			Rules: age limit, re-entry, banned items
+			Food and drink price range, cover if it rains
+			Empty fields hidden; ‘Going’ consumers told of changes
+		Draft, publish, edit
+		Postpone or cancel
+			‘Going’ and ‘Interested’ consumers notified of date, time or venue changes
+		Live status on the day (Should)
+			On time, running late (new start time), postponed or cancelled
+				Two taps; pushed to ‘Going’ and ‘Interested’
+		Stall vendors on the event page
+			Vendor list with stall numbers (proposed) and ‘Find on map’
+		Event Q&A
+			Answer questions in public
+		Discussion board
+			Made for every published event
+		‘Going’ and ‘Interested’ counts
+		Unpublished by an admin if reported as fake
+			Closes its stall applications and job posts
+	Venue map builder (web portal)
+		Start a map from
+			Floor plan image, PNG or JPG
+			PDF floor plan (Should)
+				First page becomes the background
+			Blank grid (Should)
+				Set size, e.g. 60 m × 40 m
+			Saved venue map (Should)
+				Same grounds every year; stall assignments not copied
+			AI first draft from the floor plan (Could)
+				Opens as an editable draft; nothing published until checked
+		Draw on the map
+			Zones
+				Named boxes, e.g. ‘Food court’, ‘Main stage area’
+			Stalls
+				Assign to a zone; carries the stall number
+			Pins
+				Stages, entrances and exits, toilets, first aid, parking
+				Registration or ticket counter, seating, food and drink, water, custom
+		Builder tools
+			Move, resize, label, delete
+			Snap to grid and alignment guides
+			Number a row of stalls in one step
+			Duplicate and undo
+		Set the scale
+			Mark two points, enter the real distance; stall sizes in metres
+		Link line-up to stages (Should)
+			Tapping a stage shows who performs there and when
+		Stall listings
+			Vendors add items and prices; hide entries that break the event’s rules
+		Publish and versions
+			Consumers always see the latest version
+			Each publish is a new version; restore an earlier one
+		Save as a venue map (Should)
+		Quick edits in the app
+			On the day: move, rename or hide an item
+	Hiring
+		Find providers
+			Filter by category, district, rating, rank, verified
+			Free on my date (Should)
+			Leaderboards by category and district
+		Provider profile
+			Services, prices, districts served, portfolio
+			Reviews, filtered by service and event type (Could)
+			Message or send a booking request
+		Booking request
+			Event, date, times and budget
+			Brief (optional fields)
+				Service, duration, expected audience
+				Deliverables, run-of-show timings, equipment provided
+			Provider replies
+				Accepts: booking confirmed
+				Declines: pick another provider
+				Sends own quote: I accept or decline
+		Job posts
+			Post a job, e.g. ‘2 photographers, 12 Dec, Colombo’
+				Requirements (same brief fields), budget range, quote deadline
+			Compare quotes side by side
+				Accept one or more to create bookings
+		Bookings
+			Agreed service, date, price and terms
+			Payment terms
+				Deposit, each instalment’s amount and due date
+			Cancellation terms
+				What happens if either side cancels
+			Change terms
+				Other side must accept
+			Instalment tracker (Should)
+				Due, received or overdue; due-date reminders
+			Cancel with a reason
+				Within 7 days of the event (proposed), it shows on my profile (Should)
+			Provider cancelled (Should)
+				Reopen as a job post in one step, prefilled
+			Report a problem
+				e.g. a no-show; an admin handles it with the booking history
+			Mark completed after the event
+				Reviews open for both sides
+	Stalls
+		Open stall slots
+			Stall type, fee, application deadline
+				Food, drinks, merchandise and so on
+		Applications
+			Approve or reject
+		Invite a vendor
+			Vendor accepts or declines
+		Give each vendor a stall number
+			Shown on the map and the event page
+		Stall fee
+			Shown in the app; paid outside the app
+			Or paid in the app’s sandbox (Should)
+				Stall marked paid and confirmed
+		Check stall listings
+			Hide items that break the event’s rules
+	Payments, sandbox only (Should)
+		‘Test payment, no real money’ on every screen and receipt
+		Connect a payment account
+			Own PayHere merchant account; stall fees settle straight to it
+			No account: paid outside the app, tracked
+		Pay deposits and instalments
+			Through the provider’s connected account
+			Marks the instalment received; receipt to both sides
+		Cancellation fees and refunds
+			As the booking’s cancellation terms say
+		Payment history and receipts
+			Tezera’s commission shown as a line, not charged
+	Messages and notifications
+		Chat with consumers
+			e.g. about entry or the line-up
+		Chat with vendors and freelancers
+			Photos and files: briefs, quotes
+		Announcements
+			To ‘Going’, ‘Interested’ and followers
+				e.g. ‘Gates open at 5 PM’; in the app and by push
+		Block or report a user
+		Notifications
+			Booking requests, quotes and confirmations
+			Verification decision, new messages
+			Push, in the app and by email
+			Urgent ones also by SMS (proposed)
+				e.g. a booking cancelled
+		Reminders and activity (Should)
+			Each type can be switched off
+	Community
+		Event discussion boards
+			One for every published event
+		Topic and city communities
+			e.g. ‘Colombo Music Scene’, ‘Food Festivals’
+		Threads
+			Text, images and links; nested replies
+			Upvote or downvote; sort by newest or most upvoted
+		Role badge
+			‘Organiser’, plus ‘Verified’ once approved
+	Reviews and rank
+		Review providers
+			After a completed booking or a stall at an ended event
+			Quality, punctuality, communication, value for money
+		Reviews I receive
+			From providers: payment, communication, planning
+			From consumers who marked ‘Going’
+				Organisation, value for money, overall experience
+				Facilities: toilets, queues, food and drink (Could)
+		Review window
+			Opens when a booking completes or the event ends; closes 14 days later (proposed)
+		Reply to a review (Could)
+			One public reply each
+		Rank score and tier badges
+			Orders search results; New, Rising, Top Rated
+		Top organisers leaderboard
+		Report a review
+			An admin hides it if it breaks the rules
+	Dashboard and analytics
+		Interest per event
+			‘Going’ and ‘Interested’ counts, live
+		Hiring and stalls tracker
+			Requests sent, quotes received, confirmed bookings
+			Stall applications and approvals
+		Analytics (Should)
+			Event page views, post and reel engagement
+			Follower growth, ‘Going’ marks over time
+		Ticket sales and check-ins (Later)
+	Ticketing and entry, after the ATP (Later)
+		Ticket tiers
+			Early Bird, General, VIP: LKR price, quantity, sale period
+		Reserved seating
+			Sections, rows and seat numbers, linked to a tier
+		Free RSVP events
+			Optional capacity limit; each RSVP gets a QR ticket
+		Agree to accept Tezera tickets at the gate
+		Scan tickets at the gate
+			Each ticket admitted once; ticket-number lookup
+		Refund policy
+			e.g. no refunds, or refunds until a set date
+		Sales and check-in dashboard
