@@ -1,0 +1,200 @@
+Vendor
+	Account and settings
+		Sign up
+			Email or phone number
+				Verify with a code
+					Pick role: Vendor
+						16 or older (proposed); under 18 ticks that a parent or guardian agreed
+						One role per account: to attend events too, use a second account
+		Log in
+			Email or phone number and password
+		Forgot password
+			Enter email or phone, get a reset code
+		Settings
+			Language (Should)
+				English, Sinhala or Tamil
+			Light or dark theme (To decide)
+				Brand manual has dark colours; not in the PRD yet
+			Notification settings (Should)
+				Switch each reminder type off
+			Payment account (Should)
+				Connect own PayHere merchant account (sandbox)
+			Blocked users
+			Log out
+	Profile and verification
+		Vendor profile
+			Category
+				e.g. F&B stall, media agency, sound and lighting, décor
+			Services and indicative prices in LKR
+			Districts served
+			Rating, rank and tier badge
+				New, Rising or Top Rated
+			Reviews page
+				Average, category averages, every review
+			Late cancellations on the record (Should)
+		Portfolio gallery
+			Photos and videos of past work
+			e.g. event shots or a stall’s menu
+		Availability calendar (Should)
+			Mark dates as booked or unavailable
+			Organisers can filter by free date
+			Confirmed bookings added automatically
+		Verification
+			Upload documents
+				Business registration (proposed)
+			Admin review
+				Pending, approved, or rejected with a reason
+			Verified badge
+				Needed before I can accept bookings
+		Be found by organisers
+			In provider search by category, district, rating, rank, verified
+			Rank score orders the results
+			Leaderboards by category and district
+	Feed and events
+		Browse the feed
+			Posts and reels from organisers
+		Only organisers post to the feed
+		Follow organisers
+			Their posts and new events in my feed
+		Like, comment and share
+			Short link with a preview image for WhatsApp and Instagram
+		Event pages
+			Date, venue, line-up, stall vendor list
+			My stall and stall number listed once confirmed (proposed)
+		Event Q&A
+			Ask the organiser in public
+	Booking requests
+		New request from an organiser
+			Event, date, times and budget
+			Brief (only filled fields shown)
+				Service, duration, expected audience
+				Deliverables, run-of-show timings, equipment provided
+		Check the organiser first
+			Verified badge, past events, reviews from providers
+			Share of bookings paid on time (Should)
+		Payment and cancellation terms shown before I accept
+		Reply
+			Accept: booking confirmed
+			Decline
+			Send my own quote (proposed)
+				Can propose my own payment and cancellation terms
+					Organiser accepts or declines it
+		Chat with the organiser
+	Job posts
+		Browse job posts
+			Matching my category and district
+			Requirements, budget range, quote deadline
+		Apply with a quote and a message
+		Organiser compares quotes
+			Accepted: booking confirmed
+			Not chosen: told when the post closes (proposed)
+	My bookings
+		Booking record
+			Agreed service, date, price and terms
+		Payment terms
+			Deposit, each instalment’s amount and due date
+		Cancellation terms
+			What happens if either side cancels
+		Change terms
+			Other side must accept
+		Instalments (Should)
+			Due, received or overdue
+			I mark an instalment as received
+			Due-date and event reminders
+		Cancel with a reason
+			Within 7 days of the event (proposed), it shows on my profile (Should)
+		Organiser marks it completed after the event
+			Reviews open for both sides
+		Report a problem
+			An admin handles it with the booking history
+		Also on the web portal
+			Vendors manage bookings there too (PRD 6.9)
+	Stalls
+		Browse stall slots
+			Stall type, fee, application deadline
+				Food, drinks, merchandise and so on
+			Vendors only; freelancers cannot apply
+		Apply for a stall
+			Organiser approves or rejects
+		Stall invitations
+			Accept or decline; accepting counts as approval
+		Stall number
+			Shown on the venue map and the event page
+		Stall fee
+			Shown in the app; paid outside the app
+			Or pay in the app’s sandbox (Should)
+				Stall marked paid and confirmed
+		Paid but not given a stall
+			Report it; an admin handles the dispute
+	My stall on the venue map
+		Stall listing
+			Short description
+			Items with prices in LKR for this event
+			Or use the prices on my profile
+			Approved stalls only; the organiser can hide entries that break the event’s rules
+		What consumers see
+			My name and photo, stall number, description
+			Items and prices, link to my profile
+		In its zone’s stall list
+		Found by item search
+			e.g. ‘kottu’ or ‘water’ highlights my stall
+		‘Find on map’ from the event’s vendor list
+		Stall-type filter (Should)
+			Food, drinks, merchandise and so on
+	Payments, sandbox only (Should)
+		‘Test payment, no real money’ on every screen and receipt
+		Connect a payment account
+			Own PayHere merchant account; deposits and instalments settle straight to it
+			No account: paid outside the app, tracked
+		Get paid deposits and instalments
+			Marks the instalment received; receipt to both sides
+		Pay a stall fee
+			Through the organiser’s connected account
+		Cancellation fees and refunds
+			As the booking’s cancellation terms say
+		Payment history and receipts
+			Tezera’s commission shown as a line, not charged
+	Messages and notifications
+		Chat with organisers
+			Photos and files: briefs, quotes
+		Block or report a user
+		Notifications
+			Booking requests, quotes and confirmations
+			Stall decisions, verification decision
+			New messages, event changes
+			Push, in the app and by email
+			Urgent ones also by SMS (proposed)
+				e.g. a booking cancelled, an event cancelled or moved
+		Reminders and activity (Should)
+			Each type can be switched off
+	Community
+		Event discussion boards
+			One for every published event
+		Topic and city communities
+			e.g. ‘Food Festivals’, ‘Colombo Music Scene’
+		Threads
+			Text, images and links; nested replies
+			Upvote or downvote; sort by newest or most upvoted
+		Role badge
+			‘Vendor’, plus ‘Verified’ once approved
+	Reviews and rank
+		Review organisers
+			After a completed booking or a stall at an ended event
+			Payment, communication, planning
+		Reviews I receive
+			From organisers
+				Quality, punctuality, communication, value for money
+			From consumers who marked ‘Going’ to the event my stall was at
+				Quality, value for money, service (proposed)
+		Review window
+			Opens when a booking completes or the event ends; closes 14 days later (proposed)
+		Service and event type on each review (Could)
+			Taken from the booking; reviews can be filtered by them
+		Reply to a review (Could)
+			One public reply each
+		Rank score and tier badges
+			Orders search results; New, Rising, Top Rated
+		Top providers leaderboard
+			By category and district
+		Report a review
+			An admin hides it if it breaks the rules

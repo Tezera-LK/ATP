@@ -17,6 +17,7 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 | [research/tezera-work-items.html](research/tezera-work-items.html) | The backlog as epics, stories and tasks with proposed story points, PRD coverage, and a Jira CSV export ([snapshot](research/tezera-work-items-jira.csv)). Includes the work for the accepted survey changes and the interactive venue map | You are planning sprints or importing into Jira |
 | [research/tezera-research-briefs.html](research/tezera-research-briefs.html) | Desk-research briefs with sources: whether in-app payments to vendors and freelancers are legal in Sri Lanka (Central Bank rules, gateways, tax, PDPA), and what the map builder takes from the team's ai-studio repository | You need the reasoning behind the payments model or the map builder |
 | [brand/tezera-brand-manual.html](brand/tezera-brand-manual.html) | The brand manual: name story, the three account personalities, light and dark palettes for organiser, vendor and attendee, type, icons, the tile system, motion rules, voice and applications | You are designing a screen, a post or a poster |
+| [mindmaps/](mindmaps/) | The [organiser](mindmaps/tezera-organiser-map.mm) and [vendor](mindmaps/tezera-vendor-map.mm) accounts as mind maps: every page, option and feature from PRD v6, with MoSCoW tags and PRD IDs. Import a `.mm` file into MindMeister, or paste its outline `.txt` into MindMeister's Outline mode | You want everything one account type can do on one page |
 | [HANDOFF.md](HANDOFF.md) | Where the work stands, what was decided, and what comes next. Updated after every session | You're picking up the work |
 
 Supporting files:
@@ -114,6 +115,11 @@ The name, ticketing, revenue, discovery and the pilot now match.
 │   └── tezera-proposal.html
 ├── brand/
 │   └── tezera-brand-manual.html
+├── mindmaps/
+│   ├── tezera-organiser-map.mm            (FreeMind file to import into MindMeister)
+│   ├── tezera-organiser-map-outline.txt   (the same map as a tab-indented outline)
+│   ├── tezera-vendor-map.mm
+│   └── tezera-vendor-map-outline.txt
 ├── prd/
 │   ├── tezera-prd.html
 │   └── tezera-architecture.html

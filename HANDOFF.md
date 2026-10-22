@@ -2,7 +2,7 @@
 
 Where the work stands, what was decided, and what comes next. **Update this file at the end of every session or section of work** (see `CLAUDE.md` for the steps).
 
-**Last updated:** 15 October 2026, Claude Code session on Windows (git user Damian De Cruz): sandboxed payments, map builder and the new research briefs page, added to PRD v6
+**Last updated:** 21 October 2026, Claude Code session on Windows (Navindu): mind maps and the 19–20 Oct handoff notes pushed on branch `docs/account-mindmaps` and opened as a pull request. 20 October 2026: vendor account mind map for MindMeister (`mindmaps/`, plus a preview artifact); organiser map 'Notification settings' tagged Should. 19 October 2026: organiser account mind map. Earlier on 19 Oct: pulled PRD v6 from `main` and merged Navindu's 15 Oct slide-deck notes into this file. Before that, 15 October 2026 (Damian De Cruz): sandboxed payments, map builder and the new research briefs page, added to PRD v6
 
 ## Current state
 
@@ -17,9 +17,16 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | `prd/tezera-architecture.html` | 15 Oct second pass: same folder's `candidate.json` edited. New nodes PayHere (sandbox, outside AWS), Payments Lambda (function URL, signature check) and Amazon Bedrock (AI map draft, Could); Lambda node also converts PDF plans; map card rewritten, new 'Sandboxed payments' card, data models and out-of-scope updated. All four gates passed after one placement repair (`review-v6-2/`); crossings 3 (was 1): the two new ones are web portal edges crossing the Payments Lambda → DynamoDB line. Navbar re-injected. Generated from `.archify/architecture-tezera-amplify-20261015-142128/candidate.json` (new folder; the `sse-20261008` folder is now history). Serverless on AWS: Amplify Hosting (Next.js), Amplify Auth (Cognito), Amplify Data (AppSync GraphQL + subscriptions), DynamoDB with Streams, SQS queue, Lambda functions, EventBridge Scheduler, Amplify Storage (S3 + CloudFront), all inside an ap-south-1 region boundary; Expo Push, Amazon SES and Dialog e-SMS outside. Cards rewritten (where it runs, services, stack, map, data models, DynamoDB data design, reviews and trust). Archify `finalize` passed all four gates; one placement round cut crossings from 3 to 1 (the consumer and organiser arrows into the two clients cross, as in the old layout); screenshot checked; navbar re-injected |
 | `brand/tezera-brand-manual.html` | New. Brand manual v1.1, brought in from the team's "TESSERA Brand Manual" and renamed to Tezera. Attendee and vendor palettes swapped (attendee = coral/pink/yellow; vendor = sage/slate, the inverse of the organiser palette), personality words swapped with them, copy edited. Calmed down on 8 Oct: rotated/scattered tile grids, tile hover, attendee jiggle and the motion section's demo frames removed; the three accounts now differ by colour only; section 09 phones animate in on scroll. Linked from every doc's navbar |
 | `Tezera Proposal.pdf` + `proposal/tezera-proposal.html` | 15 Oct second pass. Page 4: test-mode deposits and stall fees; venue maps bullets now describe the builder (dropped: stage pins and 'jump from vendor list' bullets). Page 5: 'paid in test mode', stall fee paid in-app, a 'Payments in test mode' box. Page 8: ATP card adds test-mode payments and the map builder, 'Real-money payments' replaces 'Payments in the app', 'Ticket refunds'. PDF 8 pages. 15 Oct first pass: page 4 modules mention live status, 'know before you go', sharing, structured briefs and the interactive map; page 5 hiring text adds payment and cancellation terms, stall steps use zones and search; page 8 'venue map extras' became 'Google Maps directions to venues'. The proposal never mentioned 3D. PDF regenerated on Windows, 8 pages |
-| `README.md`, `PRD Research.md`, `SDG Alignment.md`, `CLAUDE.md` | 15 Oct second pass. README: research briefs row and tree, roadmap (sandbox payments, map builder, 'real-money payments' later), PRD outline, new 'Payments and the map builder' difference. `PRD Research.md`: v6 payments and map builder notes. SDG notes: 8.10 row, marked 'only once real money goes live'. `CLAUDE.md`: payments and map builder locked decisions, research briefs file row, 8 docs in navbar. `.archify/inject-nav.py`: Research briefs link. Before that: README: PRD v5, 3D references replaced, 'How the proposal and the PRD differ' updated, and the 6 Oct rename now says Eventline → REVAMP (it wrongly said Tezera). `PRD Research.md`: 'Added in PRD version 5' notes. `CLAUDE.md`: locked decisions now say no 3D, interactive map, R1–R12 accepted, minimum age; work-items rule updated. SDG notes needed no change. All 7 HTML docs share the navbar |
+| `mindmaps/tezera-organiser-map.mm` + `mindmaps/tezera-organiser-map-outline.txt` | New (19 Oct, Navindu). The organiser account as a mind map, matching the team's Consumer map in MindMeister: 13 areas, 258 topics, built from PRD v6. Covers every organiser row in the PRD (80 IDs). Should / Could / Later tags are in the labels; PRD IDs are in the `.mm` notes. Ticketing is its own grey 'after the ATP' branch. The `.mm` is a FreeMind file for MindMeister's Import; the `.txt` is the same map as a tab-indented outline, for pasting into Outline mode. 20 Oct: 'Notification settings' (MS-08) now tagged Should; if the map was already imported, change that label in MindMeister by hand |
+| `mindmaps/tezera-vendor-map.mm` + `mindmaps/tezera-vendor-map-outline.txt` | New (20 Oct, Navindu). The vendor account the same way: 12 areas, 200 topics. Covers every vendor, provider and all-roles row in the PRD (53 IDs), checked against US-P01 to P17. Vendor only: freelancers get the same map minus the 'Stalls' and 'My stall on the venue map' areas. Browsing stall slots comes from US-P13 (no PRD row describes that list). Not yet imported into MindMeister |
+| `README.md`, `PRD Research.md`, `SDG Alignment.md`, `CLAUDE.md` | 19 Oct: README Documents row and repository tree list `mindmaps/`; `CLAUDE.md` has a files row for it. 15 Oct second pass. README: research briefs row and tree, roadmap (sandbox payments, map builder, 'real-money payments' later), PRD outline, new 'Payments and the map builder' difference. `PRD Research.md`: v6 payments and map builder notes. SDG notes: 8.10 row, marked 'only once real money goes live'. `CLAUDE.md`: payments and map builder locked decisions, research briefs file row, 8 docs in navbar. `.archify/inject-nav.py`: Research briefs link. Before that: README: PRD v5, 3D references replaced, 'How the proposal and the PRD differ' updated, and the 6 Oct rename now says Eventline → REVAMP (it wrongly said Tezera). `PRD Research.md`: 'Added in PRD version 5' notes. `CLAUDE.md`: locked decisions now say no 3D, interactive map, R1–R12 accepted, minimum age; work-items rule updated. SDG notes needed no change. All 7 HTML docs share the navbar |
 
-**On `main`:** PRs #2, #3 and #4 are merged. Claude does not commit or push (15 Oct decision); the team does all git work, so expect uncommitted changes after a Claude session. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
+| Slide deck (claude.ai Slides artifact, not in the repo) | Navindu, 15 Oct. 16 slides for a talk of about 10 minutes: https://claude.ai/artifact/5ybfWmMAn29vMy1i2BP54V. Event pieces, three groups, their words, team stories, how the problems connect, platform matrix, gap, reveal, how it connects, organiser / provider / consumer walkthroughs on concept phone screens, tech stack, SDG. Brand manual fonts, palettes and tiles; no footnotes or caption labels. Has placeholders to fill (below). Built from the 8 Oct docs (PRD v3), before PRD v5 and v6. Private until shared from its Share menu |
+| Vendor map preview (claude.ai artifact, not in the repo) | Navindu, 20 Oct: https://claude.ai/artifact/PosoPp9LJxj8MsihgrnnTk. Same page as the organiser preview, in the vendor palette (sage centre, warm neutrals). Private until shared |
+| Organiser map preview (claude.ai artifact, not in the repo) | Navindu, 19 Oct (version 2 on 20 Oct, the MS-08 tag): https://claude.ai/artifact/9VpfRaGRRvXBVWgQXPNPar. The same map as `mindmaps/`, drawn in the MindMeister style (areas on both sides of 'Organiser'). You can open and close topics, search by feature or PRD ID, and copy the outline. Private until shared |
+| Idea deck (claude.ai Slides artifact, not in the repo) | Navindu, 15 Oct. 4 slides for presenting live: https://claude.ai/artifact/U1cyi4CL5HtmdxKz7cbk4m. The problem (one survey figure per group), Tezera (PRD one-liner, four modules), how it works (three lines per group), why it matters (three survey figures, SDG 8). Agreed (Must/Should) features only, so no "(proposed)" items and no placeholders. Built from the 8 Oct docs (PRD v3). Private until shared |
+
+**On `main`:** PRs #2 to #6 are merged (`main` at e55a491). Branch `docs/account-mindmaps` (the mind maps, README, `CLAUDE.md` and this file) is open as PR #7 (https://github.com/NDR-debugs/ATP/pull/7) into `main`; Claude pushed it on 21 Oct because Navindu asked. Otherwise Claude does not commit or push (15 Oct decision); the team does all git work, so expect uncommitted changes after a Claude session. The raw survey CSVs are not in the repo because they contain respondents' email addresses.
 
 ## Decisions
 
@@ -34,6 +41,8 @@ Where the work stands, what was decided, and what comes next. **Update this file
 | 15 Oct 2026 | Personas split by survey segment (8, with a primary per role); work items as Epic › Story › Task covering the user stories, PRD gaps and setup work; story points (Fibonacci, proposed) without sprints; work that depends on R1–R12 left out of the backlog until the group decides; HTML in `research/` plus a Jira CSV | Damian (this session) |
 | 15 Oct 2026 | Claude never commits or pushes (no commits, pushes, branches or PRs); the team handles all git. Rule is in `CLAUDE.md` | Damian |
 | 13 Oct 2026 | Data design in PRD section 8: PostgreSQL stays the only database (rank score column, materialized-view leaderboards, feed built on read with keyset pagination, text search + `pg_trgm`); Prisma for schema, raw SQL for ranking queries; Redis sorted sets for leaderboards and trending, Redis counters for likes and views; DBeaver for inspection only, never schema changes | User asked for it in the PRD; the design is Claude's recommendation |
+| 15 Oct 2026 | Stack: Next.js web front end, NestJS back end, Flutter mobile app, hosted on AWS. Replaces the recommended React Native + Expo app and free-tier hosting (Vercel, Neon, Upstash). **Conflicts with the Amplify stack row above** (see 'Needs the group's review') | Navindu (the team's stack, in the slide-deck session) |
+| 15 Oct 2026 | Slide deck: about 10 minutes, ends on SDG alignment (no team slide); walkthroughs show Must and Should features plus R1–R12 marked "(proposed)", not Could items or ticketing; concept phone screens | Navindu (slide-deck session) |
 | 8 Oct 2026 | Product name: **Tezera**. Written "tezera" as a wordmark (logo, h1, diagram title), "Tezera" in prose. No acronym, no tagline | User (this session) |
 | 8 Oct 2026 | Brand manual is informational: no scattered/rotated tiles, no tile hover, no idle motion. Cover load-in, corner tile clusters and cover blobs stay. The three accounts differ by palette only. Phones in section 09 animate in on scroll (pieces drift up and settle, once) | User (this session) |
 | 8 Oct 2026 | Brand: attendee takes the old vendor palette (light and dark, unchanged); vendor takes #050316 / #e9e7e2 / #70a992 / #658095 / #b6c3a7, the organiser palette inverted on purpose; the personality words move with the colours (vendor fresh and loose, attendee energetic and moving) | User (this session) |
@@ -48,6 +57,8 @@ Where the work stands, what was decided, and what comes next. **Update this file
 
 ## Needs the group's review
 
+- **Stack conflict (found 19 Oct):** two 15 Oct stack decisions disagree. Navindu's slide-deck session recorded the team's stack as Next.js, NestJS and Flutter on AWS, and the slide deck's tech stack slide shows it. Damian's PRD v6 (section 8, architecture diagram, work items, `CLAUDE.md` locked decisions) has serverless AWS Amplify Gen 2 with no NestJS (AppSync GraphQL + Lambda) and React Native + Expo. The PRD wins until the group decides. Pick one, then change either the deck's tech stack slide or the PRD, diagram, work items and `CLAUDE.md`.
+- **Slide decks vs PRD v6 (found 19 Oct):** both decks were built from the 8 Oct docs. Since then all of R1–R12 were accepted (so the walkthroughs' "(proposed)" labels on R-items can go), the 3D view was dropped, and sandboxed payments and the map builder were added. Check the decks still match.
 - **Payments and map builder (15 Oct, PRD v6 second pass):** these are Damian's decisions, and the group should confirm them.
   - Priorities to check: sandboxed payments as Should; VM-16 to VM-18 as Must.
   - Proposed and unchecked: the commission rate, the map JSON fields, and the example values in the new stories (LKR 25,000, 60 m × 40 m).
@@ -61,7 +72,18 @@ Where the work stands, what was decided, and what comes next. **Update this file
   - US-A03 (Must) now holds a Should part (the admin payment view, HR-20).
   - The architecture diagram has 3 route crossings, up from 1.
   - Proposal page 4 dropped two map bullets to fit: stage pins, and 'jump from the vendor list'.
-
+- **Organiser mind map (19 Oct):** check the structure against the team's Consumer map. Claude chose these without asking:
+  - 13 areas;
+  - Must items untagged;
+  - ticketing kept as a grey 'after the ATP' branch;
+  - 'Forgot password' and 'Log out' added although they are not PRD rows;
+  - 'Light or dark theme' tagged 'To decide' (not in the PRD; the Consumer map asks the same question).
+  The Consumer map is only in MindMeister, so the repo has no copy of it.
+- **Vendor mind map (20 Oct):** the same defaults as the organiser map, and also:
+  - vendor only, no freelancer map yet;
+  - two leaves are marked (proposed) because they come from Given / When / Then details, not PRD rows: 'Not chosen: told when the post closes' (from US-O06) and the vendor's stall shown on the event page (EV-01);
+  - 'Also on the web portal' comes from the PRD 6.9 intro, not a requirement row.
+- **Slide deck placeholders (15 Oct):** fill the team's own stories (slide 4), and the LKR prices, budget ranges and dates in the concept screens (slides 11 and 12). The brand manual says "three kinds of people, three accounts", but the PRD has four account types plus admins (PRD wins); the deck says "three groups" and avoids the account count.
 - **Given / When / Then scenarios (8 Oct):** written from the old acceptance criteria. A few add small details the criteria did not state: a file over the size limit is rejected with a message (US-P02), admin decisions are logged with name and time (US-A01), a declined quote notifies the provider (US-P06), applications close at the deadline (US-P08), and unchosen providers are told when the job post closes (US-O06). Check these, and the example values (dates, districts, band name), are acceptable.
 - **PRD v5 decisions (15 Oct):** made by Damian in this session; the rest of the group should confirm them, especially: the interactive map as all Must (US-C18 is 29 pts and may need splitting), the 7-day late-cancellation window, the public on-time payment share, and the minimum age of 16. Whether the PDPA needs a parent's consent for 16- and 17-year-olds, and in what form, was not checked.
 - **Proposal page 8 vs the PRD:** page 8 lists 'Attendee reviews of events' as after the ATP, but the PRD has them in the ATP (unlocked by 'Going'; RV-10 adds a facilities rating). This predates today; the proposal agent flagged it and nothing was changed.
@@ -76,17 +98,21 @@ Where the work stands, what was decided, and what comes next. **Update this file
 
 ## Next steps
 
-1. Group confirms the PRD v5 decisions (survey changes, interactive map, minimum age), the v6 payments and map builder decisions, and the open questions left in section 14 (Google Maps directions, sponsors, commission rate).
-2. Sign up for a PayHere sandbox account and try its checkout and notify flow (spike in EN-18). Ask PayHere whether a platform may open checkouts on its users' own merchant accounts. Turn on Bedrock model access and check Claude in ap-south-1.
-3. Review the personas and the work items; re-estimate (consider splitting US-C18), then import `research/tezera-work-items-jira.csv` into Jira (needs Jira admin) and plan the first sprint around EP-00 and the first thin slice (publish and find an event).
-4. Write Given / When / Then scenarios for the 17 PG- stories and add them to the user stories doc.
-5. Follow-up research (survey analysis section 9): interview 2–3 organisers, test R1–R4 with providers (mock booking request with brief and terms), test the interactive map with attendees, reach beyond Colombo and students.
-6. Check the PDPA on consent for under-18s; fix proposal page 8's 'Attendee reviews of events' line if the group agrees.
-7. Confirm the Amplify stack and the DynamoDB data design against the team's skills (PRD section 8); open an AWS account with per-person logins and a Budgets alert; apply for a Dialog Enterprise account and SES production access early.
+1. Settle the stack conflict (Amplify + React Native + Expo in PRD v6, or Next.js + NestJS + Flutter from the slide deck), then bring the losing side's docs or slides in line.
+2. Update the slide decks to PRD v6 (see 'Needs the group's review'), fill the placeholders, share from the Share menu, and rehearse against the 10-minute slot.
+3. Group confirms the PRD v5 decisions (survey changes, interactive map, minimum age), the v6 payments and map builder decisions, and the open questions left in section 14 (Google Maps directions, sponsors, commission rate).
+4. Sign up for a PayHere sandbox account and try its checkout and notify flow (spike in EN-18). Ask PayHere whether a platform may open checkouts on its users' own merchant accounts. Turn on Bedrock model access and check Claude in ap-south-1.
+5. Review the personas and the work items; re-estimate (consider splitting US-C18), then import `research/tezera-work-items-jira.csv` into Jira (needs Jira admin) and plan the first sprint around EP-00 and the first thin slice (publish and find an event).
+6. Write Given / When / Then scenarios for the 17 PG- stories and add them to the user stories doc.
+7. Follow-up research (survey analysis section 9): interview 2–3 organisers, test R1–R4 with providers (mock booking request with brief and terms), test the interactive map with attendees, reach beyond Colombo and students.
+8. Check the PDPA on consent for under-18s; fix proposal page 8's 'Attendee reviews of events' line if the group agrees.
+9. Confirm the chosen stack and its data design against the team's skills (PRD section 8); open an AWS account with per-person logins and a Budgets alert; apply for a Dialog Enterprise account and SES production access early.
+10. Import `mindmaps/tezera-organiser-map.mm` and `mindmaps/tezera-vendor-map.mm` into MindMeister (Create › Import, or drag onto the dashboard) next to the Consumer map, and check they came through. If import is blocked on the free plan, paste the outline `.txt` into Outline mode instead. A freelancer map (and an admin map) can be made the same way if the team wants them.
 
 ## Gotchas
 
-- In Git Bash on the Windows machine, `python3` opens the Microsoft Store stub. Use `"/c/Users/DDC IIT/AppData/Local/Python/bin/python3.14"`.
+- In Git Bash on the Windows machine, `python3` opens the Microsoft Store stub. Use `"/c/Users/DDC IIT/AppData/Local/Python/bin/python3.14"`. On Navindu's Windows machine (user `l13`, repo on `D:`) there is no Python at all, but Node and PowerShell work.
+- The `mindmaps/` files are a snapshot of PRD v6. The script that built them (one outline per role, `node build.js <repo> <role>`) stayed in the session scratchpad. Once the map is imported, edit it in MindMeister; if organiser rows change in the PRD, change the map there too.
 - Scripts that count work items must strip HTML comments first: the page's header comment contains a sample task row and epic section.
 - `prd/tezera-architecture.html` is generated. Edit `.archify/architecture-tezera-amplify-20261015-142128/candidate.json` and rebuild with archify `finalize` (see `CLAUDE.md`). Older `.archify` folders are history.
 - The proposal PDF is generated from its HTML with headless Chrome (Windows and macOS commands in `CLAUDE.md`).
@@ -96,6 +122,40 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - The research docs were generated once from the CSVs by a script that was not kept; edit the HTML by hand. Each chart bar is `<li style="--v:COUNT">` inside `<ol class="bars" style="--n:TOTAL">`.
 
 ## Session log
+
+### 21 October 2026: mind maps pushed for review (Navindu)
+- Navindu asked Claude to push the uncommitted work and open a pull request, an exception to the 'Claude never commits or pushes' rule. New branch `docs/account-mindmaps` off `main` (e55a491), one commit: `mindmaps/` (4 new files), `README.md`, `CLAUDE.md` and this file. Opened PR #7 into `main` (https://github.com/NDR-debugs/ATP/pull/7).
+- Checked before pushing: `main` had nothing new to pull; the four mind-map files contain no email addresses, links or keys.
+- No document content changed this session, only this file.
+
+### 20 October 2026: vendor account mind map (Navindu)
+- Navindu asked for a vendor mind map like the organiser one. New `mindmaps/tezera-vendor-map.mm` and `mindmaps/tezera-vendor-map-outline.txt`, written from PRD v6 sections 3, 6 and 6.9 and the provider stories US-P01 to P17. Preview artifact: https://claude.ai/artifact/PosoPp9LJxj8MsihgrnnTk.
+- Found and fixed in the organiser map: 'Notification settings' (MS-08) was missing its Should tag. Rebuilt both organiser files (diff checked: only that topic changed) and republished the organiser preview at the same link.
+- The build script now takes the role and uses that role's brand palette. Also edited: `README.md` (Documents row covers both maps, repository tree), `CLAUDE.md` (mindmaps row), this file.
+- Defaults Claude chose without asking: vendor only, not freelancers. The other defaults are under 'Needs the group's review'.
+- Checked:
+  - the vendor `.mm` parses as XML (200 topics, 74 notes, 6 areas on each side);
+  - every vendor-facing PRD row appears;
+  - one headless Chrome screenshot of the vendor preview in light theme at 1440 px.
+- Not verified: the MindMeister import of either file; the previews at phone width.
+
+### 19 October 2026: organiser account mind map (Navindu)
+- Navindu asked for a MindMeister-style map of every organiser page, option and feature, modelled on the team's Consumer map screenshot. Claude has no MindMeister access, so it made files to import instead.
+- New `mindmaps/tezera-organiser-map.mm` (FreeMind; MindMeister's help lists FreeMind as an import format) and `mindmaps/tezera-organiser-map-outline.txt`. Both are generated from one outline written from PRD v6 sections 3 and 6, with the organiser user stories US-O01 to O19 checked against it. Preview artifact: https://claude.ai/artifact/9VpfRaGRRvXBVWgQXPNPar.
+- Also edited: `README.md` (Documents row, repository tree), `CLAUDE.md` (files row), this file.
+- Defaults Claude chose without asking are listed under 'Needs the group's review'.
+- Checked:
+  - the `.mm` parses as XML (258 topics, 104 notes, 13 areas with left and right positions);
+  - every organiser PRD row appears;
+  - one headless Chrome screenshot of the preview (dark theme, 1440 px), after which the sides were rebalanced and the bottom margin fixed.
+- Not verified: the import into MindMeister itself; whether import works on the free plan; the preview in light theme and at phone width.
+
+### 19 October 2026: pulled `main`, merged the handoff
+- Pulled 9 commits from `origin/main` (fast-forward d5e1a93 → e55a491: PRs #4 to #6, so PRD v5 and v6, personas, work items, research briefs and the Amplify architecture). The default fetch kept dropping (connection reset); `git -c http.version=HTTP/1.1 fetch` worked.
+- `HANDOFF.md` conflicted with Navindu's uncommitted 15 Oct slide-deck notes. Kept both sides: the deck rows in current state, two decision rows, review items, next steps and the three deck log entries. Dropped the deck session's stale rows for the PRD v3-era docs and its next steps already done upstream (R1–R12 decided). Folded the four oldest 8 Oct log entries into 'Earlier'.
+- Found: the stack conflict and the decks' PRD v3 basis (both under 'Needs the group's review').
+- Nothing committed. The stash `local HANDOFF 15 Oct slide deck notes` is kept as a backup (`git stash drop` once happy).
+- Not verified: the decks themselves (not opened this session).
 
 ### 15 October 2026: sandboxed payments, map builder, research briefs (PRD v6, second pass)
 - Damian asked for a sandboxed gateway so organisers can pay vendors, with ticketing left out, plus a research agent on legality and a map builder based on his ai-studio repo. Two research agents ran first (Sri Lankan payments law and gateways; the ai-studio repo). Then two rounds of questions settled the payment model, gateway, scope, priority, map start options, AI service and where the builder runs. The decisions are in the table above.
@@ -136,50 +196,17 @@ Where the work stands, what was decided, and what comes next. **Update this file
 - `HANDOFF.md`: decision row added; current state now says PRs #2–#4 are merged into `main`; stale "merge PR #2/#3" next step replaced with the React Native vs Flutter question raised by commit 711ba65.
 - Decision by Damian. Nothing committed. (The Flutter question was checked later the same day: nothing in the diagram changed to Flutter.)
 
-### 13 October 2026: data design in PRD section 8
-- Answered which database to use for the rank score and the promotion feed: PostgreSQL (already chosen); DBeaver is a client, not a database.
-- `prd/tezera-prd.html` (v4): byline and new "What changed in version 4" box; section 8 Database row (Prisma for schema, raw SQL for ranking queries, why not MongoDB, Neon branches, Drizzle as alternative) and Background jobs row (now "and cache": Redis sorted sets, counters, Redis is cache only) rewritten; new Database tools row (DBeaver, Prisma Studio, dbdiagram.io); new "Ranking, the feed and search" and "Upgrade paths" subsections; section 14 rank-weights question now includes the trending weights. All tagged v4.
-- Decision: user asked for these points in section 8; the design is Claude's recommendation for the group to confirm.
-- Checked section 8 with a headless Chrome screenshot. Not verified: Upstash and Neon free-tier limits (worded without numbers); trending formula weights are a starting point (proposed). Proposal does not cover the database, so no README difference to record.
-- Architecture diagram: edited `.archify/architecture-tezera-sse-20261008-132233/candidate.json` (Redis and PostgreSQL sublabels, `api-redis` and `worker-db` labels, Reviews and ranking item in API modules, new data design card; no positions moved). Archify `finalize` passed all gates (evidence in `review-v4/`); copied to `prd/tezera-architecture.html` and re-ran `inject-nav.py`. Screenshot checked. The 2 route crossings flagged by finalize are the same as in the 8 Oct layout.
-
-### 8 October 2026: brand manual calmed down
-- `brand/tezera-brand-manual.html`: removed every rotated or scattered tile grid (section 03 vendor and attendee swatches now use the same ordered grid as the organiser; section 07 Layer, Crop and Scattered samples; the attendee phone's hero; one social post, replaced by a "Find the fit." tile; the poster's corner grid). Straightened the type section's corner cluster.
-- Removed the attendee grid's idle bob, the hover-to-settle on tile grids, the "Hover any scattered grid" line, the motion storyboard and the live loop frame, plus their CSS and JS. Navbar link hover kept.
-- Section 03 copy and tags now say the accounts differ by palette only (Calm/Dependable, Fresh/Collaborative, Warm/Social). Section 08 motion copy drops "rotate" and points to the phones.
-- New: section 09 phones animate in when 35% visible. Each piece drifts up 14 px and fades in (700 ms ease-in-out, 150 ms apart), the organiser progress bar fills to 68%, and it plays once. Skipped with reduced motion; without JavaScript the screens show complete.
-- Decisions (user): the four points in the Decisions table row for this date; kept corner clusters, cover blobs and cover load-in.
-- Checked with headless Chrome: section 03, colour, type, icons, tile system, motion, phones (hidden before scroll and settled after), social and applications. Not verified: the scroll animation's feel in a real browser, and phone width.
-
-### 8 October 2026: brand manual
-- New `brand/tezera-brand-manual.html` from the team's "TESSERA Brand Manual" (Downloads). Renamed to Tezera (wordmark "tezera", email hello@tezera.lk), version 1.1, cover subtitle tagline dropped.
-- Colours: attendee takes the old vendor palette; vendor takes the user's new values (organiser inverted, per the user); vendor dark derived (proposed). Hardcoded colours on the cover blobs, the section 09 number, the social tile and the Do box follow the swap. Personality cards, tags and the three-experiences sentence swapped to match.
-- Animations: hover-to-settle was blocked on the corner grids by full-width headings (now shrink-wrapped) and fired on touch taps (now gated to mouse); added reduced-motion handling for the tiles; the motion section's four frames all animated together, so its labels were wrong half the time. They are now a still storyboard beside a live frame that runs the stated 900 ms ease-in-out per tile, one tile after another. Offsets are now percentages so frames scale.
-- Additions: cover tiles fade in as a diagonal wave on load; the attendee grid idles with a 2 px bob ("never quite sits still"); scattered tiles settle in a staggered order and spring back faster than they settle.
-- Copy edited with `/no-ai-slop` (essence, name, the quote line, three-experiences sentence, vague Do items). "Ticket sales" sample became "People going" because ticketing is out of the ATP.
-- Removed the logo box's "Final approved logo…" sentence (user).
-- Added a Brand manual link to the navbar of the PRD, both research docs and (via `.archify/inject-nav.py`) the architecture page. README and CLAUDE.md updated.
-- Checked with headless Chrome: screenshots of cover, essence, three experiences, colour and motion; a hover-reach probe (all scattered grids reachable) and keyframe sampling of the live frame. Not verified: true 390 px phone width (headless Chrome stops at 504 px; no overflow there), and hover feel in a real browser.
-
-### 8 October 2026: Given / When / Then stories, shared navbar
-- `research/tezera-user-stories.html` (v2): replaced each story's "As a… I want… so that…" line and acceptance-criteria checklist with named Given / When / Then scenarios (stacked lines, new `.gwt` styles); updated the intro and "How to read a story". "(proposed)" markers kept.
-- Added the shared navbar (wordmark + PRD, Architecture, Survey analysis, User stories) to `prd/tezera-prd.html` (hidden in print), and an Architecture link to both research docs.
-- New `.archify/inject-nav.py` adds the same navbar to the generated `prd/tezera-architecture.html` (idempotent; hidden in embed, present and print modes). `CLAUDE.md` and `README.md` updated.
-- Decisions (user, via Damian): drop the story sentence, stacked Given/When/Then layout, link + inject nav into the architecture page.
-- Committed on `docs/gwt-stories-navbar` and opened PR #3 (https://github.com/NDR-debugs/ATP/pull/3).
-- Checked by headless Chrome screenshots at desktop, tablet and phone widths. Not verified: the architecture page already scrolled sideways on phones before this change; the navbar pills follow that.
-
-### 8 October 2026: rename to Tezera, survey analysis, user stories
-- Renamed REVAMP to Tezera across the repo: `git mv` of the PRD, architecture, proposal HTML and PDF; acronym and tagline removed everywhere; PRD bumped to v3 with a change log and settled name question.
-- Regenerated `Tezera Proposal.pdf` on macOS (8 pages, cover screenshot checked).
-- Wrote `research/tezera-survey-analysis.html` from the three Google Forms CSVs (charts as static HTML, light and dark themes, palette checked with the dataviz validator) and `research/tezera-user-stories.html`.
-- Edited both research docs for clarity with `/no-ai-slop`; fixed one overstated claim ("several" attendees caught by fake sellers was really one).
-- Decisions (user): name casing, no tagline, whole-repo rename, survey-led stories.
-- Regenerated the architecture diagram from the renamed `candidate.json` with archify `finalize` (all gates passed) and checked a screenshot.
-- Stack change (user): SSE instead of WebSockets, Dialog e-SMS (OTP + urgent alerts) instead of Notify.lk, consumers on the web portal, web portal linked to the Cloudinary CDN. Redrew the diagram in a new archify folder with platform reasons and alternatives as cards under the legend; one placement repair cut route crossings from 4 to 2. Updated PRD (section 7 Platforms, MS-07, section 8, SMS dependency; v3 tags and change log) and `CLAUDE.md`.
-- Committed on `docs/tezera-research-stack` and opened PR #2.
-- Not verified: free-tier limits and platform claims in the diagram cards are from general knowledge, not checked online; Dialog e-SMS was checked only through its product page and community API clients.
-- Not verified: free-text theme counts are hand-coded; Google Fonts load only online.
+### 15 October 2026: 4-slide idea deck (Navindu)
+- New separate deck (https://claude.ai/artifact/U1cyi4CL5HtmdxKz7cbk4m): the problem, Tezera, how it works, why it matters. Lineup and "presented live" chosen by the user.
+- Figures from the survey analysis (7 of 7, 9 of 13, 17 of 26, 18 of 20, 24 of 26, 1 of 7); SDG 8 wording from the proposal; closing line on the how-it-works slide is the proposal's cover sentence.
+- Not verified: slides not rendered or checked by screenshot.
 
 ### Earlier
+- **15 October 2026 (deck revision, tech stack, Navindu):** tech stack slide added before the SDG slide (Next.js, NestJS on AWS, Flutter); footnotes, caption labels, all-caps labels, decorative tiles and "(proposed)" in the phone mockups removed; titles made plainer; slides not checked by screenshot.
+- **15 October 2026 (slide deck, Navindu):** 15-slide Tezera deck as a claude.ai Slides artifact (https://claude.ai/artifact/5ybfWmMAn29vMy1i2BP54V) from the user's outline; figures from the survey analysis, matrix from PRD section 5, example data from the docs, prices and dates as placeholders; slides not checked by screenshot.
+- **13 October 2026 (data design, PRD v4):** section 8 data design on PostgreSQL (rank score, materialized-view leaderboards, keyset feed, pg_trgm search, Prisma + raw SQL, Redis sorted sets and counters, DBeaver for inspection only), since replaced by DynamoDB in v6; architecture candidate.json updated and finalize passed.
+- **8 October 2026 (brand manual calmed down):** removed rotated and scattered tile grids, tile hover, idle motion and the motion storyboard; the accounts differ by palette only; section 09 phones animate in on scroll, once.
+- **8 October 2026 (brand manual):** new `brand/tezera-brand-manual.html` from the team's TESSERA manual, renamed to Tezera, attendee and vendor palettes swapped (vendor dark proposed), animations fixed, copy edited; linked from every navbar.
+- **8 October 2026 (Given / When / Then, navbar):** user stories v2 with Given / When / Then scenarios; shared navbar on all docs, `.archify/inject-nav.py` for the architecture page; PR #3.
+- **8 October 2026 (rename, survey analysis, user stories):** REVAMP renamed to Tezera across the repo (PRD v3, proposal PDF on macOS); survey analysis and user stories written from the three survey CSVs; stack moved to SSE, Dialog e-SMS and consumers on the web portal, diagram redrawn; PR #2.
 - **6 October 2026:** architecture diagram (Archify; NestJS + PostgreSQL stack, since replaced), PRD v2 rewritten from the PDF (ticketing to Later, 3D view, section 8 added), rename to REVAMP, `CLAUDE.md` and this file created; pushed to `docs/revamp-prd-v2`.
