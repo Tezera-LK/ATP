@@ -1,5 +1,5 @@
 ﻿Issue ID,Issue Type,Summary,Epic Name,Parent,Priority,Story Points,Labels,Labels,Labels,Description
-1,Epic,[EP-00] Foundations,Foundations,,High,,,,,"Monorepo, Amplify environments, data schema, auth, app shells, design system, media, notifications, live updates, background jobs and search: the plumbing every feature needs."
+1,Epic,[EP-00] Foundations,Foundations,,High,,,,,"Monorepo, AWS environments, data schema, auth, app shells, design system, media, notifications, live updates, background jobs and search: the plumbing every feature needs."
 2,Epic,"[EP-01] Accounts, profiles and verification","Accounts, profiles and verification",,High,,,,,"Sign-up with one role, profiles for each role, privacy, block and report, provider portfolios."
 3,Epic,[EP-02] Events and discovery,Events and discovery,,High,,,,,"Organisers create and publish events; consumers search, follow, mark Going and hear about changes."
 4,Epic,[EP-03] Promotion feed and sharing,Promotion feed and sharing,,High,,,,,"Organiser posts and reels, the feed, likes and comments, and sharing out to WhatsApp and Instagram."
@@ -14,25 +14,25 @@
 13,Epic,"[EP-12] Quality, privacy and release","Quality, privacy and release",,High,,,,,"Languages, PDPA, accessibility, performance, security, usability testing and pilot readiness."
 14,Epic,[EP-13] Ticketing (after the ATP),Ticketing (after the ATP),,Lowest,,,,,Kept so the backlog is complete. No tasks until the ticketing phase is planned.
 15,Epic,[EP-14] Sandbox payments,Sandbox payments,,Medium,,,,,"Payments on the PayHere sandbox, straight to each payee's own account: deposits and instalments, stall fees, cancellation fees and refunds, receipts with the commission line. No real money moves in the ATP."
-16,Story,[EN-01] Monorepo and tooling,,1,High,12,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-01
+16,Story,[EN-01] Monorepo and tooling,,1,High,11,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-01
 PRD: Section 8
-Done when: One repository builds the app, the portal, the Amplify backend and the shared packages | CI runs lint, type-check and tests on every pull request"
-17,Story,[EN-02] Environments and deployment,,1,High,13,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-02
+Done when: One repository builds the Flutter app, the portal, the NestJS API, the Amplify auth code, the CDK stacks and the shared packages | CI runs lint, type-check and tests on every pull request"
+17,Story,[EN-02] Environments and deployment,,1,High,19,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-02
 PRD: Section 8
 Depends on: EN-01
-Done when: main and dev each deploy their own Amplify backend; the portal runs on Amplify Hosting | Every pull request gets a portal preview with its own backend; each developer has a personal cloud sandbox | Each team member has their own AWS login, and an AWS Budgets alert is set (proposed)"
-18,Story,[EN-03] Data schema and access patterns,,1,High,14,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-03
+Done when: dev and main each have their own API stage (NestJS on Lambda behind the API Gateway HTTP API, in CDK), Cognito pool and database; the portal runs on Amplify Hosting | Every pull request gets a portal preview; each developer runs PostgreSQL and the API locally, with their own Cognito sandbox | Each team member has their own AWS login with MFA, and an AWS Budgets alert is set (proposed)"
+18,Story,[EN-03] Data schema and access patterns,,1,High,17,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-03
 PRD: Section 8
 Depends on: EN-02
-Done when: The Amplify Data schema owns every table and index; nothing is changed by hand in the AWS console | Every list the app shows has its access pattern written down, with keys and GSIs modelled in NoSQL Workbench | A seed script loads demo organisers, providers, consumers and events"
-19,Story,[EN-04] Authentication and role-based access,,1,High,13,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-04
+Done when: Prisma migrations own every PostgreSQL table and the CDK code owns every DynamoDB table; nothing is changed by hand | Every table is in the data design document with its owner, its database and its PRD IDs; DynamoDB keys are designed from their reads first | The dev stage has a shared PostgreSQL database behind a connection pooler | A seed script loads demo organisers, providers, consumers and events"
+19,Story,[EN-04] Authentication and role-based access,,1,High,16,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-04
 PRD: Section 8, Section 7
 Depends on: EN-03
-Done when: Amazon Cognito sign-in with one user group per role; each account is in exactly one group | Every model and custom operation checks the caller's group through auth rules"
+Done when: Amazon Cognito sign-in with one user group per role; each account is in exactly one group | Every API route checks the Cognito access token and the caller's group (AuthGuard, RolesGuard); a users row links each Cognito user by its sub"
 20,Story,[EN-05] Mobile app shell,,1,High,11,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-05
 PRD: Section 8
 Depends on: EN-04
-Done when: One Expo app with role-based navigation for all four roles | Shared loading, error and empty states; deep links open the right screen"
+Done when: One Flutter app with role-based navigation for all four roles | Shared loading, error and empty states; deep links open the right screen"
 21,Story,[EN-06] Web portal shell,,1,High,10,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-06
 PRD: Section 8
 Depends on: EN-04
@@ -44,15 +44,15 @@ Done when: Design tokens from the brand manual, with the three role palettes | A
 23,Story,[EN-08] Media uploads,,1,High,15,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-08
 PRD: Section 8, Section 7
 Depends on: EN-04
-Done when: Uploads go to Amplify Storage (S3) with size and length limits per type (limits proposed); media is served through CloudFront | Verification documents sit in a private path that only the admin group can read, through short-lived signed links | Images are resized by a Lambda function on upload (proposed)"
-24,Story,[EN-09] Notification service,,1,High,19,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-09
+Done when: Uploads go straight to Amazon S3 through presigned URLs from the API, with size and length limits per type (limits proposed); media is served through CloudFront | Verification documents sit in a private path that only the admin group can read, through short-lived signed links | Images are resized by a Lambda function on upload (proposed)"
+24,Story,[EN-09] Notification service,,1,High,21,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-09
 PRD: MS-07, Section 8
 Depends on: EN-03, EN-11
 Done when: One send path through an SQS queue for push, in-app, email and SMS | In-app inbox and per-type settings that each user can switch off"
-25,Story,[EN-10] Live updates over AppSync subscriptions,,1,High,8,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-10
+25,Story,[EN-10] Live updates over a WebSocket API,,1,High,14,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-10
 PRD: Section 8
-Depends on: EN-04
-Done when: Clients subscribe to what they show (chat messages, event status, Going counts, map republishes); updates arrive within seconds | A subscription delivers only records the caller is allowed to read"
+Depends on: EN-03, EN-04
+Done when: Clients open one WebSocket connection and subscribe to what they show (chat messages, event status, Going counts, map republishes); updates arrive within seconds | A connection receives only records the caller is allowed to read"
 26,Story,[EN-11] Background jobs on Lambda,,1,High,10,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-11
 PRD: Section 8
 Depends on: EN-02
@@ -60,7 +60,7 @@ Done when: Jobs run as Lambda functions started by an SQS queue, DynamoDB Stream
 27,Story,[EN-12] Search foundation,,1,High,6,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-12
 PRD: EV-05, HR-01, Section 8
 Depends on: EN-03
-Done when: GSIs for category, district and date serve event and provider search, with price and free-event filters | Names match by prefix; there is no typo tolerance in the ATP | One search helper with cursor pagination, used by event and provider search"
+Done when: PostgreSQL full-text search, with indexes for category, district and date, serves event and provider search, with price and free-event filters | Trigram indexes (pg_trgm) give typo tolerance; Algolia or Typesense only if the pilot needs them | One search helper with cursor pagination, used by event and provider search"
 28,Story,"[PG-01] Sign up, verify and pick a role",,2,High,18,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-01
 PRD: AC-01
 Personas: Tharushi Fernando, Kavindu Perera, Ashan Wijesinghe, Dilini Jayawardena, Nuwan Silva, Fathima Rizvi, Pradeep Rajaratnam
@@ -311,7 +311,7 @@ PRD: RV-01, RV-02
 Personas: Kavindu Perera, Fathima Rizvi
 Depends on: US-C14, US-C13
 Done when: A consumer who marked Going before the start can rate a stall vendor at that event after it ends | Categories: quality, value for money, service (proposed)"
-71,Story,"[PG-09] Rank score, tier badges and leaderboards",,7,High,19,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-09
+71,Story,"[PG-09] Rank score, tier badges and leaderboards",,7,High,16,moscow-must,src-prd-gap,,"Work items: research/tezera-work-items.html#PG-09
 PRD: RV-04, RV-05, RV-06
 Personas: Nuwan Silva, Ashan Wijesinghe
 Depends on: US-P11, EN-11
@@ -396,7 +396,7 @@ Done when: Join topic and city communities | Post threads with text, images and 
 PRD: MS-01, MS-02, MS-03
 Personas: Kavindu Perera, Dilini Jayawardena, Nuwan Silva
 Depends on: EN-10, PG-02
-Done when: 1:1 chats: consumer and organiser, organiser and provider (with photos and files), consumer and consumer within privacy settings | No private chat between consumers and providers (proposed) | New messages arrive live through a GraphQL subscription; sending is a GraphQL mutation"
+Done when: 1:1 chats: consumer and organiser, organiser and provider (with photos and files), consumer and consumer within privacy settings | No private chat between consumers and providers (proposed) | New messages arrive live through the WebSocket API; sending is a call to the REST API"
 86,Story,[US-C08] Ask the organiser and see earlier answers,,10,High,10,moscow-must,src-user-story,,"User story US-C08: research/tezera-user-stories.html#US-C08
 Work items: research/tezera-work-items.html#US-C08
 PRD: MS-06, MS-01
@@ -485,7 +485,7 @@ Done when: Feed, event pages and search load within 3 seconds on 4G (proposed)"
 102,Story,[EN-16] Security hardening,,13,High,6,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-16
 PRD: Section 7
 Depends on: EN-04
-Done when: HTTPS only; inputs validated with the shared Zod schemas; API throttling | Tests prove each role reaches only its own tools"
+Done when: HTTPS only; inputs validated on every API route; API Gateway throttling | Tests prove each role reaches only its own tools"
 103,Story,[EN-17] Usability test and pilot readiness,,13,High,8,moscow-must,src-enabling,,"Work items: research/tezera-work-items.html#EN-17
 PRD: Section 11, Section 9
 Depends on: PG-05, US-O06, US-O10
@@ -503,7 +503,7 @@ Acceptance (scenarios): Choose a tier and get in (after the ATP)"
 106,Story,[EN-18] Payment gateway foundations (PayHere sandbox),,15,Medium,18,moscow-should,src-enabling,,"Work items: research/tezera-work-items.html#EN-18
 PRD: Section 8, HR-14
 Depends on: EN-02, EN-03, EN-11
-Done when: A PayHere sandbox merchant account works end to end with test cards | One payment-provider interface (start checkout, verify notice, refund) with PayHere as the first implementation | PayHere's notices reach a Lambda function URL that checks md5sig and updates each order ID only once | Every payment screen and receipt says 'Test payment, no real money'"
+Done when: A PayHere sandbox merchant account works end to end with test cards | One payment-provider interface (start checkout, verify notice, refund) with PayHere as the first implementation | PayHere's notices reach a REST route on the HTTP API that checks md5sig and updates each order ID only once | Every payment screen and receipt says 'Test payment, no real money'"
 107,Story,[US-P15] Connect a payment account and get paid,,15,Medium,11,moscow-should,src-user-story,,"User story US-P15: research/tezera-user-stories.html#US-P15
 Work items: research/tezera-work-items.html#US-P15
 PRD: HR-17, HR-14, HR-20
@@ -528,461 +528,469 @@ PRD: HR-19, HR-08, HR-16
 Personas: Dilini Jayawardena, Nuwan Silva, Pradeep Rajaratnam
 Depends on: US-O16, US-O08
 Acceptance (scenarios): Organiser cancels late | Provider cancels | Paid outside the app | Test payment, no real money"
-111,Sub-task,"[EN-01-T1] Set up Turborepo: apps/mobile, apps/web, the amplify/ backend, packages/shared; strict TypeScript, ESLint, Prettier",,16,High,3,area-infra,moscow-must,,Story: EN-01. Area: infra.
-112,Sub-task,"[EN-01-T2] Shared package with Zod schemas and types used by the app, the portal and the Lambda functions",,16,High,2,area-infra,moscow-must,,Story: EN-01. Area: infra.
-113,Sub-task,"[EN-01-T3] GitHub Actions CI: install, lint, type-check and test on every pull request",,16,High,3,area-infra,moscow-must,,Story: EN-01. Area: infra.
-114,Sub-task,"[EN-01-T4] Test setup: Jest for Lambda functions and shared code, React Native Testing Library, Playwright for the portal",,16,High,3,area-infra,moscow-must,,Story: EN-01. Area: infra.
+111,Sub-task,"[EN-01-T1] Finish the pnpm + Turborepo monorepo (Tezera-LK/tezera): apps/api (NestJS), apps/web (Next.js), amplify/ (auth only), infra/ (AWS CDK), packages/shared, apps/mobile (Flutter, proposed); strict TypeScript, ESLint, Prettier",,16,High,2,area-infra,moscow-must,,Story: EN-01. Area: infra.
+112,Sub-task,"[EN-01-T2] Shared package with Zod schemas and TypeScript types used by the NestJS API and the Next.js portal (the Flutter app uses the generated API client, EN-05)",,16,High,2,area-infra,moscow-must,,Story: EN-01. Area: infra.
+113,Sub-task,"[EN-01-T3] GitHub Actions CI on every pull request: install, lint, type-check and test the TypeScript apps; flutter analyze and flutter test for the app",,16,High,3,area-infra,moscow-must,,Story: EN-01. Area: infra.
+114,Sub-task,"[EN-01-T4] Test setup: Jest for the NestJS API and shared code, with a PostgreSQL test database in Docker; Flutter widget tests; Playwright for the portal",,16,High,3,area-infra,moscow-must,,Story: EN-01. Area: infra.
 115,Sub-task,[EN-01-T5] Pull request template and branch protection on main,,16,High,1,area-infra,moscow-must,,Story: EN-01. Area: infra.
-116,Sub-task,[EN-02-T1] Amplify app connected to the Git repository: main and dev branches each deploy their own backend in ap-south-1; the Next.js portal on Amplify Hosting,,17,High,3,area-infra,moscow-must,,Story: EN-02. Area: infra.
-117,Sub-task,"[EN-02-T2] Pull request previews for the portal, each with its own temporary backend",,17,High,1,area-infra,moscow-must,,Story: EN-02. Area: infra.
-118,Sub-task,"[EN-02-T3] Personal cloud sandboxes for each developer (ampx sandbox), documented in the README",,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
-119,Sub-task,[EN-02-T4] Amplify secrets per branch for the Dialog e-SMS keys; documented .env.example for local settings,,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
-120,Sub-task,"[EN-02-T5] Expo EAS: development builds for Android and iOS, internal distribution to the team",,17,High,3,area-infra,moscow-must,,Story: EN-02. Area: infra.
-121,Sub-task,"[EN-02-T6] AWS account: a login per team member (IAM Identity Center), root account locked away, AWS Budgets alert (proposed)",,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
-122,Sub-task,"[EN-03-T1] Core models in the Amplify Data schema: users, organiser, provider and consumer profiles, districts and categories",,18,High,5,area-db,moscow-must,,Story: EN-03. Area: db.
-123,Sub-task,"[EN-03-T2] Access-pattern list for every screen (search, leaderboards, feed, a booking's instalments), with keys and GSIs modelled in NoSQL Workbench",,18,High,3,area-db,moscow-must,,Story: EN-03. Area: db.
-124,Sub-task,"[EN-03-T3] Seed script for sandboxes and branch backends: demo accounts and events in Colombo, Kandy and Galle",,18,High,3,area-db,moscow-must,,Story: EN-03. Area: db.
-125,Sub-task,"[EN-03-T4] Schema rules written down: tables and indexes change only through the Amplify schema, never in the AWS console (PRD section 8)",,18,High,1,area-db,moscow-must,,Story: EN-03. Area: db.
-126,Sub-task,[EN-03-T5] Backfill script for adding an attribute or index to items that already exist,,18,High,2,area-db,moscow-must,,Story: EN-03. Area: db.
-127,Sub-task,"[EN-04-T1] Amplify Auth (Cognito) set-up: email and phone sign-in, one user group per role, a post-confirmation Lambda that adds the user to their chosen group",,19,High,3,area-api,moscow-must,,Story: EN-04. Area: api.
-128,Sub-task,"[EN-04-T2] Auth rules on every model and custom query or mutation, by group (organiser, vendor, freelancer, consumer, admin) and by owner",,19,High,3,area-api,moscow-must,,Story: EN-04. Area: api.
-129,Sub-task,[EN-04-T3] Amplify Auth in the app: session storage and auth state,,19,High,2,area-mobile,moscow-must,,Story: EN-04. Area: mobile.
-130,Sub-task,[EN-04-T4] Amplify Auth with server-side sessions in Next.js; protected routes and admin-only routes,,19,High,3,area-web,moscow-must,,Story: EN-04. Area: web.
-131,Sub-task,[EN-04-T5] Limits on sign-in attempts and code requests: Cognito's built-in limits plus a per-number cap on SMS codes (proposed),,19,High,2,area-api,moscow-must,,Story: EN-04. Area: api.
-132,Sub-task,[EN-05-T1] Expo Router app with role-based tab navigation,,20,High,5,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
-133,Sub-task,"[EN-05-T2] Typed Amplify Data client generated from the schema; loading, error and empty-state components",,20,High,3,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
-134,Sub-task,"[EN-05-T3] Deep links and universal / app links for event, post and profile URLs",,20,High,3,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
-135,Sub-task,[EN-06-T1] Next.js App Router with role-based layouts,,21,High,5,area-web,moscow-must,,Story: EN-06. Area: web.
-136,Sub-task,"[EN-06-T2] Typed Amplify Data client; loading, error and empty-state components",,21,High,2,area-web,moscow-must,,Story: EN-06. Area: web.
-137,Sub-task,"[EN-06-T3] Public, server-rendered routes for event and profile pages, read through guest access rules",,21,High,3,area-web,moscow-must,,Story: EN-06. Area: web.
-138,Sub-task,"[EN-07-T1] Wireframes for the main flows: publish an event, hire a provider, run stalls, upload a map",,22,High,5,area-design,moscow-must,,Story: EN-07. Area: design.
-139,Sub-task,"[EN-07-T2] Design tokens from the brand manual (role palettes, type, spacing)",,22,High,3,area-design,moscow-must,,Story: EN-07. Area: design.
-140,Sub-task,"[EN-07-T3] Core components on mobile and web: buttons, inputs, cards, priority pills, Verified, role and tier badges",,22,High,5,area-design,moscow-must,,Story: EN-07. Area: design.
-141,Sub-task,[EN-07-T4] i18n setup (i18next) with English strings in translation files; Sinhala and Tamil fonts loaded,,22,High,3,area-infra,moscow-must,,Story: EN-07. Area: infra.
-142,Sub-task,[EN-08-T1] Amplify Storage paths and access rules per role; size and type limits per upload (limits proposed),,23,High,3,area-api,moscow-must,,Story: EN-08. Area: api.
-143,Sub-task,"[EN-08-T2] Private verification-document path readable only by the admin group, opened through short-lived signed URLs",,23,High,2,area-api,moscow-must,,Story: EN-08. Area: api.
-144,Sub-task,[EN-08-T3] Image and video picker with upload progress and limit errors,,23,High,3,area-mobile,moscow-must,,Story: EN-08. Area: mobile.
-145,Sub-task,[EN-08-T4] Upload component with progress and limit errors,,23,High,2,area-web,moscow-must,,Story: EN-08. Area: web.
-146,Sub-task,[EN-08-T5] Image resize Lambda on upload: feed and thumbnail sizes stored beside the original (proposed),,23,High,3,area-worker,moscow-must,,Story: EN-08. Area: worker.
-147,Sub-task,"[EN-08-T6] CloudFront distribution in front of the public media paths, added to the Amplify backend",,23,High,2,area-infra,moscow-must,,Story: EN-08. Area: infra.
-148,Sub-task,"[EN-09-T1] Notification models: types, in-app inbox, per-type user settings",,24,High,5,area-api,moscow-must,,Story: EN-09. Area: api.
-149,Sub-task,"[EN-09-T2] Sender Lambda on the SQS notification queue: Expo Push, Amazon SES email, Dialog e-SMS",,24,High,5,area-worker,moscow-must,,Story: EN-09. Area: worker.
-150,Sub-task,[EN-09-T3] Push token registration and the in-app notification list,,24,High,3,area-mobile,moscow-must,,Story: EN-09. Area: mobile.
-151,Sub-task,[EN-09-T4] Notification bell and list,,24,High,2,area-web,moscow-must,,Story: EN-09. Area: web.
-152,Sub-task,[EN-09-T5] Dialog Enterprise account and sender ID; test the e-SMS API early (docs are thin),,24,High,2,area-infra,moscow-must,,Story: EN-09. Area: infra.
-153,Sub-task,"[EN-09-T6] Amazon SES: verify the sending domain (DKIM, SPF) and request production access before the pilot",,24,High,2,area-infra,moscow-must,,Story: EN-09. Area: infra.
-154,Sub-task,"[EN-10-T1] Subscription auth rules and filters, so each user receives only what they may read; custom subscriptions for counts and map republishes",,25,High,3,area-api,moscow-must,,Story: EN-10. Area: api.
-155,Sub-task,"[EN-10-T2] Client subscriptions with automatic reconnect, re-fetching what was missed when the app returns",,25,High,3,area-mobile,moscow-must,,Story: EN-10. Area: mobile.
-156,Sub-task,[EN-10-T3] Client subscriptions with reconnect in the portal,,25,High,2,area-web,moscow-must,,Story: EN-10. Area: web.
-157,Sub-task,"[EN-11-T1] SQS queue with retries and a dead-letter queue, feeding a Lambda function; added to the Amplify backend",,26,High,3,area-worker,moscow-must,,Story: EN-11. Area: worker.
-158,Sub-task,"[EN-11-T2] Check Lambda, SQS, DynamoDB and EventBridge Scheduler use against the AWS free allowances (not verified)",,26,High,1,area-infra,moscow-must,,Story: EN-11. Area: infra.
-159,Sub-task,"[EN-11-T3] EventBridge Scheduler: recurring schedules (every 15 minutes, daily) and one-off schedules for timed jobs",,26,High,2,area-worker,moscow-must,,Story: EN-11. Area: worker.
-160,Sub-task,"[EN-11-T4] DynamoDB Streams triggers that report failed records, so one bad record does not block the stream",,26,High,2,area-worker,moscow-must,,Story: EN-11. Area: worker.
-161,Sub-task,"[EN-11-T5] Dead-letter handling: CloudWatch alarm when the queue is not empty, and a script to send messages back for retry",,26,High,2,area-worker,moscow-must,,Story: EN-11. Area: worker.
-162,Sub-task,"[EN-12-T1] Search GSIs on events (category, district and date) and provider profiles; a lower-case name attribute for prefix matching",,27,High,3,area-db,moscow-must,,Story: EN-12. Area: db.
-163,Sub-task,"[EN-12-T2] Shared search helper: picks the index from the filters, applies price and free-event filters, pages with cursors",,27,High,3,area-api,moscow-must,,Story: EN-12. Area: api.
-164,Sub-task,[PG-01-T1] Cognito sign-up by email or phone with one-time codes and password reset; the role picked at sign-up sets the user's group,,28,High,3,area-api,moscow-must,,Story: PG-01. Area: api.
-165,Sub-task,[PG-01-T2] Custom SMS sender Lambda: decrypts Cognito's code and sends it through Dialog e-SMS,,28,High,3,area-worker,moscow-must,,Story: PG-01. Area: worker.
-166,Sub-task,"[PG-01-T3] Sign-up, verify, role choice, log-in and reset screens",,28,High,5,area-mobile,moscow-must,,Story: PG-01. Area: mobile.
-167,Sub-task,"[PG-01-T4] Sign-up, verify, role choice, log-in and reset pages",,28,High,3,area-web,moscow-must,,Story: PG-01. Area: web.
-168,Sub-task,"[PG-01-T5] Minimum account age 16 (proposed), checked by a pre-sign-up Lambda; under-18s tick that a parent or guardian agreed",,28,High,1,area-api,moscow-must,,Story: PG-01. Area: api.
-169,Sub-task,[PG-01-T6] Verification and reset emails sent through Amazon SES with Tezera's own templates,,28,High,1,area-worker,moscow-must,,Story: PG-01. Area: worker.
-170,Sub-task,[PG-01-T7] Automated tests for the done-when checks,,28,High,2,area-qa,moscow-must,,Story: PG-01. Area: qa.
-171,Sub-task,"[PG-02-T1] Consumer profile and privacy settings, enforced on every read",,29,High,5,area-api,moscow-must,,Story: PG-02. Area: api.
-172,Sub-task,[PG-02-T2] Profile and privacy settings screens,,29,High,3,area-mobile,moscow-must,,Story: PG-02. Area: mobile.
-173,Sub-task,[PG-02-T3] Profile and privacy settings pages,,29,High,2,area-web,moscow-must,,Story: PG-02. Area: web.
-174,Sub-task,[PG-02-T4] Automated tests for the done-when checks,,29,High,2,area-qa,moscow-must,,Story: PG-02. Area: qa.
-175,Sub-task,"[PG-03-T1] Block list applied to chats, boards and comments; report mutation into the queue",,30,High,3,area-api,moscow-must,,Story: PG-03. Area: api.
-176,Sub-task,"[PG-03-T2] Block and report menu on profiles, messages and posts",,30,High,2,area-mobile,moscow-must,,Story: PG-03. Area: mobile.
-177,Sub-task,"[PG-03-T3] Block and report menu on profiles, messages and posts",,30,High,2,area-web,moscow-must,,Story: PG-03. Area: web.
-178,Sub-task,[PG-03-T4] Automated tests for the done-when checks,,30,High,1,area-qa,moscow-must,,Story: PG-03. Area: qa.
-179,Sub-task,"[US-P01-T1] Provider profile: category, services, indicative prices in LKR, districts served",,31,High,3,area-api,moscow-must,,Story: US-P01. Area: api.
-180,Sub-task,[US-P01-T2] Provider profile: edit and public view,,31,High,3,area-mobile,moscow-must,,Story: US-P01. Area: mobile.
-181,Sub-task,[US-P01-T3] Provider profile: edit and public view,,31,High,3,area-web,moscow-must,,Story: US-P01. Area: web.
-182,Sub-task,[US-P01-T4] Provider verification documents and the Verified badge on the profile,,31,High,2,area-api,moscow-must,,Story: US-P01. Area: api.
-183,Sub-task,[US-P01-T5] Automated tests for the scenarios: Fill in my profile; Get the Verified badge; Appear on leaderboards,,31,High,2,area-qa,moscow-must,,Story: US-P01. Area: qa.
-184,Sub-task,"[US-P02-T1] Portfolio items: photo or video, title, event or event type",,32,High,3,area-api,moscow-must,,Story: US-P02. Area: api.
-185,Sub-task,[US-P02-T2] Portfolio upload and gallery,,32,High,3,area-mobile,moscow-must,,Story: US-P02. Area: mobile.
-186,Sub-task,[US-P02-T3] Portfolio gallery and management,,32,High,3,area-web,moscow-must,,Story: US-P02. Area: web.
-187,Sub-task,[US-P02-T4] Completed-jobs count goes up when a booking is completed,,32,High,1,area-api,moscow-must,,Story: US-P02. Area: api.
-188,Sub-task,[US-P02-T5] Automated tests for the scenarios: Upload work; Label work; Count completed jobs,,32,High,2,area-qa,moscow-must,,Story: US-P02. Area: qa.
-189,Sub-task,"[US-P04-T1] Organiser profile: Verified badge, upcoming and past events, rating, rank, tier and provider reviews",,33,High,3,area-api,moscow-must,,Story: US-P04. Area: api.
-190,Sub-task,[US-P04-T2] Organiser profile with past events and a provider-reviews tab; linked from booking requests,,33,High,3,area-mobile,moscow-must,,Story: US-P04. Area: mobile.
-191,Sub-task,[US-P04-T3] Organiser profile with past events and provider reviews,,33,High,2,area-web,moscow-must,,Story: US-P04. Area: web.
-192,Sub-task,[US-P04-T4] Automated tests for the scenarios: Check the organiser; See their payment record (proposed),,33,High,1,area-qa,moscow-must,,Story: US-P04. Area: qa.
-193,Sub-task,"[PG-05-T1] Event model, queries and mutations: draft, published, postponed, cancelled; change history",,34,High,5,area-api,moscow-must,,Story: PG-05. Area: api.
-194,Sub-task,"[PG-05-T2] Detect date, time, venue, postpone and cancel changes and put an event-changed job on the queue",,34,High,3,area-api,moscow-must,,Story: PG-05. Area: api.
-195,Sub-task,"[PG-05-T3] Create and edit event form, with cover image and line-up (portal is the organiser's main tool)",,34,High,5,area-web,moscow-must,,Story: PG-05. Area: web.
-196,Sub-task,[PG-05-T4] Create and edit event form,,34,High,5,area-mobile,moscow-must,,Story: PG-05. Area: mobile.
-197,Sub-task,[PG-05-T5] Automated tests for the done-when checks,,34,High,2,area-qa,moscow-must,,Story: PG-05. Area: qa.
-198,Sub-task,"[US-C01-T1] Event search on the search GSIs: name prefix match on title and organiser; filters for category, dates, district, price and free; past and cancelled hidden",,35,High,5,area-api,moscow-must,,Story: US-C01. Area: api.
-199,Sub-task,"[US-C01-T2] Search screen with filters and result cards (date, venue, price or free, organiser, Verified)",,35,High,5,area-mobile,moscow-must,,Story: US-C01. Area: mobile.
-200,Sub-task,[US-C01-T3] Search page with filters and result cards,,35,High,3,area-web,moscow-must,,Story: US-C01. Area: web.
-201,Sub-task,[US-C01-T4] Automated tests for the scenarios: Search by keyword; Combine filters; Read a result; Hide past and cancelled events,,35,High,3,area-qa,moscow-must,,Story: US-C01. Area: qa.
-202,Sub-task,[US-C02-T1] Follow and unfollow organisers,,36,Medium,2,area-api,moscow-should,,Story: US-C02. Area: api.
-203,Sub-task,"[US-C02-T2] On publish, notify followers by push and in-app unless they switched it off",,36,Medium,2,area-worker,moscow-should,,Story: US-C02. Area: worker.
-204,Sub-task,[US-C02-T3] Follow button on organiser profiles and event pages; notification setting,,36,Medium,2,area-mobile,moscow-should,,Story: US-C02. Area: mobile.
-205,Sub-task,[US-C02-T4] Follow button and notification setting,,36,Medium,1,area-web,moscow-should,,Story: US-C02. Area: web.
-206,Sub-task,[US-C02-T5] Automated tests for the scenarios: Follow an organiser; Hear about a new event; Switch this notification off,,36,Medium,2,area-qa,moscow-should,,Story: US-C02. Area: qa.
-207,Sub-task,"[US-C03-T1] Event page query: details, linked posts and announcements in one request",,37,High,2,area-api,moscow-must,,Story: US-C03. Area: api.
-208,Sub-task,"[US-C03-T2] Event page with the essentials at the top, ticket link, posts and announcements",,37,High,5,area-mobile,moscow-must,,Story: US-C03. Area: mobile.
-209,Sub-task,"[US-C03-T3] Public, server-rendered event page with the same layout",,37,High,5,area-web,moscow-must,,Story: US-C03. Area: web.
-210,Sub-task,[US-C03-T4] Automated tests for the scenarios: See the essentials first; Follow a link to an outside ticket seller (proposed); Find everything on one page,,37,High,2,area-qa,moscow-must,,Story: US-C03. Area: qa.
-211,Sub-task,"[US-C04-T1] 'Know before you go' fields on events: dress code, parking, what to bring, rules, food and drink price range",,38,Medium,3,area-api,moscow-should,,Story: US-C04. Area: api.
-212,Sub-task,"[US-C04-T2] 'Know before you go' section, hiding empty fields",,38,Medium,2,area-mobile,moscow-should,,Story: US-C04. Area: mobile.
-213,Sub-task,[US-C04-T3] 'Know before you go' section,,38,Medium,2,area-web,moscow-should,,Story: US-C04. Area: web.
-214,Sub-task,[US-C04-T4] Notify Going when the section changes,,38,Medium,1,area-worker,moscow-should,,Story: US-C04. Area: worker.
-215,Sub-task,[US-C04-T5] Automated tests for the scenarios: Read the section; See the rules; See food and drink prices; Hear about changes (proposed),,38,Medium,1,area-qa,moscow-should,,Story: US-C04. Area: qa.
-216,Sub-task,"[US-C05-T1] Verified badge on organiser profiles, events and posts; 'unverified organiser' label",,39,High,2,area-mobile,moscow-must,,Story: US-C05. Area: mobile.
-217,Sub-task,[US-C05-T2] Verified badge and 'unverified organiser' label,,39,High,1,area-web,moscow-must,,Story: US-C05. Area: web.
-218,Sub-task,"[US-C05-T3] Report an event with a reason, into the admin report queue",,39,High,2,area-api,moscow-must,,Story: US-C05. Area: api.
-219,Sub-task,[US-C05-T4] Report-event flow with reasons,,39,High,1,area-mobile,moscow-must,,Story: US-C05. Area: mobile.
-220,Sub-task,[US-C05-T5] Report-event flow with reasons,,39,High,1,area-web,moscow-must,,Story: US-C05. Area: web.
-221,Sub-task,[US-C05-T6] Automated tests for the scenarios: See a verified organiser; See an unverified organiser; Report a fake event,,39,High,2,area-qa,moscow-must,,Story: US-C05. Area: qa.
-222,Sub-task,[US-C06-T1] Event-changed job: push and in-app to everyone marked Going or Interested,,40,High,3,area-worker,moscow-must,,Story: US-C06. Area: worker.
-223,Sub-task,[US-C06-T2] Change banner data: what changed and when; cancelled events stay reachable,,40,High,2,area-api,moscow-must,,Story: US-C06. Area: api.
-224,Sub-task,[US-C06-T3] Change banner and Cancelled state on the event page,,40,High,2,area-mobile,moscow-must,,Story: US-C06. Area: mobile.
-225,Sub-task,[US-C06-T4] Change banner and Cancelled state on the event page,,40,High,2,area-web,moscow-must,,Story: US-C06. Area: web.
-226,Sub-task,[US-C06-T5] Automated tests for the scenarios: Hear about a change; See what changed; Find a cancelled event,,40,High,2,area-qa,moscow-must,,Story: US-C06. Area: qa.
-227,Sub-task,"[US-C07-T1] Live status (on time, running late with a new start time, postponed, cancelled) with the time it was set; open event pages update through a subscription",,41,Medium,3,area-api,moscow-should,,Story: US-C07. Area: api.
-228,Sub-task,[US-C07-T2] Two-tap status control for organisers; status on the event page,,41,Medium,3,area-mobile,moscow-should,,Story: US-C07. Area: mobile.
-229,Sub-task,[US-C07-T3] Status on the event page,,41,Medium,1,area-web,moscow-should,,Story: US-C07. Area: web.
-230,Sub-task,[US-C07-T4] Push status changes to Going and Interested,,41,Medium,1,area-worker,moscow-should,,Story: US-C07. Area: worker.
-231,Sub-task,[US-C07-T5] Automated tests for the scenarios: Organiser sets a status; Running late needs a new time; Attendees see the change,,41,Medium,1,area-qa,moscow-should,,Story: US-C07. Area: qa.
-232,Sub-task,"[US-C20-T1] Age rating on events (All ages, 18+, 21+) and an age-rating search filter (proposed)",,42,Medium,2,area-api,moscow-should,,Story: US-C20. Area: api.
-233,Sub-task,"[US-C20-T2] Show the rating on the event page and the age filter in search, in the app and on the portal (proposed)",,42,Medium,1,area-mobile,moscow-should,,Story: US-C20. Area: mobile.
-234,Sub-task,[US-C20-T3] Automated tests for the scenarios: Organiser sets the rating; See the rating; Filter by age rating; ID is checked at the gate,,42,Medium,1,area-qa,moscow-should,,Story: US-C20. Area: qa.
-235,Sub-task,"[US-C09-T1] Going and Interested marks, one tap, with the time marked (unlocks reviews)",,43,High,3,area-api,moscow-must,,Story: US-C09. Area: api.
-236,Sub-task,[US-C09-T2] Friends-going query that respects each friend's Going privacy,,43,High,3,area-api,moscow-must,,Story: US-C09. Area: api.
-237,Sub-task,[US-C09-T3] Going and Interested buttons with instant feedback; friends-going list,,43,High,3,area-mobile,moscow-must,,Story: US-C09. Area: mobile.
-238,Sub-task,[US-C09-T4] Going and Interested buttons; friends-going list,,43,High,2,area-web,moscow-must,,Story: US-C09. Area: web.
-239,Sub-task,[US-C09-T5] Automated tests for the scenarios: See friends who are going; Going is private by default (proposed); Mark in one tap,,43,High,2,area-qa,moscow-must,,Story: US-C09. Area: qa.
-240,Sub-task,"[PG-06-T1] Scheduled Lambda that scores upcoming events for each user (interests, followed organisers, past Going marks, district) and stores a 'For you' list",,44,Low,5,area-worker,moscow-could,,Story: PG-06. Area: worker.
-241,Sub-task,[PG-06-T2] 'For you' row on the home screen,,44,Low,2,area-mobile,moscow-could,,Story: PG-06. Area: mobile.
-242,Sub-task,[PG-06-T3] 'For you' row on the home page,,44,Low,1,area-web,moscow-could,,Story: PG-06. Area: web.
-243,Sub-task,[PG-06-T4] Automated tests for the done-when checks,,44,Low,1,area-qa,moscow-could,,Story: PG-06. Area: qa.
-244,Sub-task,"[PG-07-T1] Feed built on read: posts from each followed organiser through a GSI on (authorId, createdAt), merged newest first and paged with cursors",,45,High,3,area-api,moscow-must,,Story: PG-07. Area: api.
-245,Sub-task,"[PG-07-T2] Likes as items keyed by post and user, written with a condition so nobody likes twice; atomic counters for likes and comments; comments",,45,High,3,area-api,moscow-must,,Story: PG-07. Area: api.
-246,Sub-task,[PG-07-T3] Trending: a scheduled Lambda every 15 minutes (proposed) scores recent posts and stores the top list as one item; view counts added in batches (proposed),,45,High,3,area-worker,moscow-must,,Story: PG-07. Area: worker.
-247,Sub-task,"[PG-07-T4] Feed with posts and reels, likes and comments; reels play well on mobile data",,45,High,8,area-mobile,moscow-must,,Story: PG-07. Area: mobile.
-248,Sub-task,[PG-07-T5] Feed page with likes and comments,,45,High,5,area-web,moscow-must,,Story: PG-07. Area: web.
-249,Sub-task,[PG-07-T6] Automated tests for the done-when checks,,45,High,2,area-qa,moscow-must,,Story: PG-07. Area: qa.
-250,Sub-task,"[US-O11-T1] Organiser-only posts and reels, optionally linked to an event",,46,High,3,area-api,moscow-must,,Story: US-O11. Area: api.
-251,Sub-task,[US-O11-T2] Create a post or reel and link it to an event,,46,High,3,area-mobile,moscow-must,,Story: US-O11. Area: mobile.
-252,Sub-task,[US-O11-T3] Create a post or reel and link it to an event,,46,High,3,area-web,moscow-must,,Story: US-O11. Area: web.
-253,Sub-task,[US-O11-T4] Automated tests for the scenarios: Link a post to an event; Share outside Tezera,,46,High,1,area-qa,moscow-must,,Story: US-O11. Area: qa.
-254,Sub-task,[US-C15-T1] Share button on event pages and posts through the phone's share sheet,,47,High,2,area-mobile,moscow-must,,Story: US-C15. Area: mobile.
-255,Sub-task,[US-C15-T2] Share and copy-link on event pages and posts,,47,High,1,area-web,moscow-must,,Story: US-C15. Area: web.
-256,Sub-task,[US-C15-T3] Shared links open the public event page without log-in; people with the app open it in the app,,47,High,3,area-web,moscow-must,,Story: US-C15. Area: web.
-257,Sub-task,[US-C15-T4] Short links with a preview card (Open Graph image),,47,High,3,area-web,moscow-must,,Story: US-C15. Area: web.
-258,Sub-task,[US-C15-T5] 'Share to story' image sized for Instagram stories,,47,High,3,area-web,moscow-must,,Story: US-C15. Area: web.
-259,Sub-task,[US-C15-T6] Automated tests for the scenarios: Share an event; Open a shared link; Share to an Instagram story,,47,High,1,area-qa,moscow-must,,Story: US-C15. Area: qa.
-260,Sub-task,[US-O01-T1] Provider search on the rank-score GSI (category#district): minimum rating and Verified-only filters; results come in rank order,,48,High,3,area-api,moscow-must,,Story: US-O01. Area: api.
-261,Sub-task,[US-O01-T2] Provider search with filters and result cards,,48,High,3,area-mobile,moscow-must,,Story: US-O01. Area: mobile.
-262,Sub-task,[US-O01-T3] Provider search with filters and result cards,,48,High,3,area-web,moscow-must,,Story: US-O01. Area: web.
-263,Sub-task,[US-O01-T4] Automated tests for the scenarios: Combine filters; Order by rank; Read a result,,48,High,2,area-qa,moscow-must,,Story: US-O01. Area: qa.
-264,Sub-task,[US-O04-T1] Availability calendar (booked or unavailable dates) and an available-date search filter,,49,Medium,3,area-api,moscow-should,,Story: US-O04. Area: api.
-265,Sub-task,[US-O04-T2] Calendar editor for providers; date filter for organisers,,49,Medium,3,area-mobile,moscow-should,,Story: US-O04. Area: mobile.
-266,Sub-task,[US-O04-T3] Calendar editor and date filter,,49,Medium,3,area-web,moscow-should,,Story: US-O04. Area: web.
-267,Sub-task,[US-O04-T4] Automated tests for the scenarios: Booked providers are hidden,,49,Medium,1,area-qa,moscow-should,,Story: US-O04. Area: qa.
-268,Sub-task,"[US-O05-T1] Booking request: event, date, start and end times, brief and budget, with field-level errors",,50,High,3,area-api,moscow-must,,Story: US-O05. Area: api.
-269,Sub-task,"[US-O05-T2] Attach files (brief, mood board) to requests and job posts",,50,High,2,area-api,moscow-must,,Story: US-O05. Area: api.
-270,Sub-task,[US-O05-T3] Booking request form that highlights empty required fields; attachments,,50,High,3,area-mobile,moscow-must,,Story: US-O05. Area: mobile.
-271,Sub-task,[US-O05-T4] Booking request form with required-field errors and attachments,,50,High,3,area-web,moscow-must,,Story: US-O05. Area: web.
-272,Sub-task,"[US-O05-T5] Optional brief fields on requests and job posts (service, duration, expected audience, deliverables, run-of-show timings, equipment provided); only filled fields shown",,50,High,3,area-api,moscow-must,,Story: US-O05. Area: api.
-273,Sub-task,[US-O05-T6] Optional brief fields,,50,High,2,area-mobile,moscow-must,,Story: US-O05. Area: mobile.
-274,Sub-task,[US-O05-T7] Optional brief fields,,50,High,2,area-web,moscow-must,,Story: US-O05. Area: web.
-275,Sub-task,[US-O05-T8] Automated tests for the scenarios: Required fields; Optional fields (proposed); Attach files,,50,High,1,area-qa,moscow-must,,Story: US-O05. Area: qa.
-276,Sub-task,"[US-O06-T1] Job posts (requirements, budget range, quote deadline) and quotes; accept one or more to create bookings",,51,High,5,area-api,moscow-must,,Story: US-O06. Area: api.
-277,Sub-task,[US-O06-T2] Close a job post and notify the providers not chosen,,51,High,2,area-api,moscow-must,,Story: US-O06. Area: api.
-278,Sub-task,"[US-O06-T3] Post a job; compare quotes side by side (price, rating, tier, message)",,51,High,5,area-web,moscow-must,,Story: US-O06. Area: web.
-279,Sub-task,[US-O06-T4] Post a job; quote list to compare and accept,,51,High,5,area-mobile,moscow-must,,Story: US-O06. Area: mobile.
-280,Sub-task,[US-O06-T5] Automated tests for the scenarios: Compare quotes; Accept more than one; Others are told,,51,High,2,area-qa,moscow-must,,Story: US-O06. Area: qa.
-281,Sub-task,"[US-O07-T1] Booking records the agreed service, date, price and terms (free text), kept on the confirmed booking",,52,High,3,area-api,moscow-must,,Story: US-O07. Area: api.
-282,Sub-task,[US-O07-T2] Terms section on the request and the booking,,52,High,2,area-mobile,moscow-must,,Story: US-O07. Area: mobile.
-283,Sub-task,[US-O07-T3] Terms section on the request and the booking,,52,High,2,area-web,moscow-must,,Story: US-O07. Area: web.
-284,Sub-task,"[US-O07-T4] Deposit, instalments (amount and due date) and cancellation terms on bookings, shown before the provider accepts; changes need the other side's acceptance; terms can be proposed with a quote",,52,High,5,area-api,moscow-must,,Story: US-O07. Area: api.
-285,Sub-task,[US-O07-T5] Terms editor and counter-terms,,52,High,3,area-mobile,moscow-must,,Story: US-O07. Area: mobile.
-286,Sub-task,[US-O07-T6] Terms editor and counter-terms,,52,High,3,area-web,moscow-must,,Story: US-O07. Area: web.
-287,Sub-task,[US-O07-T7] Automated tests for the scenarios: Set the terms; Provider sees the terms first; Changing agreed terms (proposed),,52,High,1,area-qa,moscow-must,,Story: US-O07. Area: qa.
-288,Sub-task,[US-P03-T1] Brief and attachments copied onto the confirmed booking so they stay attached,,53,High,2,area-api,moscow-must,,Story: US-P03. Area: api.
-289,Sub-task,"[US-P03-T2] Request detail with brief, attachments and 'Ask in chat'",,53,High,3,area-mobile,moscow-must,,Story: US-P03. Area: mobile.
-290,Sub-task,"[US-P03-T3] Request detail with brief, attachments and 'Ask in chat'",,53,High,2,area-web,moscow-must,,Story: US-P03. Area: web.
-291,Sub-task,[US-P03-T4] Automated tests for the scenarios: See the brief; Ask before quoting; Keep the brief,,53,High,2,area-qa,moscow-must,,Story: US-P03. Area: qa.
-292,Sub-task,"[US-P05-T1] Show terms above the accept, decline and quote buttons",,54,High,1,area-mobile,moscow-must,,Story: US-P05. Area: mobile.
-293,Sub-task,"[US-P05-T2] Show terms above the accept, decline and quote buttons",,54,High,1,area-web,moscow-must,,Story: US-P05. Area: web.
-294,Sub-task,[US-P05-T3] Automated tests for the scenarios: See terms before deciding; Propose other terms; Terms are stored,,54,High,1,area-qa,moscow-must,,Story: US-P05. Area: qa.
-295,Sub-task,"[US-P06-T1] Accept, decline or quote on a request; organiser accepts or declines the quote; booking at the quoted price",,55,High,5,area-api,moscow-must,,Story: US-P06. Area: api.
-296,Sub-task,"[US-P06-T2] Notifications for requests, quotes and decisions",,55,High,1,area-worker,moscow-must,,Story: US-P06. Area: worker.
-297,Sub-task,"[US-P06-T3] Reply actions, quote form and the organiser's quote decision",,55,High,3,area-mobile,moscow-must,,Story: US-P06. Area: mobile.
-298,Sub-task,"[US-P06-T4] Reply actions, quote form and the organiser's quote decision",,55,High,3,area-web,moscow-must,,Story: US-P06. Area: web.
-299,Sub-task,[US-P06-T5] Automated tests for the scenarios: Reply to a request; Organiser decides on my quote,,55,High,1,area-qa,moscow-must,,Story: US-P06. Area: qa.
-300,Sub-task,"[US-P07-T1] Instalment statuses: due, received, overdue; provider marks received",,56,Medium,3,area-api,moscow-should,,Story: US-P07. Area: api.
-301,Sub-task,[US-P07-T2] Daily scheduled Lambda: due-date reminders and overdue flags,,56,Medium,2,area-worker,moscow-should,,Story: US-P07. Area: worker.
-302,Sub-task,[US-P07-T3] On-time payment share on organiser profiles (bookings with terms only),,56,Medium,2,area-api,moscow-should,,Story: US-P07. Area: api.
-303,Sub-task,[US-P07-T4] Instalments on the booking,,56,Medium,3,area-mobile,moscow-should,,Story: US-P07. Area: mobile.
-304,Sub-task,[US-P07-T5] Instalments on the booking,,56,Medium,2,area-web,moscow-should,,Story: US-P07. Area: web.
-305,Sub-task,[US-P07-T6] Automated tests for the scenarios: Instalment status; Mark as received; Overdue and reminders (proposed); Payment record on the profile,,56,Medium,1,area-qa,moscow-should,,Story: US-P07. Area: qa.
-306,Sub-task,[US-P08-T1] Job board defaulting to the provider's category and district; apply with quote and message before the deadline,,57,High,3,area-api,moscow-must,,Story: US-P08. Area: api.
-307,Sub-task,[US-P08-T2] One-off EventBridge schedule closes applications at the quote deadline,,57,High,1,area-worker,moscow-must,,Story: US-P08. Area: worker.
-308,Sub-task,[US-P08-T3] Job board and apply form,,57,High,3,area-mobile,moscow-must,,Story: US-P08. Area: mobile.
-309,Sub-task,[US-P08-T4] Job board and apply form,,57,High,2,area-web,moscow-must,,Story: US-P08. Area: web.
-310,Sub-task,[US-P08-T5] Automated tests for the scenarios: Matching job posts; Apply with a quote,,57,High,1,area-qa,moscow-must,,Story: US-P08. Area: qa.
-311,Sub-task,[US-P09-T1] Confirmed bookings block the date on the calendar automatically,,58,Medium,1,area-api,moscow-should,,Story: US-P09. Area: api.
-312,Sub-task,[US-P09-T2] Event reminders before each booking; each reminder type can be switched off,,58,Medium,2,area-worker,moscow-should,,Story: US-P09. Area: worker.
-313,Sub-task,[US-P09-T3] My bookings list and reminder settings,,58,Medium,3,area-mobile,moscow-should,,Story: US-P09. Area: mobile.
-314,Sub-task,[US-P09-T4] My bookings list,,58,Medium,2,area-web,moscow-should,,Story: US-P09. Area: web.
-315,Sub-task,[US-P09-T5] Payment due-date reminders for providers,,58,Medium,1,area-worker,moscow-should,,Story: US-P09. Area: worker.
-316,Sub-task,[US-P09-T6] Automated tests for the scenarios: Bookings on the calendar; Reminders,,58,Medium,1,area-qa,moscow-should,,Story: US-P09. Area: qa.
-317,Sub-task,[US-O08-T1] Cancel a confirmed booking with a required reason; notify the other side with the reason,,59,Medium,3,area-api,moscow-should,,Story: US-O08. Area: api.
-318,Sub-task,[US-O08-T2] Cancellation notice with reason; booking shows Cancelled,,59,Medium,2,area-mobile,moscow-should,,Story: US-O08. Area: mobile.
-319,Sub-task,[US-O08-T3] Cancellation notice with reason; booking shows Cancelled,,59,Medium,1,area-web,moscow-should,,Story: US-O08. Area: web.
-320,Sub-task,"[US-O08-T4] Late cancellations (within 7 days, proposed) shown on the canceller's profile; reopen as a prefilled job post in one step; review after cancellation",,59,Medium,5,area-api,moscow-should,,Story: US-O08. Area: api.
-321,Sub-task,[US-O08-T5] 'Find a replacement' and late-cancellation notice,,59,Medium,2,area-mobile,moscow-should,,Story: US-O08. Area: mobile.
-322,Sub-task,[US-O08-T6] 'Find a replacement' and late-cancellation notice,,59,Medium,2,area-web,moscow-should,,Story: US-O08. Area: web.
-323,Sub-task,[US-O08-T7] Automated tests for the scenarios: Hear about a cancellation; Reopen as a job post; Late cancellation on record (proposed),,59,Medium,1,area-qa,moscow-should,,Story: US-O08. Area: qa.
-324,Sub-task,[US-P10-T1] Cancel flow that cannot be sent without a reason,,60,Medium,2,area-mobile,moscow-should,,Story: US-P10. Area: mobile.
-325,Sub-task,[US-P10-T2] Cancel flow that cannot be sent without a reason,,60,Medium,1,area-web,moscow-should,,Story: US-P10. Area: web.
-326,Sub-task,[US-P10-T3] Automated tests for the scenarios: Reason required; Late cancellation on record (proposed); Review after cancellation (proposed),,60,Medium,1,area-qa,moscow-should,,Story: US-P10. Area: qa.
-327,Sub-task,[PG-08-T1] Mark a booking completed after the event date; open the review window for both sides,,61,High,3,area-api,moscow-must,,Story: PG-08. Area: api.
-328,Sub-task,[PG-08-T2] One-off EventBridge schedule closes each review window after 14 days (proposed),,61,High,2,area-worker,moscow-must,,Story: PG-08. Area: worker.
-329,Sub-task,[PG-08-T3] Complete button and a prompt to review,,61,High,2,area-mobile,moscow-must,,Story: PG-08. Area: mobile.
-330,Sub-task,[PG-08-T4] Complete button and a prompt to review,,61,High,1,area-web,moscow-must,,Story: PG-08. Area: web.
-331,Sub-task,[PG-08-T5] Automated tests for the done-when checks,,61,High,2,area-qa,moscow-must,,Story: PG-08. Area: qa.
-332,Sub-task,"[US-O09-T1] Stall slots (type, fee, deadline), applications, approve and reject",,62,High,5,area-api,moscow-must,,Story: US-O09. Area: api.
-333,Sub-task,[US-O09-T2] Invite a vendor directly; acceptance counts as approval,,62,High,2,area-api,moscow-must,,Story: US-O09. Area: api.
-334,Sub-task,[US-O09-T3] Assign stall numbers; stall fee shown with a 'paid outside Tezera' note,,62,High,2,area-api,moscow-must,,Story: US-O09. Area: api.
-335,Sub-task,[US-O09-T4] Notify vendors of each decision,,62,High,1,area-worker,moscow-must,,Story: US-O09. Area: worker.
-336,Sub-task,"[US-O09-T5] Stall board for organisers: slots, applications, decisions, numbers",,62,High,5,area-web,moscow-must,,Story: US-O09. Area: web.
-337,Sub-task,[US-O09-T6] Stall applications and decisions on the go,,62,High,3,area-mobile,moscow-must,,Story: US-O09. Area: mobile.
-338,Sub-task,[US-O09-T7] Automated tests for the scenarios: Open stall slots; Handle applications; Give out stall numbers; Fees are paid outside the app,,62,High,3,area-qa,moscow-must,,Story: US-O09. Area: qa.
-339,Sub-task,[US-P13-T1] Vendor-only browse and apply; accept or decline invitations,,63,High,3,area-api,moscow-must,,Story: US-P13. Area: api.
-340,Sub-task,"[US-P13-T2] Open stall slots, apply, invitations",,63,High,3,area-mobile,moscow-must,,Story: US-P13. Area: mobile.
-341,Sub-task,"[US-P13-T3] Open stall slots, apply, invitations",,63,High,2,area-web,moscow-must,,Story: US-P13. Area: web.
-342,Sub-task,[US-P13-T4] Automated tests for the scenarios: See open slots; Apply or answer an invitation; Vendors only,,63,High,2,area-qa,moscow-must,,Story: US-P13. Area: qa.
-343,Sub-task,"[US-C13-T1] Stall list on the event page: vendor, stall number, category, indicative price range in LKR",,64,High,2,area-api,moscow-must,,Story: US-C13. Area: api.
-344,Sub-task,[US-C13-T2] Stall list linking to each vendor's profile and map pin,,64,High,2,area-mobile,moscow-must,,Story: US-C13. Area: mobile.
-345,Sub-task,[US-C13-T3] Stall list linking to each vendor's profile and map pin,,64,High,2,area-web,moscow-must,,Story: US-C13. Area: web.
-346,Sub-task,[US-C13-T4] Automated tests for the scenarios: See the stall list; Go to a stall vendor; See price ranges (proposed),,64,High,2,area-qa,moscow-must,,Story: US-C13. Area: qa.
-347,Sub-task,"[US-P11-T1] Reviews module: stars, category ratings and text; unlocked by a completed booking or a stall at an ended event",,65,High,5,area-api,moscow-must,,Story: US-P11. Area: api.
-348,Sub-task,"[US-P11-T2] Write a review of the organiser (payment, communication, planning)",,65,High,3,area-mobile,moscow-must,,Story: US-P11. Area: mobile.
-349,Sub-task,[US-P11-T3] Write a review of the organiser,,65,High,2,area-web,moscow-must,,Story: US-P11. Area: web.
-350,Sub-task,[US-P11-T4] Automated tests for the scenarios: Unlock a review; Rate each category,,65,High,1,area-qa,moscow-must,,Story: US-P11. Area: qa.
-351,Sub-task,"[US-O02-T1] Review page data: average, category averages, count and every review",,66,High,3,area-api,moscow-must,,Story: US-O02. Area: api.
-352,Sub-task,"[US-O02-T2] Provider profile with portfolio, completed jobs, tier badge and reviews; organiser writes a review",,66,High,3,area-mobile,moscow-must,,Story: US-O02. Area: mobile.
-353,Sub-task,"[US-O02-T3] Provider profile with portfolio, completed jobs, tier badge and reviews; organiser writes a review",,66,High,3,area-web,moscow-must,,Story: US-O02. Area: web.
-354,Sub-task,[US-O02-T4] Automated tests for the scenarios: Check the profile; Check the reviews; Only real jobs are reviewed,,66,High,2,area-qa,moscow-must,,Story: US-O02. Area: qa.
-355,Sub-task,[US-O03-T1] Tag reviews with service and event type from the booking; filter by tag,,67,Low,3,area-api,moscow-could,,Story: US-O03. Area: api.
-356,Sub-task,[US-O03-T2] Review tags and filter,,67,Low,2,area-mobile,moscow-could,,Story: US-O03. Area: mobile.
-357,Sub-task,[US-O03-T3] Review tags and filter,,67,Low,2,area-web,moscow-could,,Story: US-O03. Area: web.
-358,Sub-task,[US-O03-T4] Automated tests for the scenarios: Reviews are tagged; Filter reviews,,67,Low,1,area-qa,moscow-could,,Story: US-O03. Area: qa.
-359,Sub-task,[US-P12-T1] Report a review into the admin queue with the booking record attached,,68,High,2,area-api,moscow-must,,Story: US-P12. Area: api.
-360,Sub-task,[US-P12-T2] Report a review,,68,High,1,area-mobile,moscow-must,,Story: US-P12. Area: mobile.
-361,Sub-task,[US-P12-T3] Report a review,,68,High,1,area-web,moscow-must,,Story: US-P12. Area: web.
-362,Sub-task,[US-P12-T4] One public reply per review,,68,High,2,area-api,moscow-must,,Story: US-P12. Area: api.
-363,Sub-task,[US-P12-T5] Reply to a review,,68,High,1,area-mobile,moscow-must,,Story: US-P12. Area: mobile.
-364,Sub-task,[US-P12-T6] Reply to a review,,68,High,1,area-web,moscow-must,,Story: US-P12. Area: web.
-365,Sub-task,[US-P12-T7] Automated tests for the scenarios: Only real jobs; Reply to a review (proposed); Dispute a review,,68,High,1,area-qa,moscow-must,,Story: US-P12. Area: qa.
-366,Sub-task,"[US-C14-T1] Consumer review rules: Going before the start, event ended, within 14 days (proposed), one per event",,69,High,3,area-api,moscow-must,,Story: US-C14. Area: api.
-367,Sub-task,[US-C14-T2] Review prompt after the event and the review form,,69,High,3,area-mobile,moscow-must,,Story: US-C14. Area: mobile.
-368,Sub-task,[US-C14-T3] Review form,,69,High,2,area-web,moscow-must,,Story: US-C14. Area: web.
-369,Sub-task,"[US-C14-T4] Facilities category (toilets, queues, food and drink) in consumer event reviews",,69,High,1,area-api,moscow-must,,Story: US-C14. Area: api.
-370,Sub-task,[US-C14-T5] Automated tests for the scenarios: Review after going; Review window closes (proposed); Can't review without going; Rate each category (proposed); One review per event,,69,High,3,area-qa,moscow-must,,Story: US-C14. Area: qa.
-371,Sub-task,[PG-10-T1] Stall-vendor review rules and categories,,70,High,2,area-api,moscow-must,,Story: PG-10. Area: api.
-372,Sub-task,[PG-10-T2] Review a stall from the event's stall list,,70,High,2,area-mobile,moscow-must,,Story: PG-10. Area: mobile.
-373,Sub-task,[PG-10-T3] Review a stall from the event's stall list,,70,High,1,area-web,moscow-must,,Story: PG-10. Area: web.
-374,Sub-task,[PG-10-T4] Automated tests for the done-when checks,,70,High,1,area-qa,moscow-must,,Story: PG-10. Area: qa.
-375,Sub-task,[PG-09-T1] rankScore attribute on provider and organiser profiles; GSI with category#district as partition key and rankScore as sort key; organiser board on one fixed partition (proposed),,71,High,3,area-db,moscow-must,,Story: PG-09. Area: db.
-376,Sub-task,[PG-09-T2] Lambda on DynamoDB Streams recalculates the rank score when a review is written or hidden,,71,High,5,area-worker,moscow-must,,Story: PG-09. Area: worker.
-377,Sub-task,[PG-09-T3] Work out tier badges in the same Lambda from rank score and completed jobs or events,,71,High,2,area-worker,moscow-must,,Story: PG-09. Area: worker.
-378,Sub-task,"[PG-09-T4] Leaderboard queries: the top of each board read from the GSI in descending order, paged with cursors",,71,High,2,area-api,moscow-must,,Story: PG-09. Area: api.
-379,Sub-task,[PG-09-T5] Leaderboards screen,,71,High,3,area-mobile,moscow-must,,Story: PG-09. Area: mobile.
-380,Sub-task,[PG-09-T6] Leaderboards page,,71,High,2,area-web,moscow-must,,Story: PG-09. Area: web.
-381,Sub-task,[PG-09-T7] Automated tests for the done-when checks,,71,High,2,area-qa,moscow-must,,Story: PG-09. Area: qa.
-382,Sub-task,"[US-O17-T1] Spike: builder canvas on plain SVG or react-konva (select, drag, resize, zoom and pan with about 300 items); pick one",,72,High,2,area-web,moscow-must,,Story: US-O17. Area: web.
-383,Sub-task,"[US-O17-T2] Tezera map JSON schema: background (image, PDF page or grid, real size in metres), scale, version, and zones, stalls and pins as boxes or points in 0–1 coordinates with stable IDs; one validator shared by app, portal and Lambda",,72,High,3,area-db,moscow-must,,Story: US-O17. Area: db.
-384,Sub-task,"[US-O17-T3] Map versions: draft saves; each publish writes an immutable version (JSON in S3, pointer and history in DynamoDB); attendees read the latest published version",,72,High,3,area-api,moscow-must,,Story: US-O17. Area: api.
-385,Sub-task,[US-O17-T4] Stale-edit checks: every save carries its base version and item IDs; a save on an older version or a deleted item is refused (fail closed) and the editor reloads,,72,High,3,area-api,moscow-must,,Story: US-O17. Area: api.
-386,Sub-task,"[US-O17-T5] Builder canvas: background layer, zoom and pan; draw, select, move, resize, label and delete zones, stalls and pins (the editors from US-O10 and US-O15 are built here once)",,72,High,8,area-web,moscow-must,,Story: US-O17. Area: web.
-387,Sub-task,[US-O17-T6] Grid snapping and alignment guides; number a row of stalls in one step; duplicate; undo and redo,,72,High,5,area-web,moscow-must,,Story: US-O17. Area: web.
-388,Sub-task,"[US-O17-T7] Scale tool: mark two points and enter the real distance, or take it from the grid size; stall sizes shown in metres",,72,High,3,area-web,moscow-must,,Story: US-O17. Area: web.
-389,Sub-task,[US-O17-T8] Version history: list and preview published versions; restore one as a new version,,72,High,3,area-web,moscow-must,,Story: US-O17. Area: web.
-390,Sub-task,"[US-O17-T9] Quick edits in the app: move, rename and hide zones, stalls and pins, then publish (replaces pin editing on the phone from US-O10)",,72,High,5,area-mobile,moscow-must,,Story: US-O17. Area: mobile.
-391,Sub-task,[US-O17-T10] Automated tests for the scenarios: Draw and snap; Set the scale; Publish a new version; Restore an earlier version; Quick edits on the day; Someone else's change is not overwritten,,72,High,2,area-qa,moscow-must,,Story: US-O17. Area: qa.
-392,Sub-task,"[US-O17-T11] Schema and stale-edit tests: coordinates outside 0–1, unknown item kinds, an old base version, a deleted item",,72,High,2,area-qa,moscow-must,,Story: US-O17. Area: qa.
-393,Sub-task,"[US-O10-T1] Upload the PNG or JPG layout as the map's background, kept in S3 as the source; publish and republish through the map versions in US-O17",,73,High,2,area-api,moscow-must,,Story: US-O10. Area: api.
-394,Sub-task,"[US-O10-T2] Pin tools in the builder: add, move, relabel and remove pins; stall pins carry the stall number",,73,High,3,area-web,moscow-must,,Story: US-O10. Area: web.
-395,Sub-task,[US-O10-T3] Automated tests for the scenarios: Upload a layout; Edit pins,,73,High,1,area-qa,moscow-must,,Story: US-O10. Area: qa.
-396,Sub-task,[US-C11-T1] Map query with a version number; a subscription tells open viewers when the map is republished,,74,High,1,area-api,moscow-must,,Story: US-C11. Area: api.
-397,Sub-task,"[US-C11-T2] Map viewer: zoom, pan, tap a pin to read its label",,74,High,5,area-mobile,moscow-must,,Story: US-C11. Area: mobile.
-398,Sub-task,"[US-C11-T3] Map viewer: zoom, pan, tap a pin to read its label",,74,High,3,area-web,moscow-must,,Story: US-C11. Area: web.
-399,Sub-task,"[US-C11-T4] Add parking, registration or ticket counter, seating, food and drink, and water to the standard pins",,74,High,1,area-api,moscow-must,,Story: US-C11. Area: api.
-400,Sub-task,[US-C11-T5] Automated tests for the scenarios: Open the map; Find facilities by pin; More standard pins (proposed); Always see the latest map,,74,High,2,area-qa,moscow-must,,Story: US-C11. Area: qa.
-401,Sub-task,[US-O15-T1] Stall-to-zone links in the map format: approved stalls (by stall number) attached to zone IDs,,75,High,1,area-db,moscow-must,,Story: US-O15. Area: db.
-402,Sub-task,[US-O15-T2] Assign approved stalls to a zone; refuse stall numbers that are not approved for the event,,75,High,2,area-api,moscow-must,,Story: US-O15. Area: api.
-403,Sub-task,"[US-O15-T3] Zone tools in the builder: draw a zone, name it, and assign stalls from a side panel",,75,High,3,area-web,moscow-must,,Story: US-O15. Area: web.
-404,Sub-task,[US-O15-T4] Organiser hides or shows a stall listing that breaks the event's rules; the vendor is notified,,75,High,2,area-api,moscow-must,,Story: US-O15. Area: api.
-405,Sub-task,[US-O15-T5] Review stall listings for an event and hide or show an entry,,75,High,2,area-web,moscow-must,,Story: US-O15. Area: web.
-406,Sub-task,[US-O15-T6] Automated tests for the scenarios: Draw a zone; Assign stalls to a zone; Zones fit every screen; Hide an entry that breaks the rules,,75,High,2,area-qa,moscow-must,,Story: US-O15. Area: qa.
-407,Sub-task,[US-O18-T1] Spike: render a PDF page to PNG inside Lambda (pdfium or pdf.js; package size and memory),,76,Medium,2,area-worker,moscow-should,,Story: US-O18. Area: worker.
-408,Sub-task,"[US-O18-T2] PDF-to-image Lambda: on upload, render the first page to PNG as the background (resolution, size and page limits proposed); keep the PDF as the source",,76,Medium,3,area-worker,moscow-should,,Story: US-O18. Area: worker.
-409,Sub-task,"[US-O18-T3] Blank grid background of a set size in metres (e.g. 60 m × 40 m), with the scale set from the grid",,76,Medium,1,area-api,moscow-should,,Story: US-O18. Area: api.
-410,Sub-task,[US-O18-T4] Saved venue maps: save a map as the organiser's venue map; start a new event's map as a copy with new item IDs and no stall assignments or listings,,76,Medium,3,area-api,moscow-should,,Story: US-O18. Area: api.
-411,Sub-task,"[US-O18-T5] Start-a-map screen: upload an image or a PDF, start a blank grid, or pick one of my venue maps",,76,Medium,3,area-web,moscow-should,,Story: US-O18. Area: web.
-412,Sub-task,"[US-O18-T6] Save as a venue map; list, rename and delete my venue maps",,76,Medium,2,area-web,moscow-should,,Story: US-O18. Area: web.
-413,Sub-task,[US-O18-T7] Automated tests for the scenarios: Start from a PDF; Start from a blank grid; Save a venue map; Start from a saved venue map,,76,Medium,1,area-qa,moscow-should,,Story: US-O18. Area: qa.
-414,Sub-task,[US-O19-T1] Bedrock access: enable a Claude model and an IAM role for the draft Lambda; check whether ap-south-1 serves it or cross-region inference is needed (not verified),,77,Low,2,area-infra,moscow-could,,Story: US-O19. Area: infra.
-415,Sub-task,"[US-O19-T2] AI draft Lambda: port ai-studio's templateFromImage flow and vision prompt to Bedrock; returns zones, stalls and pins in the map format, validated against the schema before it reaches the builder",,77,Low,5,area-worker,moscow-could,,Story: US-O19. Area: worker.
-416,Sub-task,"[US-O19-T3] Untrusted-image guard: the prompt treats text in the image as data, not instructions; output size capped and unknown fields dropped; a draft is never published automatically",,77,Low,2,area-worker,moscow-could,,Story: US-O19. Area: worker.
-417,Sub-task,"[US-O19-T4] 'Draft with AI': progress, the draft opens in the builder marked unchecked, publish is blocked until the organiser confirms they checked it, and a failed draft falls back to drawing by hand",,77,Low,3,area-web,moscow-could,,Story: US-O19. Area: web.
-418,Sub-task,[US-O19-T5] Automated tests for the scenarios: Get a draft; Nothing publishes until I check it; Text in the plan is treated as data; The draft fails (proposed); plus a small set of sample floor plans (proposed) to judge draft quality,,77,Low,2,area-qa,moscow-could,,Story: US-O19. Area: qa.
-419,Sub-task,"[US-P14-T1] Stall listing for an approved stall: short description, and items with prices in LKR for this event stored as their own items, or a switch to use the profile prices (AC-03)",,78,High,3,area-api,moscow-must,,Story: US-P14. Area: api.
-420,Sub-task,"[US-P14-T2] Stall listing form: description, add, edit and remove items and prices, or use profile prices",,78,High,3,area-mobile,moscow-must,,Story: US-P14. Area: mobile.
-421,Sub-task,[US-P14-T3] Stall listing form,,78,High,3,area-web,moscow-must,,Story: US-P14. Area: web.
-422,Sub-task,[US-P14-T4] Automated tests for the scenarios: Add items for this event; Use my profile prices; Approved stalls only; Entry hidden by the organiser,,78,High,1,area-qa,moscow-must,,Story: US-P14. Area: qa.
-423,Sub-task,"[US-C18-T1] Map payload with zones, the stalls in each zone and stall summaries (vendor name, photo, stall number)",,79,High,2,area-api,moscow-must,,Story: US-C18. Area: api.
-424,Sub-task,"[US-C18-T2] Stall detail: description, items and prices or profile prices, vendor profile link; hidden listings left out",,79,High,2,area-api,moscow-must,,Story: US-C18. Area: api.
-425,Sub-task,"[US-C18-T3] Search an event map by item: filter that event's stall listings by item name (a few hundred at most, no search service), returning matching stall numbers",,79,High,2,area-api,moscow-must,,Story: US-C18. Area: api.
-426,Sub-task,"[US-C18-T4] Zones as an SVG overlay on the layout (react-native-svg, gesture handler); tap a zone to list its stalls",,79,High,5,area-mobile,moscow-must,,Story: US-C18. Area: mobile.
-427,Sub-task,[US-C18-T5] Stall detail sheet,,79,High,2,area-mobile,moscow-must,,Story: US-C18. Area: mobile.
-428,Sub-task,[US-C18-T6] Item search on the map; matching stalls highlighted,,79,High,3,area-mobile,moscow-must,,Story: US-C18. Area: mobile.
-429,Sub-task,[US-C18-T7] 'Find on map' from the event page's vendor list: deep link that opens the map on the stall,,79,High,2,area-mobile,moscow-must,,Story: US-C18. Area: mobile.
-430,Sub-task,"[US-C18-T8] Zones as an SVG overlay, zone stall list and stall detail panel",,79,High,5,area-web,moscow-must,,Story: US-C18. Area: web.
-431,Sub-task,[US-C18-T9] Item search on the map with highlighting,,79,High,2,area-web,moscow-must,,Story: US-C18. Area: web.
-432,Sub-task,[US-C18-T10] 'Find on map' from the vendor list,,79,High,1,area-web,moscow-must,,Story: US-C18. Area: web.
-433,Sub-task,[US-C18-T11] Automated tests for the scenarios: See the stalls in a zone; Open a stall; Search by item; Find on map from the vendor list,,79,High,2,area-qa,moscow-must,,Story: US-C18. Area: qa.
-434,Sub-task,[US-C19-T1] Link line-up entries to a stage pin; stage line-up in time order,,80,Medium,2,area-api,moscow-should,,Story: US-C19. Area: api.
-435,Sub-task,[US-C19-T2] Organiser links line-up entries to a stage in the map editor,,80,Medium,2,area-web,moscow-should,,Story: US-C19. Area: web.
-436,Sub-task,[US-C19-T3] Tap a stage pin to see who performs when,,80,Medium,2,area-mobile,moscow-should,,Story: US-C19. Area: mobile.
-437,Sub-task,[US-C19-T4] Stage line-up on the web map,,80,Medium,1,area-web,moscow-should,,Story: US-C19. Area: web.
-438,Sub-task,[US-C19-T5] Filter map stalls by stall type (from HR-10),,80,Medium,1,area-api,moscow-should,,Story: US-C19. Area: api.
-439,Sub-task,[US-C19-T6] Stall-type filter on the map,,80,Medium,2,area-mobile,moscow-should,,Story: US-C19. Area: mobile.
-440,Sub-task,[US-C19-T7] Stall-type filter on the map,,80,Medium,1,area-web,moscow-should,,Story: US-C19. Area: web.
-441,Sub-task,[US-C19-T8] Automated tests for the scenarios: See a stage's line-up; Filter by stall type,,80,Medium,1,area-qa,moscow-should,,Story: US-C19. Area: qa.
-442,Sub-task,"[US-C12-T1] Save map, schedule and announcements for offline use, with a 'last updated' time",,81,Low,5,area-mobile,moscow-could,,Story: US-C12. Area: mobile.
-443,Sub-task,[US-C12-T2] Refresh saved copies when the signal returns,,81,Low,3,area-mobile,moscow-could,,Story: US-C12. Area: mobile.
-444,Sub-task,[US-C12-T3] Automated tests for the scenarios: Save while online; Open while offline; Refresh when back online,,81,Low,1,area-qa,moscow-could,,Story: US-C12. Area: qa.
-445,Sub-task,[PG-13-T1] Friend requests and follows,,82,High,3,area-api,moscow-must,,Story: PG-13. Area: api.
-446,Sub-task,[PG-13-T2] Friend requests and friends list,,82,High,2,area-mobile,moscow-must,,Story: PG-13. Area: mobile.
-447,Sub-task,[PG-13-T3] Friend requests and friends list,,82,High,1,area-web,moscow-must,,Story: PG-13. Area: web.
-448,Sub-task,[PG-13-T4] Automated tests for the done-when checks,,82,High,1,area-qa,moscow-must,,Story: PG-13. Area: qa.
-449,Sub-task,[US-C10-T1] Event board created when an event is published,,83,High,2,area-api,moscow-must,,Story: US-C10. Area: api.
-450,Sub-task,[US-C10-T2] Event group chat that only people marked Going can join,,83,High,3,area-api,moscow-must,,Story: US-C10. Area: api.
-451,Sub-task,[US-C10-T3] Join the group chat; event board threads,,83,High,3,area-mobile,moscow-must,,Story: US-C10. Area: mobile.
-452,Sub-task,[US-C10-T4] Join the group chat; event board threads,,83,High,2,area-web,moscow-must,,Story: US-C10. Area: web.
-453,Sub-task,[US-C10-T5] Automated tests for the scenarios: Join the group chat; Start a meetup thread; Block or report someone,,83,High,2,area-qa,moscow-must,,Story: US-C10. Area: qa.
-454,Sub-task,"[PG-12-T1] Communities, membership, threads, nested replies, votes (one item per vote, atomic counts) and sorting by newest or most upvoted",,84,High,8,area-api,moscow-must,,Story: PG-12. Area: api.
-455,Sub-task,"[PG-12-T2] Communities list, community page, thread view and composer",,84,High,8,area-mobile,moscow-must,,Story: PG-12. Area: mobile.
-456,Sub-task,"[PG-12-T3] Communities list, community page, thread view and composer",,84,High,5,area-web,moscow-must,,Story: PG-12. Area: web.
-457,Sub-task,[PG-12-T4] Automated tests for the done-when checks,,84,High,2,area-qa,moscow-must,,Story: PG-12. Area: qa.
-458,Sub-task,"[PG-14-T1] Conversations, messages and attachments; which pairs may chat, by role and privacy",,85,High,5,area-api,moscow-must,,Story: PG-14. Area: api.
-459,Sub-task,[PG-14-T2] Live delivery through a subscription limited to the conversation's members; unread counts,,85,High,3,area-api,moscow-must,,Story: PG-14. Area: api.
-460,Sub-task,[PG-14-T3] Push for new messages when the recipient is not in the app,,85,High,2,area-worker,moscow-must,,Story: PG-14. Area: worker.
-461,Sub-task,[PG-14-T4] Chat list and thread screens with attachments,,85,High,8,area-mobile,moscow-must,,Story: PG-14. Area: mobile.
-462,Sub-task,[PG-14-T5] Chat list and thread pages with attachments,,85,High,5,area-web,moscow-must,,Story: PG-14. Area: web.
-463,Sub-task,[PG-14-T6] Automated tests for the done-when checks,,85,High,2,area-qa,moscow-must,,Story: PG-14. Area: qa.
-464,Sub-task,"[US-C08-T1] Event Q&A: public questions, organiser answers, full history",,86,High,3,area-api,moscow-must,,Story: US-C08. Area: api.
-465,Sub-task,"[US-C08-T2] Q&A tab with 'Ask privately', which opens a chat; organiser answers",,86,High,3,area-mobile,moscow-must,,Story: US-C08. Area: mobile.
-466,Sub-task,[US-C08-T3] Q&A section with 'Ask privately'; organiser answers,,86,High,2,area-web,moscow-must,,Story: US-C08. Area: web.
-467,Sub-task,[US-C08-T4] Automated tests for the scenarios: Ask in public; Read earlier answers; Ask something private,,86,High,2,area-qa,moscow-must,,Story: US-C08. Area: qa.
-468,Sub-task,"[US-O12-T1] Announcements to Going, Interested and followers, also shown on the event page",,87,High,3,area-api,moscow-must,,Story: US-O12. Area: api.
-469,Sub-task,[US-O12-T2] Send announcements in batches by push and in-app,,87,High,3,area-worker,moscow-must,,Story: US-O12. Area: worker.
-470,Sub-task,[US-O12-T3] Announcement composer and announcements on the event page,,87,High,2,area-mobile,moscow-must,,Story: US-O12. Area: mobile.
-471,Sub-task,[US-O12-T4] Announcement composer and announcements on the event page,,87,High,2,area-web,moscow-must,,Story: US-O12. Area: web.
-472,Sub-task,[US-O12-T5] Set live status from the announcement screen,,87,High,1,area-web,moscow-must,,Story: US-O12. Area: web.
-473,Sub-task,[US-O12-T6] Automated tests for the scenarios: Send an announcement; Set live status from the same screen,,87,High,1,area-qa,moscow-must,,Story: US-O12. Area: qa.
-474,Sub-task,"[PG-15-T1] Wire each MS-07 type to push, in-app and email through the notification queue",,88,High,3,area-worker,moscow-must,,Story: PG-15. Area: worker.
-475,Sub-task,"[PG-15-T2] Email templates for Amazon SES (written in React Email, rendered to HTML)",,88,High,2,area-design,moscow-must,,Story: PG-15. Area: design.
-476,Sub-task,[PG-15-T3] Urgent SMS through Dialog e-SMS (proposed),,88,High,2,area-worker,moscow-must,,Story: PG-15. Area: worker.
-477,Sub-task,[PG-15-T4] Automated tests for the done-when checks,,88,High,1,area-qa,moscow-must,,Story: PG-15. Area: qa.
-478,Sub-task,"[US-O13-T1] Going and Interested counts as atomic counters, sent live to the dashboard through a subscription",,89,High,2,area-api,moscow-must,,Story: US-O13. Area: api.
-479,Sub-task,[US-O13-T2] Event dashboard with live counts,,89,High,3,area-web,moscow-must,,Story: US-O13. Area: web.
-480,Sub-task,[US-O13-T3] Event dashboard with live counts,,89,High,2,area-mobile,moscow-must,,Story: US-O13. Area: mobile.
-481,Sub-task,"[US-O13-T4] Scheduled Lambda sums activity items into daily totals: page views, post and reel engagement, Going marks, follower growth",,89,High,5,area-worker,moscow-must,,Story: US-O13. Area: worker.
-482,Sub-task,[US-O13-T5] Analytics charts over time,,89,High,3,area-web,moscow-must,,Story: US-O13. Area: web.
-483,Sub-task,[US-O13-T6] Automated tests for the scenarios: Counts update live; See analytics,,89,High,1,area-qa,moscow-must,,Story: US-O13. Area: qa.
-484,Sub-task,"[US-O14-T1] Hiring summary per event: requests, quotes, bookings, stall applications and approvals with status",,90,High,3,area-api,moscow-must,,Story: US-O14. Area: api.
-485,Sub-task,[US-O14-T2] Hiring dashboard per event,,90,High,3,area-web,moscow-must,,Story: US-O14. Area: web.
-486,Sub-task,[US-O14-T3] Hiring summary per event,,90,High,2,area-mobile,moscow-must,,Story: US-O14. Area: mobile.
-487,Sub-task,[US-O14-T4] Next payment due on the hiring dashboard; payment record on organiser profiles,,90,High,2,area-api,moscow-must,,Story: US-O14. Area: api.
-488,Sub-task,[US-O14-T5] Automated tests for the scenarios: See every item for an event; Track payments (proposed),,90,High,1,area-qa,moscow-must,,Story: US-O14. Area: qa.
-489,Sub-task,"[PG-18-T1] Reports and admin actions, enforced across the platform",,91,High,5,area-api,moscow-must,,Story: PG-18. Area: api.
-490,Sub-task,[PG-18-T2] Report queue with filters and actions,,91,High,5,area-web,moscow-must,,Story: PG-18. Area: web.
-491,Sub-task,[PG-18-T3] Tell the reported user about the action taken,,91,High,1,area-worker,moscow-must,,Story: PG-18. Area: worker.
-492,Sub-task,[PG-18-T4] Automated tests for the done-when checks,,91,High,1,area-qa,moscow-must,,Story: PG-18. Area: qa.
-493,Sub-task,[US-A01-T1] Verification requests with documents; approve or reject with a reason; decision logged,,92,High,3,area-api,moscow-must,,Story: US-A01. Area: api.
-494,Sub-task,[US-A01-T2] Admin verification queue with a document viewer (signed links),,92,High,3,area-web,moscow-must,,Story: US-A01. Area: web.
-495,Sub-task,[US-A01-T3] Organiser and provider document submission,,92,High,2,area-mobile,moscow-must,,Story: US-A01. Area: mobile.
-496,Sub-task,[US-A01-T4] Organiser and provider document submission,,92,High,2,area-web,moscow-must,,Story: US-A01. Area: web.
-497,Sub-task,"[US-A01-T5] Only verified organisers can open stalls, post jobs or send booking requests",,92,High,2,area-api,moscow-must,,Story: US-A01. Area: api.
-498,Sub-task,[US-A01-T6] Tell the user the decision and the reason,,92,High,1,area-worker,moscow-must,,Story: US-A01. Area: worker.
-499,Sub-task,[US-A01-T7] Automated tests for the scenarios: Review documents; Approve or reject; Unverified organisers are limited,,92,High,2,area-qa,moscow-must,,Story: US-A01. Area: qa.
-500,Sub-task,[US-A02-T1] Unpublish an event: close its stall applications and job posts; notify Going and Interested,,93,High,3,area-api,moscow-must,,Story: US-A02. Area: api.
-501,Sub-task,[US-A02-T2] Unpublish action on reported events,,93,High,2,area-web,moscow-must,,Story: US-A02. Area: web.
-502,Sub-task,[US-A02-T3] Automated tests for the scenarios: Unpublish a fake event; People are told,,93,High,1,area-qa,moscow-must,,Story: US-A02. Area: qa.
-503,Sub-task,"[US-A03-T1] Disputes: booking or stall, terms, statuses and chat history attached; outcomes",,94,High,5,area-api,moscow-must,,Story: US-A03. Area: api.
-504,Sub-task,[US-A03-T2] Dispute view for admins,,94,High,3,area-web,moscow-must,,Story: US-A03. Area: web.
-505,Sub-task,[US-A03-T3] Report a problem with a booking,,94,High,2,area-mobile,moscow-must,,Story: US-A03. Area: mobile.
-506,Sub-task,[US-A03-T4] Report a problem with a booking,,94,High,1,area-web,moscow-must,,Story: US-A03. Area: web.
-507,Sub-task,"[US-A03-T5] Payment records and receipts for the disputed booking or stall, read-only (HR-20)",,94,High,1,area-api,moscow-must,,Story: US-A03. Area: api.
-508,Sub-task,"[US-A03-T6] Payments panel in the admin dispute view, with test payments labelled",,94,High,2,area-web,moscow-must,,Story: US-A03. Area: web.
-509,Sub-task,[US-A03-T7] Automated tests for the scenarios: Open a dispute; Decide the outcome; See payments made in the app (proposed),,94,High,1,area-qa,moscow-must,,Story: US-A03. Area: qa.
-510,Sub-task,[US-A04-T1] Hidden reviews and banned accounts' reviews leave ratings and trigger a rank recalculation,,95,High,3,area-api,moscow-must,,Story: US-A04. Area: api.
-511,Sub-task,[US-A04-T2] Hide action on reported reviews,,95,High,2,area-web,moscow-must,,Story: US-A04. Area: web.
-512,Sub-task,[US-A04-T3] Automated tests for the scenarios: Reported reviews; Leave out hidden reviews and fake accounts,,95,High,1,area-qa,moscow-must,,Story: US-A04. Area: qa.
-513,Sub-task,"[PG-16-T1] Create, edit and archive communities",,96,High,2,area-api,moscow-must,,Story: PG-16. Area: api.
-514,Sub-task,[PG-16-T2] Community management pages,,96,High,2,area-web,moscow-must,,Story: PG-16. Area: web.
-515,Sub-task,[PG-16-T3] Seed the first topic and city communities,,96,High,1,area-db,moscow-must,,Story: PG-16. Area: db.
-516,Sub-task,[PG-16-T4] Automated tests for the done-when checks,,96,High,1,area-qa,moscow-must,,Story: PG-16. Area: qa.
-517,Sub-task,[PG-17-T1] Audit log written for every admin mutation,,97,Medium,2,area-api,moscow-should,,Story: PG-17. Area: api.
-518,Sub-task,[PG-17-T2] Audit log view,,97,Medium,2,area-web,moscow-should,,Story: PG-17. Area: web.
-519,Sub-task,[PG-17-T3] Automated tests for the done-when checks,,97,Medium,1,area-qa,moscow-should,,Story: PG-17. Area: qa.
-520,Sub-task,"[PG-04-T1] Sinhala and Tamil translations, checked by native speakers",,98,Medium,5,area-design,moscow-should,,Story: PG-04. Area: design.
-521,Sub-task,[PG-04-T2] Language switcher; check layouts with longer strings,,98,Medium,2,area-mobile,moscow-should,,Story: PG-04. Area: mobile.
-522,Sub-task,[PG-04-T3] Language switcher; check layouts with longer strings,,98,Medium,2,area-web,moscow-should,,Story: PG-04. Area: web.
-523,Sub-task,[PG-04-T4] Automated tests for the done-when checks,,98,Medium,1,area-qa,moscow-should,,Story: PG-04. Area: qa.
-524,Sub-task,"[EN-13-T1] Data export and account deletion across DynamoDB items, S3 files and the Cognito user",,99,High,5,area-api,moscow-must,,Story: EN-13. Area: api.
-525,Sub-task,[EN-13-T2] Consent for marketing messages,,99,High,1,area-api,moscow-must,,Story: EN-13. Area: api.
-526,Sub-task,"[EN-13-T3] Data inventory, privacy notice and breach response plan; check the PDPA's cross-border rules, as data is stored in Mumbai (not checked)",,99,High,3,area-qa,moscow-must,,Story: EN-13. Area: qa.
-527,Sub-task,"[EN-14-T1] Screen-reader and contrast audit of the main flows, mobile and web",,100,High,3,area-qa,moscow-must,,Story: EN-14. Area: qa.
-528,Sub-task,"[EN-14-T2] Fix contrast problems, such as text on the vendor primary colour (2.2:1)",,100,High,2,area-design,moscow-must,,Story: EN-14. Area: design.
-529,Sub-task,"[EN-15-T1] Load-time checks on throttled 4G for feed, event page and search",,101,High,3,area-qa,moscow-must,,Story: EN-15. Area: qa.
-530,Sub-task,[EN-15-T2] Compress reels on the phone before upload; load the resized image sizes from CloudFront,,101,High,3,area-mobile,moscow-must,,Story: EN-15. Area: mobile.
-531,Sub-task,"[EN-16-T1] Security headers on the portal, Zod validation in custom resolvers and Lambda functions, AppSync throttling, least-privilege Lambda permissions",,102,High,3,area-api,moscow-must,,Story: EN-16. Area: api.
-532,Sub-task,[EN-16-T2] Role-access tests for every module,,102,High,3,area-qa,moscow-must,,Story: EN-16. Area: qa.
-533,Sub-task,[EN-17-T1] Usability test plan and sessions for the three tasks,,103,High,3,area-qa,moscow-must,,Story: EN-17. Area: qa.
-534,Sub-task,"[EN-17-T2] Record the success metrics: events published, Going rate, booking rate, stall fill, review rate",,103,High,3,area-api,moscow-must,,Story: EN-17. Area: api.
-535,Sub-task,"[EN-17-T3] Production branch backend, SES production access confirmed, and partner onboarding checklist",,103,High,2,area-infra,moscow-must,,Story: EN-17. Area: infra.
-536,Sub-task,"[EN-18-T1] PayHere sandbox merchant account and docs spike: hosted checkout, mobile SDK, notify_url, md5sig, refunds and test cards; note what the sandbox cannot do",,106,Medium,2,area-infra,moscow-should,,Story: EN-18. Area: infra.
-537,Sub-task,"[EN-18-T2] Payment-provider adapter interface in TypeScript (start checkout, verify notice, refund, test mode) with the PayHere sandbox as the first implementation, so Genie Business or WEBXPAY can be added later",,106,Medium,3,area-api,moscow-should,,Story: EN-18. Area: api.
-538,Sub-task,"[EN-18-T3] Payment and receipt models in DynamoDB: payment (order ID, payer, payee, instalment, stall fee or cancellation fee, amount in LKR, status, test flag) and receipt; GSIs by payer, by payee and by booking or stall",,106,Medium,3,area-db,moscow-should,,Story: EN-18. Area: db.
-539,Sub-task,"[EN-18-T4] Notify webhook on a Lambda function URL (the one exception to GraphQL only): verify PayHere's md5sig with the payee's merchant secret, check amount and currency, and update each order ID once with a conditional write (idempotent)",,106,Medium,5,area-api,moscow-should,,Story: EN-18. Area: api.
-540,Sub-task,"[EN-18-T5] DynamoDB Stream on payments: route a successful payment to its instalment, stall or cancellation, and queue receipts on SQS",,106,Medium,2,area-worker,moscow-should,,Story: EN-18. Area: worker.
-541,Sub-task,"[EN-18-T6] 'Test payment, no real money' label and the receipt layout, with the commission line, for the app and the portal",,106,Medium,1,area-design,moscow-should,,Story: EN-18. Area: design.
-542,Sub-task,"[EN-18-T7] Webhook and adapter tests: a bad signature is refused, a repeated notice changes nothing, a wrong amount is flagged; adapter contract tests against the sandbox",,106,Medium,2,area-qa,moscow-should,,Story: EN-18. Area: qa.
-543,Sub-task,[US-P15-T1] Connect a PayHere sandbox merchant account (merchant ID and secret) to a provider's or organiser's profile; the secret is kept server-side in AWS Secrets Manager (proposed) and never returned to the apps; disconnect,,107,Medium,3,area-api,moscow-should,,Story: US-P15. Area: api.
-544,Sub-task,"[US-P15-T2] 'Can be paid in the app' flag on profiles, bookings and stalls; without it the Pay buttons are hidden and HR-15 stays the path",,107,Medium,1,area-api,moscow-should,,Story: US-P15. Area: api.
-545,Sub-task,"[US-P15-T3] Payment account settings: connect, status, disconnect",,107,Medium,2,area-mobile,moscow-should,,Story: US-P15. Area: mobile.
-546,Sub-task,"[US-P15-T4] Payment account settings: connect, status, disconnect",,107,Medium,2,area-web,moscow-should,,Story: US-P15. Area: web.
-547,Sub-task,"[US-P15-T5] Receipt to the payee when a payment succeeds: in-app, push and email (SES), labelled as a test payment",,107,Medium,2,area-worker,moscow-should,,Story: US-P15. Area: worker.
-548,Sub-task,"[US-P15-T6] Automated tests for the scenarios: Connect my account; Get paid; No account connected; Test payment, no real money",,107,Medium,1,area-qa,moscow-should,,Story: US-P15. Area: qa.
-549,Sub-task,[US-O16-T1] Start a payment for an instalment: amount and order ID from the booking's terms; refused unless the provider has a connected account,,108,Medium,2,area-api,moscow-should,,Story: US-O16. Area: api.
-550,Sub-task,"[US-O16-T2] Hosted PayHere checkout on the portal: hand-off to the provider's checkout, return and cancel pages, pending until the notice arrives",,108,Medium,3,area-web,moscow-should,,Story: US-O16. Area: web.
-551,Sub-task,"[US-O16-T3] Spike: PayHere's mobile SDK in the Expo app, and whether it needs an Expo config plugin or a development build (not verified)",,108,Medium,2,area-mobile,moscow-should,,Story: US-O16. Area: mobile.
-552,Sub-task,"[US-O16-T4] Pay an instalment with PayHere's mobile SDK: pending, paid and failed states",,108,Medium,3,area-mobile,moscow-should,,Story: US-O16. Area: mobile.
-553,Sub-task,[US-O16-T5] A successful payment marks the HR-15 instalment received and notifies both sides; the provider's manual mark stays for payments made outside the app,,108,Medium,2,area-worker,moscow-should,,Story: US-O16. Area: worker.
-554,Sub-task,"[US-O16-T6] Payment history and receipts for both sides of a booking, with Tezera's commission as a separate line (rate proposed, not charged in the ATP)",,108,Medium,3,area-api,moscow-should,,Story: US-O16. Area: api.
-555,Sub-task,[US-O16-T7] Payment history and receipts,,108,Medium,2,area-mobile,moscow-should,,Story: US-O16. Area: mobile.
-556,Sub-task,[US-O16-T8] Payment history and receipts,,108,Medium,2,area-web,moscow-should,,Story: US-O16. Area: web.
-557,Sub-task,"[US-O16-T9] Automated tests for the scenarios: Pay through the provider's account; The payment marks the instalment received; Provider has no payment account; Receipts and history; Test payment, no real money",,108,Medium,2,area-qa,moscow-should,,Story: US-O16. Area: qa.
-558,Sub-task,[US-P16-T1] Stall-fee payment through the organiser's connected account; a successful payment marks the stall paid and confirmed; without an account the fee stays 'paid outside Tezera',,109,Medium,3,area-api,moscow-should,,Story: US-P16. Area: api.
-559,Sub-task,[US-P16-T2] Pay the stall fee from an approved stall,,109,Medium,2,area-mobile,moscow-should,,Story: US-P16. Area: mobile.
-560,Sub-task,[US-P16-T3] Pay the stall fee; paid stalls marked on the organiser's stall board,,109,Medium,2,area-web,moscow-should,,Story: US-P16. Area: web.
-561,Sub-task,[US-P16-T4] Receipts to the vendor and the organiser,,109,Medium,1,area-worker,moscow-should,,Story: US-P16. Area: worker.
-562,Sub-task,[US-P16-T5] Automated tests for the scenarios: Pay the fee; Organiser has no payment account; Both sides get a receipt,,109,Medium,1,area-qa,moscow-should,,Story: US-P16. Area: qa.
-563,Sub-task,"[US-P17-T1] Work out the cancellation fee or refund from the booking's cancellation terms, who cancelled and when (HR-08, HR-16)",,110,Medium,3,area-api,moscow-should,,Story: US-P17. Area: api.
-564,Sub-task,"[US-P17-T2] Refund a paid instalment through the adapter from the provider's merchant account; if the PayHere sandbox has no refund call, record it as settled outside the app (not verified)",,110,Medium,3,area-api,moscow-should,,Story: US-P17. Area: api.
-565,Sub-task,[US-P17-T3] Charge a cancellation fee through the provider's checkout (reuses US-O16),,110,Medium,1,area-api,moscow-should,,Story: US-P17. Area: api.
-566,Sub-task,"[US-P17-T4] Cancellation summary: fee or refund due, pay or refund, receipts",,110,Medium,3,area-mobile,moscow-should,,Story: US-P17. Area: mobile.
-567,Sub-task,"[US-P17-T5] Cancellation summary: fee or refund due, pay or refund, receipts",,110,Medium,2,area-web,moscow-should,,Story: US-P17. Area: web.
-568,Sub-task,"[US-P17-T6] Automated tests for the scenarios: Organiser cancels late; Provider cancels; Paid outside the app; Test payment, no real money",,110,Medium,2,area-qa,moscow-should,,Story: US-P17. Area: qa.
+116,Sub-task,"[EN-02-T1] Amplify Hosting connected to the Git repository: the Next.js portal and the Amplify auth backend deploy from the dev and main branches, each stage with its own Cognito pool in ap-south-1",,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
+117,Sub-task,"[EN-02-T2] Pull request previews for the portal on Amplify Hosting, pointed at the dev API",,17,High,1,area-infra,moscow-must,,Story: EN-02. Area: infra.
+118,Sub-task,"[EN-02-T3] Local set-up documented in the README: PostgreSQL in Docker (port 5433), the API on port 4000, and an ampx sandbox for each developer's own Cognito pool",,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
+119,Sub-task,"[EN-02-T4] Secrets per stage in AWS Systems Manager Parameter Store (SecureString) or Secrets Manager: database URL, Dialog e-SMS keys, FCM key; the Lambda reads them at start; documented .env.example for local settings",,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
+120,Sub-task,"[EN-02-T5] Flutter builds for Android and iOS: debug builds for the team and internal distribution (Firebase App Distribution and TestFlight, proposed)",,17,High,3,area-infra,moscow-must,,Story: EN-02. Area: infra.
+121,Sub-task,"[EN-02-T6] AWS account: an IAM login per team member with MFA required (tezera-require-mfa policy), root account locked away, AWS Budgets alert (proposed)",,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
+122,Sub-task,"[EN-02-T7] CDK api-stack fixes (infra/lib/api-stack.ts): Cognito pool and client IDs for each stage, the database URL read from Parameter Store, class-validator and class-transformer bundled, timeout and memory checked against cold starts",,17,High,3,area-infra,moscow-must,,Story: EN-02. Area: infra.
+123,Sub-task,[EN-02-T8] Prisma in the Lambda bundle: the linux-arm64 engine and schema.prisma copied by a CDK command hook; GET /health/db passes on the deployed dev stage (not verified),,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
+124,Sub-task,"[EN-02-T9] Deploy the CDK api-stack from CI: dev on merge to dev, main on release; prisma migrate deploy runs before the new Lambda goes live (proposed)",,17,High,2,area-infra,moscow-must,,Story: EN-02. Area: infra.
+125,Sub-task,"[EN-03-T1] Core Prisma models and migrations: organiser, provider and consumer profiles linked to users, districts and categories (the users table comes from the auth set-up, EN-04)",,18,High,5,area-db,moscow-must,,Story: EN-03. Area: db.
+126,Sub-task,"[EN-03-T2] Data design document in the code repo: every table with its owner module, its database (PostgreSQL or DynamoDB) and its PRD IDs; DynamoDB keys designed from their reads before the tables are built (table creation plan)",,18,High,3,area-db,moscow-must,,Story: EN-03. Area: db.
+127,Sub-task,"[EN-03-T3] Prisma seed script for local and dev databases: fake demo accounts and events in Colombo, Kandy and Galle",,18,High,3,area-db,moscow-must,,Story: EN-03. Area: db.
+128,Sub-task,"[EN-03-T4] Schema rules written down: PostgreSQL tables change only through Prisma migrations and DynamoDB tables only through the CDK code, never by hand in DBeaver or the AWS console; hosted databases get prisma migrate deploy only (PRD section 8)",,18,High,1,area-db,moscow-must,,Story: EN-03. Area: db.
+129,Sub-task,"[EN-03-T6] Shared PostgreSQL 16 for the dev stage: choose the host (hosted PostgreSQL with a connection pooler such as Supabase or Neon, proposed), make the migrate and app database users, pooled and direct connection strings, run prisma migrate deploy",,18,High,3,area-infra,moscow-must,,Story: EN-03. Area: infra.
+130,Sub-task,"[EN-03-T7] DynamoDB tables in the CDK code: chat messages, feed items and WebSocket connections, on-demand capacity, time to live where data expires; keys from the table creation plan (proposed)",,18,High,2,area-db,moscow-must,,Story: EN-03. Area: db.
+131,Sub-task,"[EN-04-T1] Cognito as Amplify Gen 2 code in amplify/auth (already in the repo): email or phone sign-in; groups attendee, organiser, vendor, freelancer and admin; pre-sign-up and post-confirmation functions; review and test it",,19,High,2,area-api,moscow-must,,Story: EN-04. Area: api.
+132,Sub-task,"[EN-04-T2] NestJS AuthGuard (aws-jwt-verify checks the Cognito access token) and RolesGuard (role from the Cognito group, never from the request body) on every route; owner checks in each service",,19,High,3,area-api,moscow-must,,Story: EN-04. Area: api.
+133,Sub-task,"[EN-04-T3] Amplify Flutter auth library in the app against the same Cognito pool: sign-in, session storage, auth state, and the access token sent on every API call (proposed)",,19,High,3,area-mobile,moscow-must,,Story: EN-04. Area: mobile.
+134,Sub-task,[EN-04-T4] Amplify Auth in Next.js (ConfigureAmplify with amplify_outputs.json for each stage); protected and admin-only routes; the access token sent to the API,,19,High,3,area-web,moscow-must,,Story: EN-04. Area: web.
+135,Sub-task,[EN-04-T5] Limits on sign-in attempts and code requests: Cognito's built-in limits plus a per-number cap on SMS codes (proposed),,19,High,2,area-api,moscow-must,,Story: EN-04. Area: api.
+136,Sub-task,"[EN-04-T6] users table (Prisma): Cognito sub, email, phone, role copied from the group, status; contact CHECK rules; row made on the first request; GET /me (built in the auth set-up run, 19 Nov 2026; review and merge)",,19,High,3,area-api,moscow-must,,Story: EN-04. Area: api.
+137,Sub-task,"[EN-05-T1] Flutter project in apps/mobile (Dart, Android and iOS) with role-based tab navigation (router package proposed)",,20,High,5,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
+138,Sub-task,"[EN-05-T2] Typed Dart API client generated from the NestJS OpenAPI description (proposed); loading, error and empty-state widgets",,20,High,3,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
+139,Sub-task,"[EN-05-T3] Deep links and universal / app links for event, post and profile URLs",,20,High,3,area-mobile,moscow-must,,Story: EN-05. Area: mobile.
+140,Sub-task,[EN-06-T1] Next.js App Router with role-based layouts,,21,High,5,area-web,moscow-must,,Story: EN-06. Area: web.
+141,Sub-task,"[EN-06-T2] Typed client for the NestJS API (shared Zod types); loading, error and empty-state components",,21,High,2,area-web,moscow-must,,Story: EN-06. Area: web.
+142,Sub-task,"[EN-06-T3] Public, server-rendered routes for event and profile pages, read through public API routes that need no sign-in",,21,High,3,area-web,moscow-must,,Story: EN-06. Area: web.
+143,Sub-task,"[EN-07-T1] Wireframes for the main flows: publish an event, hire a provider, run stalls, upload a map",,22,High,5,area-design,moscow-must,,Story: EN-07. Area: design.
+144,Sub-task,"[EN-07-T2] Design tokens from the brand manual (role palettes, type, spacing)",,22,High,3,area-design,moscow-must,,Story: EN-07. Area: design.
+145,Sub-task,"[EN-07-T3] Core components on mobile and web: buttons, inputs, cards, priority pills, Verified, role and tier badges",,22,High,5,area-design,moscow-must,,Story: EN-07. Area: design.
+146,Sub-task,"[EN-07-T4] i18n set-up: translation files on the portal (i18next, proposed) and ARB files with flutter_localizations in the app; English strings first; Sinhala and Tamil fonts loaded",,22,High,3,area-infra,moscow-must,,Story: EN-07. Area: infra.
+147,Sub-task,[EN-08-T1] S3 key layout and access rules per role; NestJS hands out presigned upload URLs with size and type limits per upload (limits proposed),,23,High,3,area-api,moscow-must,,Story: EN-08. Area: api.
+148,Sub-task,"[EN-08-T2] Private verification-document path readable only by the admin group, opened through short-lived signed URLs",,23,High,2,area-api,moscow-must,,Story: EN-08. Area: api.
+149,Sub-task,[EN-08-T3] Image and video picker with upload progress and limit errors,,23,High,3,area-mobile,moscow-must,,Story: EN-08. Area: mobile.
+150,Sub-task,[EN-08-T4] Upload component with progress and limit errors,,23,High,2,area-web,moscow-must,,Story: EN-08. Area: web.
+151,Sub-task,[EN-08-T5] Image resize Lambda on upload: feed and thumbnail sizes stored beside the original (proposed),,23,High,3,area-worker,moscow-must,,Story: EN-08. Area: worker.
+152,Sub-task,"[EN-08-T6] S3 media bucket and a CloudFront distribution in front of the public media paths, defined in the CDK code",,23,High,2,area-infra,moscow-must,,Story: EN-08. Area: infra.
+153,Sub-task,"[EN-09-T1] Notification models: types, in-app inbox, per-type user settings",,24,High,5,area-api,moscow-must,,Story: EN-09. Area: api.
+154,Sub-task,"[EN-09-T2] Sender Lambda on the SQS notification queue: Firebase Cloud Messaging push (Android, and iOS through APNs), Amazon SES email, Dialog e-SMS",,24,High,5,area-worker,moscow-must,,Story: EN-09. Area: worker.
+155,Sub-task,"[EN-09-T3] FCM in the Flutter app: ask for permission, register the device token with the API, and show the in-app notification list",,24,High,3,area-mobile,moscow-must,,Story: EN-09. Area: mobile.
+156,Sub-task,[EN-09-T4] Notification bell and list,,24,High,2,area-web,moscow-must,,Story: EN-09. Area: web.
+157,Sub-task,[EN-09-T5] Dialog Enterprise account and sender ID; test the e-SMS API early (docs are thin),,24,High,2,area-infra,moscow-must,,Story: EN-09. Area: infra.
+158,Sub-task,"[EN-09-T6] Amazon SES: verify the sending domain (DKIM, SPF) and request production access before the pilot",,24,High,2,area-infra,moscow-must,,Story: EN-09. Area: infra.
+159,Sub-task,"[EN-09-T7] Firebase project for FCM: Android and iOS apps, the APNs key for iOS, the FCM service-account key in Parameter Store for the sender Lambda (not verified)",,24,High,2,area-infra,moscow-must,,Story: EN-09. Area: infra.
+160,Sub-task,"[EN-10-T1] Topic rules for live updates: $connect checks the Cognito token; a connection may subscribe only to what the caller may read (an event, a conversation, an organiser dashboard)",,25,High,3,area-api,moscow-must,,Story: EN-10. Area: api.
+161,Sub-task,"[EN-10-T2] WebSocket client in the Flutter app with automatic reconnect, re-fetching what was missed when the app returns",,25,High,3,area-mobile,moscow-must,,Story: EN-10. Area: mobile.
+162,Sub-task,[EN-10-T3] WebSocket client with reconnect in the portal,,25,High,2,area-web,moscow-must,,Story: EN-10. Area: web.
+163,Sub-task,"[EN-10-T4] API Gateway WebSocket API in the CDK code: $connect, $disconnect and subscribe Lambdas that store connection IDs and topics in the DynamoDB connections table (with time to live)",,25,High,3,area-infra,moscow-must,,Story: EN-10. Area: infra.
+164,Sub-task,"[EN-10-T5] Publish helper in NestJS: send event status, Going counts and map republishes to the subscribed connections through the API Gateway management API; remove connections that are gone",,25,High,3,area-api,moscow-must,,Story: EN-10. Area: api.
+165,Sub-task,"[EN-11-T1] SQS queue with retries and a dead-letter queue, feeding a Lambda function; defined in the CDK code",,26,High,3,area-worker,moscow-must,,Story: EN-11. Area: worker.
+166,Sub-task,"[EN-11-T2] Check Lambda, API Gateway (HTTP and WebSocket), SQS, DynamoDB and EventBridge Scheduler use against the AWS free allowances, and the hosted PostgreSQL free-tier limits (not verified)",,26,High,1,area-infra,moscow-must,,Story: EN-11. Area: infra.
+167,Sub-task,"[EN-11-T3] EventBridge Scheduler: recurring schedules (every 15 minutes, daily) and one-off schedules for timed jobs",,26,High,2,area-worker,moscow-must,,Story: EN-11. Area: worker.
+168,Sub-task,"[EN-11-T4] DynamoDB Streams triggers that report failed records, so one bad record does not block the stream",,26,High,2,area-worker,moscow-must,,Story: EN-11. Area: worker.
+169,Sub-task,"[EN-11-T5] Dead-letter handling: CloudWatch alarm when the queue is not empty, and a script to send messages back for retry",,26,High,2,area-worker,moscow-must,,Story: EN-11. Area: worker.
+170,Sub-task,"[EN-12-T1] PostgreSQL full-text search (tsvector columns with GIN indexes) on event titles and organiser and provider names; pg_trgm trigram indexes for typos; indexes for category, district and date",,27,High,3,area-db,moscow-must,,Story: EN-12. Area: db.
+171,Sub-task,"[EN-12-T2] Shared search helper in NestJS: one query from the search text and the filters (category, district, dates, price, free), ranked by relevance, paged with cursors",,27,High,3,area-api,moscow-must,,Story: EN-12. Area: api.
+172,Sub-task,[PG-01-T1] Cognito sign-up by email or phone with one-time codes and password reset; the role picked at sign-up sets the user's group,,28,High,3,area-api,moscow-must,,Story: PG-01. Area: api.
+173,Sub-task,[PG-01-T2] Custom SMS sender Lambda: decrypts Cognito's code and sends it through Dialog e-SMS,,28,High,3,area-worker,moscow-must,,Story: PG-01. Area: worker.
+174,Sub-task,"[PG-01-T3] Sign-up, verify, role choice, log-in and reset screens",,28,High,5,area-mobile,moscow-must,,Story: PG-01. Area: mobile.
+175,Sub-task,"[PG-01-T4] Sign-up, verify, role choice, log-in and reset pages",,28,High,3,area-web,moscow-must,,Story: PG-01. Area: web.
+176,Sub-task,"[PG-01-T5] Minimum account age 16 (proposed), checked by a pre-sign-up Lambda; under-18s tick that a parent or guardian agreed",,28,High,1,area-api,moscow-must,,Story: PG-01. Area: api.
+177,Sub-task,[PG-01-T6] Verification and reset emails sent through Amazon SES with Tezera's own templates,,28,High,1,area-worker,moscow-must,,Story: PG-01. Area: worker.
+178,Sub-task,[PG-01-T7] Automated tests for the done-when checks,,28,High,2,area-qa,moscow-must,,Story: PG-01. Area: qa.
+179,Sub-task,"[PG-02-T1] Consumer profile and privacy settings, enforced on every read",,29,High,5,area-api,moscow-must,,Story: PG-02. Area: api.
+180,Sub-task,[PG-02-T2] Profile and privacy settings screens,,29,High,3,area-mobile,moscow-must,,Story: PG-02. Area: mobile.
+181,Sub-task,[PG-02-T3] Profile and privacy settings pages,,29,High,2,area-web,moscow-must,,Story: PG-02. Area: web.
+182,Sub-task,[PG-02-T4] Automated tests for the done-when checks,,29,High,2,area-qa,moscow-must,,Story: PG-02. Area: qa.
+183,Sub-task,"[PG-03-T1] Block list applied to chats, boards and comments; a report endpoint that adds to the admin report queue",,30,High,3,area-api,moscow-must,,Story: PG-03. Area: api.
+184,Sub-task,"[PG-03-T2] Block and report menu on profiles, messages and posts",,30,High,2,area-mobile,moscow-must,,Story: PG-03. Area: mobile.
+185,Sub-task,"[PG-03-T3] Block and report menu on profiles, messages and posts",,30,High,2,area-web,moscow-must,,Story: PG-03. Area: web.
+186,Sub-task,[PG-03-T4] Automated tests for the done-when checks,,30,High,1,area-qa,moscow-must,,Story: PG-03. Area: qa.
+187,Sub-task,"[US-P01-T1] Provider profile: category, services, indicative prices in LKR, districts served",,31,High,3,area-api,moscow-must,,Story: US-P01. Area: api.
+188,Sub-task,[US-P01-T2] Provider profile: edit and public view,,31,High,3,area-mobile,moscow-must,,Story: US-P01. Area: mobile.
+189,Sub-task,[US-P01-T3] Provider profile: edit and public view,,31,High,3,area-web,moscow-must,,Story: US-P01. Area: web.
+190,Sub-task,[US-P01-T4] Provider verification documents and the Verified badge on the profile,,31,High,2,area-api,moscow-must,,Story: US-P01. Area: api.
+191,Sub-task,[US-P01-T5] Automated tests for the scenarios: Fill in my profile; Get the Verified badge; Appear on leaderboards,,31,High,2,area-qa,moscow-must,,Story: US-P01. Area: qa.
+192,Sub-task,"[US-P02-T1] Portfolio items: photo or video, title, event or event type",,32,High,3,area-api,moscow-must,,Story: US-P02. Area: api.
+193,Sub-task,[US-P02-T2] Portfolio upload and gallery,,32,High,3,area-mobile,moscow-must,,Story: US-P02. Area: mobile.
+194,Sub-task,[US-P02-T3] Portfolio gallery and management,,32,High,3,area-web,moscow-must,,Story: US-P02. Area: web.
+195,Sub-task,[US-P02-T4] Completed-jobs count goes up when a booking is completed,,32,High,1,area-api,moscow-must,,Story: US-P02. Area: api.
+196,Sub-task,[US-P02-T5] Automated tests for the scenarios: Upload work; Label work; Count completed jobs,,32,High,2,area-qa,moscow-must,,Story: US-P02. Area: qa.
+197,Sub-task,"[US-P04-T1] Organiser profile: Verified badge, upcoming and past events, rating, rank, tier and provider reviews",,33,High,3,area-api,moscow-must,,Story: US-P04. Area: api.
+198,Sub-task,[US-P04-T2] Organiser profile with past events and a provider-reviews tab; linked from booking requests,,33,High,3,area-mobile,moscow-must,,Story: US-P04. Area: mobile.
+199,Sub-task,[US-P04-T3] Organiser profile with past events and provider reviews,,33,High,2,area-web,moscow-must,,Story: US-P04. Area: web.
+200,Sub-task,[US-P04-T4] Automated tests for the scenarios: Check the organiser; See their payment record (proposed),,33,High,1,area-qa,moscow-must,,Story: US-P04. Area: qa.
+201,Sub-task,"[PG-05-T1] Event tables (Prisma model and migration) and REST endpoints: draft, published, postponed, cancelled; change history",,34,High,5,area-api,moscow-must,,Story: PG-05. Area: api.
+202,Sub-task,"[PG-05-T2] Detect date, time, venue, postpone and cancel changes and put an event-changed job on the queue",,34,High,3,area-api,moscow-must,,Story: PG-05. Area: api.
+203,Sub-task,"[PG-05-T3] Create and edit event form, with cover image and line-up (portal is the organiser's main tool)",,34,High,5,area-web,moscow-must,,Story: PG-05. Area: web.
+204,Sub-task,[PG-05-T4] Create and edit event form,,34,High,5,area-mobile,moscow-must,,Story: PG-05. Area: mobile.
+205,Sub-task,[PG-05-T5] Automated tests for the done-when checks,,34,High,2,area-qa,moscow-must,,Story: PG-05. Area: qa.
+206,Sub-task,"[US-C01-T1] Event search through the search helper: full-text, typo-tolerant match on title and organiser; filters for category, dates, district, price and free; past and cancelled hidden",,35,High,5,area-api,moscow-must,,Story: US-C01. Area: api.
+207,Sub-task,"[US-C01-T2] Search screen with filters and result cards (date, venue, price or free, organiser, Verified)",,35,High,5,area-mobile,moscow-must,,Story: US-C01. Area: mobile.
+208,Sub-task,[US-C01-T3] Search page with filters and result cards,,35,High,3,area-web,moscow-must,,Story: US-C01. Area: web.
+209,Sub-task,[US-C01-T4] Automated tests for the scenarios: Search by keyword; Combine filters; Read a result; Hide past and cancelled events,,35,High,3,area-qa,moscow-must,,Story: US-C01. Area: qa.
+210,Sub-task,[US-C02-T1] Follow and unfollow organisers,,36,Medium,2,area-api,moscow-should,,Story: US-C02. Area: api.
+211,Sub-task,"[US-C02-T2] On publish, notify followers by push and in-app unless they switched it off",,36,Medium,2,area-worker,moscow-should,,Story: US-C02. Area: worker.
+212,Sub-task,[US-C02-T3] Follow button on organiser profiles and event pages; notification setting,,36,Medium,2,area-mobile,moscow-should,,Story: US-C02. Area: mobile.
+213,Sub-task,[US-C02-T4] Follow button and notification setting,,36,Medium,1,area-web,moscow-should,,Story: US-C02. Area: web.
+214,Sub-task,[US-C02-T5] Automated tests for the scenarios: Follow an organiser; Hear about a new event; Switch this notification off,,36,Medium,2,area-qa,moscow-should,,Story: US-C02. Area: qa.
+215,Sub-task,"[US-C03-T1] Event page endpoint: details, linked posts and announcements in one request",,37,High,2,area-api,moscow-must,,Story: US-C03. Area: api.
+216,Sub-task,"[US-C03-T2] Event page with the essentials at the top, ticket link, posts and announcements",,37,High,5,area-mobile,moscow-must,,Story: US-C03. Area: mobile.
+217,Sub-task,"[US-C03-T3] Public, server-rendered event page with the same layout",,37,High,5,area-web,moscow-must,,Story: US-C03. Area: web.
+218,Sub-task,[US-C03-T4] Automated tests for the scenarios: See the essentials first; Follow a link to an outside ticket seller (proposed); Find everything on one page,,37,High,2,area-qa,moscow-must,,Story: US-C03. Area: qa.
+219,Sub-task,"[US-C04-T1] 'Know before you go' fields on events: dress code, parking, what to bring, rules, food and drink price range",,38,Medium,3,area-api,moscow-should,,Story: US-C04. Area: api.
+220,Sub-task,"[US-C04-T2] 'Know before you go' section, hiding empty fields",,38,Medium,2,area-mobile,moscow-should,,Story: US-C04. Area: mobile.
+221,Sub-task,[US-C04-T3] 'Know before you go' section,,38,Medium,2,area-web,moscow-should,,Story: US-C04. Area: web.
+222,Sub-task,[US-C04-T4] Notify Going when the section changes,,38,Medium,1,area-worker,moscow-should,,Story: US-C04. Area: worker.
+223,Sub-task,[US-C04-T5] Automated tests for the scenarios: Read the section; See the rules; See food and drink prices; Hear about changes (proposed),,38,Medium,1,area-qa,moscow-should,,Story: US-C04. Area: qa.
+224,Sub-task,"[US-C05-T1] Verified badge on organiser profiles, events and posts; 'unverified organiser' label",,39,High,2,area-mobile,moscow-must,,Story: US-C05. Area: mobile.
+225,Sub-task,[US-C05-T2] Verified badge and 'unverified organiser' label,,39,High,1,area-web,moscow-must,,Story: US-C05. Area: web.
+226,Sub-task,"[US-C05-T3] Report an event with a reason, into the admin report queue",,39,High,2,area-api,moscow-must,,Story: US-C05. Area: api.
+227,Sub-task,[US-C05-T4] Report-event flow with reasons,,39,High,1,area-mobile,moscow-must,,Story: US-C05. Area: mobile.
+228,Sub-task,[US-C05-T5] Report-event flow with reasons,,39,High,1,area-web,moscow-must,,Story: US-C05. Area: web.
+229,Sub-task,[US-C05-T6] Automated tests for the scenarios: See a verified organiser; See an unverified organiser; Report a fake event,,39,High,2,area-qa,moscow-must,,Story: US-C05. Area: qa.
+230,Sub-task,[US-C06-T1] Event-changed job: push and in-app to everyone marked Going or Interested,,40,High,3,area-worker,moscow-must,,Story: US-C06. Area: worker.
+231,Sub-task,[US-C06-T2] Change banner data: what changed and when; cancelled events stay reachable,,40,High,2,area-api,moscow-must,,Story: US-C06. Area: api.
+232,Sub-task,[US-C06-T3] Change banner and Cancelled state on the event page,,40,High,2,area-mobile,moscow-must,,Story: US-C06. Area: mobile.
+233,Sub-task,[US-C06-T4] Change banner and Cancelled state on the event page,,40,High,2,area-web,moscow-must,,Story: US-C06. Area: web.
+234,Sub-task,[US-C06-T5] Automated tests for the scenarios: Hear about a change; See what changed; Find a cancelled event,,40,High,2,area-qa,moscow-must,,Story: US-C06. Area: qa.
+235,Sub-task,"[US-C07-T1] Live status (on time, running late with a new start time, postponed, cancelled) with the time it was set; open event pages update through the WebSocket API",,41,Medium,3,area-api,moscow-should,,Story: US-C07. Area: api.
+236,Sub-task,[US-C07-T2] Two-tap status control for organisers; status on the event page,,41,Medium,3,area-mobile,moscow-should,,Story: US-C07. Area: mobile.
+237,Sub-task,[US-C07-T3] Status on the event page,,41,Medium,1,area-web,moscow-should,,Story: US-C07. Area: web.
+238,Sub-task,[US-C07-T4] Push status changes to Going and Interested,,41,Medium,1,area-worker,moscow-should,,Story: US-C07. Area: worker.
+239,Sub-task,[US-C07-T5] Automated tests for the scenarios: Organiser sets a status; Running late needs a new time; Attendees see the change,,41,Medium,1,area-qa,moscow-should,,Story: US-C07. Area: qa.
+240,Sub-task,"[US-C20-T1] Age rating on events (All ages, 18+, 21+) and an age-rating search filter (proposed)",,42,Medium,2,area-api,moscow-should,,Story: US-C20. Area: api.
+241,Sub-task,"[US-C20-T2] Show the rating on the event page and the age filter in search, in the app and on the portal (proposed)",,42,Medium,1,area-mobile,moscow-should,,Story: US-C20. Area: mobile.
+242,Sub-task,[US-C20-T3] Automated tests for the scenarios: Organiser sets the rating; See the rating; Filter by age rating; ID is checked at the gate,,42,Medium,1,area-qa,moscow-should,,Story: US-C20. Area: qa.
+243,Sub-task,"[US-C09-T1] Going and Interested marks, one tap, with the time marked (unlocks reviews)",,43,High,3,area-api,moscow-must,,Story: US-C09. Area: api.
+244,Sub-task,[US-C09-T2] Friends-going query that respects each friend's Going privacy,,43,High,3,area-api,moscow-must,,Story: US-C09. Area: api.
+245,Sub-task,[US-C09-T3] Going and Interested buttons with instant feedback; friends-going list,,43,High,3,area-mobile,moscow-must,,Story: US-C09. Area: mobile.
+246,Sub-task,[US-C09-T4] Going and Interested buttons; friends-going list,,43,High,2,area-web,moscow-must,,Story: US-C09. Area: web.
+247,Sub-task,[US-C09-T5] Automated tests for the scenarios: See friends who are going; Going is private by default (proposed); Mark in one tap,,43,High,2,area-qa,moscow-must,,Story: US-C09. Area: qa.
+248,Sub-task,"[PG-06-T1] Scheduled Lambda that scores upcoming events for each user (interests, followed organisers, past Going marks, district) and stores a 'For you' list",,44,Low,5,area-worker,moscow-could,,Story: PG-06. Area: worker.
+249,Sub-task,[PG-06-T2] 'For you' row on the home screen,,44,Low,2,area-mobile,moscow-could,,Story: PG-06. Area: mobile.
+250,Sub-task,[PG-06-T3] 'For you' row on the home page,,44,Low,1,area-web,moscow-could,,Story: PG-06. Area: web.
+251,Sub-task,[PG-06-T4] Automated tests for the done-when checks,,44,Low,1,area-qa,moscow-could,,Story: PG-06. Area: qa.
+252,Sub-task,"[PG-07-T1] Feed built on read: the user's followed organisers from PostgreSQL, then each organiser's newest posts from the DynamoDB feed table (organiser as partition key, created time as sort key), merged newest first and paged with cursors",,45,High,3,area-api,moscow-must,,Story: PG-07. Area: api.
+253,Sub-task,"[PG-07-T2] Likes as items keyed by post and user, written with a condition so nobody likes twice; atomic counters for likes and comments; comments",,45,High,3,area-api,moscow-must,,Story: PG-07. Area: api.
+254,Sub-task,[PG-07-T3] Trending: a scheduled Lambda every 15 minutes (proposed) scores recent posts and stores the top list as one item; view counts added in batches (proposed),,45,High,3,area-worker,moscow-must,,Story: PG-07. Area: worker.
+255,Sub-task,"[PG-07-T4] Feed with posts and reels, likes and comments; reels play well on mobile data",,45,High,8,area-mobile,moscow-must,,Story: PG-07. Area: mobile.
+256,Sub-task,[PG-07-T5] Feed page with likes and comments,,45,High,5,area-web,moscow-must,,Story: PG-07. Area: web.
+257,Sub-task,[PG-07-T6] Automated tests for the done-when checks,,45,High,2,area-qa,moscow-must,,Story: PG-07. Area: qa.
+258,Sub-task,"[US-O11-T1] Organiser-only posts and reels, optionally linked to an event",,46,High,3,area-api,moscow-must,,Story: US-O11. Area: api.
+259,Sub-task,[US-O11-T2] Create a post or reel and link it to an event,,46,High,3,area-mobile,moscow-must,,Story: US-O11. Area: mobile.
+260,Sub-task,[US-O11-T3] Create a post or reel and link it to an event,,46,High,3,area-web,moscow-must,,Story: US-O11. Area: web.
+261,Sub-task,[US-O11-T4] Automated tests for the scenarios: Link a post to an event; Share outside Tezera,,46,High,1,area-qa,moscow-must,,Story: US-O11. Area: qa.
+262,Sub-task,[US-C15-T1] Share button on event pages and posts through the phone's share sheet,,47,High,2,area-mobile,moscow-must,,Story: US-C15. Area: mobile.
+263,Sub-task,[US-C15-T2] Share and copy-link on event pages and posts,,47,High,1,area-web,moscow-must,,Story: US-C15. Area: web.
+264,Sub-task,[US-C15-T3] Shared links open the public event page without log-in; people with the app open it in the app,,47,High,3,area-web,moscow-must,,Story: US-C15. Area: web.
+265,Sub-task,[US-C15-T4] Short links with a preview card (Open Graph image),,47,High,3,area-web,moscow-must,,Story: US-C15. Area: web.
+266,Sub-task,[US-C15-T5] 'Share to story' image sized for Instagram stories,,47,High,3,area-web,moscow-must,,Story: US-C15. Area: web.
+267,Sub-task,[US-C15-T6] Automated tests for the scenarios: Share an event; Open a shared link; Share to an Instagram story,,47,High,1,area-qa,moscow-must,,Story: US-C15. Area: qa.
+268,Sub-task,"[US-O01-T1] Provider search on the rank_score index (category, district): minimum rating and Verified-only filters, names through the search helper; results come in rank order",,48,High,3,area-api,moscow-must,,Story: US-O01. Area: api.
+269,Sub-task,[US-O01-T2] Provider search with filters and result cards,,48,High,3,area-mobile,moscow-must,,Story: US-O01. Area: mobile.
+270,Sub-task,[US-O01-T3] Provider search with filters and result cards,,48,High,3,area-web,moscow-must,,Story: US-O01. Area: web.
+271,Sub-task,[US-O01-T4] Automated tests for the scenarios: Combine filters; Order by rank; Read a result,,48,High,2,area-qa,moscow-must,,Story: US-O01. Area: qa.
+272,Sub-task,[US-O04-T1] Availability calendar (booked or unavailable dates) and an available-date search filter,,49,Medium,3,area-api,moscow-should,,Story: US-O04. Area: api.
+273,Sub-task,[US-O04-T2] Calendar editor for providers; date filter for organisers,,49,Medium,3,area-mobile,moscow-should,,Story: US-O04. Area: mobile.
+274,Sub-task,[US-O04-T3] Calendar editor and date filter,,49,Medium,3,area-web,moscow-should,,Story: US-O04. Area: web.
+275,Sub-task,[US-O04-T4] Automated tests for the scenarios: Booked providers are hidden,,49,Medium,1,area-qa,moscow-should,,Story: US-O04. Area: qa.
+276,Sub-task,"[US-O05-T1] Booking request: event, date, start and end times, brief and budget, with field-level errors",,50,High,3,area-api,moscow-must,,Story: US-O05. Area: api.
+277,Sub-task,"[US-O05-T2] Attach files (brief, mood board) to requests and job posts",,50,High,2,area-api,moscow-must,,Story: US-O05. Area: api.
+278,Sub-task,[US-O05-T3] Booking request form that highlights empty required fields; attachments,,50,High,3,area-mobile,moscow-must,,Story: US-O05. Area: mobile.
+279,Sub-task,[US-O05-T4] Booking request form with required-field errors and attachments,,50,High,3,area-web,moscow-must,,Story: US-O05. Area: web.
+280,Sub-task,"[US-O05-T5] Optional brief fields on requests and job posts (service, duration, expected audience, deliverables, run-of-show timings, equipment provided); only filled fields shown",,50,High,3,area-api,moscow-must,,Story: US-O05. Area: api.
+281,Sub-task,[US-O05-T6] Optional brief fields,,50,High,2,area-mobile,moscow-must,,Story: US-O05. Area: mobile.
+282,Sub-task,[US-O05-T7] Optional brief fields,,50,High,2,area-web,moscow-must,,Story: US-O05. Area: web.
+283,Sub-task,[US-O05-T8] Automated tests for the scenarios: Required fields; Optional fields (proposed); Attach files,,50,High,1,area-qa,moscow-must,,Story: US-O05. Area: qa.
+284,Sub-task,"[US-O06-T1] Job posts (requirements, budget range, quote deadline) and quotes; accept one or more to create bookings",,51,High,5,area-api,moscow-must,,Story: US-O06. Area: api.
+285,Sub-task,[US-O06-T2] Close a job post and notify the providers not chosen,,51,High,2,area-api,moscow-must,,Story: US-O06. Area: api.
+286,Sub-task,"[US-O06-T3] Post a job; compare quotes side by side (price, rating, tier, message)",,51,High,5,area-web,moscow-must,,Story: US-O06. Area: web.
+287,Sub-task,[US-O06-T4] Post a job; quote list to compare and accept,,51,High,5,area-mobile,moscow-must,,Story: US-O06. Area: mobile.
+288,Sub-task,[US-O06-T5] Automated tests for the scenarios: Compare quotes; Accept more than one; Others are told,,51,High,2,area-qa,moscow-must,,Story: US-O06. Area: qa.
+289,Sub-task,"[US-O07-T1] Booking records the agreed service, date, price and terms (free text), kept on the confirmed booking",,52,High,3,area-api,moscow-must,,Story: US-O07. Area: api.
+290,Sub-task,[US-O07-T2] Terms section on the request and the booking,,52,High,2,area-mobile,moscow-must,,Story: US-O07. Area: mobile.
+291,Sub-task,[US-O07-T3] Terms section on the request and the booking,,52,High,2,area-web,moscow-must,,Story: US-O07. Area: web.
+292,Sub-task,"[US-O07-T4] Deposit, instalments (amount and due date) and cancellation terms on bookings, shown before the provider accepts; changes need the other side's acceptance; terms can be proposed with a quote",,52,High,5,area-api,moscow-must,,Story: US-O07. Area: api.
+293,Sub-task,[US-O07-T5] Terms editor and counter-terms,,52,High,3,area-mobile,moscow-must,,Story: US-O07. Area: mobile.
+294,Sub-task,[US-O07-T6] Terms editor and counter-terms,,52,High,3,area-web,moscow-must,,Story: US-O07. Area: web.
+295,Sub-task,[US-O07-T7] Automated tests for the scenarios: Set the terms; Provider sees the terms first; Changing agreed terms (proposed),,52,High,1,area-qa,moscow-must,,Story: US-O07. Area: qa.
+296,Sub-task,[US-P03-T1] Brief and attachments copied onto the confirmed booking so they stay attached,,53,High,2,area-api,moscow-must,,Story: US-P03. Area: api.
+297,Sub-task,"[US-P03-T2] Request detail with brief, attachments and 'Ask in chat'",,53,High,3,area-mobile,moscow-must,,Story: US-P03. Area: mobile.
+298,Sub-task,"[US-P03-T3] Request detail with brief, attachments and 'Ask in chat'",,53,High,2,area-web,moscow-must,,Story: US-P03. Area: web.
+299,Sub-task,[US-P03-T4] Automated tests for the scenarios: See the brief; Ask before quoting; Keep the brief,,53,High,2,area-qa,moscow-must,,Story: US-P03. Area: qa.
+300,Sub-task,"[US-P05-T1] Show terms above the accept, decline and quote buttons",,54,High,1,area-mobile,moscow-must,,Story: US-P05. Area: mobile.
+301,Sub-task,"[US-P05-T2] Show terms above the accept, decline and quote buttons",,54,High,1,area-web,moscow-must,,Story: US-P05. Area: web.
+302,Sub-task,[US-P05-T3] Automated tests for the scenarios: See terms before deciding; Propose other terms; Terms are stored,,54,High,1,area-qa,moscow-must,,Story: US-P05. Area: qa.
+303,Sub-task,"[US-P06-T1] Accept, decline or quote on a request; organiser accepts or declines the quote; booking at the quoted price",,55,High,5,area-api,moscow-must,,Story: US-P06. Area: api.
+304,Sub-task,"[US-P06-T2] Notifications for requests, quotes and decisions",,55,High,1,area-worker,moscow-must,,Story: US-P06. Area: worker.
+305,Sub-task,"[US-P06-T3] Reply actions, quote form and the organiser's quote decision",,55,High,3,area-mobile,moscow-must,,Story: US-P06. Area: mobile.
+306,Sub-task,"[US-P06-T4] Reply actions, quote form and the organiser's quote decision",,55,High,3,area-web,moscow-must,,Story: US-P06. Area: web.
+307,Sub-task,[US-P06-T5] Automated tests for the scenarios: Reply to a request; Organiser decides on my quote,,55,High,1,area-qa,moscow-must,,Story: US-P06. Area: qa.
+308,Sub-task,"[US-P07-T1] Instalment statuses: due, received, overdue; provider marks received",,56,Medium,3,area-api,moscow-should,,Story: US-P07. Area: api.
+309,Sub-task,[US-P07-T2] Daily scheduled Lambda: due-date reminders and overdue flags,,56,Medium,2,area-worker,moscow-should,,Story: US-P07. Area: worker.
+310,Sub-task,[US-P07-T3] On-time payment share on organiser profiles (bookings with terms only),,56,Medium,2,area-api,moscow-should,,Story: US-P07. Area: api.
+311,Sub-task,[US-P07-T4] Instalments on the booking,,56,Medium,3,area-mobile,moscow-should,,Story: US-P07. Area: mobile.
+312,Sub-task,[US-P07-T5] Instalments on the booking,,56,Medium,2,area-web,moscow-should,,Story: US-P07. Area: web.
+313,Sub-task,[US-P07-T6] Automated tests for the scenarios: Instalment status; Mark as received; Overdue and reminders (proposed); Payment record on the profile,,56,Medium,1,area-qa,moscow-should,,Story: US-P07. Area: qa.
+314,Sub-task,[US-P08-T1] Job board defaulting to the provider's category and district; apply with quote and message before the deadline,,57,High,3,area-api,moscow-must,,Story: US-P08. Area: api.
+315,Sub-task,[US-P08-T2] One-off EventBridge schedule closes applications at the quote deadline,,57,High,1,area-worker,moscow-must,,Story: US-P08. Area: worker.
+316,Sub-task,[US-P08-T3] Job board and apply form,,57,High,3,area-mobile,moscow-must,,Story: US-P08. Area: mobile.
+317,Sub-task,[US-P08-T4] Job board and apply form,,57,High,2,area-web,moscow-must,,Story: US-P08. Area: web.
+318,Sub-task,[US-P08-T5] Automated tests for the scenarios: Matching job posts; Apply with a quote,,57,High,1,area-qa,moscow-must,,Story: US-P08. Area: qa.
+319,Sub-task,[US-P09-T1] Confirmed bookings block the date on the calendar automatically,,58,Medium,1,area-api,moscow-should,,Story: US-P09. Area: api.
+320,Sub-task,[US-P09-T2] Event reminders before each booking; each reminder type can be switched off,,58,Medium,2,area-worker,moscow-should,,Story: US-P09. Area: worker.
+321,Sub-task,[US-P09-T3] My bookings list and reminder settings,,58,Medium,3,area-mobile,moscow-should,,Story: US-P09. Area: mobile.
+322,Sub-task,[US-P09-T4] My bookings list,,58,Medium,2,area-web,moscow-should,,Story: US-P09. Area: web.
+323,Sub-task,[US-P09-T5] Payment due-date reminders for providers,,58,Medium,1,area-worker,moscow-should,,Story: US-P09. Area: worker.
+324,Sub-task,[US-P09-T6] Automated tests for the scenarios: Bookings on the calendar; Reminders,,58,Medium,1,area-qa,moscow-should,,Story: US-P09. Area: qa.
+325,Sub-task,[US-O08-T1] Cancel a confirmed booking with a required reason; notify the other side with the reason,,59,Medium,3,area-api,moscow-should,,Story: US-O08. Area: api.
+326,Sub-task,[US-O08-T2] Cancellation notice with reason; booking shows Cancelled,,59,Medium,2,area-mobile,moscow-should,,Story: US-O08. Area: mobile.
+327,Sub-task,[US-O08-T3] Cancellation notice with reason; booking shows Cancelled,,59,Medium,1,area-web,moscow-should,,Story: US-O08. Area: web.
+328,Sub-task,"[US-O08-T4] Late cancellations (within 7 days, proposed) shown on the canceller's profile; reopen as a prefilled job post in one step; review after cancellation",,59,Medium,5,area-api,moscow-should,,Story: US-O08. Area: api.
+329,Sub-task,[US-O08-T5] 'Find a replacement' and late-cancellation notice,,59,Medium,2,area-mobile,moscow-should,,Story: US-O08. Area: mobile.
+330,Sub-task,[US-O08-T6] 'Find a replacement' and late-cancellation notice,,59,Medium,2,area-web,moscow-should,,Story: US-O08. Area: web.
+331,Sub-task,[US-O08-T7] Automated tests for the scenarios: Hear about a cancellation; Reopen as a job post; Late cancellation on record (proposed),,59,Medium,1,area-qa,moscow-should,,Story: US-O08. Area: qa.
+332,Sub-task,[US-P10-T1] Cancel flow that cannot be sent without a reason,,60,Medium,2,area-mobile,moscow-should,,Story: US-P10. Area: mobile.
+333,Sub-task,[US-P10-T2] Cancel flow that cannot be sent without a reason,,60,Medium,1,area-web,moscow-should,,Story: US-P10. Area: web.
+334,Sub-task,[US-P10-T3] Automated tests for the scenarios: Reason required; Late cancellation on record (proposed); Review after cancellation (proposed),,60,Medium,1,area-qa,moscow-should,,Story: US-P10. Area: qa.
+335,Sub-task,[PG-08-T1] Mark a booking completed after the event date; open the review window for both sides,,61,High,3,area-api,moscow-must,,Story: PG-08. Area: api.
+336,Sub-task,[PG-08-T2] One-off EventBridge schedule closes each review window after 14 days (proposed),,61,High,2,area-worker,moscow-must,,Story: PG-08. Area: worker.
+337,Sub-task,[PG-08-T3] Complete button and a prompt to review,,61,High,2,area-mobile,moscow-must,,Story: PG-08. Area: mobile.
+338,Sub-task,[PG-08-T4] Complete button and a prompt to review,,61,High,1,area-web,moscow-must,,Story: PG-08. Area: web.
+339,Sub-task,[PG-08-T5] Automated tests for the done-when checks,,61,High,2,area-qa,moscow-must,,Story: PG-08. Area: qa.
+340,Sub-task,"[US-O09-T1] Stall slots (type, fee, deadline), applications, approve and reject",,62,High,5,area-api,moscow-must,,Story: US-O09. Area: api.
+341,Sub-task,[US-O09-T2] Invite a vendor directly; acceptance counts as approval,,62,High,2,area-api,moscow-must,,Story: US-O09. Area: api.
+342,Sub-task,[US-O09-T3] Assign stall numbers; stall fee shown with a 'paid outside Tezera' note,,62,High,2,area-api,moscow-must,,Story: US-O09. Area: api.
+343,Sub-task,[US-O09-T4] Notify vendors of each decision,,62,High,1,area-worker,moscow-must,,Story: US-O09. Area: worker.
+344,Sub-task,"[US-O09-T5] Stall board for organisers: slots, applications, decisions, numbers",,62,High,5,area-web,moscow-must,,Story: US-O09. Area: web.
+345,Sub-task,[US-O09-T6] Stall applications and decisions on the go,,62,High,3,area-mobile,moscow-must,,Story: US-O09. Area: mobile.
+346,Sub-task,[US-O09-T7] Automated tests for the scenarios: Open stall slots; Handle applications; Give out stall numbers; Fees are paid outside the app,,62,High,3,area-qa,moscow-must,,Story: US-O09. Area: qa.
+347,Sub-task,[US-P13-T1] Vendor-only browse and apply; accept or decline invitations,,63,High,3,area-api,moscow-must,,Story: US-P13. Area: api.
+348,Sub-task,"[US-P13-T2] Open stall slots, apply, invitations",,63,High,3,area-mobile,moscow-must,,Story: US-P13. Area: mobile.
+349,Sub-task,"[US-P13-T3] Open stall slots, apply, invitations",,63,High,2,area-web,moscow-must,,Story: US-P13. Area: web.
+350,Sub-task,[US-P13-T4] Automated tests for the scenarios: See open slots; Apply or answer an invitation; Vendors only,,63,High,2,area-qa,moscow-must,,Story: US-P13. Area: qa.
+351,Sub-task,"[US-C13-T1] Stall list on the event page: vendor, stall number, category, indicative price range in LKR",,64,High,2,area-api,moscow-must,,Story: US-C13. Area: api.
+352,Sub-task,[US-C13-T2] Stall list linking to each vendor's profile and map pin,,64,High,2,area-mobile,moscow-must,,Story: US-C13. Area: mobile.
+353,Sub-task,[US-C13-T3] Stall list linking to each vendor's profile and map pin,,64,High,2,area-web,moscow-must,,Story: US-C13. Area: web.
+354,Sub-task,[US-C13-T4] Automated tests for the scenarios: See the stall list; Go to a stall vendor; See price ranges (proposed),,64,High,2,area-qa,moscow-must,,Story: US-C13. Area: qa.
+355,Sub-task,"[US-P11-T1] Reviews module: stars, category ratings and text; unlocked by a completed booking or a stall at an ended event",,65,High,5,area-api,moscow-must,,Story: US-P11. Area: api.
+356,Sub-task,"[US-P11-T2] Write a review of the organiser (payment, communication, planning)",,65,High,3,area-mobile,moscow-must,,Story: US-P11. Area: mobile.
+357,Sub-task,[US-P11-T3] Write a review of the organiser,,65,High,2,area-web,moscow-must,,Story: US-P11. Area: web.
+358,Sub-task,[US-P11-T4] Automated tests for the scenarios: Unlock a review; Rate each category,,65,High,1,area-qa,moscow-must,,Story: US-P11. Area: qa.
+359,Sub-task,"[US-O02-T1] Review page data: average, category averages, count and every review",,66,High,3,area-api,moscow-must,,Story: US-O02. Area: api.
+360,Sub-task,"[US-O02-T2] Provider profile with portfolio, completed jobs, tier badge and reviews; organiser writes a review",,66,High,3,area-mobile,moscow-must,,Story: US-O02. Area: mobile.
+361,Sub-task,"[US-O02-T3] Provider profile with portfolio, completed jobs, tier badge and reviews; organiser writes a review",,66,High,3,area-web,moscow-must,,Story: US-O02. Area: web.
+362,Sub-task,[US-O02-T4] Automated tests for the scenarios: Check the profile; Check the reviews; Only real jobs are reviewed,,66,High,2,area-qa,moscow-must,,Story: US-O02. Area: qa.
+363,Sub-task,[US-O03-T1] Tag reviews with service and event type from the booking; filter by tag,,67,Low,3,area-api,moscow-could,,Story: US-O03. Area: api.
+364,Sub-task,[US-O03-T2] Review tags and filter,,67,Low,2,area-mobile,moscow-could,,Story: US-O03. Area: mobile.
+365,Sub-task,[US-O03-T3] Review tags and filter,,67,Low,2,area-web,moscow-could,,Story: US-O03. Area: web.
+366,Sub-task,[US-O03-T4] Automated tests for the scenarios: Reviews are tagged; Filter reviews,,67,Low,1,area-qa,moscow-could,,Story: US-O03. Area: qa.
+367,Sub-task,[US-P12-T1] Report a review into the admin queue with the booking record attached,,68,High,2,area-api,moscow-must,,Story: US-P12. Area: api.
+368,Sub-task,[US-P12-T2] Report a review,,68,High,1,area-mobile,moscow-must,,Story: US-P12. Area: mobile.
+369,Sub-task,[US-P12-T3] Report a review,,68,High,1,area-web,moscow-must,,Story: US-P12. Area: web.
+370,Sub-task,[US-P12-T4] One public reply per review,,68,High,2,area-api,moscow-must,,Story: US-P12. Area: api.
+371,Sub-task,[US-P12-T5] Reply to a review,,68,High,1,area-mobile,moscow-must,,Story: US-P12. Area: mobile.
+372,Sub-task,[US-P12-T6] Reply to a review,,68,High,1,area-web,moscow-must,,Story: US-P12. Area: web.
+373,Sub-task,[US-P12-T7] Automated tests for the scenarios: Only real jobs; Reply to a review (proposed); Dispute a review,,68,High,1,area-qa,moscow-must,,Story: US-P12. Area: qa.
+374,Sub-task,"[US-C14-T1] Consumer review rules: Going before the start, event ended, within 14 days (proposed), one per event",,69,High,3,area-api,moscow-must,,Story: US-C14. Area: api.
+375,Sub-task,[US-C14-T2] Review prompt after the event and the review form,,69,High,3,area-mobile,moscow-must,,Story: US-C14. Area: mobile.
+376,Sub-task,[US-C14-T3] Review form,,69,High,2,area-web,moscow-must,,Story: US-C14. Area: web.
+377,Sub-task,"[US-C14-T4] Facilities category (toilets, queues, food and drink) in consumer event reviews",,69,High,1,area-api,moscow-must,,Story: US-C14. Area: api.
+378,Sub-task,[US-C14-T5] Automated tests for the scenarios: Review after going; Review window closes (proposed); Can't review without going; Rate each category (proposed); One review per event,,69,High,3,area-qa,moscow-must,,Story: US-C14. Area: qa.
+379,Sub-task,[PG-10-T1] Stall-vendor review rules and categories,,70,High,2,area-api,moscow-must,,Story: PG-10. Area: api.
+380,Sub-task,[PG-10-T2] Review a stall from the event's stall list,,70,High,2,area-mobile,moscow-must,,Story: PG-10. Area: mobile.
+381,Sub-task,[PG-10-T3] Review a stall from the event's stall list,,70,High,1,area-web,moscow-must,,Story: PG-10. Area: web.
+382,Sub-task,[PG-10-T4] Automated tests for the done-when checks,,70,High,1,area-qa,moscow-must,,Story: PG-10. Area: qa.
+383,Sub-task,"[PG-09-T1] rank_score column on provider and organiser profiles, indexed by category and district (Prisma migration)",,71,High,2,area-db,moscow-must,,Story: PG-09. Area: db.
+384,Sub-task,"[PG-09-T2] Recalculate the rank score in NestJS, in the same transaction, when a review is written or hidden (or queue it on SQS, proposed)",,71,High,3,area-api,moscow-must,,Story: PG-09. Area: api.
+385,Sub-task,[PG-09-T3] Work out tier badges in the same step from rank score and completed jobs or events,,71,High,2,area-api,moscow-must,,Story: PG-09. Area: api.
+386,Sub-task,"[PG-09-T4] Leaderboard queries on the rank_score index, or a materialized view refreshed on an EventBridge schedule (proposed); paged with cursors",,71,High,2,area-api,moscow-must,,Story: PG-09. Area: api.
+387,Sub-task,[PG-09-T5] Leaderboards screen,,71,High,3,area-mobile,moscow-must,,Story: PG-09. Area: mobile.
+388,Sub-task,[PG-09-T6] Leaderboards page,,71,High,2,area-web,moscow-must,,Story: PG-09. Area: web.
+389,Sub-task,[PG-09-T7] Automated tests for the done-when checks,,71,High,2,area-qa,moscow-must,,Story: PG-09. Area: qa.
+390,Sub-task,"[US-O17-T1] Spike: builder canvas on plain SVG or react-konva (select, drag, resize, zoom and pan with about 300 items); pick one",,72,High,2,area-web,moscow-must,,Story: US-O17. Area: web.
+391,Sub-task,"[US-O17-T2] Tezera map JSON schema: background (image, PDF page or grid, size in metres), scale, version, and zones, stalls and pins as boxes or points in 0–1 coordinates with stable IDs; one JSON Schema checked by the API, portal and app (proposed)",,72,High,3,area-db,moscow-must,,Story: US-O17. Area: db.
+392,Sub-task,"[US-O17-T3] Map versions: draft saves; each publish writes an immutable version (map JSON in a PostgreSQL JSONB column, proposed, with the version history); attendees read the latest published version",,72,High,3,area-api,moscow-must,,Story: US-O17. Area: api.
+393,Sub-task,[US-O17-T4] Stale-edit checks: every save carries its base version and item IDs; a save on an older version or a deleted item is refused (fail closed) and the editor reloads,,72,High,3,area-api,moscow-must,,Story: US-O17. Area: api.
+394,Sub-task,"[US-O17-T5] Builder canvas: background layer, zoom and pan; draw, select, move, resize, label and delete zones, stalls and pins (the editors from US-O10 and US-O15 are built here once)",,72,High,8,area-web,moscow-must,,Story: US-O17. Area: web.
+395,Sub-task,[US-O17-T6] Grid snapping and alignment guides; number a row of stalls in one step; duplicate; undo and redo,,72,High,5,area-web,moscow-must,,Story: US-O17. Area: web.
+396,Sub-task,"[US-O17-T7] Scale tool: mark two points and enter the real distance, or take it from the grid size; stall sizes shown in metres",,72,High,3,area-web,moscow-must,,Story: US-O17. Area: web.
+397,Sub-task,[US-O17-T8] Version history: list and preview published versions; restore one as a new version,,72,High,3,area-web,moscow-must,,Story: US-O17. Area: web.
+398,Sub-task,"[US-O17-T9] Quick edits in the app: move, rename and hide zones, stalls and pins, then publish (replaces pin editing on the phone from US-O10)",,72,High,5,area-mobile,moscow-must,,Story: US-O17. Area: mobile.
+399,Sub-task,[US-O17-T10] Automated tests for the scenarios: Draw and snap; Set the scale; Publish a new version; Restore an earlier version; Quick edits on the day; Someone else's change is not overwritten,,72,High,2,area-qa,moscow-must,,Story: US-O17. Area: qa.
+400,Sub-task,"[US-O17-T11] Schema and stale-edit tests: coordinates outside 0–1, unknown item kinds, an old base version, a deleted item",,72,High,2,area-qa,moscow-must,,Story: US-O17. Area: qa.
+401,Sub-task,"[US-O10-T1] Upload the PNG or JPG layout as the map's background, kept in S3 as the source; publish and republish through the map versions in US-O17",,73,High,2,area-api,moscow-must,,Story: US-O10. Area: api.
+402,Sub-task,"[US-O10-T2] Pin tools in the builder: add, move, relabel and remove pins; stall pins carry the stall number",,73,High,3,area-web,moscow-must,,Story: US-O10. Area: web.
+403,Sub-task,[US-O10-T3] Automated tests for the scenarios: Upload a layout; Edit pins,,73,High,1,area-qa,moscow-must,,Story: US-O10. Area: qa.
+404,Sub-task,[US-C11-T1] Map endpoint with a version number; the WebSocket API tells open viewers when the map is republished,,74,High,1,area-api,moscow-must,,Story: US-C11. Area: api.
+405,Sub-task,"[US-C11-T2] Map viewer: zoom, pan, tap a pin to read its label",,74,High,5,area-mobile,moscow-must,,Story: US-C11. Area: mobile.
+406,Sub-task,"[US-C11-T3] Map viewer: zoom, pan, tap a pin to read its label",,74,High,3,area-web,moscow-must,,Story: US-C11. Area: web.
+407,Sub-task,"[US-C11-T4] Add parking, registration or ticket counter, seating, food and drink, and water to the standard pins",,74,High,1,area-api,moscow-must,,Story: US-C11. Area: api.
+408,Sub-task,[US-C11-T5] Automated tests for the scenarios: Open the map; Find facilities by pin; More standard pins (proposed); Always see the latest map,,74,High,2,area-qa,moscow-must,,Story: US-C11. Area: qa.
+409,Sub-task,[US-O15-T1] Stall-to-zone links in the map format: approved stalls (by stall number) attached to zone IDs,,75,High,1,area-db,moscow-must,,Story: US-O15. Area: db.
+410,Sub-task,[US-O15-T2] Assign approved stalls to a zone; refuse stall numbers that are not approved for the event,,75,High,2,area-api,moscow-must,,Story: US-O15. Area: api.
+411,Sub-task,"[US-O15-T3] Zone tools in the builder: draw a zone, name it, and assign stalls from a side panel",,75,High,3,area-web,moscow-must,,Story: US-O15. Area: web.
+412,Sub-task,[US-O15-T4] Organiser hides or shows a stall listing that breaks the event's rules; the vendor is notified,,75,High,2,area-api,moscow-must,,Story: US-O15. Area: api.
+413,Sub-task,[US-O15-T5] Review stall listings for an event and hide or show an entry,,75,High,2,area-web,moscow-must,,Story: US-O15. Area: web.
+414,Sub-task,[US-O15-T6] Automated tests for the scenarios: Draw a zone; Assign stalls to a zone; Zones fit every screen; Hide an entry that breaks the rules,,75,High,2,area-qa,moscow-must,,Story: US-O15. Area: qa.
+415,Sub-task,[US-O18-T1] Spike: render a PDF page to PNG inside Lambda (pdfium or pdf.js; package size and memory),,76,Medium,2,area-worker,moscow-should,,Story: US-O18. Area: worker.
+416,Sub-task,"[US-O18-T2] PDF-to-image Lambda: on upload, render the first page to PNG as the background (resolution, size and page limits proposed); keep the PDF as the source",,76,Medium,3,area-worker,moscow-should,,Story: US-O18. Area: worker.
+417,Sub-task,"[US-O18-T3] Blank grid background of a set size in metres (e.g. 60 m × 40 m), with the scale set from the grid",,76,Medium,1,area-api,moscow-should,,Story: US-O18. Area: api.
+418,Sub-task,[US-O18-T4] Saved venue maps: save a map as the organiser's venue map; start a new event's map as a copy with new item IDs and no stall assignments or listings,,76,Medium,3,area-api,moscow-should,,Story: US-O18. Area: api.
+419,Sub-task,"[US-O18-T5] Start-a-map screen: upload an image or a PDF, start a blank grid, or pick one of my venue maps",,76,Medium,3,area-web,moscow-should,,Story: US-O18. Area: web.
+420,Sub-task,"[US-O18-T6] Save as a venue map; list, rename and delete my venue maps",,76,Medium,2,area-web,moscow-should,,Story: US-O18. Area: web.
+421,Sub-task,[US-O18-T7] Automated tests for the scenarios: Start from a PDF; Start from a blank grid; Save a venue map; Start from a saved venue map,,76,Medium,1,area-qa,moscow-should,,Story: US-O18. Area: qa.
+422,Sub-task,[US-O19-T1] Bedrock access: enable a Claude model and an IAM role for the draft Lambda; check whether ap-south-1 serves it or cross-region inference is needed (not verified),,77,Low,2,area-infra,moscow-could,,Story: US-O19. Area: infra.
+423,Sub-task,"[US-O19-T2] AI draft Lambda: port ai-studio's templateFromImage flow and vision prompt to Bedrock; returns zones, stalls and pins in the map format, validated against the schema before it reaches the builder",,77,Low,5,area-worker,moscow-could,,Story: US-O19. Area: worker.
+424,Sub-task,"[US-O19-T3] Untrusted-image guard: the prompt treats text in the image as data, not instructions; output size capped and unknown fields dropped; a draft is never published automatically",,77,Low,2,area-worker,moscow-could,,Story: US-O19. Area: worker.
+425,Sub-task,"[US-O19-T4] 'Draft with AI': progress, the draft opens in the builder marked unchecked, publish is blocked until the organiser confirms they checked it, and a failed draft falls back to drawing by hand",,77,Low,3,area-web,moscow-could,,Story: US-O19. Area: web.
+426,Sub-task,[US-O19-T5] Automated tests for the scenarios: Get a draft; Nothing publishes until I check it; Text in the plan is treated as data; The draft fails (proposed); plus a small set of sample floor plans (proposed) to judge draft quality,,77,Low,2,area-qa,moscow-could,,Story: US-O19. Area: qa.
+427,Sub-task,"[US-P14-T1] Stall listing for an approved stall: short description, and items with prices in LKR for this event stored as their own rows, or a switch to use the profile prices (AC-03)",,78,High,3,area-api,moscow-must,,Story: US-P14. Area: api.
+428,Sub-task,"[US-P14-T2] Stall listing form: description, add, edit and remove items and prices, or use profile prices",,78,High,3,area-mobile,moscow-must,,Story: US-P14. Area: mobile.
+429,Sub-task,[US-P14-T3] Stall listing form,,78,High,3,area-web,moscow-must,,Story: US-P14. Area: web.
+430,Sub-task,[US-P14-T4] Automated tests for the scenarios: Add items for this event; Use my profile prices; Approved stalls only; Entry hidden by the organiser,,78,High,1,area-qa,moscow-must,,Story: US-P14. Area: qa.
+431,Sub-task,"[US-C18-T1] Map payload with zones, the stalls in each zone and stall summaries (vendor name, photo, stall number)",,79,High,2,area-api,moscow-must,,Story: US-C18. Area: api.
+432,Sub-task,"[US-C18-T2] Stall detail: description, items and prices or profile prices, vendor profile link; hidden listings left out",,79,High,2,area-api,moscow-must,,Story: US-C18. Area: api.
+433,Sub-task,"[US-C18-T3] Search an event map by item: filter that event's stall listings by item name (a few hundred at most, no search service), returning matching stall numbers",,79,High,2,area-api,moscow-must,,Story: US-C18. Area: api.
+434,Sub-task,"[US-C18-T4] Zones drawn over the layout in Flutter (CustomPainter or flutter_svg inside InteractiveViewer for zoom and pan, proposed); tap a zone to list its stalls",,79,High,5,area-mobile,moscow-must,,Story: US-C18. Area: mobile.
+435,Sub-task,[US-C18-T5] Stall detail sheet,,79,High,2,area-mobile,moscow-must,,Story: US-C18. Area: mobile.
+436,Sub-task,[US-C18-T6] Item search on the map; matching stalls highlighted,,79,High,3,area-mobile,moscow-must,,Story: US-C18. Area: mobile.
+437,Sub-task,[US-C18-T7] 'Find on map' from the event page's vendor list: deep link that opens the map on the stall,,79,High,2,area-mobile,moscow-must,,Story: US-C18. Area: mobile.
+438,Sub-task,"[US-C18-T8] Zones as an SVG overlay, zone stall list and stall detail panel",,79,High,5,area-web,moscow-must,,Story: US-C18. Area: web.
+439,Sub-task,[US-C18-T9] Item search on the map with highlighting,,79,High,2,area-web,moscow-must,,Story: US-C18. Area: web.
+440,Sub-task,[US-C18-T10] 'Find on map' from the vendor list,,79,High,1,area-web,moscow-must,,Story: US-C18. Area: web.
+441,Sub-task,[US-C18-T11] Automated tests for the scenarios: See the stalls in a zone; Open a stall; Search by item; Find on map from the vendor list,,79,High,2,area-qa,moscow-must,,Story: US-C18. Area: qa.
+442,Sub-task,[US-C19-T1] Link line-up entries to a stage pin; stage line-up in time order,,80,Medium,2,area-api,moscow-should,,Story: US-C19. Area: api.
+443,Sub-task,[US-C19-T2] Organiser links line-up entries to a stage in the map editor,,80,Medium,2,area-web,moscow-should,,Story: US-C19. Area: web.
+444,Sub-task,[US-C19-T3] Tap a stage pin to see who performs when,,80,Medium,2,area-mobile,moscow-should,,Story: US-C19. Area: mobile.
+445,Sub-task,[US-C19-T4] Stage line-up on the web map,,80,Medium,1,area-web,moscow-should,,Story: US-C19. Area: web.
+446,Sub-task,[US-C19-T5] Filter map stalls by stall type (from HR-10),,80,Medium,1,area-api,moscow-should,,Story: US-C19. Area: api.
+447,Sub-task,[US-C19-T6] Stall-type filter on the map,,80,Medium,2,area-mobile,moscow-should,,Story: US-C19. Area: mobile.
+448,Sub-task,[US-C19-T7] Stall-type filter on the map,,80,Medium,1,area-web,moscow-should,,Story: US-C19. Area: web.
+449,Sub-task,[US-C19-T8] Automated tests for the scenarios: See a stage's line-up; Filter by stall type,,80,Medium,1,area-qa,moscow-should,,Story: US-C19. Area: qa.
+450,Sub-task,"[US-C12-T1] Save map, schedule and announcements for offline use, with a 'last updated' time",,81,Low,5,area-mobile,moscow-could,,Story: US-C12. Area: mobile.
+451,Sub-task,[US-C12-T2] Refresh saved copies when the signal returns,,81,Low,3,area-mobile,moscow-could,,Story: US-C12. Area: mobile.
+452,Sub-task,[US-C12-T3] Automated tests for the scenarios: Save while online; Open while offline; Refresh when back online,,81,Low,1,area-qa,moscow-could,,Story: US-C12. Area: qa.
+453,Sub-task,[PG-13-T1] Friend requests and follows,,82,High,3,area-api,moscow-must,,Story: PG-13. Area: api.
+454,Sub-task,[PG-13-T2] Friend requests and friends list,,82,High,2,area-mobile,moscow-must,,Story: PG-13. Area: mobile.
+455,Sub-task,[PG-13-T3] Friend requests and friends list,,82,High,1,area-web,moscow-must,,Story: PG-13. Area: web.
+456,Sub-task,[PG-13-T4] Automated tests for the done-when checks,,82,High,1,area-qa,moscow-must,,Story: PG-13. Area: qa.
+457,Sub-task,[US-C10-T1] Event board created when an event is published,,83,High,2,area-api,moscow-must,,Story: US-C10. Area: api.
+458,Sub-task,"[US-C10-T2] Event group chat that only people marked Going can join: messages in the DynamoDB chat table, live through the WebSocket API",,83,High,3,area-api,moscow-must,,Story: US-C10. Area: api.
+459,Sub-task,[US-C10-T3] Join the group chat; event board threads,,83,High,3,area-mobile,moscow-must,,Story: US-C10. Area: mobile.
+460,Sub-task,[US-C10-T4] Join the group chat; event board threads,,83,High,2,area-web,moscow-must,,Story: US-C10. Area: web.
+461,Sub-task,[US-C10-T5] Automated tests for the scenarios: Join the group chat; Start a meetup thread; Block or report someone,,83,High,2,area-qa,moscow-must,,Story: US-C10. Area: qa.
+462,Sub-task,"[PG-12-T1] Communities, membership, threads, nested replies, votes (one row per user and thread, counts updated in the same transaction) and sorting by newest or most upvoted",,84,High,8,area-api,moscow-must,,Story: PG-12. Area: api.
+463,Sub-task,"[PG-12-T2] Communities list, community page, thread view and composer",,84,High,8,area-mobile,moscow-must,,Story: PG-12. Area: mobile.
+464,Sub-task,"[PG-12-T3] Communities list, community page, thread view and composer",,84,High,5,area-web,moscow-must,,Story: PG-12. Area: web.
+465,Sub-task,[PG-12-T4] Automated tests for the done-when checks,,84,High,2,area-qa,moscow-must,,Story: PG-12. Area: qa.
+466,Sub-task,"[PG-14-T1] Conversations (PostgreSQL) and messages (DynamoDB chat table, newest first, plus each user's chat list); attachments in S3; which pairs may chat, by role and privacy, checked in NestJS before each write",,85,High,5,area-api,moscow-must,,Story: PG-14. Area: api.
+467,Sub-task,[PG-14-T2] Live delivery: a Lambda on the chat table's DynamoDB Stream posts each new message to the members' WebSocket connections; unread counts,,85,High,3,area-worker,moscow-must,,Story: PG-14. Area: worker.
+468,Sub-task,[PG-14-T3] Push for new messages when the recipient is not in the app,,85,High,2,area-worker,moscow-must,,Story: PG-14. Area: worker.
+469,Sub-task,[PG-14-T4] Chat list and thread screens with attachments,,85,High,8,area-mobile,moscow-must,,Story: PG-14. Area: mobile.
+470,Sub-task,[PG-14-T5] Chat list and thread pages with attachments,,85,High,5,area-web,moscow-must,,Story: PG-14. Area: web.
+471,Sub-task,[PG-14-T6] Automated tests for the done-when checks,,85,High,2,area-qa,moscow-must,,Story: PG-14. Area: qa.
+472,Sub-task,"[US-C08-T1] Event Q&A: public questions, organiser answers, full history",,86,High,3,area-api,moscow-must,,Story: US-C08. Area: api.
+473,Sub-task,"[US-C08-T2] Q&A tab with 'Ask privately', which opens a chat; organiser answers",,86,High,3,area-mobile,moscow-must,,Story: US-C08. Area: mobile.
+474,Sub-task,[US-C08-T3] Q&A section with 'Ask privately'; organiser answers,,86,High,2,area-web,moscow-must,,Story: US-C08. Area: web.
+475,Sub-task,[US-C08-T4] Automated tests for the scenarios: Ask in public; Read earlier answers; Ask something private,,86,High,2,area-qa,moscow-must,,Story: US-C08. Area: qa.
+476,Sub-task,"[US-O12-T1] Announcements to Going, Interested and followers, also shown on the event page",,87,High,3,area-api,moscow-must,,Story: US-O12. Area: api.
+477,Sub-task,[US-O12-T2] Send announcements in batches by push and in-app,,87,High,3,area-worker,moscow-must,,Story: US-O12. Area: worker.
+478,Sub-task,[US-O12-T3] Announcement composer and announcements on the event page,,87,High,2,area-mobile,moscow-must,,Story: US-O12. Area: mobile.
+479,Sub-task,[US-O12-T4] Announcement composer and announcements on the event page,,87,High,2,area-web,moscow-must,,Story: US-O12. Area: web.
+480,Sub-task,[US-O12-T5] Set live status from the announcement screen,,87,High,1,area-web,moscow-must,,Story: US-O12. Area: web.
+481,Sub-task,[US-O12-T6] Automated tests for the scenarios: Send an announcement; Set live status from the same screen,,87,High,1,area-qa,moscow-must,,Story: US-O12. Area: qa.
+482,Sub-task,"[PG-15-T1] Wire each MS-07 type to push, in-app and email through the notification queue",,88,High,3,area-worker,moscow-must,,Story: PG-15. Area: worker.
+483,Sub-task,"[PG-15-T2] Email templates for Amazon SES (written in React Email, rendered to HTML)",,88,High,2,area-design,moscow-must,,Story: PG-15. Area: design.
+484,Sub-task,[PG-15-T3] Urgent SMS through Dialog e-SMS (proposed),,88,High,2,area-worker,moscow-must,,Story: PG-15. Area: worker.
+485,Sub-task,[PG-15-T4] Automated tests for the done-when checks,,88,High,1,area-qa,moscow-must,,Story: PG-15. Area: qa.
+486,Sub-task,"[US-O13-T1] Going and Interested counts kept in PostgreSQL, updated in the same transaction as the mark, sent live to the dashboard through the WebSocket API",,89,High,2,area-api,moscow-must,,Story: US-O13. Area: api.
+487,Sub-task,[US-O13-T2] Event dashboard with live counts,,89,High,3,area-web,moscow-must,,Story: US-O13. Area: web.
+488,Sub-task,[US-O13-T3] Event dashboard with live counts,,89,High,2,area-mobile,moscow-must,,Story: US-O13. Area: mobile.
+489,Sub-task,"[US-O13-T4] Scheduled Lambda sums activity records into daily totals in PostgreSQL: page views, post and reel engagement, Going marks, follower growth",,89,High,5,area-worker,moscow-must,,Story: US-O13. Area: worker.
+490,Sub-task,[US-O13-T5] Analytics charts over time,,89,High,3,area-web,moscow-must,,Story: US-O13. Area: web.
+491,Sub-task,[US-O13-T6] Automated tests for the scenarios: Counts update live; See analytics,,89,High,1,area-qa,moscow-must,,Story: US-O13. Area: qa.
+492,Sub-task,"[US-O14-T1] Hiring summary per event: requests, quotes, bookings, stall applications and approvals with status",,90,High,3,area-api,moscow-must,,Story: US-O14. Area: api.
+493,Sub-task,[US-O14-T2] Hiring dashboard per event,,90,High,3,area-web,moscow-must,,Story: US-O14. Area: web.
+494,Sub-task,[US-O14-T3] Hiring summary per event,,90,High,2,area-mobile,moscow-must,,Story: US-O14. Area: mobile.
+495,Sub-task,[US-O14-T4] Next payment due on the hiring dashboard; payment record on organiser profiles,,90,High,2,area-api,moscow-must,,Story: US-O14. Area: api.
+496,Sub-task,[US-O14-T5] Automated tests for the scenarios: See every item for an event; Track payments (proposed),,90,High,1,area-qa,moscow-must,,Story: US-O14. Area: qa.
+497,Sub-task,"[PG-18-T1] Reports and admin actions, enforced across the platform",,91,High,5,area-api,moscow-must,,Story: PG-18. Area: api.
+498,Sub-task,[PG-18-T2] Report queue with filters and actions,,91,High,5,area-web,moscow-must,,Story: PG-18. Area: web.
+499,Sub-task,[PG-18-T3] Tell the reported user about the action taken,,91,High,1,area-worker,moscow-must,,Story: PG-18. Area: worker.
+500,Sub-task,[PG-18-T4] Automated tests for the done-when checks,,91,High,1,area-qa,moscow-must,,Story: PG-18. Area: qa.
+501,Sub-task,[US-A01-T1] Verification requests with documents; approve or reject with a reason; decision logged,,92,High,3,area-api,moscow-must,,Story: US-A01. Area: api.
+502,Sub-task,[US-A01-T2] Admin verification queue with a document viewer (signed links),,92,High,3,area-web,moscow-must,,Story: US-A01. Area: web.
+503,Sub-task,[US-A01-T3] Organiser and provider document submission,,92,High,2,area-mobile,moscow-must,,Story: US-A01. Area: mobile.
+504,Sub-task,[US-A01-T4] Organiser and provider document submission,,92,High,2,area-web,moscow-must,,Story: US-A01. Area: web.
+505,Sub-task,"[US-A01-T5] Only verified organisers can open stalls, post jobs or send booking requests",,92,High,2,area-api,moscow-must,,Story: US-A01. Area: api.
+506,Sub-task,[US-A01-T6] Tell the user the decision and the reason,,92,High,1,area-worker,moscow-must,,Story: US-A01. Area: worker.
+507,Sub-task,[US-A01-T7] Automated tests for the scenarios: Review documents; Approve or reject; Unverified organisers are limited,,92,High,2,area-qa,moscow-must,,Story: US-A01. Area: qa.
+508,Sub-task,[US-A02-T1] Unpublish an event: close its stall applications and job posts; notify Going and Interested,,93,High,3,area-api,moscow-must,,Story: US-A02. Area: api.
+509,Sub-task,[US-A02-T2] Unpublish action on reported events,,93,High,2,area-web,moscow-must,,Story: US-A02. Area: web.
+510,Sub-task,[US-A02-T3] Automated tests for the scenarios: Unpublish a fake event; People are told,,93,High,1,area-qa,moscow-must,,Story: US-A02. Area: qa.
+511,Sub-task,"[US-A03-T1] Disputes: booking or stall, terms, statuses and chat history attached; outcomes",,94,High,5,area-api,moscow-must,,Story: US-A03. Area: api.
+512,Sub-task,[US-A03-T2] Dispute view for admins,,94,High,3,area-web,moscow-must,,Story: US-A03. Area: web.
+513,Sub-task,[US-A03-T3] Report a problem with a booking,,94,High,2,area-mobile,moscow-must,,Story: US-A03. Area: mobile.
+514,Sub-task,[US-A03-T4] Report a problem with a booking,,94,High,1,area-web,moscow-must,,Story: US-A03. Area: web.
+515,Sub-task,"[US-A03-T5] Payment records and receipts for the disputed booking or stall, read-only (HR-20)",,94,High,1,area-api,moscow-must,,Story: US-A03. Area: api.
+516,Sub-task,"[US-A03-T6] Payments panel in the admin dispute view, with test payments labelled",,94,High,2,area-web,moscow-must,,Story: US-A03. Area: web.
+517,Sub-task,[US-A03-T7] Automated tests for the scenarios: Open a dispute; Decide the outcome; See payments made in the app (proposed),,94,High,1,area-qa,moscow-must,,Story: US-A03. Area: qa.
+518,Sub-task,[US-A04-T1] Hidden reviews and banned accounts' reviews leave ratings and trigger a rank recalculation,,95,High,3,area-api,moscow-must,,Story: US-A04. Area: api.
+519,Sub-task,[US-A04-T2] Hide action on reported reviews,,95,High,2,area-web,moscow-must,,Story: US-A04. Area: web.
+520,Sub-task,[US-A04-T3] Automated tests for the scenarios: Reported reviews; Leave out hidden reviews and fake accounts,,95,High,1,area-qa,moscow-must,,Story: US-A04. Area: qa.
+521,Sub-task,"[PG-16-T1] Create, edit and archive communities",,96,High,2,area-api,moscow-must,,Story: PG-16. Area: api.
+522,Sub-task,[PG-16-T2] Community management pages,,96,High,2,area-web,moscow-must,,Story: PG-16. Area: web.
+523,Sub-task,[PG-16-T3] Seed the first topic and city communities,,96,High,1,area-db,moscow-must,,Story: PG-16. Area: db.
+524,Sub-task,[PG-16-T4] Automated tests for the done-when checks,,96,High,1,area-qa,moscow-must,,Story: PG-16. Area: qa.
+525,Sub-task,[PG-17-T1] Audit log written for every admin action,,97,Medium,2,area-api,moscow-should,,Story: PG-17. Area: api.
+526,Sub-task,[PG-17-T2] Audit log view,,97,Medium,2,area-web,moscow-should,,Story: PG-17. Area: web.
+527,Sub-task,[PG-17-T3] Automated tests for the done-when checks,,97,Medium,1,area-qa,moscow-should,,Story: PG-17. Area: qa.
+528,Sub-task,"[PG-04-T1] Sinhala and Tamil translations, checked by native speakers",,98,Medium,5,area-design,moscow-should,,Story: PG-04. Area: design.
+529,Sub-task,[PG-04-T2] Language switcher; check layouts with longer strings,,98,Medium,2,area-mobile,moscow-should,,Story: PG-04. Area: mobile.
+530,Sub-task,[PG-04-T3] Language switcher; check layouts with longer strings,,98,Medium,2,area-web,moscow-should,,Story: PG-04. Area: web.
+531,Sub-task,[PG-04-T4] Automated tests for the done-when checks,,98,Medium,1,area-qa,moscow-should,,Story: PG-04. Area: qa.
+532,Sub-task,"[EN-13-T1] Data export and account deletion across PostgreSQL rows, DynamoDB items (chat, feed), S3 files and the Cognito user (AdminDeleteUser)",,99,High,5,area-api,moscow-must,,Story: EN-13. Area: api.
+533,Sub-task,[EN-13-T2] Consent for marketing messages,,99,High,1,area-api,moscow-must,,Story: EN-13. Area: api.
+534,Sub-task,"[EN-13-T3] Data inventory, privacy notice and breach response plan; check the PDPA's cross-border rules, as data is stored in Mumbai and with the hosted PostgreSQL provider (not checked)",,99,High,3,area-qa,moscow-must,,Story: EN-13. Area: qa.
+535,Sub-task,"[EN-14-T1] Screen-reader and contrast audit of the main flows, mobile and web",,100,High,3,area-qa,moscow-must,,Story: EN-14. Area: qa.
+536,Sub-task,"[EN-14-T2] Fix contrast problems, such as text on the vendor primary colour (2.2:1)",,100,High,2,area-design,moscow-must,,Story: EN-14. Area: design.
+537,Sub-task,"[EN-15-T1] Load-time checks on throttled 4G for feed, event page and search",,101,High,3,area-qa,moscow-must,,Story: EN-15. Area: qa.
+538,Sub-task,[EN-15-T2] Compress reels on the phone before upload; load the resized image sizes from CloudFront,,101,High,3,area-mobile,moscow-must,,Story: EN-15. Area: mobile.
+539,Sub-task,"[EN-16-T1] Security headers on the portal, validation on every NestJS route (DTOs), API Gateway throttling on the HTTP and WebSocket APIs, least-privilege Lambda permissions",,102,High,3,area-api,moscow-must,,Story: EN-16. Area: api.
+540,Sub-task,[EN-16-T2] Role-access tests for every module,,102,High,3,area-qa,moscow-must,,Story: EN-16. Area: qa.
+541,Sub-task,[EN-17-T1] Usability test plan and sessions for the three tasks,,103,High,3,area-qa,moscow-must,,Story: EN-17. Area: qa.
+542,Sub-task,"[EN-17-T2] Record the success metrics: events published, Going rate, booking rate, stall fill, review rate",,103,High,3,area-api,moscow-must,,Story: EN-17. Area: api.
+543,Sub-task,"[EN-17-T3] Production (main) stage: API, Cognito pool and database; SES production access confirmed; partner onboarding checklist",,103,High,2,area-infra,moscow-must,,Story: EN-17. Area: infra.
+544,Sub-task,"[EN-18-T1] PayHere sandbox merchant account and docs spike: hosted checkout, the Flutter SDK, notify_url, md5sig, refunds and test cards; note what the sandbox cannot do",,106,Medium,2,area-infra,moscow-should,,Story: EN-18. Area: infra.
+545,Sub-task,"[EN-18-T2] Payment-provider adapter interface in TypeScript (start checkout, verify notice, refund, test mode) with the PayHere sandbox as the first implementation, so Genie Business or WEBXPAY can be added later",,106,Medium,3,area-api,moscow-should,,Story: EN-18. Area: api.
+546,Sub-task,"[EN-18-T3] Payment and receipt tables in PostgreSQL (Prisma): payment (order ID, payer, payee, instalment, stall fee or cancellation fee, amount in LKR, status, test flag) and receipt; indexes by payer, by payee and by booking or stall",,106,Medium,3,area-db,moscow-should,,Story: EN-18. Area: db.
+547,Sub-task,"[EN-18-T4] PayHere notify as a REST route on the HTTP API (POST /payments/payhere/notify, proposed): verify md5sig with the payee's merchant secret, check amount and currency, and update each order ID once (unique order ID in a transaction, idempotent)",,106,Medium,5,area-api,moscow-should,,Story: EN-18. Area: api.
+548,Sub-task,"[EN-18-T5] In the same transaction, route a successful payment to its instalment, stall or cancellation; queue receipts on SQS",,106,Medium,2,area-api,moscow-should,,Story: EN-18. Area: api.
+549,Sub-task,"[EN-18-T6] 'Test payment, no real money' label and the receipt layout, with the commission line, for the app and the portal",,106,Medium,1,area-design,moscow-should,,Story: EN-18. Area: design.
+550,Sub-task,"[EN-18-T7] Webhook and adapter tests: a bad signature is refused, a repeated notice changes nothing, a wrong amount is flagged; adapter contract tests against the sandbox",,106,Medium,2,area-qa,moscow-should,,Story: EN-18. Area: qa.
+551,Sub-task,[US-P15-T1] Connect a PayHere sandbox merchant account (merchant ID and secret) to a provider's or organiser's profile; the secret is kept server-side in AWS Secrets Manager (proposed) and never returned to the apps; disconnect,,107,Medium,3,area-api,moscow-should,,Story: US-P15. Area: api.
+552,Sub-task,"[US-P15-T2] 'Can be paid in the app' flag on profiles, bookings and stalls; without it the Pay buttons are hidden and HR-15 stays the path",,107,Medium,1,area-api,moscow-should,,Story: US-P15. Area: api.
+553,Sub-task,"[US-P15-T3] Payment account settings: connect, status, disconnect",,107,Medium,2,area-mobile,moscow-should,,Story: US-P15. Area: mobile.
+554,Sub-task,"[US-P15-T4] Payment account settings: connect, status, disconnect",,107,Medium,2,area-web,moscow-should,,Story: US-P15. Area: web.
+555,Sub-task,"[US-P15-T5] Receipt to the payee when a payment succeeds: in-app, push and email (SES), labelled as a test payment",,107,Medium,2,area-worker,moscow-should,,Story: US-P15. Area: worker.
+556,Sub-task,"[US-P15-T6] Automated tests for the scenarios: Connect my account; Get paid; No account connected; Test payment, no real money",,107,Medium,1,area-qa,moscow-should,,Story: US-P15. Area: qa.
+557,Sub-task,[US-O16-T1] Start a payment for an instalment: amount and order ID from the booking's terms; refused unless the provider has a connected account,,108,Medium,2,area-api,moscow-should,,Story: US-O16. Area: api.
+558,Sub-task,"[US-O16-T2] Hosted PayHere checkout on the portal: hand-off to the provider's checkout, return and cancel pages, pending until the notice arrives",,108,Medium,3,area-web,moscow-should,,Story: US-O16. Area: web.
+559,Sub-task,[US-O16-T3] Spike: PayHere's Flutter SDK in the app with the sandbox: Android and iOS set-up and the result callbacks (not verified),,108,Medium,2,area-mobile,moscow-should,,Story: US-O16. Area: mobile.
+560,Sub-task,"[US-O16-T4] Pay an instalment with PayHere's Flutter SDK: pending, paid and failed states",,108,Medium,3,area-mobile,moscow-should,,Story: US-O16. Area: mobile.
+561,Sub-task,[US-O16-T5] A successful payment marks the HR-15 instalment received and notifies both sides; the provider's manual mark stays for payments made outside the app,,108,Medium,2,area-worker,moscow-should,,Story: US-O16. Area: worker.
+562,Sub-task,"[US-O16-T6] Payment history and receipts for both sides of a booking, with Tezera's commission as a separate line (rate proposed, not charged in the ATP)",,108,Medium,3,area-api,moscow-should,,Story: US-O16. Area: api.
+563,Sub-task,[US-O16-T7] Payment history and receipts,,108,Medium,2,area-mobile,moscow-should,,Story: US-O16. Area: mobile.
+564,Sub-task,[US-O16-T8] Payment history and receipts,,108,Medium,2,area-web,moscow-should,,Story: US-O16. Area: web.
+565,Sub-task,"[US-O16-T9] Automated tests for the scenarios: Pay through the provider's account; The payment marks the instalment received; Provider has no payment account; Receipts and history; Test payment, no real money",,108,Medium,2,area-qa,moscow-should,,Story: US-O16. Area: qa.
+566,Sub-task,[US-P16-T1] Stall-fee payment through the organiser's connected account; a successful payment marks the stall paid and confirmed; without an account the fee stays 'paid outside Tezera',,109,Medium,3,area-api,moscow-should,,Story: US-P16. Area: api.
+567,Sub-task,[US-P16-T2] Pay the stall fee from an approved stall,,109,Medium,2,area-mobile,moscow-should,,Story: US-P16. Area: mobile.
+568,Sub-task,[US-P16-T3] Pay the stall fee; paid stalls marked on the organiser's stall board,,109,Medium,2,area-web,moscow-should,,Story: US-P16. Area: web.
+569,Sub-task,[US-P16-T4] Receipts to the vendor and the organiser,,109,Medium,1,area-worker,moscow-should,,Story: US-P16. Area: worker.
+570,Sub-task,[US-P16-T5] Automated tests for the scenarios: Pay the fee; Organiser has no payment account; Both sides get a receipt,,109,Medium,1,area-qa,moscow-should,,Story: US-P16. Area: qa.
+571,Sub-task,"[US-P17-T1] Work out the cancellation fee or refund from the booking's cancellation terms, who cancelled and when (HR-08, HR-16)",,110,Medium,3,area-api,moscow-should,,Story: US-P17. Area: api.
+572,Sub-task,"[US-P17-T2] Refund a paid instalment through the adapter from the provider's merchant account; if the PayHere sandbox has no refund call, record it as settled outside the app (not verified)",,110,Medium,3,area-api,moscow-should,,Story: US-P17. Area: api.
+573,Sub-task,[US-P17-T3] Charge a cancellation fee through the provider's checkout (reuses US-O16),,110,Medium,1,area-api,moscow-should,,Story: US-P17. Area: api.
+574,Sub-task,"[US-P17-T4] Cancellation summary: fee or refund due, pay or refund, receipts",,110,Medium,3,area-mobile,moscow-should,,Story: US-P17. Area: mobile.
+575,Sub-task,"[US-P17-T5] Cancellation summary: fee or refund due, pay or refund, receipts",,110,Medium,2,area-web,moscow-should,,Story: US-P17. Area: web.
+576,Sub-task,"[US-P17-T6] Automated tests for the scenarios: Organiser cancels late; Provider cancels; Paid outside the app; Test payment, no real money",,110,Medium,2,area-qa,moscow-should,,Story: US-P17. Area: qa.
