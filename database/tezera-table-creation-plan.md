@@ -1,6 +1,8 @@
 # Tezera: how to make a new database table
 
-**Version 1, 18 November 2026.** For the Tezera team. Written in the style of ASD-STE100 (Simplified Technical English): one action per step, short sentences, warnings before the step they protect.
+**Version 2, 20 November 2026** (version 1: 18 November 2026). For the Tezera team. Written in the style of ASD-STE100 (Simplified Technical English): one action per step, short sentences, warnings before the step they protect.
+
+**What changed in version 2.** Auth is Amazon Cognito, not own NestJS auth. Section 8 now matches `database/tezera-auth-setup-plan.md` (version 3, built and run on 19 November 2026). Section 2 adds the AWS parts. Section 4 now sends every 1:1 chat and the WebSocket connection IDs to DynamoDB (version 1 named only organiser, vendor and freelancer chats). Section 11 marks the settled questions. PRD version 7 (20 November 2026) now describes this stack.
 
 Items marked **(proposed)** are not yet agreed. The team must confirm them.
 
@@ -12,13 +14,15 @@ This plan shows how to add a table (or an item type) to the Tezera database. Fol
 
 | Part | Choice |
 | --- | --- |
-| Web front end | Next.js |
-| Back end | NestJS (TypeScript) |
+| Web front end | Next.js, on AWS Amplify Hosting |
+| Back end | NestJS (TypeScript), deployed as one AWS Lambda behind an Amazon API Gateway HTTP API (AWS CDK, `ap-south-1`) |
 | Mobile app | Flutter |
-| Main database | PostgreSQL |
+| Sign-in | Amazon Cognito (defined with Amplify Gen 2 in `amplify/auth`) |
+| Main database | PostgreSQL 16 |
 | Real-time and high-volume data | Amazon DynamoDB |
-| Schema tool for PostgreSQL | Prisma **(proposed)** |
-| Code location | A separate code repo (this repo holds documents only) |
+| Live updates | Amazon API Gateway WebSocket API |
+| Schema tool for PostgreSQL | Prisma 6 |
+| Code location | The team code repo `Tezera-LK/tezera` (this repo holds documents only) |
 
 NestJS is the only part that reads or writes either database. The web and mobile apps call the NestJS API. They never connect to a database. **(proposed)**
 
@@ -40,14 +44,15 @@ Answer the questions in order. Use the first answer that is "yes".
 
 | # | Question | If yes |
 | --- | --- | --- |
-| 1 | Is it a chat message between an organiser, vendor or freelancer? | DynamoDB |
+| 1 | Is it a 1:1 chat message (between any two users)? | DynamoDB |
 | 2 | Is it an attendee feed item (post, like, comment, share)? | DynamoDB |
 | 3 | Is it a community or event chat of attendees? | DynamoDB |
+| 3a | Is it a WebSocket connection ID (live updates)? | DynamoDB |
 | 4 | Does it need joins, strict rules (unique, foreign key) or transactions? | PostgreSQL |
 | 5 | Does it hold money, bookings, accounts or verification? | PostgreSQL |
 | 6 | None of the above | PostgreSQL |
 
-PostgreSQL is the default. Use DynamoDB only for the three cases above, where there are many writes and every read is a simple lookup by key.
+PostgreSQL is the default. Use DynamoDB only for the cases above (questions 1 to 3a), where there are many writes and every read is a simple lookup by key.
 
 **Cross-database links.** DynamoDB cannot have a foreign key to PostgreSQL. Store the PostgreSQL `users.id` as a plain string in the DynamoDB item. Check that the user exists in the NestJS service, before the write.
 
@@ -105,7 +110,7 @@ DynamoDB has no joins and no free-form queries. Design the reads before the tabl
 7. **Name the user field.** Store the PostgreSQL `users.id` as `userId` (string).
 8. **Set the time to live (TTL)** if the data expires. Write the reason.
 9. **Write the deletion step** for a user's items (PDPA).
-10. **Write the table in the infrastructure code** (not in the console). Test it with NoSQL Workbench or a local DynamoDB.
+10. **Write the table in the infrastructure code** (not in the console). Test it with a local DynamoDB or in your own `dev` copy.
 11. **Write the NestJS service** with one method for each access pattern.
 12. **Open a pull request** and fill in the review checklist (section 9).
 
@@ -120,39 +125,31 @@ DynamoDB has no joins and no free-form queries. Design the reads before the tabl
 
 ## 8. Worked example: the auth table
 
-This is the first table. It connects the NestJS auth module to the database. The columns are **(proposed)**. Check them against PRD requirement AC-01 before you build.
+This is the first table. It connects the NestJS auth module to the database. It is built and tested: see `database/tezera-auth-setup-plan.md`, section 7 (the Prisma schema) and section 12 (the test run). This section gives only the summary.
 
-**Purpose.** Store who can sign in, and how they prove it (AC-01). **Owner.** The `auth` NestJS module. **Database.** PostgreSQL (question 5 in section 4).
+**Purpose.** Link each Cognito user to one row that other tables can point to (AC-01). **Owner.** The `auth` NestJS module. **Database.** PostgreSQL (section 4, question 5).
 
 ### `users`
 
 | Column | Type | Rules | Reason |
 | --- | --- | --- | --- |
-| `id` | `uuid` | Primary key | Identity. Used in JWTs and in DynamoDB items |
-| `email` | `citext` | Unique, null allowed | Sign-in. Stored lower case |
-| `phone` | `varchar(20)` | Unique, null allowed | Sign-in and OTP (E.164 format, `+94...`) |
-| `password_hash` | `text` | Null allowed | Argon2id hash. Null if the user signs in with OTP only |
-| `role` | enum | `organiser`, `vendor`, `freelancer`, `consumer`, `admin` | One role for each account (see question 1 in section 11) |
-| `status` | enum | `pending`, `active`, `suspended`, `banned` | Admin actions (AD-02) |
-| `email_verified_at` | `timestamptz` | Null until verified | AC-01 |
-| `phone_verified_at` | `timestamptz` | Null until verified | AC-01 |
-| `date_of_birth` | `date` | Not null. NestJS checks age 16 or more (a `CHECK` cannot use the current date) | Minimum age 16 (AC-01, proposed) |
-| `guardian_consent_at` | `timestamptz` | Null allowed | Under-18s need a parent or guardian (AC-01) |
-| `last_login_at` | `timestamptz` | Null allowed | Security |
+| `id` | `uuid` | Primary key, set by the database | Our own ID. Used in other tables and in DynamoDB items |
+| `cognito_sub` | `text` | Unique, not null | Links the row to the Cognito user |
+| `email` | `text` | Unique, null allowed, lower case | From Cognito, only if verified |
+| `phone` | `varchar(20)` | Unique, null allowed | From Cognito, only if verified (E.164, `+94...`) |
+| `role` | enum `user_role` | Not null: `attendee`, `organiser`, `vendor`, `freelancer`, `admin` | A copy of the Cognito group. The group is the truth |
+| `status` | enum `user_status` | Default `active` | Admin actions (AD-02) |
 | `created_at`, `updated_at` | `timestamptz` | Standard | |
 
-**Rule.** `CHECK (email IS NOT NULL OR phone IS NOT NULL)`. A user must have at least one way to sign in.
+**Rule.** `CHECK (email IS NOT NULL OR phone IS NOT NULL)`. Add it by hand in the migration SQL. Prisma cannot write a `CHECK` rule.
 
-**Reads (and indexes).** Find by email (unique index). Find by phone (unique index). Find by id (primary key). No other index is needed now.
+**When the row is made.** The API makes the row on the user's first request after sign-in. The guard reads the Cognito access token and the user's group.
 
-**Companion tables (proposed, make them with the same steps).**
+**Not in this table, and why.**
 
-| Table | Purpose | Main columns |
-| --- | --- | --- |
-| `refresh_tokens` | One row for each signed-in device. Lets you sign out one device or all | `id`, `user_id` (FK, `CASCADE`), `token_hash`, `device`, `expires_at`, `revoked_at` |
-| `otp_codes` | One-time codes sent by Dialog e-SMS or email | `id`, `user_id` (FK, `CASCADE`), `channel`, `code_hash`, `expires_at`, `used_at`, `attempts` |
-
-> **WARNING.** Store only the hash of a refresh token and of an OTP code. Never store the raw value. Limit the attempts for each OTP (for example 5) and delete expired rows with a scheduled job.
+- No `password_hash`. Cognito holds passwords.
+- No `date_of_birth` and no guardian column. Cognito holds the birthdate and the guardian tick, and its pre-sign-up function checks them (AC-01). The PDPA says: collect only what a feature needs.
+- No `refresh_tokens` and no `otp_codes` tables. Cognito issues the tokens and sends the codes. (Version 1 of this plan had them. Do not make them.)
 
 **Later, not now.** Profile data (name, logo, photo) goes in a separate `profiles` table. Verification documents (AC-08, AC-09) go in `verification_documents`. This keeps the auth table small and private.
 
@@ -176,9 +173,16 @@ Keep one data design document in the code repo. It lists every table, its owner,
 
 ## 11. Open questions for the team
 
-1. **One account, many roles?** PRD section 14 is still open. If one email can hold several roles, change `users.role` to a separate `user_roles` table.
-2. **Prisma or another tool?** PRD v4 named Prisma. Confirm it, or choose TypeORM or Drizzle.
-3. **Real-time chat delivery.** Which part pushes new messages to the apps: a NestJS WebSocket gateway, or DynamoDB Streams with another service? This decides how the chat tables are read.
-4. **Auth method.** Own NestJS auth with JWTs (assumed in section 8), or a service such as Cognito? Cognito would replace most of `users` and `otp_codes`.
-5. **Where do reviews, rank scores and leaderboards live?** This plan puts them in PostgreSQL (the PRD v6 design used DynamoDB indexes for them). Confirm.
-6. **The PRD and the architecture diagram** still describe DynamoDB-only on Amplify. They must change to match this plan once the team agrees.
+Settled since version 1:
+
+1. **One account, many roles?** Settled: one role per account (PRD section 3 and AC-01). Still open in PRD section 14: can one email address or phone number register separate accounts for different roles? Until the team decides, use one email, one account.
+2. **Prisma or another tool?** Settled: Prisma 6. The first migration (`create_users`) is made and applied.
+3. **Real-time chat delivery.** Settled (PRD version 7): an API Gateway WebSocket API. Small Lambda functions keep the connection IDs in DynamoDB. DynamoDB Streams on the chat table send new messages to the connected users. Design the chat keys so that one stream record holds everything a client needs.
+4. **Auth method.** Settled: Amazon Cognito. See section 8 and the auth setup plan.
+6. **The PRD and the architecture diagram.** Settled for the PRD: version 7 describes PostgreSQL + DynamoDB with NestJS on Lambda. The architecture diagram is not redrawn yet (its new source is in the documents repo, `.archify/architecture-tezera-v7-20261120-235350/`).
+
+Still open:
+
+5. **Where do reviews, rank scores and leaderboards live?** This plan and PRD version 7 put them in PostgreSQL. The team must confirm.
+7. **Which PostgreSQL host** for the shared `dev` and `main` stages? See the auth setup plan, section 9.
+8. **How do you delete a user (PDPA)?** Delete or anonymise? Write one deletion step that covers both databases.
