@@ -130,7 +130,7 @@
       "id": "media",
       "type": "cloud",
       "label": "S3 + CloudFront",
-      "sublabel": "media, documents · presigned uploads",
+      "sublabel": "media, docs · presigned uploads",
       "tag": "CDN",
       "pos": [
         590,
@@ -232,7 +232,7 @@
       "id": "worker",
       "type": "backend",
       "label": "Lambda functions",
-      "sublabel": "notifications; on upload: resize, PDF page 1 → image",
+      "sublabel": "notify · resize · PDF → image",
       "pos": [
         1255,
         420
@@ -275,7 +275,7 @@
       "id": "push",
       "type": "external",
       "label": "Push service",
-      "sublabel": "Firebase Cloud Messaging · APNs on iOS",
+      "sublabel": "FCM · APNs on iOS",
       "pos": [
         1555,
         420

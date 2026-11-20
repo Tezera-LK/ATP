@@ -18,7 +18,7 @@ Docs diverge → also update README "How the proposal and the PRD differ".
 | File | Edit how |
 |---|---|
 | `prd/tezera-prd.html` | PRD v7, hand-edited HTML. Priority pill `<span class="pri must|should|could|later">`. Changed row → `<span class="tag">vN</span>` + line in "What changed" box. Open question settled → `<li class="done">` + where settled. Section 8 = tech approach; section 14 = open questions. |
-| `prd/tezera-architecture.html` | GENERATED. No hand-edit. Edit `.archify/architecture-tezera-v7-20261120-235350/candidate.json` (PRD v7; older dirs = history), run archify `finalize` (skill `/archify`; NOT installed on Damian's machine 20 Nov → v7 page not built yet), copy output HTML to `prd/tezera-architecture.html`, then run `.archify/inject-nav.py` with Python (re-adds doc navbar). |
+| `prd/tezera-architecture.html` | GENERATED. No hand-edit. Edit `.archify/architecture-tezera-v7-20261120-235350/candidate.json` (PRD v7; older dirs = history), run archify `finalize` (skill `/archify`, package `tt-a1i/archify`; installed on Damian's machine 21 Nov: `npx skills add tt-a1i/archify@archify -g -y`), copy output HTML to `prd/tezera-architecture.html`, then run `.archify/inject-nav.py` with Python (re-adds doc navbar). |
 | `proposal/tezera-proposal.html` | Proposal source, 8 fixed A4 pages. After edit → regen PDF (below), confirm 8 pages. |
 | `Tezera Proposal.pdf` | GENERATED from proposal HTML. |
 | `research/tezera-survey-analysis.html`, `research/tezera-user-stories.html` | Hand-edited HTML, generated from the 3 survey CSVs (not in repo; contain emails). Stories = title + Given/When/Then scenarios (`<div class="gwt">`), no "As a" line. |

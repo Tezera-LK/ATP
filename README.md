@@ -10,7 +10,7 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 | --- | --- | --- |
 | [Tezera Proposal.pdf](Tezera%20Proposal.pdf) | The 8-page project proposal: the problem, who is involved, the four modules, key workflows, the competitor comparison, SDG alignment and the roadmap for the Agile Team Project (ATP) | You want the plan at a glance |
 | [prd/tezera-prd.html](prd/tezera-prd.html) | The full product requirements document (version 7): roles, requirement tables with MoSCoW priorities, non-functional requirements, technical approach, business model, success metrics, risks and open questions. Edit this HTML file directly; print it to get a PDF | You need the detail behind a feature or decision |
-| [prd/tezera-architecture.html](prd/tezera-architecture.html) | The system architecture diagram (interactive, works offline), with the reasons for each service and its alternatives | You want to see how the apps, backend and services fit together. Still shows the PRD v6 Amplify stack: the v7 source is ready but not yet built (see HANDOFF) |
+| [prd/tezera-architecture.html](prd/tezera-architecture.html) | The system architecture diagram (interactive, works offline), with the reasons for each service and its alternatives | You want to see how the apps, backend and services fit together (PRD v7 stack) |
 | [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) | Analysis of the discovery surveys of attendees, organisers, and vendors and freelancers (4–8 October 2026), with the twelve recommended PRD changes (R1–R12), all accepted on 15 October 2026 | You want to know what the market research found |
 | [research/tezera-personas.html](research/tezera-personas.html) | Eight user personas (two consumers, two organisers, three vendors and freelancers, one admin) built from the survey segments, each with evidence, quotes and the user stories written for them | You are designing a flow and need to know who it is for |
 | [research/tezera-user-stories.html](research/tezera-user-stories.html) | User stories for each role as Given / When / Then scenarios, drawn from the survey evidence and mapped to PRD requirement IDs | You are planning the backlog or a sprint |
@@ -28,7 +28,7 @@ Supporting files:
 - [PRD Research.md](PRD%20Research.md) — the research behind the PRD, the group's answers that shaped it, and 53 sources with how reliable each one is.
 - [SDG Alignment.md](SDG%20Alignment.md) — the notes behind the proposal's SDG page.
 - [CLAUDE.md](CLAUDE.md) — working rules for Claude Code in this repository.
-- `.archify/architecture-tezera-v7-20261120-235350/candidate.json` — the editable source of the architecture diagram for PRD v7 (not yet built into the page; older `.archify` folders are history).
+- `.archify/architecture-tezera-v7-20261120-235350/candidate.json` — the editable source of the architecture diagram for PRD v7 (older `.archify` folders are history).
 - `report/figures/build-figures.js` — builds the Chapter 4 onion model and use case diagrams as SVG.
 
 ## The proposal, page by page
@@ -144,6 +144,6 @@ The name, ticketing, revenue, discovery and the pilot now match.
 ├── SDG Alignment.md
 └── .archify/
     ├── inject-nav.py   (adds the document navbar to the generated diagram)
-    ├── architecture-tezera-v7-20261120-235350/        (PRD v7 diagram source, not yet built)
+    ├── architecture-tezera-v7-20261120-235350/        (PRD v7 diagram source)
     └── architecture-tezera-amplify-20261015-142128/   (source of the page as it is now; older folders are history)
 ```

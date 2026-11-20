@@ -180,7 +180,7 @@
     <li><b>Data design moved to PostgreSQL</b> (section 8): rank scores, leaderboards, search (now with trigram typo tolerance), venue maps and payments live in PostgreSQL; feed items and likes stay in DynamoDB. PayHere notices arrive on a normal REST route, so the separate payments Lambda is gone.</li>
     <li><b>Knock-on changes:</b> security and new non-functional rows (section 7), dependencies (section 12), and open questions on the database host and the diagram (section 14). No functional requirement changed.</li>
   </ul>
-  <p class="note">Rows changed in this version carry a <span class="tag">v7</span> tag. Decided by Damian on 20 November 2026 to match the code the team had already built (auth slice, 19 November); the group should confirm (section 14). The architecture diagram is not yet redrawn: its new source is ready in <code>.archify/architecture-tezera-v7-20261120-235350/</code>.</p>
+  <p class="note">Rows changed in this version carry a <span class="tag">v7</span> tag. Decided by Damian on 20 November 2026 to match the code the team had already built (auth slice, 19 November); the group should confirm (section 14). The architecture diagram is redrawn to match (21 November), from <code>.archify/architecture-tezera-v7-20261120-235350/</code>.</p>
 </details>
 
 <details class="changes">
@@ -678,7 +678,7 @@
 
 <!-- ============================================================ 8 -->
 <h2 id="tech">8. Technical approach <span class="tag">v2</span></h2>
-<p>The architecture for the ATP release. <span class="tag">v7</span> It matches the team's code repository (<code>Tezera-LK/tezera</code>, a pnpm and Turborepo monorepo): a Flutter app, a Next.js web portal, and a NestJS API that runs as one AWS Lambda function behind Amazon API Gateway. Sign-in is Amazon Cognito. PostgreSQL is the main database, and Amazon DynamoDB holds chat, the feed and live connections. Everything runs on AWS in ap-south-1 (Mumbai), defined as code, and the team runs no servers. The architecture diagram is in <a href="tezera-architecture.html"><code>prd/tezera-architecture.html</code></a> (not yet redrawn for v7; see section 14).</p>
+<p>The architecture for the ATP release. <span class="tag">v7</span> It matches the team's code repository (<code>Tezera-LK/tezera</code>, a pnpm and Turborepo monorepo): a Flutter app, a Next.js web portal, and a NestJS API that runs as one AWS Lambda function behind Amazon API Gateway. Sign-in is Amazon Cognito. PostgreSQL is the main database, and Amazon DynamoDB holds chat, the feed and live connections. Everything runs on AWS in ap-south-1 (Mumbai), defined as code, and the team runs no servers. The architecture diagram is in <a href="tezera-architecture.html"><code>prd/tezera-architecture.html</code></a> (redrawn for v7 on 21 November).</p>
 <div class="tbl"><table>
   <thead><tr><th>Layer</th><th>Chosen</th><th>Why</th></tr></thead>
   <tbody>
@@ -982,7 +982,7 @@
   <li><span class="tag">v2</span> Does the group confirm the recommended stack (section 8)? <span class="tag">v6</span> Now serverless on AWS Amplify with DynamoDB. <span class="tag">v7</span> Replaced by the team's code repository stack (Flutter, NestJS on Lambda, PostgreSQL + DynamoDB, Cognito); the group should confirm it.</li>
   <li><span class="tag">v7</span> Which PostgreSQL host for the shared <code>dev</code> and <code>main</code> stages, and in which region?</li>
   <li><span class="tag">v7</span> How does the deployed API get the Cognito IDs for each stage, and who updates <code>infra/lib/api-stack.ts</code>?</li>
-  <li><span class="tag">v7</span> Redraw the architecture diagram: the v7 source is ready, but archify was not installed when the PRD changed.</li>
+  <li class="done"><span class="tag">v7</span> Redraw the architecture diagram. <i>Settled 21 November 2026: archify installed and the diagram rebuilt from the v7 source (<code>prd/tezera-architecture.html</code>).</i></li>
   <li><span class="tag">v2</span> If the timeline slips, which core features move to Should first? Proposed candidates: reels, leaderboards, tier badges, forum voting and counter-offers.</li>
   <li class="done"><span class="tag">v6</span> Should hiring and stall payments happen in the app during the ATP, and how? <i>Settled 15 October 2026: yes, on the PayHere sandbox only, with each payee's own merchant account so Tezera never holds money (HR-14, HR-17 to HR-20, Should). Ticketing stays out.</i></li>
   <li><span class="tag">v6</span> The commission rate shown on sandbox receipts (HR-20).</li>
