@@ -38,6 +38,8 @@ DOCS = [
          "desc": "What Tezera must do: users, requirements with priorities, technical approach, open questions."},
         {"path": "prd/tezera-architecture.html", "title": "Architecture",
          "desc": "Interactive diagram of the ATP system on AWS, with the reasons for each choice."},
+        {"path": "prd/tezera-use-cases.html", "title": "Use cases",
+         "desc": "UC-001 to UC-020 with diagrams and flows, linked to PRD rows, requirements and user stories."},
         {"path": "proposal/tezera-proposal.html", "title": "Proposal",
          "desc": "The eight-page project proposal.",
          "aside": ("PDF", "Tezera Proposal.pdf")},
