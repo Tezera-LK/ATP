@@ -175,7 +175,7 @@ The use cases are split into three diagrams by module, so each stays readable. F
 
 ## 4.6 Use Case Descriptions
 
-The ten use cases below carry the main flows of the ATP release. The others follow the same pattern and are covered by the user stories in Section 6.4.2.
+Each of the twenty use cases is described below, in ID order. The user stories in Section 6.4.2 add testable scenarios for the same flows.
 
 *Table 16.1: UC-001 Register and sign in*
 
@@ -251,7 +251,77 @@ The ten use cases below carry the main flows of the ATP release. The others foll
 <tr><th>Post-Conditions</th><td colspan="2">The event is published (or saved as a draft) and every change is visible to consumers.</td></tr>
 </table>
 
-*Table 16.4: UC-007 Send a direct booking request*
+*Table 16.4: UC-004 Promote an event in the feed*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">Promote an event in the feed</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-004</td></tr>
+<tr><th>Description</th><td colspan="2">An organiser posts images or a reel to the main feed, linked to an event; users like, comment on and share it, and follow the organiser.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Organiser</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">Registered users who see, like, comment on and share posts</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The organiser is signed in. Only organisers post to the main feed.</td></tr>
+<tr><th>Trigger</th><td colspan="2">The organiser taps "New post".</td></tr>
+<tr><th rowspan="4">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. Picks images (for example a poster) or a short video, writes a caption, and links the post to one of their events.</td><td>2. Checks the file type and size, uploads the media and shows a preview.</td></tr>
+<tr><td>3. Taps "Post".</td><td>4. Publishes the post to the main feed and to followers' feeds, with a link to the event page.</td></tr>
+<tr><td>5. A user likes, comments on or shares the post, or follows the organiser.</td><td>6. Records the like, comment or follow. For a share, gives a short link that shows a preview image on WhatsApp and Instagram.</td></tr>
+<tr><th rowspan="3">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. Uploads a file of the wrong type or over the size limit (proposed).</td><td>Rejects the file and says why.</td></tr>
+<tr><td>E2. The post is reported and an admin removes it (UC-016, UC-017).</td><td>Takes the post out of the feed and tells the organiser.</td></tr>
+<tr><th rowspan="2">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. A user taps "Share to story" on the post or the event page.</td><td>Makes an image sized for Instagram stories with the event's name, date and short link.</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Posts to the main feed by consumers or providers. Paid or boosted posts (not in the PRD).</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">The post is in the feed, linked to its event, and its engagement counts toward the event's analytics (UC-018).</td></tr>
+</table>
+
+*Table 16.5: UC-005 Discover and search events*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">Discover and search events</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-005</td></tr>
+<tr><th>Description</th><td colspan="2">A consumer browses and searches upcoming events by keyword and filters, and opens an event page.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must (age rating filter: Should; recommendations: Could)</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Consumer</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">None</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The device is online. Recommendations need a signed-in consumer; whether people can browse without an account is not settled in the PRD.</td></tr>
+<tr><th>Trigger</th><td colspan="2">The consumer opens "Explore" or types in the search box.</td></tr>
+<tr><th rowspan="4">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. Types a keyword, for example a band's name.</td><td>2. Matches event titles, line-ups and organiser names, and lists upcoming events with the date, venue, price or "free", the organiser and a Verified badge where earned.</td></tr>
+<tr><td>3. Adds filters: category, date range, district, price, free entry and age rating.</td><td>4. Narrows the results to events that match every filter.</td></tr>
+<tr><td>5. Taps a result.</td><td>6. Opens the event page.</td></tr>
+<tr><th rowspan="2">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. No event matches.</td><td>Says so and offers to clear the filters.</td></tr>
+<tr><th rowspan="2">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. Opens "Explore" without searching.</td><td>Shows recommended events based on the consumer's interests, followed organisers, past events and district (Could).</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Past and cancelled events in the default results. Buying tickets (after the ATP).</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">None; searching changes nothing.</td></tr>
+</table>
+
+*Table 16.6: UC-006 Mark an event 'Going' or 'Interested'*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">Mark an event 'Going' or 'Interested'</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-006</td></tr>
+<tr><th>Description</th><td colspan="2">A consumer marks an event 'Going' or 'Interested' to follow its updates; a 'Going' mark made before the event starts also unlocks a review after it.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Consumer</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">Organiser (sees the counts, UC-018)</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The consumer is signed in. The event is published and has not ended or been cancelled.</td></tr>
+<tr><th>Trigger</th><td colspan="2">The consumer taps "Going" or "Interested" on the event page.</td></tr>
+<tr><th rowspan="3">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. Taps "Going".</td><td>2. Saves the mark with its time, adds the event to "My events", updates the organiser's live counts and offers to join the event's group chat (UC-015).</td></tr>
+<tr><td></td><td>3. Keeps the 'Going' status private, or shows it to friends or to everyone as the consumer's privacy settings say. Only "everyone" adds the consumer to the event's public Going list.</td></tr>
+<tr><th rowspan="2">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. The organiser cancels the event after it was marked.</td><td>Notifies the consumer (UC-003) and shows the event as cancelled in "My events".</td></tr>
+<tr><th rowspan="3">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. Taps "Interested" instead.</td><td>Saves the mark and sends the event's updates, but does not unlock a review.</td></tr>
+<tr><td>A2. Taps the mark again.</td><td>Removes it from "My events" and from the counts.</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Tickets or proof of attendance; a 'Going' mark is not a ticket.</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">The mark is stored with its time. The consumer gets the event's changes and announcements, and a 'Going' mark made before the start unlocks a review after the event (UC-013).</td></tr>
+</table>
+
+*Table 16.7: UC-007 Send a direct booking request*
 
 <table>
 <tr><th>Use Case Name</th><td colspan="2">Send a direct booking request</td></tr>
@@ -276,7 +346,7 @@ The ten use cases below carry the main flows of the ATP release. The others foll
 <tr><th>Post-Conditions</th><td colspan="2">A confirmed booking exists with its brief, price and terms on record, or the request is closed as declined.</td></tr>
 </table>
 
-*Table 16.5: UC-008 Post a job and compare quotes*
+*Table 16.8: UC-008 Post a job and compare quotes*
 
 <table>
 <tr><th>Use Case Name</th><td colspan="2">Post a job and compare quotes</td></tr>
@@ -299,7 +369,7 @@ The ten use cases below carry the main flows of the ATP release. The others foll
 <tr><th>Post-Conditions</th><td colspan="2">Each accepted quote is a confirmed booking; the job is closed or stays open for the remaining places.</td></tr>
 </table>
 
-*Table 16.6: UC-009 Make a test payment*
+*Table 16.9: UC-009 Make a test payment*
 
 <table>
 <tr><th>Use Case Name</th><td colspan="2">Make a test payment</td></tr>
@@ -323,7 +393,7 @@ The ten use cases below carry the main flows of the ATP release. The others foll
 <tr><th>Post-Conditions</th><td colspan="2">The payment record, instalment or stall status, and both receipts are stored and visible to admins in disputes.</td></tr>
 </table>
 
-*Table 16.7: UC-010 Run stall applications*
+*Table 16.10: UC-010 Run stall applications*
 
 <table>
 <tr><th>Use Case Name</th><td colspan="2">Run stall applications</td></tr>
@@ -346,7 +416,7 @@ The ten use cases below carry the main flows of the ATP release. The others foll
 <tr><th>Post-Conditions</th><td colspan="2">Each approved vendor has a confirmed stall with a number, ready to place on the venue map and list items (UC-020).</td></tr>
 </table>
 
-*Table 16.8: UC-011 Build the venue map*
+*Table 16.11: UC-011 Build the venue map*
 
 <table>
 <tr><th>Use Case Name</th><td colspan="2">Build the venue map</td></tr>
@@ -373,7 +443,7 @@ The ten use cases below carry the main flows of the ATP release. The others foll
 <tr><th>Post-Conditions</th><td colspan="2">A published, versioned map is linked to the event and visible to consumers (UC-012).</td></tr>
 </table>
 
-*Table 16.9: UC-012 Find a stall on the venue map*
+*Table 16.12: UC-012 Find a stall on the venue map*
 
 <table>
 <tr><th>Use Case Name</th><td colspan="2">Find a stall on the venue map</td></tr>
@@ -398,7 +468,7 @@ The ten use cases below carry the main flows of the ATP release. The others foll
 <tr><th>Post-Conditions</th><td colspan="2">None; the map is read only.</td></tr>
 </table>
 
-*Table 16.10: UC-013 Leave a review*
+*Table 16.13: UC-013 Leave a review*
 
 <table>
 <tr><th>Use Case Name</th><td colspan="2">Leave a review</td></tr>
@@ -419,6 +489,175 @@ The ten use cases below carry the main flows of the ATP release. The others foll
 <tr><td>A1. The reviewed party posts one public reply.</td><td>Shows the reply under the review.</td></tr>
 <tr><th>Exclusions</th><td colspan="2">Anonymous reviews. Reviews between consumers and providers outside stalls.</td></tr>
 <tr><th>Post-Conditions</th><td colspan="2">The review is stored, visible, and counted in the rank score.</td></tr>
+</table>
+
+*Table 16.14: UC-014 Join boards and communities*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">Join boards and communities</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-014</td></tr>
+<tr><th>Description</th><td colspan="2">A user joins topic and city communities, takes part in event discussion boards, and follows or befriends other users.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Registered user</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">Admin (creates communities and moderates them, UC-017)</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The user is signed in. Admins have created the first set of communities (proposed).</td></tr>
+<tr><th>Trigger</th><td colspan="2">The user opens "Communities", or the discussion board on an event page.</td></tr>
+<tr><th rowspan="4">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. Opens "Communities" and taps "Join" on one, for example "Colombo Music Scene".</td><td>2. Adds the user as a member and lists the community under "My communities".</td></tr>
+<tr><td>3. Posts a thread with text, images and links.</td><td>4. Publishes it with the author's role badge, and Verified where earned.</td></tr>
+<tr><td>5. Other members reply, upvote or downvote.</td><td>6. Shows replies as nested threads and lets readers sort by newest or most upvoted.</td></tr>
+<tr><th rowspan="2">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. A thread or reply is reported and an admin hides or removes it (UC-016, UC-017).</td><td>Takes it off the board and tells its author.</td></tr>
+<tr><th rowspan="4">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. Opens the discussion board of an event (made when the event was published) and posts a meetup plan.</td><td>Posts it to that event's board.</td></tr>
+<tr><td>A2. A consumer follows another user or sends a friend request, which is accepted.</td><td>Links the two and shows which friends are going to an event, within each friend's privacy settings.</td></tr>
+<tr><td>A3. Wants to ask the organiser a question.</td><td>Points the user to the event's Q&amp;A (UC-015), not the board.</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Users creating their own communities (the PRD has admins create them).</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">The user is a member, and their threads and replies are visible with their badges.</td></tr>
+</table>
+
+*Table 16.15: UC-015 Chat and get announcements*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">Chat and get announcements</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-015</td></tr>
+<tr><th>Description</th><td colspan="2">Users chat 1:1 and in event group chats, ask questions in the event Q&amp;A, and get organiser announcements and notifications.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must (engagement notifications: Should)</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Registered user</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">Organiser (sends announcements); notification services (Firebase Cloud Messaging push, Amazon SES email, Dialog e-SMS)</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The user is signed in.</td></tr>
+<tr><th>Trigger</th><td colspan="2">The user taps "Message" on a profile or event page, or a notification arrives.</td></tr>
+<tr><th rowspan="4">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. A consumer taps "Message" on an event page and writes to its organiser, for example about entry.</td><td>2. Opens a 1:1 chat, delivers each message live, and sends a push notification if the organiser is not in the app.</td></tr>
+<tr><td>3. The organiser sends an announcement on the event, for example "Gates open at 5 PM".</td><td>4. Delivers it in the app and by push to consumers who marked the event 'Going' or 'Interested' and to the organiser's followers.</td></tr>
+<tr><td>5. A consumer who marked the event 'Going' joins its group chat.</td><td>6. Adds them and shows the chat's messages live.</td></tr>
+<tr><th rowspan="3">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. A consumer messages someone whose privacy settings do not allow it, or who has blocked them.</td><td>Does not deliver the message and says the person cannot be messaged.</td></tr>
+<tr><td>E2. An urgent change happens: an event is cancelled or moved, or a booking is cancelled.</td><td>Sends the notification by SMS as well as push, in the app and by email (proposed).</td></tr>
+<tr><th rowspan="4">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. An organiser and a provider chat about a booking and send a brief or a quote as a file.</td><td>Stores the file privately and shows it in the chat.</td></tr>
+<tr><td>A2. A user asks a question in the event's public Q&amp;A.</td><td>Posts it on the event page; the organiser's answer is visible to everyone.</td></tr>
+<tr><td>A3. Switches off a type of engagement notification, such as friend activity.</td><td>Stops sending that type. Transactional notifications still arrive.</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Voice and video calls. Group chats other than event group chats (not in the PRD).</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">Messages and announcements are stored and delivered to everyone allowed to see them.</td></tr>
+</table>
+
+*Table 16.16: UC-016 Report a user or content*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">Report a user or content</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-016</td></tr>
+<tr><th>Description</th><td colspan="2">A user reports a user, post, comment, thread, review, message or event to the admins, or blocks another user.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Registered user</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">Admin (works the report queue, UC-017)</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The user is signed in.</td></tr>
+<tr><th>Trigger</th><td colspan="2">The user taps "Report" or "Block" on a profile or on a piece of content.</td></tr>
+<tr><th rowspan="3">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. Taps "Report", picks a reason (proposed: spam, fake event or scam, harassment, inappropriate content, other) and adds optional details.</td><td>2. Adds the report to the admin queue with the item, the reporter and the reason, and confirms it was sent.</td></tr>
+<tr><td></td><td>3. Tells the reporter when an admin closes the report (proposed).</td></tr>
+<tr><th rowspan="2">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. Reports the same item a second time.</td><td>Says it is already reported and does not add a second report (proposed).</td></tr>
+<tr><th rowspan="2">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. Taps "Block" on a user.</td><td>Stops the blocked user from messaging the blocker and hides each one's content from the other (proposed).</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Automatic content filtering. Telling the reported user who reported them.</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">The report is in the admin queue, or the block is in place.</td></tr>
+</table>
+
+*Table 16.17: UC-017 Moderate reports and disputes*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">Moderate reports and disputes</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-017</td></tr>
+<tr><th>Description</th><td colspan="2">An admin works through reports and disputes, acts on users and content, unpublishes fake events, hides reviews that break the rules and manages communities. Every action is logged.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must (audit log: Should)</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Admin</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">The reporter and the reported user; both sides of a dispute; notification services</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The admin is signed in to the admin pages of the web portal with an account in the admin group.</td></tr>
+<tr><th>Trigger</th><td colspan="2">A report reaches the queue (UC-016), or an organiser, vendor or freelancer opens a dispute.</td></tr>
+<tr><th rowspan="3">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. Opens the report queue and picks a report.</td><td>2. Shows the item, the reporter, the reason and earlier reports on the same user.</td></tr>
+<tr><td>3. Picks an action: dismiss, hide, remove, warn, suspend or ban.</td><td>4. Applies it, notifies the people involved and writes who did what, and when, to the audit log.</td></tr>
+<tr><th rowspan="2">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. Another admin has already closed the report.</td><td>Shows the earlier decision and does not apply a second action (proposed).</td></tr>
+<tr><th rowspan="5">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. The report is about a fake event; the admin unpublishes it.</td><td>Unpublishes the event and closes its stall applications and job posts.</td></tr>
+<tr><td>A2. Opens a dispute, such as a provider no-show or a stall paid for but not given.</td><td>Shows the booking or stall history and its payment record. The admin keeps or hides related reviews, or applies an action from step 3.</td></tr>
+<tr><td>A3. Hides a review that breaks the rules.</td><td>Removes it from the review page and from the rank score. Reviews from fake accounts are also left out of ratings.</td></tr>
+<tr><td>A4. Creates, edits or archives a community.</td><td>Saves the change and shows it in "Communities".</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Moving money in a dispute (Tezera never holds funds). Ticket refunds (with ticketing, after the ATP). Automatic moderation.</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">The report or dispute is closed with its outcome, and every admin action is in the audit log.</td></tr>
+</table>
+
+*Table 16.18: UC-018 View the event dashboard*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">View the event dashboard</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-018</td></tr>
+<tr><th>Description</th><td colspan="2">An organiser follows an event's 'Going' and 'Interested' counts as they change, its hiring and stall progress, and its analytics.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must (analytics: Should)</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Organiser</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">None</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The organiser is signed in and has at least one event.</td></tr>
+<tr><th>Trigger</th><td colspan="2">The organiser opens "Dashboard" and picks an event.</td></tr>
+<tr><th rowspan="4">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. Opens the event's dashboard.</td><td>2. Shows the 'Going' and 'Interested' counts and updates them as consumers mark the event, without a reload.</td></tr>
+<tr><td>3. Opens "Hiring and stalls".</td><td>4. Shows requests sent, quotes received, confirmed bookings, stall applications and approvals, each linked to its item.</td></tr>
+<tr><td>5. Opens "Analytics".</td><td>6. Shows page views, post and reel engagement, follower growth and 'Going' marks over time.</td></tr>
+<tr><th rowspan="2">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. Opens a new event with no activity yet.</td><td>Shows zero counts and says what will appear once the event is published.</td></tr>
+<tr><th rowspan="2">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. Taps a confirmed booking or a stall application in the list.</td><td>Opens it (UC-019 or UC-010).</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Ticket sales figures (after the ATP). Names of consumers who keep their 'Going' status private.</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">None; the dashboard is read only.</td></tr>
+</table>
+
+*Table 16.19: UC-019 Confirm a booking with terms*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">Confirm a booking with terms</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-019</td></tr>
+<tr><th>Description</th><td colspan="2">A booking is confirmed with its service, date, price, payment terms and cancellation terms on record, then tracked until it is completed or cancelled. Included by UC-007 and UC-008.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must (payment tracking and late-cancellation record: Should)</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Organiser and provider</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">Notification services</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">A booking request (UC-007) or quote (UC-008) with service, date, price, and any payment and cancellation terms. Both sides are verified.</td></tr>
+<tr><th>Trigger</th><td colspan="2">The provider accepts a booking request, or the organiser accepts a quote.</td></tr>
+<tr><th rowspan="5">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. The accepting side reads the service, date, price, payment terms (deposit, and each instalment's amount and due date) and cancellation terms, and confirms.</td><td>2. Creates the confirmed booking with all of these on record, marks the provider's date as booked and notifies both sides.</td></tr>
+<tr><td></td><td>3. Shows each instalment as due, received or overdue, and sends both sides a reminder before each due date.</td></tr>
+<tr><td>4. The provider marks an instalment received.</td><td>5. Updates it, and counts it toward the organiser's share of bookings paid on time.</td></tr>
+<tr><td>6. After the event, the organiser marks the booking completed.</td><td>7. Opens reviews for both sides (UC-013).</td></tr>
+<tr><th rowspan="3">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. Either side cancels the booking and gives a reason.</td><td>Applies the cancellation terms (as a test payment, UC-009). If it is within 7 days of the event (proposed), shows the cancellation on the canceller's profile. If the provider cancelled, offers the organiser a job post prefilled from the booking.</td></tr>
+<tr><td>E2. An instalment passes its due date unpaid.</td><td>Marks it overdue and notifies both sides.</td></tr>
+<tr><th rowspan="3">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. One side proposes changed terms.</td><td>Applies the change only when the other side accepts it.</td></tr>
+<tr><td>A2. The payee has a connected PayHere sandbox account.</td><td>Offers "Pay" on each instalment (UC-009 extends this use case).</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Contracts with legal force. Real money; Tezera never holds or splits funds.</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">A confirmed booking with its terms on record, ending as completed or cancelled.</td></tr>
+</table>
+
+*Table 16.20: UC-020 List stall items and prices*
+
+<table>
+<tr><th>Use Case Name</th><td colspan="2">List stall items and prices</td></tr>
+<tr><th>Use Case ID</th><td colspan="2">UC-020</td></tr>
+<tr><th>Description</th><td colspan="2">A vendor with an approved stall adds a short description and the items and prices they will sell at the event, which consumers see on the venue map.</td></tr>
+<tr><th>Priority</th><td colspan="2">Must</td></tr>
+<tr><th>Primary Actor</th><td colspan="2">Vendor</td></tr>
+<tr><th>Supporting Actors</th><td colspan="2">Organiser (can hide an entry)</td></tr>
+<tr><th>Pre-Conditions</th><td colspan="2">The vendor has an approved stall at the event (UC-010).</td></tr>
+<tr><th>Trigger</th><td colspan="2">The vendor opens the stall in "My stalls" and taps "Edit listing".</td></tr>
+<tr><th rowspan="2">Main flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>1. Writes a short description and adds items with prices in LKR for this event.</td><td>2. Saves the listing and shows it on the stall on the venue map, where consumers can search it by item (UC-012).</td></tr>
+<tr><th rowspan="2">Exception flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>E1. Leaves an item's price empty or enters something that is not a number.</td><td>Highlights the field and does not save.</td></tr>
+<tr><th rowspan="3">Alternate flow</th><th>Actors</th><th>System</th></tr>
+<tr><td>A1. Chooses "Use my profile prices".</td><td>Shows the prices already on the vendor's profile for this stall.</td></tr>
+<tr><td>A2. The organiser hides an entry that breaks the event's rules.</td><td>Hides it from the map and tells the vendor (proposed).</td></tr>
+<tr><th>Exclusions</th><td colspan="2">Ordering or paying at a stall. Stock levels. Freelancers, who do not take stalls.</td></tr>
+<tr><th>Post-Conditions</th><td colspan="2">The listing is on the venue map and searchable by item.</td></tr>
 </table>
 
 ## 4.7 Functional Requirements
