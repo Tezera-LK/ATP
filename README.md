@@ -18,6 +18,7 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 | [research/tezera-research-briefs.html](research/tezera-research-briefs.html) | Desk-research briefs with sources: whether in-app payments to vendors and freelancers are legal in Sri Lanka (Central Bank rules, gateways, tax, PDPA), and what the map builder takes from the team's ai-studio repository | You need the reasoning behind the payments model or the map builder |
 | [brand/tezera-brand-manual.html](brand/tezera-brand-manual.html) | The brand manual: name story, the three account personalities, light and dark palettes for organiser, vendor and attendee, type, icons, the tile system, motion rules, voice and applications | You are designing a screen, a post or a poster |
 | [mindmaps/](mindmaps/) | The [organiser](mindmaps/tezera-organiser-map.mm) and [vendor](mindmaps/tezera-vendor-map.mm) accounts as mind maps: every page, option and feature from PRD v6, with MoSCoW tags and PRD IDs. Import a `.mm` file into MindMeister, or paste its outline `.txt` into MindMeister's Outline mode | You want everything one account type can do on one page |
+| [wireframes/tezera-organiser-wireframe.html](wireframes/tezera-organiser-wireframe.html) | The organiser web portal as 32 desktop screens in the same layout as the team's consumer flow: a flow map of eight journeys, a click-through where highlighted areas are real links, and light and dark organiser palettes. Checked against the organiser mind map | You want to see or click through an organiser screen |
 | [report/tezera-srs-chapter-4.md](report/tezera-srs-chapter-4.md) | Draft of report Chapter 4, the System Requirements Specification: stakeholders and onion model, elicitation methods and results, use case diagrams and descriptions, 66 functional and 21 non-functional requirements, assumptions and clarifications. Figures in `report/figures/` | You are writing or checking the SDGP report |
 | [database/](database/) | Team plans for the database and sign-in: how to make a table (PostgreSQL or DynamoDB), a short table how-to, and the Cognito + NestJS + Prisma auth set-up, each with a PDF | You are adding a table or setting up sign-in in the code repo |
 | [HANDOFF.md](HANDOFF.md) | Where the work stands, what was decided, and what comes next. Updated after every session | You're picking up the work |
@@ -123,6 +124,8 @@ The name, ticketing, revenue, discovery and the pilot now match.
 │   ├── tezera-organiser-map-outline.txt   (the same map as a tab-indented outline)
 │   ├── tezera-vendor-map.mm
 │   └── tezera-vendor-map-outline.txt
+├── wireframes/
+│   └── tezera-organiser-wireframe.html   (organiser screens, drawn by the script inside the file)
 ├── report/
 │   ├── tezera-srs-chapter-4.md   (draft report chapter 4, SRS)
 │   └── figures/                  (onion model and use case diagrams: SVG, PNG and build-figures.js)
