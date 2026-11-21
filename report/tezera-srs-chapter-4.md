@@ -3,7 +3,7 @@
 <!--
 About this file
 - Draft of Chapter 4 for the SDGP report, written 20 November 2026 from PRD v7, the survey analysis, the research briefs, PRD Research.md and HANDOFF.md.
-- Text in [square brackets] is a gap for the team to fill. Nothing in this chapter claims a client meeting took place, because none is recorded.
+- Text in [square brackets] is a gap for the team to fill. Tezera has no client. The organiser companies in method 6 are test partners, not clients; their names, dates and findings are not recorded in the repo, so they are [bracket] slots.
 - Figures live in report/figures/. To change one, edit report/figures/build-figures.js, run `node report/figures/build-figures.js`, then re-export each PNG, e.g. (Git Bash):
   "/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --window-size=1180,780 --screenshot="$(cygpath -w "$PWD/report/figures/fig-uc-hiring-stalls-payments.png")" "file:///D:/ATP/report/figures/fig-uc-hiring-stalls-payments.svg"
   (window size = the SVG's width and height).
@@ -67,7 +67,7 @@ The stakeholders come from the rich picture on page 3 of the project proposal, t
 
 ## 4.3 Selection of Requirement Elicitation Techniques / Methods
 
-Tezera has no external client yet. The team wrote its own project brief on 30 September 2026 (`PRD Research.md`, section 2.1) and has acted as the client since. The template makes client elicitation mandatory, so this is the largest gap in the chapter; Table 19 records it as AS1, and the client meeting is listed below as planned.
+Tezera is the team's own product idea, so it has no external client. The team wrote its own project brief on 30 September 2026 (`PRD Research.md`, section 2.1). Requirements then came from the people who will use Tezera: a questionnaire for each of the three user groups, and conversations with organiser companies that have agreed to test Tezera before the pilot. These companies are not clients; they speak for organisers as users.
 
 | # | Technique | Used with | Why it was chosen | Status |
 |---|---|---|---|---|
@@ -76,7 +76,7 @@ Tezera has no external client yet. The team wrote its own project brief on 30 Se
 | 3 | Questionnaires | 26 attendees, 7 organisers, 13 vendors and freelancers (46 responses from 39 people) | Reached all three user groups in five days. Mixed multiple-choice questions with open questions about recent problems. | Done, 4 to 8 October 2026 (Google Forms) |
 | 4 | Team review sessions | The five team members | Each finding was turned into a proposed PRD change and decided by the group, with the date and decider recorded in `HANDOFF.md`. | Done: 6, 8 and 15 October; 20 November 2026 |
 | 5 | Prototyping | The team; not yet shown to users | Made the requirements concrete enough to spot gaps: a clickable vendor web portal wireframe (18 pages), organiser and vendor mind maps, and a working sign-in slice in code. | Done: 19 to 22 October and 19 November 2026 |
-| 6 | Client meeting | [Client name and role] | Required by the module. Confirms scope, priorities and the open questions in Table 19. | **Planned, not done.** [Date] |
+| 6 | Conversations with organiser companies | [Number] organiser companies that will test Tezera before the pilot: [company names, or "names withheld"; who the team spoke to and their role] | People who run events for a living can say what the hiring, stall and map features must do, and check the survey results. They will also test the product before the pilot. | Done, [dates]. [Format: in person, call or online] |
 | 7 | Semi-structured interviews | 2 or 3 of the surveyed organisers | Seven survey answers cannot show how organisers would use the hiring flow. | Planned (survey analysis, section 9) |
 | 8 | Prototype tests | 5 or 6 providers; attendees | Show providers a mock booking request with a structured brief and payment terms; test the interactive map with attendees; time the three PRD tasks (publish an event, post a job, upload a venue map). | Planned |
 
@@ -88,7 +88,7 @@ Observation at live events has not been used so far.
 
 The brief asked for "a central hub" where organisers hire vendors, promote events, share a venue map and talk to consumers, with "a forum style for people to communicate and meet up", rankings and review pages. The question rounds settled what the brief left open: a mobile app plus a web portal; vendors are businesses and freelancers are individuals; organisers hire by direct booking or by job post; stalls fill by invitation or application; reviews run in four directions; one role per account; only organisers post to the feed. These answers are the source of most functional requirements in Table 17 (source code PB).
 
-*Validation:* each answer was written into PRD version 1 and checked by the brief's author. The same answers have not been checked with an external client [to do at the client meeting].
+*Validation:* each answer was written into PRD version 1 and checked by the brief's author. The answers were later tested against the surveys (method 3) [and the organiser conversations, method 6].
 
 ### Desk research
 
@@ -120,11 +120,15 @@ The group sessions turned research into decisions: ticketing out of the ATP and 
 
 The vendor web portal wireframe (22 October 2026) covers the vendor's dashboard, requests, jobs, stalls, bookings, payments, profile, reviews and verification. The organiser and vendor mind maps (19 and 20 October) map every PRD row for those roles onto screens. Building them exposed two gaps: no PRD row described the list of open stall slots a vendor browses (taken from user story US-P13), and the mind maps needed a "Forgot password" and "Log out" that are not PRD rows. The sign-in slice (19 November) proved Cognito sign-in, the NestJS token check and the first database table work end to end.
 
-*Validation:* none of the prototypes has been shown to users or a client yet. [Add results after the prototype tests.]
+*Validation:* none of the prototypes has been shown to users yet. [Add results after the prototype tests.]
 
-### Client meeting
+### Conversations with organiser companies
 
-[Not held yet. After the meeting, record: date, who attended, what was shown, which requirements the client confirmed, changed or added, and how the changes reached the PRD and Tables 17 to 19.]
+The team spoke with [number] organiser companies, [names or "names withheld"], on [dates]. They are not clients. They run events in Sri Lanka and have agreed to test Tezera before the pilot.
+
+[Record for each conversation: who the team spoke to and their role, what was shown or asked, and what they said. Then list which requirements they confirmed, changed or added, with the PRD rows or FR numbers affected.]
+
+*Validation:* [How the findings were checked, for example against the organiser survey answers, and which changes went to a group decision and reached the PRD.]
 
 ## 4.5 Use Case Diagram
 
@@ -545,24 +549,23 @@ Targets marked (proposed) are starting values for the group to confirm before te
 
 | Ref | Ambiguity or gap | Assumption made or question asked | Outcome |
 |---|---|---|---|
-| AS1 | The template needs a client, but Tezera has none. The brief was written by the team. | Assumed the team's own brief (30 Sep 2026) stands in for the client brief, and the 46 survey responses stand in for user validation. | **Open.** [Name a client, for example a partner organiser for the pilot, hold the meeting by (date), and record the outcome in 4.4.] |
-| AS2 | The brief says the platform "allows ticket booking". Is ticketing in the ATP? | Asked the group. | Settled 6 Oct 2026: no. Ticketing, QR entry and ticket refunds are the first phase after the ATP; the TK rows are Later. |
-| AS3 | The brief asks for "a map system" but not what it does. | Asked in round 3: upload a layout and drop pins, rest to discuss. A 3D view was added on 6 Oct. | Settled 15 Oct 2026: no 3D; an interactive 2D map with zones, stall listings and search by item (Must), and a map builder (Must, with Should and Could extras). |
-| AS4 | The brief does not say whether hiring and stall fees are paid in the app. | Asked in round 2: tickets only, hiring later. Researched Sri Lankan payments law on 15 Oct. | Settled 15 Oct 2026: sandbox payments only (Should), straight to each payee's own PayHere account; Tezera never holds money. Real money waits for a lawyer and an accountant (PRD section 14). |
-| AS5 | Can one person hold more than one role? | Asked in round 3. | Settled: one role per account. Still open: can one email address or phone number register separate accounts for different roles? Assumed no (one email, one account) until the group decides. |
-| AS6 | The brief uses "vendor" and "freelancer" without defining them. | Asked in round 1. | Settled: vendor is a business, freelancer is an individual. Only vendors take stalls. |
-| AS7 | Who reviews whom, and what proves a consumer attended without tickets? | Asked in round 2 (all four directions); asked the group on 6 Oct. | Settled 6 Oct 2026: a 'Going' mark made before the event starts unlocks consumer reviews. Open: is that enough, or should it need a location check-in? |
-| AS8 | No minimum age; one attendee described underage drinking at an 18+ event. | Proposed R12 to the group. | Settled 15 Oct 2026: accounts 16+ (proposed) with a guardian tick under 18; events carry an age rating and organisers check ID. Not checked: whether the PDPA needs a parent's consent for 16- and 17-year-olds. |
-| AS9 | Which documents verify each role? | Assumed business registration for companies and NIC for individuals. | Open (PRD section 14). |
-| AS10 | Who can post to the main feed? | Asked in round 4. | Settled: organisers only. Providers show their work in portfolios. |
-| AS11 | The brief names no technology, and the docs disagreed (PRD v6 serverless Amplify; team code repo NestJS + PostgreSQL; slide deck Flutter). | Asked the group. | Settled 20 Nov 2026 (PRD v7): Flutter app, Next.js on Amplify Hosting, NestJS as one Lambda behind API Gateway, Cognito, PostgreSQL + DynamoDB, API Gateway WebSockets. Open: which PostgreSQL host. |
-| AS12 | The surveys reached the team's own networks, mostly students in Colombo. | Assumed results are signals, not market measures. | Open: interviews with 2 or 3 organisers and tests with providers and attendees are planned (survey analysis, section 9). |
-| AS13 | The PRD assumed freelancers lose work to agencies. | No survey question tested it. | Open: add to the organiser interviews. |
-| AS14 | Rank score weights, tier thresholds, the 14-day review window and the 7-day late-cancellation window have no source. | Proposed starting values. | Open: tune with pilot data (PRD section 14). |
-| AS15 | The commission rate shown on sandbox receipts. | Not set. | Open (PRD section 14). |
-| AS16 | Google Maps directions to the venue: in the ATP or later? | Asked the group. | Open (PRD section 14). |
-| AS17 | Can organisers use hiring for private events with no public event page, such as weddings? | Asked the group. | Open; 4 of 7 surveyed organisers run weddings. |
+| AS1 | The brief says the platform "allows ticket booking". Is ticketing in the ATP? | Asked the group. | Settled 6 Oct 2026: no. Ticketing, QR entry and ticket refunds are the first phase after the ATP; the TK rows are Later. |
+| AS2 | The brief asks for "a map system" but not what it does. | Asked in round 3: upload a layout and drop pins, rest to discuss. A 3D view was added on 6 Oct. | Settled 15 Oct 2026: no 3D; an interactive 2D map with zones, stall listings and search by item (Must), and a map builder (Must, with Should and Could extras). |
+| AS3 | The brief does not say whether hiring and stall fees are paid in the app. | Asked in round 2: tickets only, hiring later. Researched Sri Lankan payments law on 15 Oct. | Settled 15 Oct 2026: sandbox payments only (Should), straight to each payee's own PayHere account; Tezera never holds money. Real money waits for a lawyer and an accountant (PRD section 14). |
+| AS4 | Can one person hold more than one role? | Asked in round 3. | Settled: one role per account. Still open: can one email address or phone number register separate accounts for different roles? Assumed no (one email, one account) until the group decides. |
+| AS5 | The brief uses "vendor" and "freelancer" without defining them. | Asked in round 1. | Settled: vendor is a business, freelancer is an individual. Only vendors take stalls. |
+| AS6 | Who reviews whom, and what proves a consumer attended without tickets? | Asked in round 2 (all four directions); asked the group on 6 Oct. | Settled 6 Oct 2026: a 'Going' mark made before the event starts unlocks consumer reviews. Open: is that enough, or should it need a location check-in? |
+| AS7 | No minimum age; one attendee described underage drinking at an 18+ event. | Proposed R12 to the group. | Settled 15 Oct 2026: accounts 16+ (proposed) with a guardian tick under 18; events carry an age rating and organisers check ID. Not checked: whether the PDPA needs a parent's consent for 16- and 17-year-olds. |
+| AS8 | Which documents verify each role? | Assumed business registration for companies and NIC for individuals. | Open (PRD section 14). |
+| AS9 | Who can post to the main feed? | Asked in round 4. | Settled: organisers only. Providers show their work in portfolios. |
+| AS10 | The brief names no technology, and the docs disagreed (PRD v6 serverless Amplify; team code repo NestJS + PostgreSQL; slide deck Flutter). | Asked the group. | Settled 20 Nov 2026 (PRD v7): Flutter app, Next.js on Amplify Hosting, NestJS as one Lambda behind API Gateway, Cognito, PostgreSQL + DynamoDB, API Gateway WebSockets. Open: which PostgreSQL host. |
+| AS11 | The surveys reached the team's own networks, mostly students in Colombo. | Assumed results are signals, not market measures. | Open: interviews with 2 or 3 organisers and tests with providers and attendees are planned (survey analysis, section 9). |
+| AS12 | The PRD assumed freelancers lose work to agencies. | No survey question tested it. | Open: add to the organiser interviews. |
+| AS13 | Rank score weights, tier thresholds, the 14-day review window and the 7-day late-cancellation window have no source. | Proposed starting values. | Open: tune with pilot data (PRD section 14). |
+| AS14 | The commission rate shown on sandbox receipts. | Not set. | Open (PRD section 14). |
+| AS15 | Google Maps directions to the venue: in the ATP or later? | Asked the group. | Open (PRD section 14). |
+| AS16 | Can organisers use hiring for private events with no public event page, such as weddings? | Asked the group. | Open; 4 of 7 surveyed organisers run weddings. |
 
 ## 4.10 Chapter Summary
 
-Tezera's stakeholders reach from the four account types and admins at the centre to the Central Bank and the Data Protection Authority at the edge. The team found requirements through its own project brief, desk research, three questionnaires, group decisions and prototypes; a client meeting, organiser interviews and prototype tests are still to come. The result is 20 use cases, 66 functional requirements traced to their sources, and 21 non-functional requirements with a test for each. Seventeen gaps are recorded, eleven of them still open. The most urgent is AS1: the team has no client yet.
+Tezera's stakeholders reach from the four account types and admins at the centre to the Central Bank and the Data Protection Authority at the edge. The team found requirements through its own project brief, desk research, three questionnaires, conversations with organiser companies that will test Tezera before the pilot, group decisions and prototypes; organiser interviews and prototype tests are still to come. The result is 20 use cases, 66 functional requirements traced to their sources, and 21 non-functional requirements with a test for each. Sixteen gaps are recorded, ten of them still open.

@@ -1,0 +1,281 @@
+/* Tezera docs site: shared navbar + legibility layer.
+   Linked from every page by tools/build-site.py. Page styles stay in each page;
+   this file only styles .tz-* elements and a few safe, site-wide fixes. */
+
+/* ---------- Navbar tokens ---------- */
+.tz-nav {
+  --tz-bar: rgba(246, 247, 244, .88);
+  --tz-card: #FFFFFF;
+  --tz-surface: #E9EEEB;
+  --tz-rule: #D2DAD7;
+  --tz-ink: #0E2A30;
+  --tz-ink-2: #3D5459;
+  --tz-muted: #6E8185;
+  --tz-accent: #1F6F78;
+  --tz-accent-soft: #DCEBEA;
+  --tz-marigold: #E3A21A;
+  --tz-shadow: 0 1px 2px rgba(14, 42, 48, .06), 0 12px 32px -8px rgba(14, 42, 48, .18);
+  --tz-h: 56px;
+  --tz-ease: cubic-bezier(.23, 1, .32, 1);
+}
+/* Dark bar whenever the page is dark: data-theme is set in <head> before the
+   first paint (stored choice, else the system setting), so no flash on load */
+html[data-theme="dark"] .tz-nav {
+  --tz-bar: rgba(15, 27, 29, .88);
+  --tz-card: #162528;
+  --tz-surface: #1D3034;
+  --tz-rule: #2C4246;
+  --tz-ink: #E6EEEE;
+  --tz-ink-2: #B3C4C5;
+  --tz-muted: #8DA0A2;
+  --tz-accent: #6CC0C6;
+  --tz-accent-soft: #183B3E;
+  --tz-marigold: #F0B73E;
+  --tz-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 16px 40px -8px rgba(0, 0, 0, .55);
+}
+
+/* ---------- Navbar base (self-contained: pages reset * differently) ---------- */
+.tz-nav, .tz-nav * { box-sizing: border-box; }
+.tz-nav {
+  position: sticky; top: 0; z-index: 2147483000;
+  display: block; width: auto;
+  margin: 0; padding: 0;
+  font-family: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  font-size: 15px; line-height: 1.35; font-weight: 400;
+  letter-spacing: normal; text-align: left; text-transform: none;
+  color: var(--tz-ink);
+  background: var(--tz-bar);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--tz-rule);
+  /* Page-to-page fade keeps the bar still (see "Page transitions" below) */
+  view-transition-name: tz-nav;
+}
+.tz-nav ul { list-style: none; margin: 0; padding: 0; }
+.tz-nav li { margin: 0; padding: 0; max-width: none; }
+.tz-nav a { color: inherit; text-decoration: none; }
+.tz-nav button {
+  font: inherit; color: inherit; background: none; border: 0; margin: 0;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.tz-nav svg { display: inline-block; width: auto; min-width: 0; flex: none; transform-origin: 50% 50%; overflow: visible; }
+.tz-nav :focus-visible { outline: 2px solid var(--tz-accent); outline-offset: 2px; border-radius: 8px; }
+
+.tz-nav__inner {
+  display: flex; align-items: center; gap: 8px 16px;
+  max-width: 1120px; min-height: var(--tz-h);
+  margin: 0 auto; padding: 0 clamp(16px, 3vw, 24px);
+}
+
+/* Wordmark: two dots, then the lower-case name */
+.tz-nav__brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px; margin-right: auto; padding-right: 8px;
+  font-family: "Bricolage Grotesque", Georgia, serif;
+  font-weight: 600; font-size: 22px; letter-spacing: -.02em; color: var(--tz-ink);
+}
+.tz-nav__dots { display: inline-flex; gap: 3px; }
+.tz-nav__dots::before, .tz-nav__dots::after {
+  content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--tz-marigold);
+}
+.tz-nav__dots::after { background: var(--tz-accent); }
+
+/* ---------- Desktop: group buttons with dropdowns ---------- */
+.tz-nav__menu { display: block; }
+.tz-nav__groups { display: flex; align-items: center; gap: 2px; }
+.tz-nav__group { position: relative; }
+.tz-nav__label, .tz-nav__home { display: none; }
+
+.tz-nav__gbtn, .tz-nav__direct {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 40px; padding: 0 12px; border-radius: 10px;
+  font-weight: 500; color: var(--tz-ink-2);
+  transition: background-color .15s ease, color .15s ease;
+}
+.tz-nav .tz-nav__chev { width: 12px; height: 12px; transition: transform .2s var(--tz-ease); }
+.tz-nav .tz-nav__gbtn[aria-expanded="true"] .tz-nav__chev { transform: rotate(180deg); }
+@media (hover: hover) {
+  .tz-nav__gbtn:hover, .tz-nav__direct:hover { background: var(--tz-surface); color: var(--tz-ink); }
+}
+.tz-nav__gbtn[aria-expanded="true"] { background: var(--tz-surface); color: var(--tz-ink); }
+.tz-nav__group.is-current > .tz-nav__gbtn,
+.tz-nav__direct[aria-current="page"] { color: var(--tz-ink); }
+.tz-nav__group.is-current > .tz-nav__gbtn::after,
+.tz-nav__direct[aria-current="page"]::after {
+  /* Out of the layout (absolute), so marking the current section never
+     changes any button's width or shifts the other links between pages */
+  content: ""; position: absolute; left: 50%; bottom: 3px;
+  width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%;
+  background: var(--tz-marigold); pointer-events: none;
+}
+
+.tz-nav__list {
+  display: grid; gap: 2px;
+}
+html.tz-js .tz-nav__group > .tz-nav__list {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  min-width: 300px; padding: 6px;
+  background: var(--tz-card); border: 1px solid var(--tz-rule); border-radius: 14px;
+  box-shadow: var(--tz-shadow);
+  transform-origin: top left;
+  opacity: 0; visibility: hidden; transform: translateY(-4px) scale(.98);
+  transition: opacity .16s ease, transform .2s var(--tz-ease), visibility 0s linear .2s;
+}
+/* Invisible bridge over the 8px gap, so hover doesn't drop on the way down */
+html.tz-js .tz-nav__group > .tz-nav__list::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -10px; height: 10px;
+}
+html.tz-js .tz-nav__gbtn[aria-expanded="true"] + .tz-nav__list {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity .16s ease, transform .2s var(--tz-ease), visibility 0s;
+}
+.tz-nav__item { display: flex; align-items: stretch; gap: 4px; }
+.tz-nav__link {
+  flex: 1; display: grid; gap: 2px;
+  min-height: 44px; padding: 9px 12px; border-radius: 10px;
+}
+.tz-nav__title { font-weight: 600; color: var(--tz-ink); }
+.tz-nav__desc { font-size: 13px; color: var(--tz-muted); }
+.tz-nav__aside {
+  display: inline-flex; align-items: center; padding: 0 12px; border-radius: 10px;
+  font-size: 13px; font-weight: 600; color: var(--tz-accent);
+}
+@media (hover: hover) {
+  .tz-nav__link:hover, .tz-nav__aside:hover { background: var(--tz-surface); }
+}
+.tz-nav__link[aria-current="page"] { background: var(--tz-accent-soft); }
+.tz-nav__link[aria-current="page"] .tz-nav__title::after {
+  content: "You are here"; margin-left: 8px; font-size: 11px; font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--tz-accent);
+}
+
+/* ---------- Light / dark switch ---------- */
+.tz-nav__theme {
+  position: relative; display: inline-grid; place-items: center;
+  width: 40px; height: 40px; margin-left: 4px; border-radius: 999px;
+  color: var(--tz-ink-2);
+  transition: background-color .15s ease, color .15s ease;
+}
+@media (hover: hover) { .tz-nav__theme:hover { background: var(--tz-surface); color: var(--tz-ink); } }
+.tz-nav__theme:active { transform: scale(.94); }
+.tz-nav .tz-nav__theme svg {
+  grid-area: 1 / 1; width: 18px; height: 18px;
+  transition: opacity .2s ease, transform .3s var(--tz-ease);
+}
+/* Shows the theme you'll switch to: moon on light pages, sun on dark pages */
+.tz-nav .tz-nav__sun { opacity: 0; transform: rotate(-60deg) scale(.6); }
+html[data-theme="dark"] .tz-nav .tz-nav__sun { opacity: 1; transform: none; }
+html[data-theme="dark"] .tz-nav .tz-nav__moon { opacity: 0; transform: rotate(60deg) scale(.6); }
+html:not(.tz-js) .tz-nav__theme { display: none; }
+
+/* Mobile toggle hidden on desktop */
+.tz-nav__toggle { display: none; }
+
+/* No JS: show every link in a wrapped row, no dropdowns */
+html:not(.tz-js) .tz-nav__inner { flex-wrap: wrap; padding-bottom: 8px; }
+html:not(.tz-js) .tz-nav__groups { flex-wrap: wrap; }
+html:not(.tz-js) .tz-nav__gbtn { display: none; }
+html:not(.tz-js) .tz-nav__group > .tz-nav__list { display: flex; flex-wrap: wrap; }
+html:not(.tz-js) .tz-nav__desc { display: none; }
+html:not(.tz-js) .tz-nav__link { min-height: 40px; padding: 0 10px; align-content: center; }
+
+/* ---------- Phone and small tablet: "Docs" button opens a grouped panel ---------- */
+@media (max-width: 860px) {
+  .tz-nav__theme { order: 1; width: 44px; height: 44px; margin-left: 0; }
+  .tz-nav__toggle { order: 2; }
+  html.tz-js .tz-nav__toggle {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px; padding: 0 14px; border-radius: 999px;
+    font-weight: 600; color: var(--tz-ink);
+    border: 1px solid var(--tz-rule); background: var(--tz-card);
+  }
+  .tz-nav .tz-nav__burger { width: 16px; height: 16px; }
+  .tz-nav__burger line { transition: transform .2s var(--tz-ease), opacity .15s ease; transform-origin: center; transform-box: fill-box; }
+  .tz-nav.is-open .tz-nav__burger .l1 { transform: translateY(5px) rotate(45deg); }
+  .tz-nav.is-open .tz-nav__burger .l2 { opacity: 0; }
+  .tz-nav.is-open .tz-nav__burger .l3 { transform: translateY(-5px) rotate(-45deg); }
+
+  html.tz-js .tz-nav__menu {
+    position: absolute; top: 100%; left: 0; right: 0;
+    max-height: calc(100vh - var(--tz-h)); max-height: calc(100dvh - var(--tz-h));
+    overflow-y: auto; overscroll-behavior: contain;
+    padding: 8px clamp(16px, 3vw, 24px) 24px;
+    background: var(--tz-card); border-bottom: 1px solid var(--tz-rule);
+    box-shadow: var(--tz-shadow);
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity .16s ease, transform .22s var(--tz-ease), visibility 0s linear .22s;
+  }
+  html.tz-js .tz-nav.is-open .tz-nav__menu {
+    opacity: 1; visibility: visible; transform: none;
+    transition: opacity .16s ease, transform .22s var(--tz-ease), visibility 0s;
+  }
+  html.tz-js .tz-nav__groups { display: grid; gap: 4px; }
+  html.tz-js .tz-nav__gbtn { display: none; }
+  html.tz-js .tz-nav__label, html.tz-js .tz-nav__home { display: block; }
+  .tz-nav__label {
+    margin: 14px 12px 4px; font-size: 12px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--tz-muted);
+  }
+  html.tz-js .tz-nav__group > .tz-nav__list {
+    position: static; min-width: 0; padding: 0; border: 0; box-shadow: none; background: none;
+    opacity: 1; visibility: visible; transform: none; transition: none;
+  }
+  html.tz-js .tz-nav__direct {
+    display: grid; width: 100%; min-height: 48px; padding: 9px 12px; align-content: center;
+    font-weight: 600; color: var(--tz-ink);
+  }
+  html.tz-js .tz-nav__direct::after { display: none; }
+  html.tz-js .tz-nav__direct[aria-current="page"] { background: var(--tz-accent-soft); }
+  .tz-nav__home {
+    min-height: 44px; padding: 12px 12px; border-radius: 10px;
+    font-weight: 600; color: var(--tz-accent);
+  }
+  .tz-nav__link { min-height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tz-nav *, .tz-nav *::before, .tz-nav *::after { transition-duration: 0s !important; transition-delay: 0s !important; }
+}
+@media print { .tz-nav { display: none !important; } }
+
+/* ---------- Site-wide legibility fixes (screen only) ---------- */
+@media screen {
+  /* Anchor jumps land below the sticky bar */
+  html { scroll-padding-top: 72px; }
+  /* Sticky filter bars (survey analysis, user stories, work items) stop below the nav */
+  .tz-nav ~ main.doc .filters { top: 56px; }
+  /* Keyboard focus is always visible */
+  :focus-visible { outline: 2px solid #1F6F78; outline-offset: 2px; }
+  /* Long reading lines: cap prose at a comfortable measure */
+  main.doc > p, main.doc section > p, main.doc section > ul > li, main.doc section > ol > li { max-width: 72ch; }
+  /* Long words, URLs and code never push the page sideways */
+  main.doc { overflow-wrap: anywhere; }
+  main.doc :is(table, pre) { overflow-wrap: normal; }
+}
+
+/* Architecture page (archify): hide the bar in its embed and presentation modes,
+   and move archify's own toolbar down into the title row, below the bar */
+@media screen and (min-width: 721px) {
+  html[data-preset] body > .tz-nav ~ .toolbar { top: calc(var(--archify-page-top, 2rem) + 57px); }
+}
+/* archify pads <body>; pull the bar out to the edges and top with CSS (not JS,
+   which would shift the bar after load) */
+html[data-preset] body > .tz-nav { margin: calc(-1 * var(--archify-page-top, 2rem)) -2rem var(--archify-page-top, 2rem); }
+@media (max-width: 720px) { html[data-preset] body > .tz-nav { margin: -1rem -1rem 1rem; } }
+
+/* ---------- Page transitions ----------
+   Moving between pages cross-fades the content while the bar stays put
+   (Chrome, Edge, Safari 18.2+; other browsers just change page). The switch
+   uses the same fade. Off for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; animation-timing-function: ease; }
+  /* The bar is the same on every page: show the new one at once, no fade */
+  ::view-transition-group(tz-nav) { animation: none; }
+  ::view-transition-old(tz-nav) { display: none; }
+  ::view-transition-new(tz-nav) { animation: none; }
+  /* Theme switch: the script drops the bar's name so the whole page fades together */
+  html.tz-theme-fade::view-transition-old(root), html.tz-theme-fade::view-transition-new(root) { animation-duration: .3s; }
+}
+html[data-embed="true"] .tz-nav, html[data-present="true"] .tz-nav { display: none !important; }
