@@ -212,7 +212,8 @@
       "size": [
         190,
         80
-      ]
+      ],
+      "tag": "email + password · phone OTP"
     },
     {
       "id": "queue",
@@ -363,7 +364,7 @@
       "id": "web-gateway",
       "from": "web",
       "to": "gateway",
-      "label": "REST + WebSocket",
+      "label": "REST via /api rewrite",
       "variant": "emphasis"
     },
     {
@@ -495,7 +496,8 @@
       "title": "Where it runs: why, and alternatives",
       "items": [
         "AWS, region ap-south-1 (Mumbai), defined as code. Why: API Gateway, the NestJS Lambda, DynamoDB, SQS, the scheduler and media storage are defined in AWS CDK (infra/), and Cognito with Amplify Gen 2 (amplify/auth), all in one pnpm + Turborepo repository with stages dev and main. Everything is serverless, so nothing needs a server kept running. Alternatives: the earlier all-Amplify design (AppSync GraphQL, DynamoDB only), or a container host such as Render or Fly.io.",
-        "Amplify Hosting (web portal). Why: builds and serves the Next.js portal, including server-rendered pages, from the dev and main branches, with a preview link per pull request. Alternatives: Vercel, Netlify.",
+        "Amplify Hosting (web portal and Cognito). Why: builds and serves the Next.js portal, including server-rendered pages, from the dev branch (dev.tezera.lk) and the main branch (www.tezera.lk), and deploys each branch's Cognito backend in the same build. The browser calls the API at /api on the site, which Next.js forwards to API Gateway. Preview links per pull request are not set up. Alternatives: Vercel, Netlify.",
+        "Deploys. GitHub Actions checks every pull request into dev or main (lint, typecheck, build, CDK synth) and deploys the API stack for the branch (TezeraApi-dev or TezeraApi-main) on push, through an OIDC role (tezera-github-deploy), so no AWS keys are stored in GitHub. A push to main fast-forwards dev.",
         "PostgreSQL host: not chosen yet. Suggestion: a hosted PostgreSQL with a connection pooler (for example Supabase or Neon) for dev, Amazon RDS later; the pooler matters because every Lambda instance opens its own connections. Local development runs PostgreSQL in Docker (port 5433).",
         "Region ap-south-1 (Mumbai). Why: the nearest AWS region to Sri Lanka. Watch: personal data is stored outside Sri Lanka (Mumbai, plus wherever the hosted database sits), so check the PDPA's rules on cross-border transfers before launch (not checked).",
         "Cost and access. Lambda, API Gateway, DynamoDB, SQS, Cognito and S3 have free monthly allowances and the hosted database has a free tier for dev; set an AWS Budgets alert before the pilot (limits not verified). Per-person IAM logins with MFA required; secrets in Parameter Store (SecureString) or Secrets Manager, never in git."
@@ -505,9 +507,9 @@
       "dot": "rose",
       "title": "Services and protocols: why, and alternatives",
       "items": [
-        "REST/JSON from NestJS instead of GraphQL. Why: the team writes the API as an ordinary NestJS app (runs locally on port 4000) and deploys it as one Lambda behind an API Gateway HTTP API. Routes so far: GET /me and GET /health/db. Alternatives: a container on ECS Fargate or App Runner if one Lambda starts too slowly; AppSync GraphQL (the v6 design).",
+        "REST/JSON from NestJS instead of GraphQL. Why: the team writes the API as an ordinary NestJS app (runs locally on port 4000) and deploys it as one Lambda (Node 24, ARM) behind an API Gateway HTTP API, throttled to 20 requests a second (burst 40). Routes so far: GET /health, GET /health/db, GET /me and a test route. Alternatives: a container on ECS Fargate or App Runner if one Lambda starts too slowly; AppSync GraphQL (the v6 design).",
         "API Gateway WebSocket API for live updates (chat, event status, 'Going' counts, map republishes). Why: a NestJS Lambda cannot hold sockets open. Small Lambdas save connection IDs in DynamoDB on $connect and remove them on $disconnect; DynamoDB Streams on the chat table send new messages out; NestJS sends the other updates through the API Gateway management API. Alternatives: AppSync subscriptions, a hosted service such as Ably or Pusher.",
-        "Amazon Cognito, defined with Amplify Gen 2. Why: email or phone sign-in, one group per role (attendee, organiser, vendor, freelancer, admin), pre-sign-up and post-confirmation functions. The portal and the app (Amplify Flutter auth library, proposed) sign in with Cognito directly; NestJS checks the access token with aws-jwt-verify, reads the role from the group, and makes a users row on the first request. Birthdate and the guardian tick stay in Cognito.",
+        "Amazon Cognito, defined with Amplify Gen 2 (Essentials tier). Why: sign up with email and password, or with a phone number and no password (a one-time SMS code at every log in); one group per role (attendee, organiser, vendor, freelancer, admin). A pre-sign-up function checks the role and the age (16 or over; 16 and 17 need the guardian tick); a post-confirmation function adds the user to the role's group. The portal and the app (Amplify Flutter auth library, proposed) sign in with Cognito directly; NestJS checks the access token with aws-jwt-verify, reads the role from the group, and makes a users row on the first request. Birthdate and the guardian tick stay in Cognito. Codes are sent by Cognito itself until the Dialog sender is built.",
         "Firebase Cloud Messaging (push). Why: one service for Android and iOS (iOS through APNs), with a Flutter plugin, called from Lambda. Amazon Pinpoint is not used: AWS ends its support on 30 October 2026. Alternatives: Amazon SNS mobile push, OneSignal.",
         "Amazon SES (email). Why: inside AWS and cheap per message. Watch: new accounts start in the SES sandbox; request production access before the pilot. Alternatives: Resend, Brevo.",
         "Dialog e-SMS (sign-up codes and urgent alerts). Why: a Sri Lankan operator's gateway with sender ID masking and billing in LKR. Codes go through a Cognito custom SMS sender Lambda (proposed, not built). Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Amazon SNS SMS, Notify.lk.",
@@ -518,7 +520,7 @@
       "dot": "cyan",
       "title": "Recommended stack (PRD v7)",
       "items": [
-        "One pnpm + Turborepo monorepo (Tezera-LK/tezera): apps/api (NestJS), apps/web (Next.js), amplify/ (auth only), infra/ (AWS CDK); the Flutter app goes in apps/mobile (proposed, not in the repository yet)",
+        "One pnpm 12 + Turborepo monorepo on Node 24 (Tezera-LK/tezera): apps/api (NestJS 12), apps/web (Next.js 16), amplify/ (auth only), infra/ (AWS CDK); the Flutter app goes in apps/mobile (proposed, not in the repository yet)",
         "Mobile: Flutter (Dart) for Android and iOS; one app for all roles",
         "Web: Next.js portal on Amplify Hosting for every role, consumers included; the admin panel is admin-only routes in the same app",
         "API: NestJS (TypeScript) as one Lambda behind an API Gateway HTTP API, defined in CDK (infra/lib/api-stack.ts), stages dev and main",
@@ -596,7 +598,8 @@
       "title": "Still open",
       "items": [
         "Shared PostgreSQL host for dev (hosted with a pooler suggested; RDS later)",
-        "How the deployed API gets the Cognito IDs for each stage, and who updates infra/lib/api-stack.ts",
+        "Deployed API settings: the CDK stack does not yet pass the database URL or the Cognito IDs for each stage, bundle the Prisma engine, or include class-validator; so the deployed API cannot serve /me yet",
+        "Portal sign-in and data: the web portal's signed-in pages still use a stand-in session and sample data (preview mode with a 'View as' role switch on dev.tezera.lk, off on main) until the API and database are hosted",
         "Flutter app not started; Dialog e-SMS custom SMS sender not built",
         "PDPA cross-border transfer: data in Mumbai and wherever the database host sits"
       ]

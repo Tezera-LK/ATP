@@ -327,7 +327,7 @@
     <li><b>Sandbox only in the ATP.</b> No real money moves. Every payment screen and receipt is labelled "Test payment, no real money".</li>
     <li><b>Direct to the provider; Tezera never holds funds.</b> Each provider (and each organiser, for stall fees) connects their own PayHere sandbox merchant account. Tezera opens that account's hosted checkout on the web or the PayHere mobile SDK in the app, and the money settles straight to the payee. Tezera never holds, splits or pays out money, so the same design stays outside MVTS for a real launch.</li>
     <li><b>PayHere behind an adapter.</b> The gateway is coded behind a small payment-provider interface so Genie Business or WEBXPAY can be added later.</li>
-    <li><b>Card details only on PayHere's hosted page</b> (PCI DSS SAQ A scope). PayHere's payment notifications reach one small HTTPS endpoint, a Lambda function URL (a deliberate exception to "GraphQL only"), which checks PayHere's signature and ignores repeats of the same order ID. Merchant secrets stay server-side (proposed).</li>
+    <li><b>Card details only on PayHere's hosted page</b> (PCI DSS SAQ A scope). PayHere's payment notifications reach one small HTTPS endpoint, which checks PayHere's signature and ignores repeats of the same order ID. Merchant secrets stay server-side (proposed). Since PRD version 7 (20 November 2026) that endpoint is a REST route on the NestJS API (<code>POST /payments/payhere/notify</code>, proposed), not a separate Lambda function URL.</li>
     <li><b>Fallback:</b> a payee without a connected account is paid outside the app, and the organiser marks the instalment received by hand (HR-15 stays the base path).</li>
   </ul>
   <ul class="rows">

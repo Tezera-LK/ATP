@@ -6,8 +6,11 @@ Vendor
 					Pick role: Vendor
 						16 or older (proposed); under 18 ticks that a parent or guardian agreed
 						One role per account: to attend events too, use a second account
+			Continue with Google (Should)
+				Then a setup screen: pick role: Vendor; date of birth, 16 or older (proposed); under 18 ticks that a parent or guardian agreed
 		Log in
 			Email or phone number and password
+			Continue with Google (Should)
 		Forgot password
 			Enter email or phone, get a reset code
 		Settings

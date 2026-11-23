@@ -5300,7 +5300,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </g>
         <g data-graph-role="automatic-crossover" style="--step:6">
           <path data-graph-role="automatic-crossover-underlay" d="M 470 633 L 598 633 Q 606 633 606 625 L 606 500" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="web" data-edge-to="gateway" data-edge-label="REST + WebSocket" data-edge-key="6" data-edge-id="web-gateway" data-composition-points="470,633;606,633;606,500" data-composition-crossover="halo" data-composition-independent="true" d="M 470 633 L 598 633 Q 606 633 606 625 L 606 500" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-edge-from="web" data-edge-to="gateway" data-edge-label="REST via /api rewrite" data-edge-key="6" data-edge-id="web-gateway" data-composition-points="470,633;606,633;606,500" data-composition-crossover="halo" data-composition-independent="true" d="M 470 633 L 598 633 Q 606 633 606 625 L 606 500" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:7">
           <path data-graph-role="automatic-crossover-underlay" d="M 399 305 L 399 389 Q 399 397 407 397 L 579 397 Q 587 397 587 405 L 587 608 Q 587 616 595 616 L 682 616 Q 690 616 690 624 L 690 640" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
@@ -5547,8 +5547,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="735" y="872" class="t-database" font-size="7" text-anchor="middle">host not chosen</text>
         </g>
 
-        <g id="node-auth" data-node-id="auth" data-node-label="Amazon Cognito" tabindex="0" role="button" aria-label="Focus Amazon Cognito, Amplify Gen 2 · group per role, AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless" aria-pressed="false" data-node-kind="security" data-node-sublabel="Amplify Gen 2 · group per role" data-node-context="AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless">
-          <title>Amazon Cognito · Amplify Gen 2 · group per role · AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless</title>
+        <g id="node-auth" data-node-id="auth" data-node-label="Amazon Cognito" tabindex="0" role="button" aria-label="Focus Amazon Cognito, Amplify Gen 2 · group per role, AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless" aria-pressed="false" data-node-kind="security" data-node-sublabel="Amplify Gen 2 · group per role" data-node-tag="email + password · phone OTP" data-node-context="AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless">
+          <title>Amazon Cognito · Amplify Gen 2 · group per role · AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless · email + password · phone OTP</title>
           <rect x="1255" y="40" width="190" height="80" rx="8" class="c-mask"/>
           <rect x="1255" y="40" width="190" height="80" rx="8" class="c-security" data-animate="node" style="--step:12" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(1261 46) scale(0.6875)">
@@ -5557,6 +5557,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           </g>
           <text data-node-label="" data-detail-anchor="" x="1350" y="78" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Amazon Cognito</text>
         <text data-detail="context" x="1350" y="94" class="t-muted" font-size="9" text-anchor="middle">Amplify Gen 2 · group per role</text>
+        <text data-detail="fine" x="1350" y="112" class="t-security" font-size="7" text-anchor="middle">email + password · phone OTP</text>
         </g>
 
         <g id="node-queue" data-node-id="queue" data-node-label="SQS queue" tabindex="0" role="button" aria-label="Focus SQS queue, notification jobs + DLQ, AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="notification jobs + DLQ" data-node-context="AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless">
@@ -5657,9 +5658,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="501.1" y="337.5" width="86.8" height="14" rx="3" class="c-mask"/>
           <text x="544.5" y="347.5" class="t-edge-emphasis" font-size="8" text-anchor="middle">REST + WebSocket</text>
         </g>
-        <g data-detail="context" data-edge-from="web" data-edge-to="gateway" data-edge-label="REST + WebSocket" data-edge-key="6" data-edge-id="web-gateway">
-          <rect x="494.6" y="613" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="538" y="623" class="t-edge-emphasis" font-size="8" text-anchor="middle">REST + WebSocket</text>
+        <g data-detail="context" data-edge-from="web" data-edge-to="gateway" data-edge-label="REST via /api rewrite" data-edge-key="6" data-edge-id="web-gateway">
+          <rect x="612" y="559.5" width="110.8" height="14" rx="3" class="c-mask"/>
+          <text x="667.4" y="569.5" class="t-edge-emphasis" font-size="8" text-anchor="middle">REST via /api rewrite</text>
         </g>
         <g data-detail="context" data-edge-from="mobile" data-edge-to="media" data-edge-label="upload, CDN" data-edge-key="7" data-edge-id="mobile-media">
           <rect x="461.6" y="377" width="62.8" height="14" rx="3" class="c-mask"/>
@@ -5960,7 +5961,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </div>
         <ul>
           <li>AWS, region ap-south-1 (Mumbai), defined as code. Why: API Gateway, the NestJS Lambda, DynamoDB, SQS, the scheduler and media storage are defined in AWS CDK (infra/), and Cognito with Amplify Gen 2 (amplify/auth), all in one pnpm + Turborepo repository with stages dev and main. Everything is serverless, so nothing needs a server kept running. Alternatives: the earlier all-Amplify design (AppSync GraphQL, DynamoDB only), or a container host such as Render or Fly.io.</li>
-          <li>Amplify Hosting (web portal). Why: builds and serves the Next.js portal, including server-rendered pages, from the dev and main branches, with a preview link per pull request. Alternatives: Vercel, Netlify.</li>
+          <li>Amplify Hosting (web portal and Cognito). Why: builds and serves the Next.js portal, including server-rendered pages, from the dev branch (dev.tezera.lk) and the main branch (www.tezera.lk), and deploys each branch&#39;s Cognito backend in the same build. The browser calls the API at /api on the site, which Next.js forwards to API Gateway. Preview links per pull request are not set up. Alternatives: Vercel, Netlify.</li>
+          <li>Deploys. GitHub Actions checks every pull request into dev or main (lint, typecheck, build, CDK synth) and deploys the API stack for the branch (TezeraApi-dev or TezeraApi-main) on push, through an OIDC role (tezera-github-deploy), so no AWS keys are stored in GitHub. A push to main fast-forwards dev.</li>
           <li>PostgreSQL host: not chosen yet. Suggestion: a hosted PostgreSQL with a connection pooler (for example Supabase or Neon) for dev, Amazon RDS later; the pooler matters because every Lambda instance opens its own connections. Local development runs PostgreSQL in Docker (port 5433).</li>
           <li>Region ap-south-1 (Mumbai). Why: the nearest AWS region to Sri Lanka. Watch: personal data is stored outside Sri Lanka (Mumbai, plus wherever the hosted database sits), so check the PDPA&#39;s rules on cross-border transfers before launch (not checked).</li>
           <li>Cost and access. Lambda, API Gateway, DynamoDB, SQS, Cognito and S3 have free monthly allowances and the hosted database has a free tier for dev; set an AWS Budgets alert before the pilot (limits not verified). Per-person IAM logins with MFA required; secrets in Parameter Store (SecureString) or Secrets Manager, never in git.</li>
@@ -5973,9 +5975,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>Services and protocols: why, and alternatives</h3>
         </div>
         <ul>
-          <li>REST/JSON from NestJS instead of GraphQL. Why: the team writes the API as an ordinary NestJS app (runs locally on port 4000) and deploys it as one Lambda behind an API Gateway HTTP API. Routes so far: GET /me and GET /health/db. Alternatives: a container on ECS Fargate or App Runner if one Lambda starts too slowly; AppSync GraphQL (the v6 design).</li>
+          <li>REST/JSON from NestJS instead of GraphQL. Why: the team writes the API as an ordinary NestJS app (runs locally on port 4000) and deploys it as one Lambda (Node 24, ARM) behind an API Gateway HTTP API, throttled to 20 requests a second (burst 40). Routes so far: GET /health, GET /health/db, GET /me and a test route. Alternatives: a container on ECS Fargate or App Runner if one Lambda starts too slowly; AppSync GraphQL (the v6 design).</li>
           <li>API Gateway WebSocket API for live updates (chat, event status, &#39;Going&#39; counts, map republishes). Why: a NestJS Lambda cannot hold sockets open. Small Lambdas save connection IDs in DynamoDB on $connect and remove them on $disconnect; DynamoDB Streams on the chat table send new messages out; NestJS sends the other updates through the API Gateway management API. Alternatives: AppSync subscriptions, a hosted service such as Ably or Pusher.</li>
-          <li>Amazon Cognito, defined with Amplify Gen 2. Why: email or phone sign-in, one group per role (attendee, organiser, vendor, freelancer, admin), pre-sign-up and post-confirmation functions. The portal and the app (Amplify Flutter auth library, proposed) sign in with Cognito directly; NestJS checks the access token with aws-jwt-verify, reads the role from the group, and makes a users row on the first request. Birthdate and the guardian tick stay in Cognito.</li>
+          <li>Amazon Cognito, defined with Amplify Gen 2 (Essentials tier). Why: sign up with email and password, or with a phone number and no password (a one-time SMS code at every log in); one group per role (attendee, organiser, vendor, freelancer, admin). A pre-sign-up function checks the role and the age (16 or over; 16 and 17 need the guardian tick); a post-confirmation function adds the user to the role&#39;s group. The portal and the app (Amplify Flutter auth library, proposed) sign in with Cognito directly; NestJS checks the access token with aws-jwt-verify, reads the role from the group, and makes a users row on the first request. Birthdate and the guardian tick stay in Cognito. Codes are sent by Cognito itself until the Dialog sender is built.</li>
           <li>Firebase Cloud Messaging (push). Why: one service for Android and iOS (iOS through APNs), with a Flutter plugin, called from Lambda. Amazon Pinpoint is not used: AWS ends its support on 30 October 2026. Alternatives: Amazon SNS mobile push, OneSignal.</li>
           <li>Amazon SES (email). Why: inside AWS and cheap per message. Watch: new accounts start in the SES sandbox; request production access before the pilot. Alternatives: Resend, Brevo.</li>
           <li>Dialog e-SMS (sign-up codes and urgent alerts). Why: a Sri Lankan operator&#39;s gateway with sender ID masking and billing in LKR. Codes go through a Cognito custom SMS sender Lambda (proposed, not built). Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Amazon SNS SMS, Notify.lk.</li>
@@ -5989,7 +5991,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>Recommended stack (PRD v7)</h3>
         </div>
         <ul>
-          <li>One pnpm + Turborepo monorepo (Tezera-LK/tezera): apps/api (NestJS), apps/web (Next.js), amplify/ (auth only), infra/ (AWS CDK); the Flutter app goes in apps/mobile (proposed, not in the repository yet)</li>
+          <li>One pnpm 12 + Turborepo monorepo on Node 24 (Tezera-LK/tezera): apps/api (NestJS 12), apps/web (Next.js 16), amplify/ (auth only), infra/ (AWS CDK); the Flutter app goes in apps/mobile (proposed, not in the repository yet)</li>
           <li>Mobile: Flutter (Dart) for Android and iOS; one app for all roles</li>
           <li>Web: Next.js portal on Amplify Hosting for every role, consumers included; the admin panel is admin-only routes in the same app</li>
           <li>API: NestJS (TypeScript) as one Lambda behind an API Gateway HTTP API, defined in CDK (infra/lib/api-stack.ts), stages dev and main</li>
@@ -6085,7 +6087,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </div>
         <ul>
           <li>Shared PostgreSQL host for dev (hosted with a pooler suggested; RDS later)</li>
-          <li>How the deployed API gets the Cognito IDs for each stage, and who updates infra/lib/api-stack.ts</li>
+          <li>Deployed API settings: the CDK stack does not yet pass the database URL or the Cognito IDs for each stage, bundle the Prisma engine, or include class-validator; so the deployed API cannot serve /me yet</li>
+          <li>Portal sign-in and data: the web portal&#39;s signed-in pages still use a stand-in session and sample data (preview mode with a &#39;View as&#39; role switch on dev.tezera.lk, off on main) until the API and database are hosted</li>
           <li>Flutter app not started; Dialog e-SMS custom SMS sender not built</li>
           <li>PDPA cross-border transfer: data in Mumbai and wherever the database host sits</li>
         </ul>

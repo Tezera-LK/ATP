@@ -17,9 +17,17 @@
           </node>
         </node>
       </node>
+      <node ID="ID_201" TEXT="Continue with Google (Should)">
+        <richcontent TYPE="NOTE"><html><head></head><body><p>PRD v7: AC-11</p><p>Priority: Should</p></body></html></richcontent>
+        <node ID="ID_202" TEXT="Then a setup screen: pick role: Vendor; date of birth, 16 or older (proposed); under 18 ticks that a parent or guardian agreed">
+        </node>
+      </node>
     </node>
     <node ID="ID_9" TEXT="Log in">
       <node ID="ID_10" TEXT="Email or phone number and password">
+      </node>
+      <node ID="ID_203" TEXT="Continue with Google (Should)">
+        <richcontent TYPE="NOTE"><html><head></head><body><p>PRD v7: AC-11</p><p>Priority: Should</p></body></html></richcontent>
       </node>
     </node>
     <node ID="ID_11" TEXT="Forgot password">

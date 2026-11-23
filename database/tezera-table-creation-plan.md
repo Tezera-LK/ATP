@@ -1,6 +1,10 @@
 # Tezera: how to make a new database table
 
-**Version 2, 20 November 2026** (version 1: 18 November 2026). For the Tezera team. Written in the style of ASD-STE100 (Simplified Technical English): one action per step, short sentences, warnings before the step they protect.
+**Version 3, 23 November 2026** (version 2: 20 November 2026; version 1: 18 November 2026). For the Tezera team. Written in the style of ASD-STE100 (Simplified Technical English): one action per step, short sentences, warnings before the step they protect.
+
+> **Checked against the code on `dev` on 23 November 2026.** The `users` table, the Prisma setup and the Cognito auth code are merged into `dev` (pull requests #26 and #27). `main` does not have them yet. For the step-by-step commands of a PostgreSQL table, use `database/tezera-table-howto.md`.
+
+**What changed in version 3.** Section 2 says which parts are in the code and which are still plans. Section 3 no longer talks about password hashes (Cognito holds passwords). Section 5, step 11 names the validation the repo has. Section 8 adds the second `CHECK` rule and the migration name, and points to the error codes. Section 10 says there is no data design document in the code repo yet. Section 11, question 2 says the migration is merged.
 
 **What changed in version 2.** Auth is Amazon Cognito, not own NestJS auth. Section 8 now matches `database/tezera-auth-setup-plan.md` (version 3, built and run on 19 November 2026). Section 2 adds the AWS parts. Section 4 now sends every 1:1 chat and the WebSocket connection IDs to DynamoDB (version 1 named only organiser, vendor and freelancer chats). Section 11 marks the settled questions. PRD version 7 (20 November 2026) now describes this stack.
 
@@ -12,17 +16,17 @@ This plan shows how to add a table (or an item type) to the Tezera database. Fol
 
 ## 2. The stack
 
-| Part | Choice |
-| --- | --- |
-| Web front end | Next.js, on AWS Amplify Hosting |
-| Back end | NestJS (TypeScript), deployed as one AWS Lambda behind an Amazon API Gateway HTTP API (AWS CDK, `ap-south-1`) |
-| Mobile app | Flutter |
-| Sign-in | Amazon Cognito (defined with Amplify Gen 2 in `amplify/auth`) |
-| Main database | PostgreSQL 16 |
-| Real-time and high-volume data | Amazon DynamoDB |
-| Live updates | Amazon API Gateway WebSocket API |
-| Schema tool for PostgreSQL | Prisma 6 |
-| Code location | The team code repo `Tezera-LK/tezera` (this repo holds documents only) |
+| Part | Choice | In the code on `dev` (23 Nov 2026) |
+| --- | --- | --- |
+| Web front end | Next.js, on AWS Amplify Hosting | Yes (`apps/web`) |
+| Back end | NestJS (TypeScript), deployed as one AWS Lambda behind an Amazon API Gateway HTTP API (AWS CDK, `ap-south-1`) | Yes (`apps/api`, `infra/`). The deployed Lambda cannot reach a database yet (auth setup plan, section 9.5) |
+| Mobile app | Flutter | No. There is no `apps/mobile` yet |
+| Sign-in | Amazon Cognito (defined with Amplify Gen 2 in `amplify/auth`) | Yes |
+| Main database | PostgreSQL 16 | Yes, in Docker on each computer (`apps/api/docker-compose.yml`, port 5433). No hosted database yet |
+| Real-time and high-volume data | Amazon DynamoDB | No |
+| Live updates | Amazon API Gateway WebSocket API | No |
+| Schema tool for PostgreSQL | Prisma 6 | Yes (6.19, `apps/api/prisma`) |
+| Code location | The team code repo `Tezera-LK/tezera` (this repo holds documents only) | |
 
 NestJS is the only part that reads or writes either database. The web and mobile apps call the NestJS API. They never connect to a database. **(proposed)**
 
@@ -30,7 +34,7 @@ NestJS is the only part that reads or writes either database. The web and mobile
 
 > **WARNING.** Never change a table by hand in DBeaver, psql or the AWS console. Change it only through a migration (PostgreSQL) or the infrastructure code (DynamoDB). A hand change makes the database differ from the code, and the next deploy fails.
 
-> **WARNING.** Never store a card number, a CVV or a plain-text password. Store a hash of each password.
+> **WARNING.** Never store a card number, a CVV or a password (not even a hash). Cognito holds the passwords.
 
 > **WARNING.** Never copy a table that holds personal data (NIC, phone, email) into a test or demo environment without masking it. Sri Lanka's PDPA applies.
 
@@ -70,7 +74,7 @@ PostgreSQL is the default. Use DynamoDB only for the cases above (questions 1 to
 8. **Decide what happens to the data.** Write: who may read it, who may change it, how long it stays, and how it is deleted or anonymised (PDPA).
 9. **Write the Prisma model** and make the migration (`prisma migrate dev --name add_<table>`). Read the generated SQL before you commit it.
 10. **Seed test data** with a script. Use fake data only.
-11. **Write the NestJS module:** the service, the DTOs (Zod or class-validator), and the access rules (which role may call what).
+11. **Write the NestJS module:** the service, the DTOs (class-validator: the repo has it, and a global `ValidationPipe` in `apps/api/src/setup.ts` that is not switched on yet, see the auth setup plan, section 10.8), and the access rules (`AuthGuard`, `RolesGuard` and `@Roles(...)`: which role may call what).
 12. **Test.** Test the rules (a duplicate fails, a missing foreign key fails) and one query for each index.
 13. **Open a pull request.** Fill in the review checklist (section 9).
 14. **After merge,** update the table list in the data design document (section 10).
@@ -125,7 +129,7 @@ DynamoDB has no joins and no free-form queries. Design the reads before the tabl
 
 ## 8. Worked example: the auth table
 
-This is the first table. It connects the NestJS auth module to the database. It is built and tested: see `database/tezera-auth-setup-plan.md`, section 7 (the Prisma schema) and section 12 (the test run). This section gives only the summary.
+This is the first table. It connects the NestJS auth module to the database. It is built, tested and merged into `dev` (pull request #26): see `database/tezera-auth-setup-plan.md`, section 7 (the Prisma schema and the migration) and sections 11 and 12 (the test run). This section gives only the summary.
 
 **Purpose.** Link each Cognito user to one row that other tables can point to (AC-01). **Owner.** The `auth` NestJS module. **Database.** PostgreSQL (section 4, question 5).
 
@@ -141,9 +145,9 @@ This is the first table. It connects the NestJS auth module to the database. It 
 | `status` | enum `user_status` | Default `active` | Admin actions (AD-02) |
 | `created_at`, `updated_at` | `timestamptz` | Standard | |
 
-**Rule.** `CHECK (email IS NOT NULL OR phone IS NOT NULL)`. Add it by hand in the migration SQL. Prisma cannot write a `CHECK` rule.
+**Rules.** `users_contact_present`: `CHECK (email IS NOT NULL OR phone IS NOT NULL)`. `users_email_lower`: `CHECK (email IS NULL OR email = lower(email))`. Both were added by hand to the migration `apps/api/prisma/migrations/20261118201220_create_users/migration.sql`. Prisma cannot write a `CHECK` rule.
 
-**When the row is made.** The API makes the row on the user's first request after sign-in. The guard reads the Cognito access token and the user's group.
+**When the row is made.** The API makes the row on the user's first request after sign-in (`AuthGuard`, on `GET /me`; the web app calls `/me` after each log in). The guard checks the Cognito access token, takes the role from the user's group, and keeps the email or phone only if Cognito says it is verified. If the request is refused, the API sends 401 or a 403 code (`ROLE_MISSING`, `CONTACT_NOT_VERIFIED`, `PROFILE_FAILED`, `ACCOUNT_NOT_ACTIVE`, `ROLE_NOT_ALLOWED`): see the auth setup plan, section 10.6.
 
 **Not in this table, and why.**
 
@@ -171,14 +175,16 @@ This is the first table. It connects the NestJS auth module to the database. It 
 
 Keep one data design document in the code repo. It lists every table, its owner, its database and its PRD IDs. Update it in the same pull request as the table. Copy a summary to `HANDOFF.md` in the documents repo when a stage is done.
 
+On `dev` (23 November 2026) there is no data design document in the code repo yet. Until there is one, section 8 of this plan is the record of `users`. Make the document with the next table. **(proposed)**
+
 ## 11. Open questions for the team
 
 Settled since version 1:
 
 1. **One account, many roles?** Settled: one role per account (PRD section 3 and AC-01). Still open in PRD section 14: can one email address or phone number register separate accounts for different roles? Until the team decides, use one email, one account.
-2. **Prisma or another tool?** Settled: Prisma 6. The first migration (`create_users`) is made and applied.
+2. **Prisma or another tool?** Settled: Prisma 6. The first migration (`20261118201220_create_users`) is made, applied and merged into `dev`.
 3. **Real-time chat delivery.** Settled (PRD version 7): an API Gateway WebSocket API. Small Lambda functions keep the connection IDs in DynamoDB. DynamoDB Streams on the chat table send new messages to the connected users. Design the chat keys so that one stream record holds everything a client needs.
-4. **Auth method.** Settled: Amazon Cognito. See section 8 and the auth setup plan.
+4. **Auth method.** Settled: Amazon Cognito. No own NestJS auth: no `password_hash` column, no `refresh_tokens` or `otp_codes` tables. The built `users` table is in section 8. The full set-up is in the auth setup plan.
 6. **The PRD and the architecture diagram.** Settled for the PRD: version 7 describes PostgreSQL + DynamoDB with NestJS on Lambda. The architecture diagram is not redrawn yet (its new source is in the documents repo, `.archify/architecture-tezera-v7-20261120-235350/`).
 
 Still open:
