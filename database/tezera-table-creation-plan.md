@@ -74,7 +74,7 @@ PostgreSQL is the default. Use DynamoDB only for the cases above (questions 1 to
 8. **Decide what happens to the data.** Write: who may read it, who may change it, how long it stays, and how it is deleted or anonymised (PDPA).
 9. **Write the Prisma model** and make the migration (`prisma migrate dev --name add_<table>`). Read the generated SQL before you commit it.
 10. **Seed test data** with a script. Use fake data only.
-11. **Write the NestJS module:** the service, the DTOs (class-validator: the repo has it, and a global `ValidationPipe` in `apps/api/src/setup.ts` that is not switched on yet, see the auth setup plan, section 10.8), and the access rules (`AuthGuard`, `RolesGuard` and `@Roles(...)`: which role may call what).
+11. **Write the NestJS module:** the service, the DTOs (class-validator: the repo has it, but no DTOs and no Zod yet; a global `ValidationPipe` in `apps/api/src/setup.ts` is not switched on yet, see the auth setup plan, section 10.8), and the access rules (`AuthGuard`, `RolesGuard` and `@Roles(...)`: which role may call what).
 12. **Test.** Test the rules (a duplicate fails, a missing foreign key fails) and one query for each index.
 13. **Open a pull request.** Fill in the review checklist (section 9).
 14. **After merge,** update the table list in the data design document (section 10).
@@ -139,15 +139,15 @@ This is the first table. It connects the NestJS auth module to the database. It 
 | --- | --- | --- | --- |
 | `id` | `uuid` | Primary key, set by the database | Our own ID. Used in other tables and in DynamoDB items |
 | `cognito_sub` | `text` | Unique, not null | Links the row to the Cognito user |
-| `email` | `text` | Unique, null allowed, lower case | From Cognito, only if verified |
+| `email` | `text` | Unique, null allowed, lower case (`CHECK users_email_lower`) | From Cognito, only if verified |
 | `phone` | `varchar(20)` | Unique, null allowed | From Cognito, only if verified (E.164, `+94...`) |
-| `role` | enum `user_role` | Not null: `attendee`, `organiser`, `vendor`, `freelancer`, `admin` | A copy of the Cognito group. The group is the truth |
-| `status` | enum `user_status` | Default `active` | Admin actions (AD-02) |
+| `role` | enum `user_role` | Not null: `attendee`, `organiser`, `vendor`, `freelancer`, `admin` | A copy of the Cognito group. The group is the truth. A user can hold several groups. The API copies the highest-priority one (`admin`, then `organiser`, `vendor`, `freelancer`, `attendee`) |
+| `status` | enum `user_status` | Values `pending`, `active`, `suspended`, `banned`. Default `active` | Admin actions (AD-02). The guard rejects any status except `active` |
 | `created_at`, `updated_at` | `timestamptz` | Standard | |
 
-**Rules.** `users_contact_present`: `CHECK (email IS NOT NULL OR phone IS NOT NULL)`. `users_email_lower`: `CHECK (email IS NULL OR email = lower(email))`. Both were added by hand to the migration `apps/api/prisma/migrations/20261118201220_create_users/migration.sql`. Prisma cannot write a `CHECK` rule.
+**Rules.** `users_contact_present`: `CHECK (email IS NOT NULL OR phone IS NOT NULL)`. `users_email_lower`: `CHECK (email IS NULL OR email = lower(email))`. Both were added by hand to the migration `apps/api/prisma/migrations/20261118201220_create_users/migration.sql`. Prisma cannot write a `CHECK` rule. These two are the only `CHECK` rules in the code repo today.
 
-**When the row is made.** The API makes the row on the user's first request after sign-in (`AuthGuard`, on `GET /me`; the web app calls `/me` after each log in). The guard checks the Cognito access token, takes the role from the user's group, and keeps the email or phone only if Cognito says it is verified. If the request is refused, the API sends 401 or a 403 code (`ROLE_MISSING`, `CONTACT_NOT_VERIFIED`, `PROFILE_FAILED`, `ACCOUNT_NOT_ACTIVE`, `ROLE_NOT_ALLOWED`): see the auth setup plan, section 10.6.
+**When the row is made.** The API makes the row on the user's first request after sign-in (`AuthGuard`, on `GET /me`; the web app calls `/me` after each log in). The guard checks the Cognito access token, takes the role from the user's group, and asks Cognito (`GetUser`) for the email or phone, keeping each only if Cognito says it is verified. If the request is refused, the API sends 401 or a 403 code (`ROLE_MISSING`, `CONTACT_NOT_VERIFIED`, `PROFILE_FAILED`, `ACCOUNT_NOT_ACTIVE`, `ROLE_NOT_ALLOWED`): see the auth setup plan, section 10.6.
 
 **Not in this table, and why.**
 
@@ -181,9 +181,9 @@ On `dev` (23 November 2026) there is no data design document in the code repo ye
 
 Settled since version 1:
 
-1. **One account, many roles?** Settled: one role per account (PRD section 3 and AC-01). Still open in PRD section 14: can one email address or phone number register separate accounts for different roles? Until the team decides, use one email, one account.
+1. **One account, many roles?** Settled in the PRD: one role per account (PRD section 3 and AC-01). The code is looser: a user can hold several Cognito groups, and the API stores the highest-priority one in `users.role`. Sign-up allows only one role (`custom:role` cannot change), but an admin can add more groups by hand. Still open in PRD section 14: can one email address or phone number register separate accounts for different roles? Until the team decides, use one email, one account.
 2. **Prisma or another tool?** Settled: Prisma 6. The first migration (`20261118201220_create_users`) is made, applied and merged into `dev`.
-3. **Real-time chat delivery.** Settled (PRD version 7): an API Gateway WebSocket API. Small Lambda functions keep the connection IDs in DynamoDB. DynamoDB Streams on the chat table send new messages to the connected users. Design the chat keys so that one stream record holds everything a client needs.
+3. **Real-time chat delivery.** Settled in the design (PRD version 7, planned, not built): an API Gateway WebSocket API. Small Lambda functions keep the connection IDs in DynamoDB. DynamoDB Streams on the chat table send new messages to the connected users. Design the chat keys so that one stream record holds everything a client needs.
 4. **Auth method.** Settled: Amazon Cognito. No own NestJS auth: no `password_hash` column, no `refresh_tokens` or `otp_codes` tables. The built `users` table is in section 8. The full set-up is in the auth setup plan.
 6. **The PRD and the architecture diagram.** Settled for the PRD: version 7 describes PostgreSQL + DynamoDB with NestJS on Lambda. The architecture diagram is not redrawn yet (its new source is in the documents repo, `.archify/architecture-tezera-v7-20261120-235350/`).
 

@@ -18,7 +18,7 @@ When you finish, you have:
 - one table in it: `users`, linked to Cognito by the user's Cognito ID (`sub`);
 - Cognito, made by the repo's Amplify code (`npx ampx sandbox`, see section 8);
 - a NestJS API (`apps/api`) that checks the Cognito token and reads and writes `users`;
-- the endpoints `GET /health`, `GET /health/db` and `GET /me`, plus `GET /organiser/ping` (a test route only).
+- the endpoints `GET /health`, `GET /health/db` and `GET /me`, plus `GET /organiser/ping` (a test route for the role check only). The code repo also has `GET /`, a Hello World route (section 11).
 
 All of this is in the repo now, on `dev`. A new team member does not write it again. Follow the steps to set up your computer, and read the code sections (7 and 10) to understand it.
 
@@ -49,7 +49,7 @@ The code repo is GitHub `Tezera-LK/tezera` (public). Work on the branch `dev`. T
 | `package.json`, `pnpm-workspace.yaml`, `turbo.json` | A pnpm and Turborepo monorepo. Use `pnpm`, not `npm`. Node 24 and pnpm 12 |
 | `apps/api` | The NestJS API. Local entry: `src/main.ts` (port 4000). Lambda entry: `src/lambda.ts` |
 | `apps/web` | The Next.js web portal |
-| `amplify/auth/resource.ts` | The Cognito user pool, as code. Sign-in by email and password, or by phone with an SMS code and no password (Cognito passwordless; `amplify/backend.ts` sets the pool tier to `ESSENTIALS` for it). Codes go by Cognito's own email and SMS for now. Groups: `attendee`, `organiser`, `vendor`, `freelancer`, `admin`. Custom attributes: `custom:role`, `custom:guardian`, `custom:setup`. Standard attribute: `birthdate` |
+| `amplify/auth/resource.ts` | The Cognito user pool, as code. Sign-in by email and password, or by phone with an SMS code and no password (Cognito passwordless; `amplify/backend.ts` sets the pool tier to `ESSENTIALS` for it). Codes go by Cognito's own email and SMS for now. Groups: `attendee`, `organiser`, `vendor`, `freelancer`, `admin`. Custom attributes: `custom:role`, `custom:guardian`, `custom:setup`. Standard attribute: `birthdate`. `custom:setup` is `""`, `profile` or `done`; the web app uses it to choose the screen after sign-in (setup, then verification, then home) |
 | `amplify/auth/pre-sign-up` | Checks the role and the age (16 or more, guardian tick for 16 and 17) before an account is made |
 | `amplify/auth/post-confirmation` | Adds the new user to the group for the role. Never to `admin` |
 | `infra/lib/api-stack.ts` | AWS CDK. Deploys `apps/api` as one Lambda behind an HTTP API, in `ap-south-1`. Stages `dev` and `main` |
@@ -821,6 +821,8 @@ async function bootstrap() {
 bootstrap();
 ```
 
+> **NOTE (found in the run).** Typing errors caused these bugs: a misspelled class name (`PrismaModule`), `AuthModule` and `ConfigModule` missing from `AppModule.imports`, a misspelled `req.headers.authorization` (every call got 401), and a leading space in the region `ap-south-1` and in `'true'`. Copy the code exactly.
+
 The repo's `src/lambda.ts` makes the Nest app once for each Lambda instance and reuses it (`@codegenie/serverless-express` v5, an async handler with no `callback`, which Node 24 needs). Its `bootstrap()` also calls `app.enableCors(...)` and then `app.init()`.
 
 1. In `src/main.ts`, replace the line `app.enableCors(...)` with `configureApp(app);`. Add `import { configureApp } from './setup';`.
@@ -838,7 +840,7 @@ The repo's `src/lambda.ts` makes the Nest app once for each Lambda instance and 
 4. In a second window, run `Invoke-RestMethod http://localhost:4000/health/db`. It must print `status: ok`.
 5. Put the access token in a variable: `$t = "<the token>"`. Keep the quotes. Check it: `$t.Split('.').Count` must print `3`.
 
-> **NOTE.** The routes are `/`, `/me`, `/health`, `/health/db` and `/organiser/ping`. There is no `/auth` prefix. The 403 codes are listed in section 10.6. A `404 Cannot GET /auth/me` means a wrong path. Write each command on one line. A line break after `Invoke-RestMethod` makes PowerShell ask for `Uri`.
+> **NOTE.** The routes are `/` (Hello World), `/me`, `/health`, `/health/db` and `/organiser/ping` (test only, needs the role `organiser`). There is no `/auth` prefix. The 403 codes are listed in section 10.6. A `404 Cannot GET /auth/me` means a wrong path. The automated tests do not cover `/me` or `/health/db` (section 10.8, last caution), so tests 1 to 8 below are manual. Write each command on one line. A line break after `Invoke-RestMethod` makes PowerShell ask for `Uri`.
 
 **Run on 19 November 2026 (Yevan):** `/health/db` ok; `/me` with a token made the row; the web log in made the row for a second user. Tests 1, 2 and 4 to 8 were not yet run.
 
@@ -942,9 +944,12 @@ The mobile app does not exist in the repo yet. It will use the same flow: sign i
 8. **Phone-only users.** The pool allows phone sign-in without a password. Such a user has `phone` and no `email`. The `CHECK` rule allows it. Test it.
 9. **Google sign-in (later).** Such users have no role group until the setup screen. The API returns 403 `ROLE_MISSING` until a group is set. Plan how the group is added.
 10. **Prisma 6 or newer.** Pinned to 6 so that the steps stay the same. Plan an upgrade.
-11. **Documents out of date.** Settled for the documents repo: PRD version 7 (20 November 2026), the architecture page (21 November) and work items version 5 now describe this stack (NestJS on Lambda, Cognito through Amplify, PostgreSQL + DynamoDB). In the code repo, the README tech-stack table (it said TBC) and the web code comments that said "Phase B" will read "Amplify Data" (`apps/web/src/lib/data/event-store.ts`, `types.ts`) were rewritten on 23 November 2026; those edits are not committed yet. The plan is the NestJS API and PostgreSQL.
+11. **Documents out of date.** Settled for the documents repo: PRD version 7 (20 November 2026), the architecture page (21 November) and work items version 5 now describe this stack (NestJS on Lambda, Cognito through Amplify, PostgreSQL + DynamoDB); all were checked against the code on `dev` on 23 November 2026. In the code repo, the README tech-stack table (it said TBC) and the web code comments that said "Phase B" will read "Amplify Data" (`apps/web/src/lib/data/event-store.ts`, `types.ts`) were rewritten on 23 November 2026; those edits are not committed yet. The plan is the NestJS API and PostgreSQL.
 12. **Validation off.** `configureApp()` is not called (section 10.8). Decide who adds it, with section 9.5, item 2.
 13. **Tests.** `pnpm test` in `apps/api` does not run (section 10.8, last caution). CI does not run the tests, so nothing shows this.
+14. **Deployed API cannot sign users in yet.** `infra/lib/api-stack.ts` sets only `WEB_ORIGIN` and `NODE_OPTIONS` on the Lambda. `COGNITO_USER_POOL_ID`, `COGNITO_CLIENT_ID` and `DATABASE_URL` are not set, so the deployed `/me` cannot work. The GitHub workflow `deploy-api.yml` deploys the stack on pushes to `dev` and `main`, is skipped until the repo variable `AWS_DEPLOY_ROLE_ARN` is set, and has no `prisma migrate` step. See section 9.5.
+
+> **NOTE (23 November 2026).** Fixes for questions 12, 13 and 14 are written but not committed, in Damian's clone of the code repo: the Lambda reads its settings from Parameter Store, the bundle holds the Prisma engine, `configureApp()` is called, `pnpm test` runs and CI runs it. Update this plan once they are merged.
 
 ## 15. What comes next
 

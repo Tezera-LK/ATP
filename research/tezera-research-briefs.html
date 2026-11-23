@@ -327,7 +327,7 @@
     <li><b>Sandbox only in the ATP.</b> No real money moves. Every payment screen and receipt is labelled "Test payment, no real money".</li>
     <li><b>Direct to the provider; Tezera never holds funds.</b> Each provider (and each organiser, for stall fees) connects their own PayHere sandbox merchant account. Tezera opens that account's hosted checkout on the web or the PayHere mobile SDK in the app, and the money settles straight to the payee. Tezera never holds, splits or pays out money, so the same design stays outside MVTS for a real launch.</li>
     <li><b>PayHere behind an adapter.</b> The gateway is coded behind a small payment-provider interface so Genie Business or WEBXPAY can be added later.</li>
-    <li><b>Card details only on PayHere's hosted page</b> (PCI DSS SAQ A scope). PayHere's payment notifications reach one small HTTPS endpoint, which checks PayHere's signature and ignores repeats of the same order ID. Merchant secrets stay server-side (proposed). Since PRD version 7 (20 November 2026) that endpoint is a REST route on the NestJS API (<code>POST /payments/payhere/notify</code>, proposed), not a separate Lambda function URL.</li>
+    <li><b>Card details only on PayHere's hosted page</b> (PCI DSS SAQ A scope). PayHere's payment notifications reach one small HTTPS endpoint, a normal REST route in the NestJS API (PRD version 7 dropped the separate Lambda function URL; the route is planned, not built), which checks PayHere's signature and ignores repeats of the same order ID. Merchant secrets stay server-side (proposed).</li>
     <li><b>Fallback:</b> a payee without a connected account is paid outside the app, and the organiser marks the instalment received by hand (HR-15 stays the base path).</li>
   </ul>
   <ul class="rows">
@@ -395,7 +395,7 @@
   <li><b>AI draft</b> (Could): Claude on Amazon Bedrock returns JSON boxes <code>{id, kind: zone|stall|pin, label, x, y, w, h}</code>. It is a draft only.</li>
   <li><b>Editor</b> on the web portal. This must be built (Konva or plain SVG, with grid snapping).</li>
   <li><b>Assign vendors</b> to stalls from a side panel. Elements keep stable IDs, like ai-studio's path and fingerprint.</li>
-  <li><b>Publish</b> as versioned map JSON (like ai-studio's revisions) in DynamoDB or S3, drawn as SVG over the image in the mobile app and on the web. This feeds the consumer map features VM-08 to VM-12.</li>
+  <li><b>Publish</b> as versioned map JSON (like ai-studio's revisions) in PostgreSQL as a <code>jsonb</code> document (proposed, PRD version 7 section 8; planned, not built), drawn as SVG over the image in the mobile app and on the web. This feeds the consumer map features VM-08 to VM-12.</li>
 </ol>
 
 <h3 id="map-reuse">Reusable, and what we must build</h3>
@@ -427,7 +427,7 @@
 <ul>
   <li><b>Licence:</b> moot, because Damian owns the repo and allows copying.</li>
   <li><b>Paid AI and keys.</b> ai-studio uses an Anthropic API key or Claude CLI OAuth, optionally OpenAI or Gemini, and stores users' Claude tokens. Bedrock fits Tezera's AWS stack better.</li>
-  <li><b>Heavy dependencies that don't fit Amplify:</b> Puppeteer and Chromium, PostgreSQL and Prisma, MinIO, Docker. Adapt the ideas; don't lift the code wholesale.</li>
+  <li><b>Heavy dependencies that don't fit Tezera's stack:</b> Puppeteer and Chromium, MinIO, Docker. (PostgreSQL with Prisma is now Tezera's main database too, in the NestJS API on the <code>dev</code> branch.) Adapt the ideas; don't lift the code wholesale.</li>
   <li><b>Accuracy on Sri Lankan plans.</b> How well an AI draft works on scanned or hand-drawn floor plans was not researched. So the AI draft stays Could, and drawing by hand is Must.</li>
 </ul>
 

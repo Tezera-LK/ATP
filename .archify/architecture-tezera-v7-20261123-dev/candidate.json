@@ -1,0 +1,690 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "tezera Platform Architecture (ATP release, PRD v7, code as of dev 21 Nov 2026)",
+    "subtitle": "Built: Next.js portal, NestJS API on AWS Lambda, Cognito, PostgreSQL (users table). Flutter app, DynamoDB, WebSocket, queues, media, payments, Bedrock are planned, not built",
+    "output": ".archify/architecture-tezera-v7-20261123-dev/tezera-architecture.html",
+    "quality_profile": "showcase",
+    "locale": "en"
+  },
+  "components": [
+    {
+      "id": "attendee",
+      "type": "external",
+      "label": "Consumers",
+      "sublabel": "attendees",
+      "pos": [
+        40,
+        235
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "org-prov",
+      "type": "external",
+      "label": "Organisers & providers",
+      "sublabel": "vendors, freelancers",
+      "pos": [
+        40,
+        610
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "admin",
+      "type": "external",
+      "label": "Admins",
+      "sublabel": "platform staff",
+      "pos": [
+        310,
+        800
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "mobile",
+      "type": "frontend",
+      "label": "Mobile app",
+      "sublabel": "Flutter (Dart)",
+      "tag": "Android + iOS · planned",
+      "pos": [
+        300,
+        225
+      ],
+      "size": [
+        170,
+        80
+      ]
+    },
+    {
+      "id": "payhere",
+      "type": "external",
+      "label": "PayHere (sandbox)",
+      "sublabel": "payee's own merchant account",
+      "tag": "test mode · planned",
+      "pos": [
+        300,
+        430
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Web portal",
+      "sublabel": "Next.js · Amplify Hosting",
+      "tag": "all roles + admin",
+      "pos": [
+        300,
+        600
+      ],
+      "size": [
+        170,
+        80
+      ]
+    },
+    {
+      "id": "wsfn",
+      "type": "backend",
+      "label": "WebSocket Lambdas",
+      "sublabel": "connect, disconnect, send",
+      "tag": "planned",
+      "pos": [
+        590,
+        150
+      ],
+      "size": [
+        200,
+        80
+      ]
+    },
+    {
+      "id": "gateway",
+      "type": "cloud",
+      "label": "API Gateway",
+      "sublabel": "HTTP API · WebSocket planned",
+      "tag": "CDK · dev, main",
+      "pos": [
+        590,
+        410
+      ],
+      "size": [
+        200,
+        90
+      ]
+    },
+    {
+      "id": "media",
+      "type": "cloud",
+      "label": "S3 + CloudFront",
+      "sublabel": "media, docs · presigned uploads",
+      "tag": "CDN · planned",
+      "pos": [
+        590,
+        640
+      ],
+      "size": [
+        200,
+        80
+      ]
+    },
+    {
+      "id": "ddb",
+      "type": "database",
+      "label": "DynamoDB",
+      "sublabel": "chat, feed, connection IDs",
+      "tag": "planned",
+      "pos": [
+        940,
+        60
+      ],
+      "size": [
+        190,
+        80
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "NestJS API",
+      "sublabel": "one Lambda · Prisma · 5 routes",
+      "tag": "AuthGuard, RolesGuard",
+      "pos": [
+        940,
+        400
+      ],
+      "size": [
+        190,
+        90
+      ]
+    },
+    {
+      "id": "scheduler",
+      "type": "messagebus",
+      "label": "EventBridge Scheduler",
+      "sublabel": "review windows, reminders, trending",
+      "pos": [
+        940,
+        620
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "tag": "planned"
+    },
+    {
+      "id": "pg",
+      "type": "database",
+      "label": "PostgreSQL 16",
+      "sublabel": "Prisma · main database",
+      "tag": "host not chosen · users only",
+      "pos": [
+        940,
+        800
+      ],
+      "size": [
+        190,
+        80
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Amazon Cognito",
+      "sublabel": "Amplify Gen 2 · group per role",
+      "pos": [
+        1255,
+        40
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "tag": "Essentials tier"
+    },
+    {
+      "id": "queue",
+      "type": "messagebus",
+      "label": "SQS queue",
+      "sublabel": "notification jobs + DLQ",
+      "pos": [
+        1255,
+        230
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "tag": "planned"
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "Lambda functions",
+      "sublabel": "notify · resize · PDF → image",
+      "pos": [
+        1255,
+        420
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "tag": "planned"
+    },
+    {
+      "id": "bedrock",
+      "type": "cloud",
+      "label": "Amazon Bedrock",
+      "sublabel": "Claude · AI map draft (Could)",
+      "tag": "planned · region unverified",
+      "pos": [
+        1255,
+        610
+      ],
+      "size": [
+        190,
+        80
+      ]
+    },
+    {
+      "id": "sms",
+      "type": "external",
+      "label": "SMS gateway",
+      "sublabel": "Dialog e-SMS · OTP, alerts",
+      "pos": [
+        1555,
+        50
+      ],
+      "size": [
+        170,
+        60
+      ],
+      "tag": "planned"
+    },
+    {
+      "id": "push",
+      "type": "external",
+      "label": "Push service",
+      "sublabel": "FCM · APNs on iOS",
+      "pos": [
+        1555,
+        420
+      ],
+      "size": [
+        170,
+        60
+      ],
+      "tag": "planned"
+    },
+    {
+      "id": "email",
+      "type": "external",
+      "label": "Email service",
+      "sublabel": "Amazon SES",
+      "pos": [
+        1555,
+        600
+      ],
+      "size": [
+        170,
+        60
+      ],
+      "tag": "planned"
+    },
+    {
+      "id": "authfn",
+      "type": "backend",
+      "label": "Auth triggers",
+      "sublabel": "pre-sign-up, post-confirmation",
+      "tag": "Lambda · Amplify",
+      "pos": [
+        1255,
+        146
+      ],
+      "size": [
+        190,
+        60
+      ]
+    },
+    {
+      "id": "deploy",
+      "type": "security",
+      "label": "GitHub Actions + OIDC",
+      "sublabel": "role tezera-github-deploy",
+      "tag": "needs AWS_DEPLOY_ROLE_ARN",
+      "pos": [
+        590,
+        800
+      ],
+      "size": [
+        190,
+        80
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "AWS · ap-south-1 (Mumbai) · CDK + Amplify Gen 2 auth, serverless",
+      "wraps": [
+        "wsfn",
+        "gateway",
+        "media",
+        "ddb",
+        "api",
+        "scheduler",
+        "auth",
+        "queue",
+        "worker",
+        "bedrock",
+        "authfn"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "attendee-mobile",
+      "from": "attendee",
+      "to": "mobile",
+      "label": "browse, chat (planned)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "attendee-web",
+      "from": "attendee",
+      "to": "web",
+      "label": "same features",
+      "variant": "emphasis"
+    },
+    {
+      "id": "orgprov-mobile",
+      "from": "org-prov",
+      "to": "mobile",
+      "label": "on the go (planned)"
+    },
+    {
+      "id": "orgprov-web",
+      "from": "org-prov",
+      "to": "web",
+      "label": "manage events"
+    },
+    {
+      "id": "admin-web",
+      "from": "admin",
+      "to": "web",
+      "label": "verify, moderate",
+      "variant": "security"
+    },
+    {
+      "id": "mobile-gateway",
+      "from": "mobile",
+      "to": "gateway",
+      "label": "REST + WebSocket (planned)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "web-gateway",
+      "from": "web",
+      "to": "gateway",
+      "label": "REST via /api rewrite",
+      "variant": "emphasis"
+    },
+    {
+      "id": "mobile-media",
+      "from": "mobile",
+      "to": "media",
+      "label": "upload, CDN (planned)",
+      "variant": "dashed"
+    },
+    {
+      "id": "web-media",
+      "from": "web",
+      "to": "media",
+      "label": "upload, CDN (planned)",
+      "variant": "dashed"
+    },
+    {
+      "id": "mobile-payhere",
+      "from": "mobile",
+      "to": "payhere",
+      "label": "Flutter SDK checkout (planned)"
+    },
+    {
+      "id": "web-payhere",
+      "from": "web",
+      "to": "payhere",
+      "label": "hosted checkout (planned)"
+    },
+    {
+      "id": "payhere-gateway",
+      "from": "payhere",
+      "to": "gateway",
+      "label": "notify (REST route) (planned)",
+      "variant": "security"
+    },
+    {
+      "id": "gateway-api",
+      "from": "gateway",
+      "to": "api",
+      "label": "REST routes"
+    },
+    {
+      "id": "gateway-wsfn",
+      "from": "gateway",
+      "to": "wsfn",
+      "label": "$connect, $disconnect (planned)"
+    },
+    {
+      "id": "ddb-wsfn",
+      "from": "ddb",
+      "to": "wsfn",
+      "label": "Streams: new chat (planned)",
+      "variant": "dashed"
+    },
+    {
+      "id": "api-auth",
+      "from": "api",
+      "to": "auth",
+      "label": "verify token, group = role, GetUser on first request",
+      "variant": "security"
+    },
+    {
+      "id": "auth-sms",
+      "from": "auth",
+      "to": "sms",
+      "label": "OTP: Cognito SMS now; Dialog (planned)"
+    },
+    {
+      "id": "api-pg",
+      "from": "api",
+      "to": "pg",
+      "label": "Prisma"
+    },
+    {
+      "id": "api-ddb",
+      "from": "api",
+      "to": "ddb",
+      "label": "chat, feed (planned)"
+    },
+    {
+      "id": "api-queue",
+      "from": "api",
+      "to": "queue",
+      "label": "enqueue jobs (planned)"
+    },
+    {
+      "id": "queue-worker",
+      "from": "queue",
+      "to": "worker",
+      "label": "triggers (planned)",
+      "variant": "dashed"
+    },
+    {
+      "id": "scheduler-worker",
+      "from": "scheduler",
+      "to": "worker",
+      "label": "timed jobs (planned)",
+      "variant": "dashed"
+    },
+    {
+      "id": "worker-bedrock",
+      "from": "worker",
+      "to": "bedrock",
+      "label": "plan image → draft zones (planned)",
+      "variant": "dashed"
+    },
+    {
+      "id": "worker-push",
+      "from": "worker",
+      "to": "push",
+      "label": "push (planned)"
+    },
+    {
+      "id": "worker-email",
+      "from": "worker",
+      "to": "email",
+      "label": "email (planned)"
+    },
+    {
+      "id": "worker-sms",
+      "from": "worker",
+      "to": "sms",
+      "label": "urgent alerts (planned)"
+    },
+    {
+      "id": "web-auth",
+      "from": "web",
+      "to": "auth",
+      "label": "Amplify JS sign-in",
+      "variant": "security"
+    },
+    {
+      "id": "auth-authfn",
+      "from": "auth",
+      "to": "authfn",
+      "label": "triggers",
+      "variant": "dashed",
+      "labelAt": [
+        1490,
+        133
+      ]
+    },
+    {
+      "id": "deploy-gateway",
+      "from": "deploy",
+      "to": "gateway",
+      "label": "cdk deploy TezeraApi-dev / -main",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Where it runs: why, and alternatives",
+      "items": [
+        "AWS, region ap-south-1 (Mumbai), defined as code. Built in AWS CDK (infra/): one NestJS Lambda (Node.js 24, ARM64, 512 MB, 10 s timeout), an API Gateway HTTP API with a throttle of 20 requests a second (burst 40), a log group kept for 2 weeks, and a GitHub deploy stack (OIDC role tezera-github-deploy for the dev and main branches). Cognito with Amplify Gen 2 sits in amplify/auth. Stages dev and main in one pnpm + Turborepo repository. The CDK sets only two environment variables on the Lambda, WEB_ORIGIN and NODE_OPTIONS. Planned, not built: DynamoDB, WebSocket API, SQS, EventBridge Scheduler, S3 + CloudFront, Secrets Manager or Parameter Store, Amazon Bedrock. Alternatives: the earlier all-Amplify design (AppSync GraphQL, DynamoDB only), or a container host such as Render or Fly.io.",
+        "Amplify Hosting (web portal). Why: amplify.yml runs ampx pipeline-deploy and then builds apps/web; the portal is served on dev.tezera.lk and www.tezera.lk. A preview link per pull request is (not verified from the repo). Alternatives: Vercel, Netlify.",
+        "PostgreSQL host: not chosen yet, so the deployed API has no database. Suggestion: a hosted PostgreSQL with a connection pooler (for example Supabase or Neon) for dev, Amazon RDS later; the pooler matters because every Lambda instance opens its own connections. Local development runs PostgreSQL in Docker (port 5433). Built so far: one migration (users table).",
+        "Region ap-south-1 (Mumbai). Why: the nearest AWS region to Sri Lanka. The CDK pins ap-south-1; the region of the Amplify auth stack is (not verified). Watch: personal data is stored outside Sri Lanka (Mumbai, plus wherever the hosted database sits), so check the PDPA's rules on cross-border transfers before launch (not checked).",
+        "Cost and access. Lambda, API Gateway, SQS, Cognito and S3 have free monthly allowances and the hosted database has a free tier for dev; set an AWS Budgets alert before the pilot (limits not verified). Per-person IAM logins with MFA required (policy planned, not built); secrets in Parameter Store (SecureString) or Secrets Manager (planned, not built), never in git."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Services and protocols: why, and alternatives",
+      "items": [
+        "REST/JSON from NestJS instead of GraphQL. Why: the team writes the API as an ordinary NestJS app (runs locally on port 4000) and deploys it as one Lambda behind an API Gateway HTTP API. Routes so far (five): GET /, GET /health, GET /health/db, GET /me (AuthGuard) and GET /organiser/ping (organiser role, test only). Only a Hello World unit test and the default e2e test exist; /me and /health/db have no test. Alternatives: a container on ECS Fargate or App Runner if one Lambda starts too slowly; AppSync GraphQL (the v6 design).",
+        "API Gateway WebSocket API for live updates (chat, event status, 'Going' counts, map republishes) (planned, not built; the web portal calls REST only). Why: a NestJS Lambda cannot hold sockets open. Small Lambdas would save connection IDs in DynamoDB on $connect and remove them on $disconnect; DynamoDB Streams on the chat table would send new messages out; NestJS would send the other updates through the API Gateway management API. Alternatives: AppSync subscriptions, a hosted service such as Ably or Pusher.",
+        "Amazon Cognito, defined with Amplify Gen 2 (Essentials tier). Built: email sign-in = password + 6-digit email code; phone sign-in = passwordless SMS code at every login (USER_AUTH, otpLogin); Cognito's built-in email and SMS (no Dialog, no SES yet). One group per role (attendee, organiser, vendor, freelancer, admin); a user may hold several groups and the highest priority (admin > organiser > vendor > freelancer > attendee) becomes users.role. Custom attributes: custom:role, custom:guardian, custom:setup, plus birthdate. The pre-sign-up Lambda allows only attendee, organiser, vendor and freelancer, blocks admin, requires age 16+ and a guardian tick for 16-17. The post-confirmation Lambda adds the user to the role group. Google sign-in is a commented stub (GoogleButton.tsx). The portal signs in with Amplify JS; the Flutter app (Amplify Flutter, proposed) is planned, not built. NestJS checks the access token with aws-jwt-verify, calls Cognito GetUser on the first request for the verified contact, creates the users row, and rejects accounts whose status is not active (403 codes: ROLE_MISSING, CONTACT_NOT_VERIFIED, PROFILE_FAILED, ACCOUNT_NOT_ACTIVE, ROLE_NOT_ALLOWED; 401 for a missing or invalid token). Google sign-in is AC-11 (Should, added 23 Nov 2026): the button is on the sign-up and log-in screens, but the Google provider is not set up (planned, not built).",
+        "Firebase Cloud Messaging (push) (planned, not built). Why: one service for Android and iOS (iOS through APNs), with a Flutter plugin, called from Lambda. Amazon Pinpoint is not used: AWS ends its support on 30 October 2026. Alternatives: Amazon SNS mobile push, OneSignal.",
+        "Amazon SES (email) (planned, not built; Cognito's built-in email sends the codes today). Why: inside AWS and cheap per message. Watch: new accounts start in the SES sandbox; request production access before the pilot. Alternatives: Resend, Brevo.",
+        "Dialog e-SMS (sign-up codes and urgent alerts) (planned, not built; codes now go through Cognito's built-in SMS). Why: a Sri Lankan operator's gateway with sender ID masking and billing in LKR. Codes would go through a Cognito custom SMS sender Lambda. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Amazon SNS SMS, Notify.lk.",
+        "Amazon Bedrock with Claude (AI map draft, Could) (planned, not built), called from NestJS or a Lambda. Why: stays inside AWS, uses IAM, no separate API key. Watch: Claude on Bedrock in ap-south-1 is not verified; it may need cross-region inference. Alternatives: the Anthropic API directly."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Recommended stack (PRD v7): built and planned",
+      "items": [
+        "Built: one pnpm + Turborepo monorepo (Tezera-LK/tezera): apps/api (NestJS 12), apps/web (Next.js 16, React 19), amplify/ (auth only), infra/ (AWS CDK). TypeScript 6, Node 24, Prisma 6. pnpm-workspace lists packages/* but no packages/ folder exists (no shared package, no Zod)",
+        "Mobile (planned, not built): Flutter (Dart) for Android and iOS in apps/mobile; the folder does not exist, the root script dev:mobile points at a missing filter, and .gitignore still has Expo entries (leftovers)",
+        "Web (built, mostly on sample data): Next.js portal on Amplify Hosting; landing page, auth screens per role, public pages, and an organiser portal on in-memory sample stores. /vendor and /admin are 'Nothing here yet' stubs; attendee and freelancer have no portal pages. Profiles and uploaded files are not saved yet. The admin panel is planned as admin-only routes in the same app. Light theme only, no i18n",
+        "API (built): NestJS as one Lambda behind an API Gateway HTTP API, defined in CDK (infra/lib/api-stack.ts), stages dev and main. configureApp() (ValidationPipe + CORS) exists in setup.ts but main.ts and lambda.ts do not call it, and there are no DTOs",
+        "Data: PostgreSQL 16 through Prisma 6 (the schema and migrations are the only way to change tables); only the users table exists. DynamoDB for chat, the promotion feed and WebSocket connection IDs is planned, not built",
+        "Jobs (planned, not built): an SQS queue (with a dead-letter queue) and EventBridge Scheduler trigger Lambda functions; DynamoDB Streams on the chat table drive live chat"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "Venue map builder and interactive 2D map (planned, not built; no route in the code yet)",
+      "items": [
+        "Map builder on the web portal: organisers draw, move, resize, label and delete zones, stalls and pins over a background, with grid snapping, undo and a scale set from two marked points; the mobile app does quick on-the-day edits (move, rename, hide)",
+        "Three ways to start: a PNG/JPG or PDF floor plan (a Lambda turns the PDF's first page into the background image), a blank grid of a set size, or a saved venue map",
+        "Every map, however it starts, is saved in one standard, versioned map JSON: background, scale, and zones, stalls and pins as boxes or points in 0–1 coordinates with stable IDs; each publish is a new version, an earlier one can be restored, and open screens get the new version over the WebSocket API",
+        "AI draft (Could): NestJS or a Lambda sends the floor plan image to Claude on Amazon Bedrock and gets draft zones and stalls back; it opens as an editable draft, nothing publishes until the organiser checks it, and text in the image is treated as data. Claude in ap-south-1 not verified (may need cross-region inference)",
+        "Concept and code reused from Damian's own ai-studio repo (image to editable draft, click to edit, a new revision per save), adapted to this stack rather than lifted whole",
+        "Consumers tap a zone to see its stalls; each stall shows the vendor, items and prices in LKR",
+        "Search by item (e.g. 'kottu') highlights matching stalls; 'Find on map' jumps to a stall",
+        "Map JSON versions in PostgreSQL (a JSONB column, proposed), background images in S3; drawn as an overlay: a Flutter canvas in the app (proposed), SVG in Next.js",
+        "Mobile app only: keeps an opened event's map, times and announcements offline, with a 'last updated' time (Could)"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Sandboxed payments (Should) (planned, not built)",
+      "items": [
+        "Sandbox only in the ATP: PayHere test mode, no real money moves; every payment screen and receipt says 'Test payment, no real money'",
+        "Direct to the payee: each provider (and each organiser, for stall fees) connects their own PayHere merchant account; the web portal opens its hosted checkout and the app uses the PayHere Flutter SDK",
+        "Tezera never holds, splits or pays out funds. Holding or splitting money would most likely need CBSL registration as a money or value transfer service (LKR 15m capital), so this design also works for a real launch (not legal advice)",
+        "Covers booking deposits and instalments, stall fees, and cancellation fees and refunds per the booking's terms; Tezera's commission is a separate receipt line (rate proposed, not charged in the ATP)",
+        "PayHere sits behind a payment-provider interface in NestJS, so Genie Business or WEBXPAY can be added later",
+        "PayHere's notify call reaches a plain REST route on the HTTP API (POST /payments/payhere/notify, proposed; no payments route exists in the code); NestJS checks the signature, ignores repeats of an order ID, and writes the payment to PostgreSQL, which marks the instalment received; merchant secrets would stay in AWS Secrets Manager (planned, not built)",
+        "Card details are entered only on PayHere's page (PCI DSS SAQ A scope); a payee with no connected account is paid outside the app and the instalment is marked received by hand"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Data models (PostgreSQL via Prisma, plus DynamoDB); only the users table is built",
+      "items": [
+        "PostgreSQL: accounts, profiles and verification",
+        "PostgreSQL: events, hiring marketplace (direct bookings, job posts, quotes, payment terms, instalments) and stalls",
+        "PostgreSQL: payments (sandbox): connected accounts, payments, refunds, receipts",
+        "PostgreSQL: reviews and ranking (rank score, badges, leaderboards)",
+        "PostgreSQL: venue maps (versioned map JSON, saved venue maps, stall items and prices)",
+        "PostgreSQL: community boards, meetups and announcements (proposed); admin verification, report queue, disputes and audit log",
+        "DynamoDB: chat messages (organiser–provider, consumer DMs, event group chats, community chats)",
+        "DynamoDB: promotion feed items (posts, likes, comments, shares) and WebSocket connection IDs"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Data design across two databases (replaces the DynamoDB-only design) (DynamoDB planned, not built)",
+      "items": [
+        "PostgreSQL is the main database; DynamoDB holds high-volume, key-lookup data. NestJS is the only code that writes either one (plus the WebSocket Lambdas, for connection IDs)",
+        "No foreign keys across the two: DynamoDB items store the PostgreSQL users.id as a string",
+        "Rank score: a rank_score column on profiles, indexed by category and district; recalculated in NestJS in the same transaction when a review is written or hidden, or queued (proposed)",
+        "Leaderboards: indexed queries, or a materialised view refreshed on a schedule (proposed)",
+        "Search: PostgreSQL full-text search plus pg_trgm trigram indexes, so typing mistakes still match; Algolia or Typesense only if the pilot needs them",
+        "Trending: a scheduled job scores recent feed posts and stores the top list (score proposed)",
+        "Tools: Prisma schema and migrations for every table change; PostgreSQL in Docker for local work"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Reviews and trust",
+      "items": [
+        "Organiser and provider reviews unlock on a completed booking or a confirmed stall",
+        "Attendee reviews unlock from a 'Going' mark made before the event, once it ends",
+        "EventBridge Scheduler closes review windows after 14 days; NestJS recalculates the rank score when a review is written or hidden (planned, not built)",
+        "Verification documents sit in a private S3 prefix that only admins can open, through short-lived signed links (PDPA) (planned, not built)"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Build and deploy (GitHub Actions)",
+      "items": [
+        "ci.yml runs on pull requests to dev and main: Turbo lint, typecheck and build, plus CDK synth for dev and main with a placeholder amplify_outputs.json. No test step, no secret scan (gitleaks) and no dependency scan",
+        "deploy-api.yml runs on pushes to dev and main and deploys TezeraApi-dev or TezeraApi-main through the OIDC role tezera-github-deploy; it is skipped until the repository variable AWS_DEPLOY_ROLE_ARN is set. It has no prisma migrate step",
+        "sync-dev.yml fast-forwards dev from main on pushes to main. No pull request template and no CODEOWNERS file",
+        "The code truth is the dev branch; GitHub main is behind it (audited 23 Nov 2026)"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Still open",
+      "items": [
+        "Shared PostgreSQL host for dev (hosted with a pooler suggested; RDS later)",
+        "The CDK sets none of COGNITO_USER_POOL_ID, COGNITO_CLIENT_ID or DATABASE_URL on the Lambda, so the deployed API cannot run the auth guard yet; who wires them in infra/lib/api-stack.ts",
+        "Flutter app not started; Dialog e-SMS custom SMS sender not built",
+        "configureApp() (validation + CORS) is not called by main.ts or lambda.ts; no DTOs yet",
+        "PDPA cross-border transfer: data in Mumbai and wherever the database host sits",
+        "Portal sign-in and data: the web portal's signed-in pages use a stand-in session and sample data (preview mode with a 'View as' role switch on dev.tezera.lk, never on main) until the API and database are hosted"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Out of scope",
+      "items": [
+        "Ticketing: tiers, seats, RSVP tickets, QR entry, ticket refunds",
+        "Real money: the ATP uses the PayHere sandbox only",
+        "Google Maps directions to the venue: still under discussion",
+        "Dropped in v7: AppSync / Amplify Data GraphQL, React Native + Expo, Expo Push, the separate payments Lambda function URL, the DynamoDB-only data design"
+      ]
+    }
+  ]
+}
