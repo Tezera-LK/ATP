@@ -1,6 +1,6 @@
 # CLAUDE.md — Tezera (SDGP / ATP)
 
-Tezera = name. Write "tezera" as wordmark (logo, h1, diagram title), "Tezera" in prose + sentence starts. No acronym, no tagline. Was Eventline → REVAMP (6 Oct 2026) → Tezera (8 Oct 2026). Sri Lankan event platform: organisers, vendors, freelancers, consumers (+ admins). Mobile app + web portal. 2nd-year SDGP team project, 5 students. Repo = docs only, no code yet.
+Tezera = name. Write "tezera" as wordmark (logo, h1, diagram title), "Tezera" in prose + sentence starts. No acronym. Tagline (the live site's, adopted 23 Nov 2026): "Every event in Sri Lanka, in one place." Was Eventline → REVAMP (6 Oct 2026) → Tezera (8 Oct 2026). Sri Lankan event platform: organisers, vendors, freelancers, consumers (+ admins). Mobile app + web portal. 2nd-year SDGP team project, 5 students. Repo = docs only, no code yet.
 
 ## Start every session
 1. Read `HANDOFF.md` → current state, decisions, next steps.
