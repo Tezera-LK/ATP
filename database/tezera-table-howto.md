@@ -1,10 +1,14 @@
 # Tezera: make a database table, the simple way
 
-**Version 1, 19 November 2026.** For every Tezera back-end developer. You do not need the person who made the first table. Written in the style of ASD-STE100 (Simplified Technical English): one action per step, short sentences, a check after each part, warnings before the step they protect.
+**Version 2, 23 November 2026** (version 1: 19 November 2026). For every Tezera back-end developer. You do not need the person who made the first table. Written in the style of ASD-STE100 (Simplified Technical English): one action per step, short sentences, a check after each part, warnings before the step they protect.
+
+> **Checked against the code on `dev` on 23 November 2026.** The database branch (`feature/database-system`, pull request #26) and the auth branch (`feature/auth-backend`, pull request #27) are both merged into `dev`. Start from `dev`. `main` does not have these files yet.
+
+**What changed in version 2.** Branch `dev` replaces the feature branches and `main` in the steps. The branch-order warning is now history (section 2). New: `pnpm install` makes the Prisma client (`postinstall`); the API needs the Cognito IDs to start (section 4); `pnpm test` does not run yet (section 6); two new rows in section 10; open question 4 is settled.
 
 Items marked **(proposed)** are not agreed. The team must confirm them. Items marked **(not verified)** were written from the repo files and the earlier plans, and were not run for this document. Check them when you do the step.
 
-This document is the short version of `tezera-auth-setup-plan.md` (the full run, with Cognito and hosting). **It replaces the table steps in `tezera-table-creation-plan.md`.** That older plan assumed DynamoDB, Flutter and own auth tables. The repo does not use them for PostgreSQL tables.
+This document is the short version of `tezera-auth-setup-plan.md` (the full run, with Cognito and hosting). **It replaces the table steps in `tezera-table-creation-plan.md`.** That plan keeps the general rules, the review checklist and the DynamoDB steps. (Its version 1 had own auth tables; its versions 2 and 3 use Cognito, like the repo.)
 
 ## 1. The method in one minute
 
@@ -19,23 +23,25 @@ Every table follows the same five steps. Nothing else is allowed.
 | Rule | Reason |
 | --- | --- |
 | Change tables only with a Prisma migration. Never in DBeaver, never with `prisma db push`. | The migration files are the history. Your team mates run the same files. `db push` and DBeaver leave no file, so their database will differ from yours. |
-| Never edit a migration that is already in `main`. Make a new one. | A changed file does not run again where it already ran. The databases then differ. |
+| Never edit a migration that is already in `dev` or `main`. Make a new one. | A changed file does not run again where it already ran. The databases then differ. |
 | One migration folder per change. Give it a clear name. | `create_events`, `add_event_status`. Not `update`, not `test`. |
 | Never commit `.env`. | It holds the database password. Only `.env.example` goes in git. |
 
 ## 2. What the repo already has
 
-The code repo is `D:\IIT\Year 2\ATP\Project\tezera` (GitHub: Tezera-LK/tezera). **Do not make a second copy of anything in this table.**
+The code repo is GitHub `Tezera-LK/tezera` (public). Work on the branch `dev`. The local folder is your own clone (for example `D:\IIT\Year 2\ATP\Project\tezera` on Yevan's computer). **Do not make a second copy of anything in this table.**
 
 | Item | What it is |
 | --- | --- |
 | `apps/api/docker-compose.yml` | PostgreSQL 16 in Docker. Container `tezera-db`. Port **5433** on your computer (5432 is often taken by another PostgreSQL). |
-| `apps/api/.env.example` | The settings to copy into your own `.env`. Holds `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `DATABASE_URL`, `AWS_REGION`, `COGNITO_USER_POOL_ID`, `COGNITO_CLIENT_ID`, `PORT` (4000) and `WEB_ORIGIN`. |
-| `apps/api/prisma/schema.prisma` | Every table, written once. The first model is `User` (table `users`), with the enums `UserRole` and `UserStatus`. |
-| `apps/api/prisma/migrations/` | One folder per change, with a `migration.sql`. The first is `..._create_users`. |
+| `apps/api/.env.example` | The settings to copy into your own `.env`. Holds `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `DATABASE_URL` (port 5433), `AWS_REGION`, `COGNITO_USER_POOL_ID`, `COGNITO_CLIENT_ID`, `PORT` (4000) and `WEB_ORIGIN`. |
+| `apps/api/prisma/schema.prisma` | Every table, written once. The first model is `User` (table `users`), with the enums `UserRole` and `UserStatus`. Prisma 6.19. |
+| `apps/api/prisma/migrations/` | One folder per change, with a `migration.sql`. The first is `20261118201220_create_users`. |
 | `apps/api/src/prisma/` | `PrismaModule` and `PrismaService`. Global. Your code uses them to read and write tables. |
+| `apps/api/src/auth/` | The Cognito login check (`AuthGuard`, `RolesGuard`, `@Roles()`) and `GET /me`. It owns `users`. See the auth plan, section 10. |
+| `apps/api/package.json` | `"postinstall": "prisma generate"`: every `pnpm install` makes the Prisma client. |
 
-> **WARNING: branch.** Checked on 23 Nov 2026: `feature/database-system` and `feature/auth-backend` are both merged into the code repo's `dev` branch, so these files are on `dev`. Start from `dev`. GitHub `main` is behind `dev` and may not have them yet. The auth code imports `PrismaService`, so it does not compile without the database files.
+> **NOTE: branch order (now done).** The auth code imports `PrismaService`, so it needed the database branch. Both are merged into the code repo's `dev` branch: the database branch first (pull request #26), then the auth branch (pull request #27). Start from `dev`. GitHub `main` is behind `dev` and does not have them yet.
 
 ## 3. Install the tools (once)
 
@@ -49,7 +55,7 @@ Use PowerShell. After each install, close PowerShell and open it again.
 | 4 | Docker Desktop | `winget install Docker.DockerDesktop` | `docker run --rm hello-world` |
 | 5 | DBeaver Community (to look at tables) | `winget install dbeaver.dbeaver` | Open the app |
 
-You do **not** need the AWS CLI, Cognito or an AWS account to make and test a table. Those are for login only (see the auth plan).
+You do **not** need the AWS CLI, Cognito or an AWS account to make and test a table with Prisma. You need them only to **run the API** (`pnpm dev`): it does not start without the two Cognito IDs (section 4 and the auth plan, section 8).
 
 1. Run each missing command, in order.
 2. Start Docker Desktop. Wait until it says "Engine running".
@@ -64,7 +70,7 @@ cd tezera
 ```
 
 2. Go to the branch from section 2: `git checkout dev`.
-3. Install the packages: `pnpm install`.
+3. Install the packages: `pnpm install`. This also runs `prisma generate` for the API.
 4. Go to the API folder: `cd apps/api`.
 5. Copy the settings file: `Copy-Item .env.example .env`.
 6. Open `.env`. Write a long random password in two places: `POSTGRES_PASSWORD` and inside `DATABASE_URL`. They must match. Do not use the characters `@ : / ? #` in the password. They break the URL.
@@ -82,7 +88,7 @@ cd tezera
 | Table exists | `pnpm exec prisma studio` (opens a page in your browser) | A model `User` with 0 rows. Close it with Ctrl+C |
 | Code compiles | `pnpm build` | No error |
 
-If the API endpoint `GET /health/db` is on your branch (it is on `dev`), also run `pnpm dev` and open `http://localhost:4000/health/db`. It must say the database is up.
+The API endpoint `GET /health/db` is on `dev`. To try it, first write the two Cognito IDs in `.env` (auth plan, section 8). Without them the API stops at start with `Invalid Cognito User Pool ID`. Then run `pnpm dev` and open `http://localhost:4000/health/db`. It must show `{"status":"ok"}`.
 
 ### Connect DBeaver (to look, not to change)
 
@@ -212,7 +218,7 @@ Run these in order, inside `apps/api`. Every line must pass.
 | 4 | The link works | `pnpm exec prisma studio`. Add a user, then a venue with that user's `id` | The row saves |
 | 5 | The rules hold | In Studio, add a venue with an `owner_id` that does not exist | An error (foreign key). If it saves, the link is missing |
 | 6 | The code compiles | `pnpm build` | No error |
-| 7 | The tests pass | `pnpm test` | All pass. The code repo has only the default Hello World unit test and default e2e test today, so this does not test your table until you write a test |
+| 7 | The tests pass | `pnpm test` | All pass. **Not yet possible on `dev`:** on 23 November 2026 the API tests stopped before they ran (TypeScript 6 error `TS5011`, and the starter test lacks `PrismaService`; auth plan, section 10.8; a fix is written but not committed). The only tests are the default ones, so this does not test your table until you write a test |
 | 8 | A clean start works | `pnpm exec prisma migrate reset` (see warning), then `pnpm exec prisma migrate status` | Up to date. This proves a team mate can build the same database from your files |
 
 > **WARNING.** `prisma migrate reset` deletes **all** data in the database in `DATABASE_URL`. Use it only on your own Docker database. Check `DATABASE_URL` points to `localhost:5433` first. Never run it on a hosted database.
@@ -224,7 +230,7 @@ Test 8 is the most important. It is the one that finds a missing migration file.
 1. Run `git status`. You must see changes in `prisma/schema.prisma` and a **new folder** under `prisma/migrations/`. If the folder is not there, your table will not exist for anybody else.
 2. Check that `.env` is **not** in the list. It must not be.
 3. Commit both together. Example message: `feat(db): add venues table`.
-4. Push your branch and open a pull request into `main`. Put the answers from section 5.1 in it, and the test results from section 6.
+4. Push your branch and open a pull request into `dev`. Put the answers from section 5.1 in it, and the test results from section 6. The CI workflow (`ci.yml`) runs lint, typecheck and build on it.
 5. After the review, merge. **After a merge, tell the team.** They run section 8.
 
 ## 8. A team mate merged a table: update yours
@@ -243,10 +249,10 @@ pnpm exec prisma migrate dev
 This will happen. Follow the steps. They always work for **local** databases.
 
 1. Your pull request shows a conflict in `schema.prisma`, or `migrate dev` says the migration history differs.
-2. Update your branch with `main`: `git merge main`.
+2. Update your branch with `dev`: `git merge dev`.
 3. Open `schema.prisma`. Keep both people's models. Remove the conflict marks (`<<<<`, `====`, `>>>>`).
-4. **Delete your own migration folder** (only yours, made on your branch). Do not delete the folders from `main`.
-5. Reset your local database: `pnpm exec prisma migrate reset`. This applies the team's migrations from `main`.
+4. **Delete your own migration folder** (only yours, made on your branch). Do not delete the folders from `dev`.
+5. Reset your local database: `pnpm exec prisma migrate reset`. This applies the team's migrations from `dev`.
 6. Make your migration again: `pnpm exec prisma migrate dev --name create_venues`.
 7. Commit, push, and run the tests in section 6.
 
@@ -265,11 +271,13 @@ This will happen. Follow the steps. They always work for **local** databases.
 | Red lines under `this.prisma.venue` | The generated code is old | `pnpm exec prisma generate`, restart the TypeScript server |
 | `EPERM ... query_engine` on Windows | A running `pnpm dev` or Studio locks the engine file | Stop `pnpm dev` and Studio. Run the command again |
 | `pnpm install` warns about ignored build scripts | `allowBuilds` was changed | Restore the three Prisma lines in `pnpm-workspace.yaml` (section 4) |
+| `pnpm dev` in `apps/api` stops with `Invalid Cognito User Pool ID` | `COGNITO_USER_POOL_ID` in `.env` is empty | Copy the two Cognito IDs from your sandbox's `amplify_outputs.json` (auth plan, section 8) |
+| `@prisma/client did not initialize yet` or `Cannot find module '.prisma/client'` | The Prisma client was not made | Run `pnpm install` again (its `postinstall` runs `prisma generate`), or `pnpm exec prisma generate` in `apps/api` **(not verified: exact message)** |
 | `prisma` shows a newer major version (7+) and the setup files fail | The repo is pinned to Prisma 6 | Use `pnpm exec prisma` from `apps/api`, not a global `prisma` or `npx prisma@latest` |
 
 ## 11. What went right, what went wrong
 
-This list comes from the earlier plans in this folder, the repo files, and the branch push on 19 November. It does not include chats that are not in the repo.
+This list comes from the earlier plans in this folder, the repo files, the branch push on 19 November, and the check of `dev` on 23 November. It does not include chats that are not in the repo.
 
 **Went right (keep).**
 
@@ -278,6 +286,8 @@ This list comes from the earlier plans in this folder, the repo files, and the b
 - Docker port 5433 and `127.0.0.1` only. No clash with a PostgreSQL that is already installed, and nobody on the network can connect.
 - `--create-only`, then the `CHECK` rules added by hand. Prisma cannot write them.
 - Prisma pinned to version 6, and `allowBuilds` listing Prisma in `pnpm-workspace.yaml`.
+- `"postinstall": "prisma generate"` in `apps/api/package.json`, added in the auth pull request (#27). A fresh clone gets a working Prisma client from `pnpm install`.
+- Both branches merged into `dev` in the right order (database, then auth).
 - DBeaver on manual commit, and read-only by rule.
 - The auth plan was tested on a real run (Docker, migration, sandbox pool, `GET /health/db`, `GET /me`) before the steps were final.
 
@@ -286,7 +296,10 @@ This list comes from the earlier plans in this folder, the repo files, and the b
 - **Version 1 of the auth plan assumed an empty repo.** The repo already had Cognito and an Amplify setup. The plan was rewritten twice. Read the repo first (section 2).
 - **The 18 November table plan used a different design** (DynamoDB, Flutter, own `password_hash`, `refresh_tokens` and `otp_codes` tables). The repo uses Cognito and PostgreSQL with Prisma. Do not copy a table from an old plan. Check it against the repo.
 - **`pnpm sandbox` fails on Windows.** Use `npx ampx sandbox --profile tezera` (auth plan, section 8).
-- **Push order.** The auth branch imports `PrismaService`, so it needs the database branch. Push and merge the database branch first.
+- **Push order.** The auth branch imports `PrismaService`, so it needs the database branch. Push and merge the database branch first. (Done right in the end: pull request #26, then #27.)
+- **Typing errors in names.** The class was first written `PrimsaModule`, and `ROLES_KEY` is still `' roles'` with a space (harmless, because both sides use the constant). Copy names exactly; let the editor complete them.
+- **Code that is written but not switched on.** `src/setup.ts` (`configureApp()`, with the `ValidationPipe`) is in the repo, but `main.ts` and `lambda.ts` do not call it. Check that new code is actually called.
+- **Tests not kept up.** `AppController` got `PrismaService`, but its starter test did not, and the TypeScript 6 upgrade stops `jest` before it runs. CI does not run the tests, so nobody saw it.
 - **Two auth branches with similar names** (`feature/auth`, `feature/auth-backend`). Name a branch for one job. Delete it after the merge.
 - **A newer Prisma major version** changes the setup files. Keep the pin.
 - **A table changed by hand** (DBeaver or `db push`) leaves no file. Team mates do not get it.
@@ -295,7 +308,7 @@ This list comes from the earlier plans in this folder, the repo files, and the b
 
 - A new team mate can follow sections 3 and 4, and every check in section 4 passes.
 - They can make a table by sections 5 to 7 without help.
-- `migrate reset` on a clean database rebuilds every table from the files in `main` (test 8).
+- `migrate reset` on a clean database rebuilds every table from the files in `dev` (test 8).
 - No team mate has a table that is not in a migration file.
 
 ## 13. Open questions
@@ -303,5 +316,6 @@ This list comes from the earlier plans in this folder, the repo files, and the b
 1. **Where does the shared (hosted) database live?** Each person uses their own Docker database for now. A shared `dev` database needs a host (auth plan, section 9). Migrations run there with `pnpm exec prisma migrate deploy`, never `migrate dev` or `migrate reset`. The team decides the host and who owns the account.
 2. **Who may approve a migration?** One reviewer for every `migration.sql`. Name them. **(proposed)**
 3. **Seed data.** A test user and a few rows for each table help everybody. Add `prisma/seed.ts` and the `prisma.seed` setting? Not decided.
-4. **Documents out of date.** PRD v7 (21 Nov 2026) now follows the code repo stack (NestJS on Lambda, PostgreSQL with Prisma). The architecture diagram source has a v7 version, but the diagram and the work items may still differ. **(not verified)**
+4. **Documents out of date.** Settled: PRD version 7 (20 November 2026), the architecture page and work items version 5 now describe the repo's stack (NestJS on Lambda, Cognito, PostgreSQL + DynamoDB), checked against the code on `dev` on 23 November 2026. The two web code comments that said "Phase B" reads "Amplify Data" (`apps/web/src/lib/data/event-store.ts`, `types.ts`) were reworded on 23 November 2026 (not committed yet).
 5. **Prisma 6 or newer.** Pinned to 6. Plan an upgrade.
+6. **The deployed API has no database.** The CDK stack passes no `DATABASE_URL` and no Cognito IDs, and does not bundle the Prisma engine. A table works on your computer only, until the auth plan, section 9.5 is done (a fix is written but not committed: settings from Parameter Store, engine bundled).

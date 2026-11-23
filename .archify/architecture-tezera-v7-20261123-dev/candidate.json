@@ -56,7 +56,7 @@
       "type": "frontend",
       "label": "Mobile app",
       "sublabel": "Flutter (Dart)",
-      "tag": "Android + iOS (planned, not built)",
+      "tag": "Android + iOS · planned",
       "pos": [
         300,
         225
@@ -71,7 +71,7 @@
       "type": "external",
       "label": "PayHere (sandbox)",
       "sublabel": "payee's own merchant account",
-      "tag": "test mode only (planned, not built)",
+      "tag": "test mode · planned",
       "pos": [
         300,
         430
@@ -101,7 +101,7 @@
       "type": "backend",
       "label": "WebSocket Lambdas",
       "sublabel": "connect, disconnect, send",
-      "tag": "live updates (planned, not built)",
+      "tag": "planned",
       "pos": [
         590,
         150
@@ -115,7 +115,7 @@
       "id": "gateway",
       "type": "cloud",
       "label": "API Gateway",
-      "sublabel": "HTTP API built; WebSocket API (planned, not built)",
+      "sublabel": "HTTP API · WebSocket planned",
       "tag": "CDK · dev, main",
       "pos": [
         590,
@@ -131,7 +131,7 @@
       "type": "cloud",
       "label": "S3 + CloudFront",
       "sublabel": "media, docs · presigned uploads",
-      "tag": "CDN (planned, not built)",
+      "tag": "CDN · planned",
       "pos": [
         590,
         640
@@ -146,7 +146,7 @@
       "type": "database",
       "label": "DynamoDB",
       "sublabel": "chat, feed, connection IDs",
-      "tag": "Streams on chat (planned, not built)",
+      "tag": "planned",
       "pos": [
         940,
         60
@@ -161,7 +161,7 @@
       "type": "backend",
       "label": "NestJS API",
       "sublabel": "one Lambda · Prisma · 5 routes",
-      "tag": "AuthGuard; RolesGuard on /organiser/ping only",
+      "tag": "AuthGuard, RolesGuard",
       "pos": [
         940,
         400
@@ -184,16 +184,16 @@
         190,
         70
       ],
-      "tag": "planned, not built"
+      "tag": "planned"
     },
     {
       "id": "pg",
       "type": "database",
       "label": "PostgreSQL 16",
       "sublabel": "Prisma · main database",
-      "tag": "host not chosen · users table only",
+      "tag": "host not chosen · users only",
       "pos": [
-        640,
+        940,
         800
       ],
       "size": [
@@ -205,7 +205,7 @@
       "id": "auth",
       "type": "security",
       "label": "Amazon Cognito",
-      "sublabel": "Amplify Gen 2 · group per role · Essentials tier",
+      "sublabel": "Amplify Gen 2 · group per role",
       "pos": [
         1255,
         40
@@ -213,7 +213,8 @@
       "size": [
         190,
         80
-      ]
+      ],
+      "tag": "Essentials tier"
     },
     {
       "id": "queue",
@@ -228,7 +229,7 @@
         190,
         80
       ],
-      "tag": "planned, not built"
+      "tag": "planned"
     },
     {
       "id": "worker",
@@ -243,14 +244,14 @@
         190,
         80
       ],
-      "tag": "planned, not built"
+      "tag": "planned"
     },
     {
       "id": "bedrock",
       "type": "cloud",
       "label": "Amazon Bedrock",
       "sublabel": "Claude · AI map draft (Could)",
-      "tag": "region not verified (planned, not built)",
+      "tag": "planned · region unverified",
       "pos": [
         1255,
         610
@@ -273,7 +274,7 @@
         170,
         60
       ],
-      "tag": "planned, not built"
+      "tag": "planned"
     },
     {
       "id": "push",
@@ -288,7 +289,7 @@
         170,
         60
       ],
-      "tag": "planned, not built"
+      "tag": "planned"
     },
     {
       "id": "email",
@@ -303,7 +304,7 @@
         170,
         60
       ],
-      "tag": "planned, not built"
+      "tag": "planned"
     },
     {
       "id": "authfn",
@@ -313,11 +314,11 @@
       "tag": "Lambda · Amplify",
       "pos": [
         1255,
-        135
+        146
       ],
       "size": [
         190,
-        65
+        60
       ]
     },
     {
@@ -325,9 +326,9 @@
       "type": "security",
       "label": "GitHub Actions + OIDC",
       "sublabel": "role tezera-github-deploy",
-      "tag": "deploy skipped until AWS_DEPLOY_ROLE_ARN set",
+      "tag": "needs AWS_DEPLOY_ROLE_ARN",
       "pos": [
-        940,
+        590,
         800
       ],
       "size": [
@@ -360,7 +361,7 @@
       "id": "attendee-mobile",
       "from": "attendee",
       "to": "mobile",
-      "label": "browse, chat (planned, not built)",
+      "label": "browse, chat (planned)",
       "variant": "emphasis"
     },
     {
@@ -374,7 +375,7 @@
       "id": "orgprov-mobile",
       "from": "org-prov",
       "to": "mobile",
-      "label": "on the go (planned, not built)"
+      "label": "on the go (planned)"
     },
     {
       "id": "orgprov-web",
@@ -393,47 +394,47 @@
       "id": "mobile-gateway",
       "from": "mobile",
       "to": "gateway",
-      "label": "REST + WebSocket (planned, not built)",
+      "label": "REST + WebSocket (planned)",
       "variant": "emphasis"
     },
     {
       "id": "web-gateway",
       "from": "web",
       "to": "gateway",
-      "label": "REST via the Next.js /api rewrite (WebSocket planned, not built)",
+      "label": "REST via /api rewrite",
       "variant": "emphasis"
     },
     {
       "id": "mobile-media",
       "from": "mobile",
       "to": "media",
-      "label": "upload, CDN (planned, not built)",
+      "label": "upload, CDN (planned)",
       "variant": "dashed"
     },
     {
       "id": "web-media",
       "from": "web",
       "to": "media",
-      "label": "upload, CDN (planned, not built)",
+      "label": "upload, CDN (planned)",
       "variant": "dashed"
     },
     {
       "id": "mobile-payhere",
       "from": "mobile",
       "to": "payhere",
-      "label": "Flutter SDK checkout (planned, not built)"
+      "label": "Flutter SDK checkout (planned)"
     },
     {
       "id": "web-payhere",
       "from": "web",
       "to": "payhere",
-      "label": "hosted checkout (planned, not built)"
+      "label": "hosted checkout (planned)"
     },
     {
       "id": "payhere-gateway",
       "from": "payhere",
       "to": "gateway",
-      "label": "notify (REST route) (planned, not built)",
+      "label": "notify (REST route) (planned)",
       "variant": "security"
     },
     {
@@ -446,13 +447,13 @@
       "id": "gateway-wsfn",
       "from": "gateway",
       "to": "wsfn",
-      "label": "$connect, $disconnect (planned, not built)"
+      "label": "$connect, $disconnect (planned)"
     },
     {
       "id": "ddb-wsfn",
       "from": "ddb",
       "to": "wsfn",
-      "label": "Streams: new chat (planned, not built)",
+      "label": "Streams: new chat (planned)",
       "variant": "dashed"
     },
     {
@@ -466,7 +467,7 @@
       "id": "auth-sms",
       "from": "auth",
       "to": "sms",
-      "label": "OTP: Cognito built-in SMS today; Dialog custom sender (planned, not built)"
+      "label": "OTP: Cognito SMS now; Dialog (planned)"
     },
     {
       "id": "api-pg",
@@ -478,52 +479,52 @@
       "id": "api-ddb",
       "from": "api",
       "to": "ddb",
-      "label": "chat, feed (planned, not built)"
+      "label": "chat, feed (planned)"
     },
     {
       "id": "api-queue",
       "from": "api",
       "to": "queue",
-      "label": "enqueue jobs (planned, not built)"
+      "label": "enqueue jobs (planned)"
     },
     {
       "id": "queue-worker",
       "from": "queue",
       "to": "worker",
-      "label": "triggers (planned, not built)",
+      "label": "triggers (planned)",
       "variant": "dashed"
     },
     {
       "id": "scheduler-worker",
       "from": "scheduler",
       "to": "worker",
-      "label": "timed jobs (planned, not built)",
+      "label": "timed jobs (planned)",
       "variant": "dashed"
     },
     {
       "id": "worker-bedrock",
       "from": "worker",
       "to": "bedrock",
-      "label": "plan image → draft zones (planned, not built)",
+      "label": "plan image → draft zones (planned)",
       "variant": "dashed"
     },
     {
       "id": "worker-push",
       "from": "worker",
       "to": "push",
-      "label": "push (planned, not built)"
+      "label": "push (planned)"
     },
     {
       "id": "worker-email",
       "from": "worker",
       "to": "email",
-      "label": "email (planned, not built)"
+      "label": "email (planned)"
     },
     {
       "id": "worker-sms",
       "from": "worker",
       "to": "sms",
-      "label": "urgent alerts (planned, not built)"
+      "label": "urgent alerts (planned)"
     },
     {
       "id": "web-auth",
@@ -536,8 +537,12 @@
       "id": "auth-authfn",
       "from": "auth",
       "to": "authfn",
-      "label": "pre-sign-up, post-confirmation",
-      "variant": "dashed"
+      "label": "triggers",
+      "variant": "dashed",
+      "labelAt": [
+        1490,
+        133
+      ]
     },
     {
       "id": "deploy-gateway",
@@ -565,7 +570,7 @@
       "items": [
         "REST/JSON from NestJS instead of GraphQL. Why: the team writes the API as an ordinary NestJS app (runs locally on port 4000) and deploys it as one Lambda behind an API Gateway HTTP API. Routes so far (five): GET /, GET /health, GET /health/db, GET /me (AuthGuard) and GET /organiser/ping (organiser role, test only). Only a Hello World unit test and the default e2e test exist; /me and /health/db have no test. Alternatives: a container on ECS Fargate or App Runner if one Lambda starts too slowly; AppSync GraphQL (the v6 design).",
         "API Gateway WebSocket API for live updates (chat, event status, 'Going' counts, map republishes) (planned, not built; the web portal calls REST only). Why: a NestJS Lambda cannot hold sockets open. Small Lambdas would save connection IDs in DynamoDB on $connect and remove them on $disconnect; DynamoDB Streams on the chat table would send new messages out; NestJS would send the other updates through the API Gateway management API. Alternatives: AppSync subscriptions, a hosted service such as Ably or Pusher.",
-        "Amazon Cognito, defined with Amplify Gen 2 (Essentials tier). Built: email sign-in = password + 6-digit email code; phone sign-in = passwordless SMS code at every login (USER_AUTH, otpLogin); Cognito's built-in email and SMS (no Dialog, no SES yet). One group per role (attendee, organiser, vendor, freelancer, admin); a user may hold several groups and the highest priority (admin > organiser > vendor > freelancer > attendee) becomes users.role. Custom attributes: custom:role, custom:guardian, custom:setup, plus birthdate. The pre-sign-up Lambda allows only attendee, organiser, vendor and freelancer, blocks admin, requires age 16+ and a guardian tick for 16-17. The post-confirmation Lambda adds the user to the role group. Google sign-in is a commented stub (GoogleButton.tsx). The portal signs in with Amplify JS; the Flutter app (Amplify Flutter, proposed) is planned, not built. NestJS checks the access token with aws-jwt-verify, calls Cognito GetUser on the first request for the verified contact, creates the users row, and rejects accounts whose status is not active (403 codes: ROLE_MISSING, CONTACT_NOT_VERIFIED, PROFILE_FAILED, ACCOUNT_NOT_ACTIVE, ROLE_NOT_ALLOWED; 401 for a missing or invalid token).",
+        "Amazon Cognito, defined with Amplify Gen 2 (Essentials tier). Built: email sign-in = password + 6-digit email code; phone sign-in = passwordless SMS code at every login (USER_AUTH, otpLogin); Cognito's built-in email and SMS (no Dialog, no SES yet). One group per role (attendee, organiser, vendor, freelancer, admin); a user may hold several groups and the highest priority (admin > organiser > vendor > freelancer > attendee) becomes users.role. Custom attributes: custom:role, custom:guardian, custom:setup, plus birthdate. The pre-sign-up Lambda allows only attendee, organiser, vendor and freelancer, blocks admin, requires age 16+ and a guardian tick for 16-17. The post-confirmation Lambda adds the user to the role group. Google sign-in is a commented stub (GoogleButton.tsx). The portal signs in with Amplify JS; the Flutter app (Amplify Flutter, proposed) is planned, not built. NestJS checks the access token with aws-jwt-verify, calls Cognito GetUser on the first request for the verified contact, creates the users row, and rejects accounts whose status is not active (403 codes: ROLE_MISSING, CONTACT_NOT_VERIFIED, PROFILE_FAILED, ACCOUNT_NOT_ACTIVE, ROLE_NOT_ALLOWED; 401 for a missing or invalid token). Google sign-in is AC-11 (Should, added 23 Nov 2026): the button is on the sign-up and log-in screens, but the Google provider is not set up (planned, not built).",
         "Firebase Cloud Messaging (push) (planned, not built). Why: one service for Android and iOS (iOS through APNs), with a Flutter plugin, called from Lambda. Amazon Pinpoint is not used: AWS ends its support on 30 October 2026. Alternatives: Amazon SNS mobile push, OneSignal.",
         "Amazon SES (email) (planned, not built; Cognito's built-in email sends the codes today). Why: inside AWS and cheap per message. Watch: new accounts start in the SES sandbox; request production access before the pilot. Alternatives: Resend, Brevo.",
         "Dialog e-SMS (sign-up codes and urgent alerts) (planned, not built; codes now go through Cognito's built-in SMS). Why: a Sri Lankan operator's gateway with sender ID masking and billing in LKR. Codes would go through a Cognito custom SMS sender Lambda. Watch: needs a Dialog Enterprise account and its API documentation is thin, so test early. Alternatives: Amazon SNS SMS, Notify.lk.",
@@ -667,7 +672,8 @@
         "The CDK sets none of COGNITO_USER_POOL_ID, COGNITO_CLIENT_ID or DATABASE_URL on the Lambda, so the deployed API cannot run the auth guard yet; who wires them in infra/lib/api-stack.ts",
         "Flutter app not started; Dialog e-SMS custom SMS sender not built",
         "configureApp() (validation + CORS) is not called by main.ts or lambda.ts; no DTOs yet",
-        "PDPA cross-border transfer: data in Mumbai and wherever the database host sits"
+        "PDPA cross-border transfer: data in Mumbai and wherever the database host sits",
+        "Portal sign-in and data: the web portal's signed-in pages use a stand-in session and sample data (preview mode with a 'View as' role switch on dev.tezera.lk, never on main) until the API and database are hosted"
       ]
     },
     {

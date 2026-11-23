@@ -6,6 +6,8 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 
 ## Documents
 
+The code lives in a separate repository, [Tezera-LK/tezera](https://github.com/Tezera-LK/tezera) (pnpm + Turborepo monorepo: NestJS API, Next.js web portal, Cognito via Amplify Gen 2, AWS CDK). Its own README explains how to run it. These documents describe its `dev` branch, which is ahead of `main`.
+
 | Document | What it is | Read it when |
 | --- | --- | --- |
 | [Tezera Proposal.pdf](Tezera%20Proposal.pdf) | The 8-page project proposal: the problem, who is involved, the four modules, key workflows, the competitor comparison, SDG alignment and the roadmap for the Agile Team Project (ATP) | You want the plan at a glance |
@@ -15,13 +17,13 @@ A mobile app and web portal where Sri Lankan event organisers hire vendors and f
 | [research/tezera-survey-analysis.html](research/tezera-survey-analysis.html) | Analysis of the discovery surveys of attendees, organisers, and vendors and freelancers (4–8 October 2026), with the twelve recommended PRD changes (R1–R12), all accepted on 15 October 2026 | You want to know what the market research found |
 | [research/tezera-personas.html](research/tezera-personas.html) | Eight user personas (two consumers, two organisers, three vendors and freelancers, one admin) built from the survey segments, each with evidence, quotes and the user stories written for them | You are designing a flow and need to know who it is for |
 | [research/tezera-user-stories.html](research/tezera-user-stories.html) | User stories for each role as Given / When / Then scenarios, drawn from the survey evidence and mapped to PRD requirement IDs | You are planning the backlog or a sprint |
-| [research/tezera-work-items.html](research/tezera-work-items.html) | The backlog as epics, stories and tasks with proposed story points, PRD coverage, and a Jira CSV export ([snapshot](research/tezera-work-items-jira.csv)). Imported into Jira (space TES) on 22 Oct 2026; Jira is now the live backlog. Includes the work for the accepted survey changes and the interactive venue map | You are planning sprints or importing into Jira |
+| [research/tezera-work-items.html](research/tezera-work-items.html) | The backlog as epics, stories and tasks with proposed story points, PRD coverage, and a Jira CSV export ([snapshot](research/tezera-work-items-jira.csv)). Imported into Jira (space TES) on 22 Oct 2026; Jira is now the live backlog. Includes the work for the accepted survey changes and the interactive venue map. Since 23 Nov 2026, tasks the code already does on its `dev` branch carry a 'Built' or 'Partly built' marker | You are planning sprints or importing into Jira |
 | [research/tezera-research-briefs.html](research/tezera-research-briefs.html) | Desk-research briefs with sources: whether in-app payments to vendors and freelancers are legal in Sri Lanka (Central Bank rules, gateways, tax, PDPA), and what the map builder takes from the team's ai-studio repository | You need the reasoning behind the payments model or the map builder |
 | [brand/tezera-brand-manual.html](brand/tezera-brand-manual.html) | The brand manual: name story, the three account personalities, light and dark palettes for organiser, vendor and attendee, type, icons, the tile system, motion rules, voice and applications | You are designing a screen, a post or a poster |
 | [mindmaps/](mindmaps/) | The [organiser](mindmaps/tezera-organiser-map.mm) and [vendor](mindmaps/tezera-vendor-map.mm) accounts as mind maps: every page, option and feature from PRD v6, with MoSCoW tags and PRD IDs. Import a `.mm` file into MindMeister, or paste its outline `.txt` into MindMeister's Outline mode | You want everything one account type can do on one page |
-| [wireframes/tezera-organiser-wireframe.html](wireframes/tezera-organiser-wireframe.html) | The organiser web portal as 32 desktop screens in the same layout as the team's consumer flow: a flow map of eight journeys, a click-through where highlighted areas are real links, and light and dark organiser palettes. Checked against the organiser mind map | You want to see or click through an organiser screen |
-| [report/tezera-srs-chapter-4.md](report/tezera-srs-chapter-4.md) | Draft of report Chapter 4, the System Requirements Specification: stakeholders and onion model, elicitation methods and results, use case diagrams and all 20 use case descriptions, 66 functional and 21 non-functional requirements, assumptions and clarifications. Figures in `report/figures/` | You are writing or checking the SDGP report |
-| [database/](database/) | Team plans for the database and sign-in: how to make a table (PostgreSQL or DynamoDB), a short table how-to, and the Cognito + NestJS + Prisma auth set-up, each with a PDF | You are adding a table or setting up sign-in in the code repo |
+| [wireframes/tezera-organiser-wireframe.html](wireframes/tezera-organiser-wireframe.html) | **History since 23 Nov 2026:** the code's organiser portal follows the team's Figma file (screens O05–O103), not this wireframe (O01–O32). The organiser web portal as 32 desktop screens in the same layout as the team's consumer flow: a flow map of eight journeys, a click-through where highlighted areas are real links, and light and dark organiser palettes. Checked against the organiser mind map | You want to see or click through an organiser screen |
+| [report/tezera-srs-chapter-4.md](report/tezera-srs-chapter-4.md) | Draft of report Chapter 4, the System Requirements Specification: stakeholders and onion model, elicitation methods and results, use case diagrams and all 20 use case descriptions, 67 functional and 21 non-functional requirements, assumptions and clarifications. Figures in `report/figures/` | You are writing or checking the SDGP report |
+| [database/](database/) | Team plans for the database and sign-in: how to make a table (PostgreSQL or DynamoDB), a short table how-to, and the Cognito + NestJS + Prisma auth set-up, each with a PDF | You are adding a table or setting up sign-in in the code repo ([Tezera-LK/tezera](https://github.com/Tezera-LK/tezera)); each plan was checked against its `dev` branch on 23 November 2026 |
 | [HANDOFF.md](HANDOFF.md) | Where the work stands, what was decided, and what comes next. Updated after every session | You're picking up the work |
 
 Supporting files:
@@ -30,7 +32,7 @@ Supporting files:
 - [PRD Research.md](PRD%20Research.md) — the research behind the PRD, the group's answers that shaped it, and 53 sources with how reliable each one is.
 - [SDG Alignment.md](SDG%20Alignment.md) — the notes behind the proposal's SDG page.
 - [CLAUDE.md](CLAUDE.md) — working rules for Claude Code in this repository.
-- `.archify/architecture-tezera-v7-20261120-235350/candidate.json` — the editable source of the architecture diagram for PRD v7 (older `.archify` folders are history).
+- `.archify/architecture-tezera-v7-20261123-dev/candidate.json` — the editable source of the architecture diagram for PRD v7, checked against the code on `dev` (older `.archify` folders are history).
 - `report/figures/build-figures.js` — builds the Chapter 4 onion model and use case diagrams as SVG.
 
 ## Docs site
@@ -75,7 +77,7 @@ Every page carries `<meta name="robots" content="noindex, nofollow">`, so search
 5. Competitive landscape
 6. Functional requirements, in ten modules: accounts, events, ticketing (after the ATP), hiring, reviews, venue maps (an interactive 2D map with zones and stall listings, made in a map builder), community, messaging, organiser dashboard, administration
 7. Non-functional requirements, including Sri Lanka's Personal Data Protection Act
-8. Technical approach: the stack (Flutter app, Next.js portal, NestJS as one AWS Lambda, Cognito, PostgreSQL with DynamoDB for chat and the feed), the data design across the two databases, how the interactive venue map and its builder are built, and how sandboxed payments work
+8. Technical approach: the stack (Flutter app, Next.js portal, NestJS as one AWS Lambda, Cognito, PostgreSQL with DynamoDB for chat and the feed; matched to the code repo's `dev` branch on 23 November 2026), the data design across the two databases, how the interactive venue map and its builder are built, and how sandboxed payments work
 9. MVP scope and priorities
 10. Business model
 11. Success metrics
@@ -83,7 +85,7 @@ Every page carries `<meta name="robots" content="noindex, nofollow">`, so search
 13. Risks and mitigations
 14. Open questions
 
-The PRD also lists what changed in each version (2 to 6) and ends with a Sources list.
+The PRD also lists what changed in each version (2 to 7) and ends with a Sources list.
 
 ## Roadmap
 
@@ -115,7 +117,7 @@ The PRD also lists what changed in each version (2 to 6) and ends with a Sources
 - **Private events:** both plan hiring for private events after the ATP, but whether to do it is still an open question in the PRD.
 - **Survey changes:** the PRD (version 5) turns the twelve accepted survey recommendations into requirements, such as structured briefs, payment and cancellation terms on bookings, and live event status. The proposal stays at summary level.
 - **Payments and the map builder (PRD version 6):** both documents now put sandboxed hiring and stall payments and the map builder in the ATP. Only the PRD has the detail: the requirement IDs (HR-14, HR-17 to HR-20, VM-16 to VM-22), the direct-to-provider model and why it was chosen, PayHere behind an interface, Bedrock for the AI draft, and the questions to settle before real money. Proposal page numbers are unchanged.
-- **Technical approach:** only the PRD records the stack. Version 7 (20 November 2026) moved it to the team code repo's stack: Flutter, Next.js, NestJS on Lambda, Cognito, PostgreSQL and DynamoDB. On 23 November 2026 section 8 was checked against the code repo's `dev` branch and the parts not built yet were marked "(planned, not built)". The proposal names no stack, so nothing changed there.
+- **Technical approach:** only the PRD records the stack. Version 7 (20 November 2026) moved it to the team code repo's stack: Flutter, Next.js, NestJS on Lambda, Cognito, PostgreSQL and DynamoDB. On 23 November 2026 the PRD, the architecture diagram, the SRS draft, the work items and the database plans were checked against the code on the repo's `dev` branch (sign-in methods, deploy pipeline, routes, hosting), and the parts not built yet were marked "(planned, not built)". The proposal names no stack, so nothing changed there.
 - **Wording:** the proposal calls consumers "attendees".
 
 The name, ticketing, revenue, discovery and the pilot now match.
@@ -177,6 +179,7 @@ The name, ticketing, revenue, discovery and the pilot now match.
 ├── SDG Alignment.md
 └── .archify/
     ├── inject-nav.py   (runs tools/build-site.py after the diagram is regenerated)
-    ├── architecture-tezera-v7-20261120-235350/        (PRD v7 diagram source)
+    ├── architecture-tezera-v7-20261123-dev/           (source of the page as it is now: PRD v7 checked against the code on `dev`)
+    ├── architecture-tezera-v7-20261120-235350/        (PRD v7 before the code check)
     └── architecture-tezera-amplify-20261015-142128/   (PRD v6 diagram source; older folders are history)
 ```
