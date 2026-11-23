@@ -16,7 +16,7 @@ When you finish, you have:
 - one table in it: `users`, linked to Cognito by the user's Cognito ID (`sub`);
 - Cognito, made by the repo's Amplify code (`npx ampx sandbox`, see section 8);
 - a NestJS API (`apps/api`) that checks the Cognito token and reads and writes `users`;
-- the endpoints `GET /health`, `GET /health/db` and `GET /me`.
+- the endpoints `GET /health`, `GET /health/db` and `GET /me`. (The code repo also has `GET /`, a Hello World route, and `GET /organiser/ping`, a test route for the role check. See section 11.)
 
 ### How the parts work together
 
@@ -45,7 +45,7 @@ The code repo is `D:\IIT\Year 2\ATP\Project\tezera` (GitHub: Tezera-LK/tezera). 
 | `package.json`, `pnpm-workspace.yaml`, `turbo.json` | A pnpm and Turborepo monorepo. Use `pnpm`, not `npm`. Node 24 and pnpm 12 |
 | `apps/api` | The NestJS API. Local entry: `src/main.ts` (port 4000). Lambda entry: `src/lambda.ts` |
 | `apps/web` | The Next.js web portal |
-| `amplify/auth/resource.ts` | The Cognito user pool, as code. Sign-in by email or phone. Groups: `attendee`, `organiser`, `vendor`, `freelancer`, `admin`. Custom attributes: `custom:role`, `custom:guardian`, `custom:setup`. Standard attribute: `birthdate` |
+| `amplify/auth/resource.ts` | The Cognito user pool, as code. Sign-in by email or phone. Groups: `attendee`, `organiser`, `vendor`, `freelancer`, `admin`. Custom attributes: `custom:role`, `custom:guardian`, `custom:setup`. Standard attribute: `birthdate`. `custom:setup` is `""`, `profile` or `done`; the web app uses it to choose the screen after sign-in (setup, then verification, then home) |
 | `amplify/auth/pre-sign-up` | Checks the role and the age (16 or more, guardian tick for 16 and 17) before an account is made |
 | `amplify/auth/post-confirmation` | Adds the new user to the group for the role. Never to `admin` |
 | `infra/lib/api-stack.ts` | AWS CDK. Deploys `apps/api` as one Lambda behind an HTTP API, in `ap-south-1`. Stages `dev` and `main` |
@@ -771,6 +771,8 @@ In `src/main.ts`, replace the line `app.enableCors(...)` with `configureApp(app)
 
 In `src/lambda.ts`, do the same: replace `app.enableCors(...)` with `configureApp(app);` and add the import.
 
+> **STATUS (checked 23 Nov 2026 against the code repo `dev` branch).** `src/setup.ts` with `configureApp()` exists, but it is **not wired yet**: `main.ts` and `lambda.ts` still call `app.enableCors(...)` themselves, nothing calls `configureApp()`, so the `ValidationPipe` is not active. The API has no DTOs yet, so nothing needs the pipe today. The two edits above are still to do.
+
 > **NOTE (found in the run).** Typing errors caused these bugs: a misspelled class name (`PrismaModule`), `AuthModule` and `ConfigModule` missing from `AppModule.imports`, a misspelled `req.headers.authorization` (every call got 401), and a leading space in the region `ap-south-1` and in `'true'`. Copy the code exactly.
 
 > **CAUTION.** I did not compile this code. Run `pnpm --filter @tezera/api build` and fix any type error. The repo uses Nest 12 and TypeScript 6. The code uses features from older versions. **(not verified)**
@@ -783,7 +785,7 @@ In `src/lambda.ts`, do the same: replace `app.enableCors(...)` with `configureAp
 4. In a second window, run `Invoke-RestMethod http://localhost:4000/health/db`. It must print `status: ok`.
 5. Put the access token in a variable: `$t = "<the token>"`. Keep the quotes. Check it: `$t.Split('.').Count` must print `3`.
 
-> **NOTE.** The routes are `/me`, `/health`, `/health/db` and `/organiser/ping`. There is no `/auth` prefix. A `404 Cannot GET /auth/me` means a wrong path. Write each command on one line. A line break after `Invoke-RestMethod` makes PowerShell ask for `Uri`.
+> **NOTE.** The routes are `/` (Hello World), `/me`, `/health`, `/health/db` and `/organiser/ping` (test only, needs the role `organiser`). The only automated tests in the code repo are the default Hello World unit test and the default e2e test. None covers `/me` or `/health/db`. Tests 1 to 8 below are manual. There is no `/auth` prefix. A `404 Cannot GET /auth/me` means a wrong path. Write each command on one line. A line break after `Invoke-RestMethod` makes PowerShell ask for `Uri`.
 
 **Run on 19 November 2026 (Yevan):** `/health/db` ok; `/me` with a token made the row; the web log in made the row for a second user. Tests 1, 2 and 4 to 8 were not yet run.
 
@@ -881,7 +883,8 @@ The mobile app does not exist in the repo yet. It will use the same flow: sign i
 8. **Phone-only users.** The pool allows phone sign-in without a password. Such a user has `phone` and no `email`. The `CHECK` rule allows it. Test it.
 9. **Google sign-in (later).** Such users have no role group until the setup screen. The API returns 403 `ROLE_MISSING` until a group is set. Plan how the group is added.
 10. **Prisma 6 or newer.** Pinned to 6 so that the steps stay the same. Plan an upgrade.
-11. **Documents out of date.** The PRD, the architecture diagram and the work items still describe a serverless Amplify stack with DynamoDB only. They do not match the repo and this plan until the team agrees. The repo README tech-stack table still says TBC.
+11. **Documents out of date.** When this plan was written, the PRD, the architecture diagram and the work items described a serverless Amplify stack with DynamoDB only. PRD v7 (21 Nov 2026) now follows the code repo (NestJS on Lambda, PostgreSQL with Prisma, Flutter app). The work items and the code repo README (which still has a TBC tech-stack table) may still differ. **(not verified)**
+12. **Deployed API cannot sign users in yet.** `infra/lib/api-stack.ts` sets only `WEB_ORIGIN` and `NODE_OPTIONS` on the Lambda. `COGNITO_USER_POOL_ID`, `COGNITO_CLIENT_ID` and `DATABASE_URL` are not set, so the deployed `/me` cannot work. The GitHub workflow `deploy-api.yml` deploys the stack on pushes to `dev` and `main`, is skipped until the repo variable `AWS_DEPLOY_ROLE_ARN` is set, and has no `prisma migrate` step. See section 9.5.
 
 ## 15. What comes next
 

@@ -16,11 +16,11 @@ This plan shows how to add a table (or an item type) to the Tezera database. Fol
 | --- | --- |
 | Web front end | Next.js, on AWS Amplify Hosting |
 | Back end | NestJS (TypeScript), deployed as one AWS Lambda behind an Amazon API Gateway HTTP API (AWS CDK, `ap-south-1`) |
-| Mobile app | Flutter |
+| Mobile app | Flutter (planned, not built: the code repo has no `apps/mobile`) |
 | Sign-in | Amazon Cognito (defined with Amplify Gen 2 in `amplify/auth`) |
-| Main database | PostgreSQL 16 |
-| Real-time and high-volume data | Amazon DynamoDB |
-| Live updates | Amazon API Gateway WebSocket API |
+| Main database | PostgreSQL 16 (local Docker only today, on port 5433; the host for `dev` and `main` is not chosen) |
+| Real-time and high-volume data | Amazon DynamoDB (planned, not built: no DynamoDB table in the code repo) |
+| Live updates | Amazon API Gateway WebSocket API (planned, not built) |
 | Schema tool for PostgreSQL | Prisma 6 |
 | Code location | The team code repo `Tezera-LK/tezera` (this repo holds documents only) |
 
@@ -70,7 +70,7 @@ PostgreSQL is the default. Use DynamoDB only for the cases above (questions 1 to
 8. **Decide what happens to the data.** Write: who may read it, who may change it, how long it stays, and how it is deleted or anonymised (PDPA).
 9. **Write the Prisma model** and make the migration (`prisma migrate dev --name add_<table>`). Read the generated SQL before you commit it.
 10. **Seed test data** with a script. Use fake data only.
-11. **Write the NestJS module:** the service, the DTOs (Zod or class-validator), and the access rules (which role may call what).
+11. **Write the NestJS module:** the service, the DTOs (class-validator; the code repo has no Zod and no DTOs yet), and the access rules (which role may call what).
 12. **Test.** Test the rules (a duplicate fails, a missing foreign key fails) and one query for each index.
 13. **Open a pull request.** Fill in the review checklist (section 9).
 14. **After merge,** update the table list in the data design document (section 10).
@@ -135,15 +135,15 @@ This is the first table. It connects the NestJS auth module to the database. It 
 | --- | --- | --- | --- |
 | `id` | `uuid` | Primary key, set by the database | Our own ID. Used in other tables and in DynamoDB items |
 | `cognito_sub` | `text` | Unique, not null | Links the row to the Cognito user |
-| `email` | `text` | Unique, null allowed, lower case | From Cognito, only if verified |
+| `email` | `text` | Unique, null allowed, lower case (`CHECK users_email_lower`) | From Cognito, only if verified |
 | `phone` | `varchar(20)` | Unique, null allowed | From Cognito, only if verified (E.164, `+94...`) |
-| `role` | enum `user_role` | Not null: `attendee`, `organiser`, `vendor`, `freelancer`, `admin` | A copy of the Cognito group. The group is the truth |
-| `status` | enum `user_status` | Default `active` | Admin actions (AD-02) |
+| `role` | enum `user_role` | Not null: `attendee`, `organiser`, `vendor`, `freelancer`, `admin` | A copy of the Cognito group. The group is the truth. A user can hold several groups. The API copies the highest-priority one (`admin`, then `organiser`, `vendor`, `freelancer`, `attendee`) |
+| `status` | enum `user_status` | Values `pending`, `active`, `suspended`, `banned`. Default `active` | Admin actions (AD-02). The guard rejects any status except `active` |
 | `created_at`, `updated_at` | `timestamptz` | Standard | |
 
-**Rule.** `CHECK (email IS NOT NULL OR phone IS NOT NULL)`. Add it by hand in the migration SQL. Prisma cannot write a `CHECK` rule.
+**Rule.** `CHECK (email IS NOT NULL OR phone IS NOT NULL)` (named `users_contact_present`). Add it by hand in the migration SQL. Prisma cannot write a `CHECK` rule. The migration `20261118201220_create_users` also adds `users_email_lower`. These two `CHECK` rules are the only ones in the code repo today.
 
-**When the row is made.** The API makes the row on the user's first request after sign-in. The guard reads the Cognito access token and the user's group.
+**When the row is made.** The API makes the row on the user's first request after sign-in. The guard checks the Cognito access token, reads the user's groups, and asks Cognito (`GetUser`) for the verified email or phone.
 
 **Not in this table, and why.**
 
@@ -175,9 +175,9 @@ Keep one data design document in the code repo. It lists every table, its owner,
 
 Settled since version 1:
 
-1. **One account, many roles?** Settled: one role per account (PRD section 3 and AC-01). Still open in PRD section 14: can one email address or phone number register separate accounts for different roles? Until the team decides, use one email, one account.
+1. **One account, many roles?** Settled in the PRD: one role per account (PRD section 3 and AC-01). The code is looser: a user can hold several Cognito groups, and the API stores the highest-priority one in `users.role`. Sign-up allows only one role (`custom:role` cannot change), but an admin can add more groups by hand. Still open in PRD section 14: can one email address or phone number register separate accounts for different roles? Until the team decides, use one email, one account.
 2. **Prisma or another tool?** Settled: Prisma 6. The first migration (`create_users`) is made and applied.
-3. **Real-time chat delivery.** Settled (PRD version 7): an API Gateway WebSocket API. Small Lambda functions keep the connection IDs in DynamoDB. DynamoDB Streams on the chat table send new messages to the connected users. Design the chat keys so that one stream record holds everything a client needs.
+3. **Real-time chat delivery.** Settled in the design (PRD version 7, planned, not built): an API Gateway WebSocket API. Small Lambda functions keep the connection IDs in DynamoDB. DynamoDB Streams on the chat table send new messages to the connected users. Design the chat keys so that one stream record holds everything a client needs.
 4. **Auth method.** Settled: Amazon Cognito. See section 8 and the auth setup plan.
 6. **The PRD and the architecture diagram.** Settled for the PRD: version 7 describes PostgreSQL + DynamoDB with NestJS on Lambda. The architecture diagram is not redrawn yet (its new source is in the documents repo, `.archify/architecture-tezera-v7-20261120-235350/`).
 
