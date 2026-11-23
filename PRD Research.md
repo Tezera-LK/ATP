@@ -22,6 +22,7 @@ Everything that went into the Tezera PRD (written as "[Product Name]" before the
 11. [How the research was used in the PRD](#11-how-the-research-was-used-in-the-prd)
 12. [What in the PRD did not come from research](#12-what-in-the-prd-did-not-come-from-research)
 13. [Full source list](#13-full-source-list)
+14. [Version 7 note (23 November 2026)](#14-version-7-note-23-november-2026)
 
 ---
 
@@ -519,3 +520,14 @@ Status: **Opened** = fetched and read by the research agent. **Opened (also by C
 | 51 | [Agastra Events](https://agastra.lk/) | Opened |
 | 52 | [Ultimate Band Show (Agastra)](https://ubs.agastra.lk/) | Opened |
 | 53 | [YouTube — Ultimate Band Show 2022 Organized By Agastra Events](https://www.youtube.com/watch?v=wO8BSzPXMzI) | Via search |
+
+
+## 14. Version 7 note (23 November 2026)
+
+No research findings change. This note records where the PRD's stack text now comes from.
+
+- **What changed:** PRD section 8 (Technical approach) follows the team's code repository, branch `dev` (Tezera-LK/tezera, state of 21 November 2026), not the earlier Amplify-and-DynamoDB design. The GitHub `main` branch is stale. The PayHere notice route is a normal REST route in the NestJS API, and venue map JSON is a PostgreSQL `jsonb` column (proposed), so the research briefs' Lambda function URL and DynamoDB or S3 wording is superseded.
+- **Source files read:** `apps/api/src` (`app.controller.ts`, `auth/`, `prisma/`, `setup.ts`, `main.ts`, `lambda.ts`), `apps/api/prisma/schema.prisma` and its one migration, `infra/` (ApiStack, GithubDeployStack), `amplify/backend.ts` and `amplify/auth`, `.github/workflows/` (`ci.yml`, `deploy-api.yml`, `sync-dev.yml`), `amplify.yml`, `apps/web` (routes, `lib/`, `Palette.module.css`) and the package.json files.
+- **Built:** NestJS API on Lambda (five routes: GET /, /health, /health/db, /me, test route /organiser/ping), PostgreSQL with Prisma 6 (users table), Cognito sign-in with pre-sign-up and post-confirmation Lambdas, the web portal (landing, auth screens, public pages, organiser portal on sample data), CI and a GitHub OIDC deploy role.
+- **Planned, not built:** DynamoDB, WebSocket API, SQS and EventBridge jobs, S3 and CloudFront media, Secrets Manager or Parameter Store, push (FCM), SES, Dialog SMS sender, PayHere route and payments, Bedrock map draft, the Flutter app, translation files, a shared Zod package.
+- **Not verified:** hosting of the PostgreSQL database; the licences of the main packages beyond those checked on 21 November 2026; whether the preview link per pull request exists (not seen in the repo); whether the AWS deploy role variable `AWS_DEPLOY_ROLE_ARN` is set, since deploys are skipped until it is.

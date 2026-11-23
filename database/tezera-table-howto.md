@@ -30,12 +30,12 @@ The code repo is `D:\IIT\Year 2\ATP\Project\tezera` (GitHub: Tezera-LK/tezera). 
 | Item | What it is |
 | --- | --- |
 | `apps/api/docker-compose.yml` | PostgreSQL 16 in Docker. Container `tezera-db`. Port **5433** on your computer (5432 is often taken by another PostgreSQL). |
-| `apps/api/.env.example` | The settings to copy into your own `.env`. Holds `POSTGRES_*` and `DATABASE_URL`. |
-| `apps/api/prisma/schema.prisma` | Every table, written once. The first model is `User` (table `users`). |
+| `apps/api/.env.example` | The settings to copy into your own `.env`. Holds `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `DATABASE_URL`, `AWS_REGION`, `COGNITO_USER_POOL_ID`, `COGNITO_CLIENT_ID`, `PORT` (4000) and `WEB_ORIGIN`. |
+| `apps/api/prisma/schema.prisma` | Every table, written once. The first model is `User` (table `users`), with the enums `UserRole` and `UserStatus`. |
 | `apps/api/prisma/migrations/` | One folder per change, with a `migration.sql`. The first is `..._create_users`. |
 | `apps/api/src/prisma/` | `PrismaModule` and `PrismaService`. Global. Your code uses them to read and write tables. |
 
-> **WARNING: branch order.** These files are on the branch `feature/database-system`. The auth code (`feature/auth-backend`) imports `PrismaService` from them, so it does not compile without them. The database branch must be merged into `main` first. Until it is, start from `feature/database-system`, not from `main`. **(proposed)**
+> **WARNING: branch.** Checked on 23 Nov 2026: `feature/database-system` and `feature/auth-backend` are both merged into the code repo's `dev` branch, so these files are on `dev`. Start from `dev`. GitHub `main` is behind `dev` and may not have them yet. The auth code imports `PrismaService`, so it does not compile without the database files.
 
 ## 3. Install the tools (once)
 
@@ -63,7 +63,7 @@ git clone https://github.com/Tezera-LK/tezera.git
 cd tezera
 ```
 
-2. Go to the branch from section 2: `git checkout feature/database-system` (or `main` after the merge).
+2. Go to the branch from section 2: `git checkout dev`.
 3. Install the packages: `pnpm install`.
 4. Go to the API folder: `cd apps/api`.
 5. Copy the settings file: `Copy-Item .env.example .env`.
@@ -82,7 +82,7 @@ cd tezera
 | Table exists | `pnpm exec prisma studio` (opens a page in your browser) | A model `User` with 0 rows. Close it with Ctrl+C |
 | Code compiles | `pnpm build` | No error |
 
-If the API endpoint `GET /health/db` is on your branch (it is on `feature/auth-backend`), also run `pnpm dev` and open `http://localhost:4000/health/db`. It must say the database is up.
+If the API endpoint `GET /health/db` is on your branch (it is on `dev`), also run `pnpm dev` and open `http://localhost:4000/health/db`. It must say the database is up.
 
 ### Connect DBeaver (to look, not to change)
 
@@ -212,7 +212,7 @@ Run these in order, inside `apps/api`. Every line must pass.
 | 4 | The link works | `pnpm exec prisma studio`. Add a user, then a venue with that user's `id` | The row saves |
 | 5 | The rules hold | In Studio, add a venue with an `owner_id` that does not exist | An error (foreign key). If it saves, the link is missing |
 | 6 | The code compiles | `pnpm build` | No error |
-| 7 | The tests pass | `pnpm test` | All pass |
+| 7 | The tests pass | `pnpm test` | All pass. The code repo has only the default Hello World unit test and default e2e test today, so this does not test your table until you write a test |
 | 8 | A clean start works | `pnpm exec prisma migrate reset` (see warning), then `pnpm exec prisma migrate status` | Up to date. This proves a team mate can build the same database from your files |
 
 > **WARNING.** `prisma migrate reset` deletes **all** data in the database in `DATABASE_URL`. Use it only on your own Docker database. Check `DATABASE_URL` points to `localhost:5433` first. Never run it on a hosted database.
@@ -303,5 +303,5 @@ This list comes from the earlier plans in this folder, the repo files, and the b
 1. **Where does the shared (hosted) database live?** Each person uses their own Docker database for now. A shared `dev` database needs a host (auth plan, section 9). Migrations run there with `pnpm exec prisma migrate deploy`, never `migrate dev` or `migrate reset`. The team decides the host and who owns the account.
 2. **Who may approve a migration?** One reviewer for every `migration.sql`. Name them. **(proposed)**
 3. **Seed data.** A test user and a few rows for each table help everybody. Add `prisma/seed.ts` and the `prisma.seed` setting? Not decided.
-4. **Documents out of date.** The PRD, the architecture diagram and the work items still describe DynamoDB only on Amplify. They do not match the repo. The team must agree on the stack.
+4. **Documents out of date.** PRD v7 (21 Nov 2026) now follows the code repo stack (NestJS on Lambda, PostgreSQL with Prisma). The architecture diagram source has a v7 version, but the diagram and the work items may still differ. **(not verified)**
 5. **Prisma 6 or newer.** Pinned to 6. Plan an upgrade.

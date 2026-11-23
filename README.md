@@ -115,7 +115,7 @@ The PRD also lists what changed in each version (2 to 6) and ends with a Sources
 - **Private events:** both plan hiring for private events after the ATP, but whether to do it is still an open question in the PRD.
 - **Survey changes:** the PRD (version 5) turns the twelve accepted survey recommendations into requirements, such as structured briefs, payment and cancellation terms on bookings, and live event status. The proposal stays at summary level.
 - **Payments and the map builder (PRD version 6):** both documents now put sandboxed hiring and stall payments and the map builder in the ATP. Only the PRD has the detail: the requirement IDs (HR-14, HR-17 to HR-20, VM-16 to VM-22), the direct-to-provider model and why it was chosen, PayHere behind an interface, Bedrock for the AI draft, and the questions to settle before real money. Proposal page numbers are unchanged.
-- **Technical approach:** only the PRD records the stack. Version 7 (20 November 2026) moved it to the team code repo's stack: Flutter, Next.js, NestJS on Lambda, Cognito, PostgreSQL and DynamoDB. The proposal names no stack, so nothing changed there.
+- **Technical approach:** only the PRD records the stack. Version 7 (20 November 2026) moved it to the team code repo's stack: Flutter, Next.js, NestJS on Lambda, Cognito, PostgreSQL and DynamoDB. On 23 November 2026 section 8 was checked against the code repo's `dev` branch and the parts not built yet were marked "(planned, not built)". The proposal names no stack, so nothing changed there.
 - **Wording:** the proposal calls consumers "attendees".
 
 The name, ticketing, revenue, discovery and the pilot now match.
@@ -178,5 +178,5 @@ The name, ticketing, revenue, discovery and the pilot now match.
 └── .archify/
     ├── inject-nav.py   (runs tools/build-site.py after the diagram is regenerated)
     ├── architecture-tezera-v7-20261120-235350/        (PRD v7 diagram source)
-    └── architecture-tezera-amplify-20261015-142128/   (source of the page as it is now; older folders are history)
+    └── architecture-tezera-amplify-20261015-142128/   (PRD v6 diagram source; older folders are history)
 ```
