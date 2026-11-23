@@ -3,3 +3,8 @@
 !.archify/**/
 !.archify/**/candidate.json
 !.archify/inject-nav.py
+
+# Personal coursework submissions: keep out of the shared repo
+individual submission/
+# Generated deck output (the final deck is presentation/tezera-presentation.pptx)
+presentation/Tezera Viva.pptx

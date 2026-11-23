@@ -175,6 +175,13 @@ The name, ticketing, revenue, discovery and the pilot now match.
 │   ├── tezera-work-items.html
 │   ├── tezera-research-briefs.html
 │   └── tezera-work-items-jira.csv   (generated from the work items page)
+├── presentation/
+│   ├── tezera-presentation.pptx   (final viva deck; build-deck.js writes Tezera Viva.pptx, fonts embedded by finish-deck.ps1)
+│   ├── CS-26-presentation.pdf     (PDF export of the deck)
+│   ├── build-deck.js
+│   ├── finish-deck.ps1
+│   ├── assets/               (logo, team photos, site screenshots)
+│   └── fonts/                (Bricolage Grotesque, Instrument Sans: SIL OFL)
 ├── PRD Research.md
 ├── SDG Alignment.md
 └── .archify/
